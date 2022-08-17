@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\Dashboard\DashboardController;
+use App\Http\Controllers\Backend\Dashboard\DashboardController;
+use App\Http\Controllers\Backend\Schedule\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -18,6 +19,12 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->name('admin.')->group(function(){
+
+// =========== route admin
+Route::prefix('admin')->group(function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+
+    // schedules
+    Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
+    Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
 });
