@@ -13,12 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('specialists', function (Blueprint $table) {
+        Schema::create('specialist_gallery', function (Blueprint $table) {
             $table->id();
-            $table->string('specialist_name',255)->unique();
-            $table->text('function')->nullable();
-            $table->text('description')->nullable();
-            $table->timestamps();
+            $table->foreignId('specialist_id');
+            $table->foreign('specialist_id')->references('id')->on('specialists')->onDelete('cascade');
+            $table->string('path')->comment('image option path');
         });
     }
 
@@ -29,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('specialists');
+        Schema::dropIfExists('specialist_gallery');
     }
 };

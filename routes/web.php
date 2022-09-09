@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
+use App\Http\Controllers\Specialist\SpecialistController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,16 +16,17 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
-
-
 // =========== route admin
 Route::prefix('admin')->group(function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+    Route::get('/',[DashboardController::class,'index'])->name('dashboard');
 
     // schedules
     Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
-    Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
+    Route::get('schedules/add',[ScheduleController::class,'create'])->name('schedules.create');
+    
+    //chuyen khoa
+    Route::get('specialist',[SpecialistController::class,'index'])->name('specialist.index');
+    Route::get('specialist/add',[SpecialistController::class,'add'])->name('specialist.add');
+    Route::post('specialist/add',[SpecialistController::class,'save'])->name('specialist.save');
 });

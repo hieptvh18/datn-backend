@@ -1,3 +1,4 @@
+
 <nav id="mainnav-container">
     <div id="mainnav">
 
@@ -203,7 +204,7 @@
                         </li>
 
                         <!--Menu list item-->
-                        <li>
+                        <li class="{{request()->is('admin/specialist') || request()->is('admin/specialist/add') ? 'active' : ''}}">
                             <a href="#">
                                 <i class="demo-pli-bar-chart"></i>
                                 <span class="menu-title">Chuyên khoa</span>
@@ -212,8 +213,8 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="charts-morris-js.html">Danh sách</a></li>
-                                <li><a href="charts-flot-charts.html">Thêm mới</a></li>
+                                <li><a href="{{route('specialist.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('specialist.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
 

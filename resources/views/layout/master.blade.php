@@ -3,6 +3,7 @@
 
 <head>
 	@include('partials._head')
+	@yield('page-head')
 </head>
 
 <!--TIPS-->
@@ -387,6 +388,9 @@
 	<!--=================================================-->
 
 	@include('partials._script')
+
+	{{-- js custom --}}
+	@yield('page-js')
 
 </body>
 
