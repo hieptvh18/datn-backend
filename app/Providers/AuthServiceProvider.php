@@ -3,7 +3,12 @@
 namespace App\Providers;
 
 // use Illuminate\Support\Facades\Gate;
+
+use App\Policies\RolePolicy;
+use App\Services\DefinePolicies;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class AuthServiceProvider extends ServiceProvider
 {
@@ -25,6 +30,15 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies();
 
-        //
+        $definePolicy = new DefinePolicies();
+
+        $definePolicy->roleDefine();
+        $definePolicy->permissionDefine();
+        $definePolicy->levelDefine();
+        $definePolicy->roomDefine();
+        $definePolicy->specialistDefine();
+        $definePolicy->adminDefine();
+        $definePolicy->userDefine();
+
     }
 }

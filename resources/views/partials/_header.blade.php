@@ -203,8 +203,7 @@
                                             <div class="media-body">
                                                 <p class="text-nowrap text-main text-semibold">HDD is full</p>
                                                 <div class="progress progress-sm mar-no">
-                                                    <div style="width: 95%;"
-                                                        class="progress-bar progress-bar-danger">
+                                                    <div style="width: 95%;" class="progress-bar progress-bar-danger">
                                                         <span class="sr-only">95% Complete</span>
                                                     </div>
                                                 </div>
@@ -326,10 +325,17 @@
                                 <a href="#"><i class="demo-pli-computer-secure icon-lg icon-fw"></i> Lock
                                     screen</a>
                             </li>
-                            <li>
-                                <a href="pages-login.html"><i class="demo-pli-unlock icon-lg icon-fw"></i>
-                                    Logout</a>
-                            </li>
+                            @if (Auth::guard('admin')->check())
+                                <li>
+                                    {{-- <a href="pages-login.html"><i class="demo-pli-unlock icon-lg icon-fw"></i>
+                                    Logout</a> --}}
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button class="btn btn-block" style="text-align: left"><i
+                                                class="demo-pli-unlock icon-lg icon-fw"></i>Logout</button>
+                                    </form>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </li>

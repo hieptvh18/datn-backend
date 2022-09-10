@@ -154,6 +154,7 @@
                         <li class="list-header">Quản lý</li>
 
                         <!--Menu list item-->
+
                         <li>
                             <a href="#">
                                 <i class="demo-pli-boot-2"></i>
@@ -163,13 +164,20 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="ui-buttons.html">Danh sách</a></li>
-                                <li><a href="ui-panels.html">Vai trò</a></li>
+                                @can('permission-list')
+                                <li><a href="{{ route('permissions.index') }}">Danh sách permission</a></li>
+                                @endcan
+                                @can('role-list')
+                                <li><a href="{{ route('roles.index') }}">Vai trò</a></li>
+                                @endcan
                                 <li><a href="ui-modals.html">Phân quyền</a></li>
                             </ul>
+
                         </li>
 
+
                         <!--Menu list item-->
+                        @can('admin-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-pen-5"></i>
@@ -179,10 +187,11 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="forms-general.html">Danh sách</a></li>
+                                <li><a href="{{ route('account_admins.index') }}">Danh sách</a></li>
                                 <li><a href="forms-components.html">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
                         <li>
@@ -218,6 +227,7 @@
                         </li>
 
                         <!--Menu list item-->
+                        @can('room-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-repair"></i>
@@ -227,14 +237,15 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="misc-timeline.html">Timeline</a></li>
+                                <li><a href="{{ route('rooms.index') }}">Danh sách</a></li>
                                 <li><a href="misc-maps.html">Google Maps</a></li>
                                 <li><a href="xplugins-notifications.html">Notifications<span
                                             class="label label-purple pull-right">Improved</span></a></li>
                                 <li><a href="misc-nestable-list.html">Nestable List</a></li>
-                              
+
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
                         <li>
@@ -267,7 +278,9 @@
                         </li>
 
 
-                    
+
+
+
 
                     <!--Widget-->
                     <!--================================-->
