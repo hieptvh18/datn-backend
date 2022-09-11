@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
+use App\Http\Controllers\Backend\Dashboard\ServiceController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
 use Illuminate\Support\Facades\Route;
 
@@ -23,7 +24,7 @@ Route::get('/', function () {
 // =========== route admin
 Route::prefix('admin')->group(function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
-
+    Route::resource('service', ServiceController::class)->except('show');
     // schedules
     Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
     Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');

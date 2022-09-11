@@ -232,7 +232,7 @@
                                 <li><a href="xplugins-notifications.html">Notifications<span
                                             class="label label-purple pull-right">Improved</span></a></li>
                                 <li><a href="misc-nestable-list.html">Nestable List</a></li>
-                              
+
                             </ul>
                         </li>
 
@@ -246,7 +246,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="grid-bootstrap.html">Bootstrap Grid</a></li>
+                                <li><a href="{{route('service.index')}}">Danh sách dịch vụ</a></li>
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
                             </ul>
                         </li>
@@ -267,7 +267,7 @@
                         </li>
 
 
-                    
+
 
                     <!--Widget-->
                     <!--================================-->
