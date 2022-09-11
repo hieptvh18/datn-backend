@@ -13,4 +13,5 @@ class SpecialistGallery extends Model
 
     protected $fillable = ['specialist_id','path'];
 
+    public $timestamps = false;
 }

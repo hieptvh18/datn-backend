@@ -31,15 +31,5 @@
 <!--Specify page [ SAMPLE ]-->
 <script src="{{ asset('assets/js/demo/dashboard.js') }}"></script>
 
-{{-- ============= editor --}}
-
-<!--Demo script [ DEMONSTRATION ]-->
-<script src="{{asset('assets/js/demo/nifty-demo.min.js')}}"></script>
-
-
-<!--Summernote [ OPTIONAL ]-->
-<script src="{{asset('assets/plugins/summernote/summernote.min.js')}}"></script>
-
-
-<!--Form File Upload [ SAMPLE ]-->
-<script src="{{asset('assets/js/demo/form-text-editor.js')}}"></script>
+ <!--Form File Upload [ SAMPLE ]-->
+ <script src="{{asset('assets/js/demo/form-file-upload.js')}}"></script>

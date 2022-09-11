@@ -29,4 +29,7 @@ Route::prefix('admin')->group(function(){
     Route::get('specialist',[SpecialistController::class,'index'])->name('specialist.index');
     Route::get('specialist/add',[SpecialistController::class,'add'])->name('specialist.add');
     Route::post('specialist/add',[SpecialistController::class,'save'])->name('specialist.save');
+    Route::get('specialist/edit/{id}',[SpecialistController::class,'edit'])->name('specialist.edit');
+    Route::put('specialist/edit/{id}',[SpecialistController::class,'update'])->name('specialist.update');
+    Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
 });
