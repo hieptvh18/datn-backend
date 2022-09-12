@@ -129,5 +129,7 @@ class DatabaseSeeder extends Seeder
         // role_admins
         DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
 
+        //
+
     }
 }
