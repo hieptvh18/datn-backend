@@ -9,7 +9,6 @@ class Specialist extends Model
 {
     use HasFactory;
 
-<<<<<<< HEAD
     protected $table = 'specialists';
 
     protected $fillable = ['specialist_name', 'function', 'description'];
@@ -20,10 +19,4 @@ class Specialist extends Model
     {
         return $this->hasMany(SpecialistGallery::class, 'specialist_id', 'id');
     }
-=======
-    protected $fillable = [
-        'specialist_name',
-        'short_desc'
-    ];
->>>>>>> origin/hieunv
 }

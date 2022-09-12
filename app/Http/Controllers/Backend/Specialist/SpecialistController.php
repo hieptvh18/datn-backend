@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Specialist;
+namespace App\Http\Controllers\Backend\Specialist;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecialistRequest;
@@ -89,6 +89,7 @@ class SpecialistController extends Controller
             }
             return redirect()->back()->with('msg-suc', 'Cập nhật thành công chuyên khoa mới.');
         } catch (Exception $e) {
+            dd($e->getMessage());
             report($e->getMessage());
             return back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
