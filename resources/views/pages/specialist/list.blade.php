@@ -20,7 +20,11 @@
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
+                                    <button class="btn btn-default" onclick="
+                                        if(confirm('Xóa item đã chọn?')){
+
+                                        }
+                                    "><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -37,11 +41,7 @@
                                             <i class="demo-pli-dot-vertical icon-lg"></i>
                                         </button>
                                         <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                            <li><a href="#">Action</a></li>
-                                            <li><a href="#">Another action</a></li>
-                                            <li><a href="#">Something else here</a></li>
-                                            <li class="divider"></li>
-                                            <li><a href="#">Separated link</a></li>
+                                            <li><a href="#">Delete selected</a></li>
                                         </ul>
                                     </div>
                                 </div>

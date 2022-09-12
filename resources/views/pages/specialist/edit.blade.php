@@ -42,10 +42,11 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-md-3 control-label">Các hình ảnh</label>
+                    
                     <div class="col-md-9">
                         <div class="show-img" style="display: flex">
                             @if ($specialist->galleries)
+                            <p class="col-md-4 control-label">Các hình ảnh</p>
                                 @foreach ($specialist->galleries as $image)
                                     <div class="show-img_item mr-2">
                                         <img src="{{asset($image->path)}}" width="100px" alt="">
@@ -54,7 +55,8 @@
                             @endif
                         </div>
                         <br>
-                        <input type="file" name="image[]" id="" multiple>
+                        <label class="col-md-4 control-label">Tải lên hình ảnh</label>
+                        <input type="file" name="image[]" id="" class="" multiple>
                         @error('image.*')
                             <div class="text-danger">
                                 <span>{{ $message }}</span>

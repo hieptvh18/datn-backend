@@ -59,8 +59,8 @@ class SpecialistController extends Controller
     {
         if ($id && Specialist::find($id)) {
             $pageTitle = 'Chỉnh sửa chuyên khoa';
-            $specialist = Specialist::where('id',$id)->with('galleries')
-                        ->first();
+            $specialist = Specialist::where('id', $id)->with('galleries')
+                ->first();
             return view('pages.specialist.edit', compact('specialist', 'pageTitle'));
         }
         return redirect()->back()->with('exception', 'Không tìm thấy chuyên khoa!');
