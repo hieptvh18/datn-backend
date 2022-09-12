@@ -61,7 +61,7 @@
                             @endforeach
 
                             @error('permission_id')
-                           <div class="mb-3" style="margin-bottom: 15px">
+                           <div style="margin-bottom: 15px">
                             <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
