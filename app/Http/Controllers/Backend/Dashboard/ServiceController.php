@@ -17,7 +17,7 @@ class ServiceController extends Controller
     public function index()
     {
         $service = Service::all();
-        return \view('pages.admin.service.list',\compact('service'));
+        return \view('pages.service.list',\compact('service'));
     }
 
     /**
@@ -27,7 +27,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        return \view('pages.admin.service.create');
+        return \view('pages.service.create');
     }
 
     /**
@@ -43,7 +43,6 @@ class ServiceController extends Controller
         $service->service_name = $request['service_name'];
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
-        // \dd($service);
         $service->save();
         return \redirect()->route('service.index');
     }
@@ -56,7 +55,7 @@ class ServiceController extends Controller
      */
     public function edit(Service $service)
     {
-        return \view('pages.admin.service.edit',\compact('service'));
+        return \view('pages.service.edit',\compact('service'));
     }
 
     /**

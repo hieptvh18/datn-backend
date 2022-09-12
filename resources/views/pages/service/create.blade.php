@@ -13,7 +13,7 @@
                     <label for="" class="control-label">Tên dịch vụ</label>
                     <input type="text" class="form-control" name="service_name">
                     @error('service_name')
-                        <div class="alert alert-danger">
+                        <div class="text text-danger">
                             {{ $message }}
                         </div>
                     @enderror
@@ -22,7 +22,7 @@
                     <label for="" class="control-label">Giá</label>
                     <input type="number" class="form-control" name="price">
                     @error('price')
-                    <div class="alert alert-danger">
+                    <div class="text text-danger">
                         {{ $message }}
                     </div>
                 @enderror
