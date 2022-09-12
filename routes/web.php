@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
+use App\Http\Controllers\Backend\Dashboard\ServiceController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
 use App\Http\Controllers\Specialist\SpecialistController;
 use Illuminate\Support\Facades\Route;
@@ -19,6 +20,7 @@ use Illuminate\Support\Facades\Route;
 // =========== route admin
 Route::prefix('admin')->group(function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
+
     Route::get('/',[DashboardController::class,'index'])->name('dashboard');
 
     // schedules
@@ -32,4 +34,13 @@ Route::prefix('admin')->group(function(){
     Route::get('specialist/edit/{id}',[SpecialistController::class,'edit'])->name('specialist.edit');
     Route::put('specialist/edit/{id}',[SpecialistController::class,'update'])->name('specialist.update');
     Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
+
+    
+    // schedules
+    Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
+    Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
+
+    //service
+    Route::resource('service', ServiceController::class)->except('show');
+
 });
