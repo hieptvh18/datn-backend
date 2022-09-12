@@ -33,3 +33,52 @@
 
  <!--Form File Upload [ SAMPLE ]-->
  <script src="{{asset('assets/js/demo/form-file-upload.js')}}"></script>
+{{-- checkbox checked --}}
+<script src="{{ asset('assets/js/checkbox.js') }}" defer></script>
+
+{{-- alert message --}}
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+    // alert success
+    @if (session('message'))
+        Swal.fire({
+            position: 'bottom-end',
+            icon: 'success',
+            title: '{{ session('message') }}',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    @endif
+
+    // alert error
+    @if (session('error'))
+        Swal.fire({
+            position: 'bottom-end',
+            icon: 'error',
+            title: '{{ session('error') }}',
+            showConfirmButton: false,
+            timer: 1500
+        })
+    @endif
+
+// confirm delete
+    $(function() {
+            $(document).on('click', '.btn-delete', function() {
+                let formId = $(this).data('form')
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $(`#${formId}`).submit();
+                    }
+                })
+            })
+        })
+</script>
+

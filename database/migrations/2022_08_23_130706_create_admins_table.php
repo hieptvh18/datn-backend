@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('facebook_url')->nullable()->comment('link fb ca nhan');
             $table->string('twitter_url')->nullable()->comment('link twitter ca nhan');
             $table->string('email_url')->nullable()->comment('link email ca nhan');
-            $table->string('password'); 
+            $table->string('password');
             $table->tinyInteger('is_active')->default(1)->comment('1 is active, 0 is not active');
             $table->foreignId('room_id');
             $table->foreign('room_id')->references('id')->on('rooms')->onDelete('cascade');
@@ -31,7 +31,7 @@ return new class extends Migration
             $table->foreign('level_id')->references('id')->on('levels')->onDelete('cascade');
             $table->foreignId('specialist_id')->comment('Bác sĩ thuộc phòng ban');
             $table->foreign('specialist_id')->references('id')->on('specialists')->onDelete('cascade');
-         
+
             $table->timestamps();
         });
     }
