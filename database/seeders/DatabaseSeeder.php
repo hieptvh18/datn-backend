@@ -25,6 +25,7 @@ class DatabaseSeeder extends Seeder
     {
 
 
+
         // permissions
         $permissions = [
             ['permission_name'=>'Roles', 'permission_key_code'=>'', 'parent_id'=>0],
@@ -128,8 +129,6 @@ class DatabaseSeeder extends Seeder
 
         // role_admins
         DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
-
-        ///
 
     }
 }
