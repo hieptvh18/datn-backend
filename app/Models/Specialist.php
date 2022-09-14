@@ -19,5 +19,4 @@ class Specialist extends Model
     {
         return $this->hasMany(SpecialistGallery::class, 'specialist_id', 'id');
     }
-
 }

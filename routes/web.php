@@ -5,7 +5,7 @@ use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Backend\Dashboard\ServiceController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
-use App\Http\Controllers\Specialist\SpecialistController;
+use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
