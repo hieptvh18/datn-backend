@@ -89,7 +89,6 @@ class SpecialistController extends Controller
             }
             return redirect()->back()->with('msg-suc', 'Cập nhật thành công chuyên khoa mới.');
         } catch (Exception $e) {
-            dd($e->getMessage());
             report($e->getMessage());
             return back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
