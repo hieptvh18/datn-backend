@@ -26,7 +26,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>History</b></label>
-                            <input type="text" class="form-control" name="history" value="{{$room->history}}">
+                            <textarea type="text" class="form-control" name="history" rows="5" style="resize: none">{{$room->history}}</textarea>
                         </div>
                         @error('history')
                         <span class="text-danger" role="alert">
@@ -37,7 +37,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Mission</b></label>
-                            <input type="text" class="form-control" name="mission" value="{{$room->mission}}">
+                            <textarea type="text" class="form-control" name="mission" rows="5" style="resize: none">{{$room->mission}}</textarea>
                         </div>
                         @error('mission')
                         <span class="text-danger" role="alert">
@@ -48,7 +48,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Achivement</b></label>
-                            <input type="text" class="form-control" name="achievement" value="{{$room->achievement}}">
+                            <textarea type="text" class="form-control" name="achievement" rows="5" style="resize: none">{{$room->achievement}}</textarea>
                         </div>
                         @error('achievement')
                         <span class="text-danger" role="alert">

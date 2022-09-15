@@ -29,8 +29,8 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>History</b></label>
-                            <input type="text" class="form-control @error('history') is-invalid @enderror" name="history"
-                                placeholder="Lịch sử..." autocomplete="history" autofocus>
+                            <textarea type="text" class="form-control @error('history') is-invalid @enderror" name="history"
+                                placeholder="Lịch sử..." autocomplete="history" autofocus rows="5" style="resize: none"></textarea>
                         </div>
                         @error('history')
                             <span class="text-danger" role="alert">
@@ -41,8 +41,8 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Mission</b></label>
-                            <input type="text" class="form-control @error('mission') is-invalid @enderror" name="mission"
-                                placeholder="Nhiệm vụ..." autocomplete="mission" autofocus>
+                            <textarea type="text" class="form-control @error('mission') is-invalid @enderror" name="mission"
+                                placeholder="Nhiệm vụ..." autocomplete="mission" autofocus rows="5" style="resize: none"></textarea>
                         </div>
                         @error('mission')
                             <span class="text-danger" role="alert">
@@ -53,8 +53,8 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Achievement</b></label>
-                            <input type="text" class="form-control @error('achievement') is-invalid @enderror"
-                                name="achievement" placeholder="Thành tựu..." autocomplete="achievement" autofocus>
+                            <textarea type="text" class="form-control @error('achievement') is-invalid @enderror"
+                                name="achievement" placeholder="Thành tựu..." autocomplete="achievement" autofocus rows="5" style="resize: none"></textarea>
                         </div>
                         @error('achievement')
                             <span class="text-danger" role="alert">
