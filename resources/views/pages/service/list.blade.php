@@ -59,14 +59,18 @@
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->service_name}}</td>
-                            <td>{{$item->price}}</td>
-                            <td>{{$item->is_active}}</td>
-                            <td> <form action="{{ route('service.destroy', $item->id) }}" method="Post">
-                                <a class="btn btn-primary" href="{{ route('service.edit', $item->id) }}">Sửa</a>
+                            <td>{{number_format($item->price)}}VNĐ</td>
+                            <td>{{$item->is_active == 1 ? 'active': 'deactive'}}</td>
+                            <td>
+                                <a href="{{ route('service.edit', $item->id) }}" class="label label-table label-success">Edit</a>
+
+
+                                <form id="deleteForm{{ $item->id }}" action="{{ route('service.destroy', $item->id) }}" method="post">
                                 @csrf
                                 @method('DELETE')
-                                <button type="submit" id="btn-delete" class="btn btn-danger">Xóa</button>
-                            </form></td>
+                            </form>
+                            <button data-form="deleteForm{{$item->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
+                                </td>
                         </tr>
                         @endforeach
 

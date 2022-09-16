@@ -21,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Giá</label>
-                    <input type="number" class="form-control" name="price" value="{{$service->price}}">
+                    <input type="text" class="form-control" name="price" value="{{$service->price}}">
                     @error('price')
                     <div class="text-danger">
                         {{ $message }}
