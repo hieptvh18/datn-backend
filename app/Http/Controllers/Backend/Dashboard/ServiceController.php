@@ -44,7 +44,7 @@ class ServiceController extends Controller
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
         $service->save();
-        return \redirect()->route('service.index');
+        return \redirect()->route('service.index')->with(['message'=>'Tạo mới dịch vụ thành công!']);;
     }
 
     /**
@@ -72,7 +72,7 @@ class ServiceController extends Controller
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
         $service->update();
-        return \redirect()->route('service.index');
+        return \redirect()->route('service.index')->with(['message'=>'Sửa dịch vụ thành công!']);;
 
     }
 
@@ -85,6 +85,6 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         $service->delete();
-        return \redirect()->back();
+        return \redirect()->back()->with(['message'=>'Xóa dịch vụ thành công!']);;
     }
 }

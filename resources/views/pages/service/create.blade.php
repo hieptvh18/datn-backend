@@ -20,7 +20,7 @@
                 </div>
                 <div class="form-group">
                     <label for="" class="control-label">Giá</label>
-                    <input type="number" class="form-control" name="price">
+                    <input type="text" class="form-control" name="price">
                     @error('price')
                     <div class="text text-danger">
                         {{ $message }}

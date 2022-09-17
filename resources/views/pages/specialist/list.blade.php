@@ -87,20 +87,14 @@
                                         </td>
                                         <td class="text-center">
 
-                                            <form method="post" action="{{ route('specialist.delete', $specialist->id) }}">
-                                                @csrf
-                                                @method('DELETE')
-                                                <button class="btn btn-danger"
-                                                    onclick="
-                                                if(!confirm('Bạn chắc chắn muốn xóa bỏ?')){
-                                            event.preventDefault();
-                                        }
-                                                "><i
-                                                        class="demo-pli-trash icon-lg"></i></button>
-                                            </form>
+                                            <a href="{{ route('specialist.edit', $specialist->id) }}" class="label label-table label-success">Edit</a>
 
-                                            <a href="{{ route('specialist.edit', $specialist->id) }}"><button
-                                                    class="btn btn-warning">Sửa</button></a>
+
+                                            <form id="deleteForm{{ $specialist->id }}" action="{{ route('specialist.delete', $specialist->id) }}" method="post">
+                                            @csrf
+                                            @method('DELETE')
+                                        </form>
+                                        <button data-form="deleteForm{{$specialist->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
                                         </td>
                                     </tr>
                                 @endforeach
