@@ -96,6 +96,8 @@
                     @enderror
                     </div>
                     <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-danger" type="reset">Reset</button>
+                    <a href="{{ route('schedules.index') }}" class="btn btn-info">Back</a>
 
                 </form>
                 <!--===================================================-->

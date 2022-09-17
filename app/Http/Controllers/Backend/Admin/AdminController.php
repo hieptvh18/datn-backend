@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateAdminRequest;
+use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin;
 use App\Models\Level;
 use App\Models\Role;
@@ -22,8 +23,20 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $listAccountAdmin = Admin::where('email', '!=', auth('admin')->user()->email)->paginate(5);
+        $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->with('roles')->paginate(5);
         return view('pages.admin.list', compact('listAccountAdmin'));
+    }
+
+    // change status
+    public function updateStatus ($id){
+        $admin = Admin::select("is_active")->where("id", $id)->first();
+        if($admin->is_active == 1){
+            $status = 0;
+        }else{
+            $status = 1;
+        }
+        Admin::where('id', $id)->update(['is_active'=>$status]);
+        return redirect()->back();
     }
 
     /**
@@ -53,6 +66,12 @@ class AdminController extends Controller
         $account_admin->fill($request->all());
 
         $account_admin->password = Hash::make($request->password);
+
+
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+             $account_admin->avatar = fileUploader($file, 'admin', '/uploads/admin');
+        }
 
         $account_admin->save();
 
@@ -96,11 +115,17 @@ class AdminController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateAdminRequest $request, $id)
     {
         $account_admin = Admin::find($id);
 
         $account_admin->fill($request->all());
+
+
+        if($request->hasFile('avatar')){
+            $file = $request->file('avatar');
+             $account_admin->avatar = fileUploader($file, 'admin', '/uploads/admin');
+        }
 
         $account_admin->update();
 

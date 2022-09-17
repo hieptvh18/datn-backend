@@ -78,6 +78,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::middleware('can:admin-add')->get('/account_admins/create', [AdminController::class, 'create'])->name('account_admins.create');
     Route::post('/account_admins/store', [AdminController::class, 'store'])->name('account_admins.store');
     Route::middleware('can:admin-edit')->get('/account_admins/edit/{id}', [AdminController::class, 'edit'])->name('account_admins.edit');
+    Route::get('/account_admins/updateStatus/{id}', [AdminController::class, 'updateStatus'])->name('account_admins.updateStatus');
     Route::post('/account_admins/update/{id}', [AdminController::class, 'update'])->name('account_admins.update');
     Route::middleware('can:admin-delete')->delete('/account_admins/destroy/{id}', [AdminController::class, 'destroy'])->name('account_admins.destroy');
 
