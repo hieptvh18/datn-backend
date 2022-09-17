@@ -54,8 +54,11 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Email</th>
-                                    <th>Fullname</th>
-                                    <th>Phone</th>
+                                    <th>Họ và tên</th>
+                                    <th>Số điện thoại</th>
+                                    <th>Vai trò</th>
+                                    <th>Ảnh</th>
+                                    <th>Trạng thái</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
@@ -67,17 +70,31 @@
                                     <td>{{$item->email}}</td>
                                     <td>{{$item->fullname}}</td>
                                     <td>{{$item->phone}}</td>
+                                    @foreach ($item->roles as $i)
+
+                                    <td>{{$i->role_name}}</td>
+                                    @endforeach
+                                    <td><img src="{{asset($item->avatar)}}" width="80px" alt=""></td>
+                                    <td>
+                                        @if ($item->is_active)
+                                                <a href="{{ route('account_admins.updateStatus', $item->id) }}" class="label label-table label-success" style="border: none" >ON</a>
+                                            @else
+                                                <a href="{{ route('account_admins.updateStatus', $item->id) }}" class="label label-table label-danger" style="border: none">OFF</a>
+                                            @endif
+                                    </td>
                                     <td class="text-center">
                                         @can('admin-edit')
                                         <a href="{{ route('account_admins.edit', $item->id) }}" class="label label-table label-success">Edit</a>
                                        @endcan
                                         @can('admin-delete')
+                                        @if(Auth::guard('admin')->user()->id !== $item->id)
                                         <form  id="deleteForm{{ $item->id }}" action="{{ route('account_admins.destroy', $item->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                     </form>
                                     <button data-form="deleteForm{{$item->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
-                                        @endcan
+                                    @endif
+                                    @endcan
                                     </td>
 
                                 </tr>

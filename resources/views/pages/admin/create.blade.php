@@ -10,7 +10,7 @@
 
                 <!--Data Table-->
                 <!--===================================================-->
-                <form action="{{ route('account_admins.store') }}" method="post">
+                <form action="{{ route('account_admins.store') }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="panel-body">
                         <div class="mb-3">
@@ -152,10 +152,22 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
+                            <label for="" class="form-label"><b>Avatar</b></label>
+                            <input type="file" class="form-control" name="avatar" value="{{old('avatar')}}"  autocomplete="avatar" autofocus>
+                        </div>
+                        @error('avatar')
+                            <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="panel-body">
+                        <div class="mb-3">
                             <label for="" class="form-label"><b>Is_active</b></label>
-                            <input type="radio" id="is_active" name="is_active" value="1" > Active
+                            <input type="radio" id="is_active" @checked(true) name="is_active" value="1" > Active
                             <input type="radio" id="is_active1" name="is_active" value="0" > In_Active
                             @error('is_active')
+                            <br>
                             <span class="text-danger" role="alert">
                                 <strong>{{ $message }}</strong>
                             </span>
@@ -167,6 +179,8 @@
 
 
                     <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-danger" type="reset">Reset</button>
+                    <a href="{{ route('account_admins.index') }}" class="btn btn-info">Back</a>
 
                 </form>
                 <!--===================================================-->

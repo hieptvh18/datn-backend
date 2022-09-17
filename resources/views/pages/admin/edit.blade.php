@@ -10,7 +10,7 @@
 
                 <!--Data Table-->
                 <!--===================================================-->
-                <form action="{{ route('account_admins.update', $admin->id) }}" method="post">
+                <form action="{{ route('account_admins.update', $admin->id) }}" enctype="multipart/form-data" method="post">
                     @csrf
                     <div class="panel-body">
                         <div class="mb-3">
@@ -168,8 +168,26 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
+                            <label for="" class="form-label"><b>Avatar</b></label>
+                            <input type="file" class="form-control" name="avatar" value="{{$admin->avatar}}"  autocomplete="avatar" autofocus>
+                        </div>
+                        @error('avatar')
+                            <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+                    </div>
+                    <div class="panel-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label"><b>Avatar Old</b></label>
+                            <img src="{{asset($admin->avatar)}}" width="80px" alt="">
+                        </div>
+
+                    </div>
+                    <div class="panel-body">
+                        <div class="mb-3">
                             <label for="" class="form-label"><b>Is_active</b></label>
-                            <input type="radio" id="is_active" {{$admin->is_active ? 'checked':'' }} name="is_active" value="1" > Active
+                            <input type="radio" id="is_active" {{$admin->is_active ? 'checked':'' }} @checked(true) name="is_active" value="1" > Active
                             <input type="radio" id="is_active1" {{$admin->is_active == 0 ? 'checked':'' }} name="is_active" value="0" > In_Active
                             @error('is_active')
                             <span class="text-danger" role="alert">
@@ -178,11 +196,9 @@
                         @enderror
                         </div>
                     </div>
-
-
-
-
                     <button class="btn btn-primary">Save</button>
+                    <button class="btn btn-danger" type="reset">Reset</button>
+                    <a href="{{ route('account_admins.index') }}" class="btn btn-info">Back</a>
 
                 </form>
                 <!--===================================================-->
