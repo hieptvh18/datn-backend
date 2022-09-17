@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Schedule;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ScheduleRequest;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
@@ -21,7 +22,7 @@ class ScheduleController extends Controller
         return view('pages.schedules.create');
     }
 
-    public function store(Request $request)
+    public function store(ScheduleRequest $request)
     {
         dd($request->all());
     }
@@ -30,6 +31,10 @@ class ScheduleController extends Controller
     public function edit ()
     {
         return view('pages.schedules.edit');
+    }
+
+    public function update(ScheduleRequest $request){
+        dd($request->all());
     }
 
 }
