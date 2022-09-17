@@ -35,8 +35,13 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // schedules
     Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
-    Route::get('schedules/add',[ScheduleController::class,'create'])->name('schedules.create');
-    
+    Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
+    Route::post('schedules/store',[ScheduleController::class,'store'])->name('schedules.store');
+    Route::get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
+    Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
+    Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
+
+
     //chuyen khoa
     Route::get('specialist',[SpecialistController::class,'index'])->name('specialist.index');
     Route::get('specialist/add',[SpecialistController::class,'add'])->name('specialist.add');
