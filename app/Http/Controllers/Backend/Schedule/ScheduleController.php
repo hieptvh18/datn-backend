@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Schedule;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleRequest;
+use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
 use Illuminate\Http\Request;
 
@@ -24,17 +25,30 @@ class ScheduleController extends Controller
 
     public function store(ScheduleRequest $request)
     {
-        dd($request->all());
+        $schedule = new Schedule();
+        $schedule->fill($request->all());
+        $schedule->save();
+        return redirect()->route('schedules.index')->with(['message'=>'Thêm mới lịch khám thành công!']);
     }
 
 
-    public function edit ()
+    // edit
+    public function edit ($id)
     {
-        return view('pages.schedules.edit');
+        $schedule = Schedule::find($id);
+        return view('pages.schedules.edit', compact('schedule'));
     }
 
-    public function update(ScheduleRequest $request){
-        dd($request->all());
+    public function update(UpdateScheduleRequest $request, $id){
+        $schedule = Schedule::find($id);
+        $schedule->update($request->all());
+        return redirect()->route('schedules.index')->with(['message'=>'Cập nhật lịch khám thành công!']);
+    }
+
+    // delete
+    public function destroy ($id){
+        Schedule::destroy($id);
+        return redirect()->route('schedules.index')->with(['message'=>'Xóa lịch khám thành công!']);
     }
 
 }

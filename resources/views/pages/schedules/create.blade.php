@@ -37,8 +37,8 @@
                             <label for="" class="form-label"><b>Gender</b></label>
                             <select name="gender" class="form-control" id="">
                                 <option value="">Chọn giới tính</option>
-                                <option value="nam">Nam</option>
-                                <option value="nữ">Nữ</option>
+                                <option value="1">Nam</option>
+                                <option value="0">Nữ</option>
                             </select>
                         </div>
                         @error('gender')

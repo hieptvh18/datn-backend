@@ -72,7 +72,9 @@
                                     <td><a href="#" class="btn-link">#{{$item->id}}</a></td>
                                     <td>{{$item->fullname}}</td>
                                     <td>{{$item->birthday}}</td>
-                                    <td>{{$item->gender}}</td>
+                                    <td>{{$item->gender ? "Nam":"Nữ"}}</td>
+                                    <td>{{$item->phone}}</td>
+                                    <td>{{$item->email}}</td>
                                     <td>{{$item->address}}</td>
                                     <td>{{$item->cmnd}}</td>
                                     <td>{{$item->content}}</td>

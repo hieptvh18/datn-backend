@@ -13,6 +13,8 @@ class Schedule extends Model
         'fullname',
         'birthday',
         'gender',
+        'phone',
+        'email',
         'address',
         'cmnd',
         'content',
