@@ -212,6 +212,20 @@
                             </ul>
                         </li>
 
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Bệnh án</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('patient.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('patient.create')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
                         <!--Menu list item-->
                         <li class="{{request()->is('admin/specialist') || request()->is('admin/specialist/add') ? 'active' : ''}}">
                             <a href="#">
@@ -266,7 +280,7 @@
                         <!--Menu list item-->
                         <li>
                             <a href="#">
-                                <i class="demo-pli-warning-window"></i>
+                                <i class="demo-pli-gear"></i>
                                 <span class="menu-title">Cài đặt chung</span>
                                 <i class="arrow"></i>
                             </a>

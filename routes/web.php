@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
+use App\Http\Controllers\Backend\Patient\PatientController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -45,6 +46,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::put('specialist/edit/{id}',[SpecialistController::class,'update'])->name('specialist.update');
     Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
 
+    // benh an
+    Route::resource('patient',PatientController::class);
 
     //service
     Route::resource('service', ServiceController::class)->except('show');
