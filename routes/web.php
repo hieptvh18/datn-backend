@@ -9,6 +9,7 @@ use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
+use App\Http\Controllers\Equipments\EquipmentsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -81,6 +82,14 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('/rooms/update/{id}', [RoomControler::class, 'update'])->name('rooms.update');
     Route::middleware('can:room-delete')->delete('/rooms/destroy/{id}', [RoomControler::class, 'destroy'])->name('rooms.destroy');
 
+    // Quản lý trang thiết bị
+    Route::get('equipment',[EquipmentsController::class,'index'])->name('equipment.index');
+    Route::get('equipment/add',[EquipmentsController::class,'add'])->name('equipment.add');
+    Route::post('equipment/add',[EquipmentsController::class,'save'])->name('equipment.save');
+    Route::get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
+    Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
+    Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
+    
     // logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
