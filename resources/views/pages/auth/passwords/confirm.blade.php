@@ -1,49 +1,56 @@
-@extends('layouts.app')
+@extends('layout.auth')
 
+@section('title', 'Đăng nhập')
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Confirm Password') }}</div>
+<div class="col-md-6 col-lg-4">
+    <div class="login-wrap p-0">
+        <h3 class="mb-4 text-center">Bạn chưa có tài khoản ? Đăng kí tại đây</h3>
 
-                <div class="card-body">
-                    {{ __('Please confirm your password before continuing.') }}
+        <form method="POST" action="{{ route('postChangePassword', $admin->id) }}" class="signin-form">
+            @csrf
 
-                    <form method="POST" action="{{ route('password.confirm') }}">
-                        @csrf
+            <div class="form-group">
+                <input id="password" type="password" placeholder="Password"
+                    class="form-control @error('password') is-invalid @enderror" name="password"
+                    autocomplete="current-password">
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
+                @error('password')
+                    <span class="invalid-feedback ml-2" role="alert" style="color: yellow">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input id="confirmPass" type="password" placeholder="Xác nhận mật khẩu"
+                    class="form-control @error('confirmPass') is-invalid @enderror" name="confirmPass"
+                    value="{{ old('confirmPass') }}" autocomplete="confirmPass" autofocus>
 
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                @error('confirmPass')
+                     <span class="invalid-feedback ml-2" role="alert" style="color: yellow">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <input id="token" type="text" placeholder="Mã xác nhận"
+                    class="form-control @error('token') is-invalid @enderror" name="token"
+                    value="{{ old('token') }}" autocomplete="token" autofocus>
 
-                                @error('password')
-                                    <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="row mb-0">
-                            <div class="col-md-8 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Confirm Password') }}
-                                </button>
-
-                                @if (Route::has('password.request'))
-                                    <a class="btn btn-link" href="{{ route('password.request') }}">
-                                        {{ __('Forgot Your Password?') }}
-                                    </a>
-                                @endif
-                            </div>
-                        </div>
-                    </form>
+                @error('token')
+                     <span class="invalid-feedback ml-2" role="alert" style="color: yellow">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group">
+                <button type="submit" class="form-control btn btn-primary submit px-3">Đặt lại mặt khẩu</button>
+            </div>
+            <div class="form-group d-md-flex">
+                <div class="w-50">
+                    <a href="{{ route('getForgotPassword') }}" style="color: #fff">Đăng nhập</a>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
 @endsection
