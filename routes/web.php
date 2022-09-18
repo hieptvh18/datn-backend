@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Patient\PatientController;
+use App\Models\Admin;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -96,7 +97,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 });
 
 
-// =========== route login, register
+// =========== route login, register, forgot password
 Route::middleware('guest')->prefix('/')->group(function(){
     // login
     Route::get('/login', [AuthController::class, 'getLogin'])->name('getLogin');
@@ -105,4 +106,11 @@ Route::middleware('guest')->prefix('/')->group(function(){
     // register
     Route::get('register', [AuthController::class, 'getRegister'])->name('getRegister');
     Route::post('postRegister', [AuthController::class, 'postRegister'])->name('postRegister');
+
+    // forgot password
+    Route::get('forgotPassword', [AuthController::class, 'getForgotPassword'])->name('getForgotPassword');
+    Route::post('postForgotPassword', [AuthController::class, 'postForgotPassword'])->name('postForgotPassword');
+    Route::get('changePassword/{id}', [AuthController::class, 'getChangePassword'])->name('getChangePassword');
+    Route::post('postChangePassword/{id}', [AuthController::class, 'postChangePassword'])->name('postChangePassword');
+
 });
