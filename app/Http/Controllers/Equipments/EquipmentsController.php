@@ -37,7 +37,7 @@ class EquipmentsController extends Controller
             $image = $request->image;
             $imageName = $image->hashName();
             $imageName = $request->name . '_' . $imageName;
-            $equipment->image = $image->storeAs('images/equipments', $imageName);
+            $equipment->image = $image->storeAs('uploads/equipments', $imageName);
         } else {
             $equipment->image = '';
         }
@@ -69,19 +69,11 @@ class EquipmentsController extends Controller
         $equipment = Equipment::find($id);
         $equipment->fill($request->all());
 
-        // if($request->hasFile('image')) {
-        //     $equipment->image = $this->saveFile(
-        //         $request->image,
-        //         $request->name,
-        //         'images/equipments/'
-        //     );
-        // }
-
         if($request->hasFile('image')) {
             $image = $request->image;
             $imageName = $image->hashName();
             $imageName = $request->name . '_' . $imageName;
-            $equipment->image = $image->storeAs('images/equipments', $imageName);
+            $equipment->image = $image->storeAs('uploads/equipments', $imageName);
         }
 
         $equipment->save();
