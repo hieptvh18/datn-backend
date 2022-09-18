@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('service_name');
             $table->string('price');
-            $table->unsignedBigInteger('parent_id')->nullable();
+            $table->unsignedBigInteger('parent_id')->default(0);
             $table->tinyInteger('is_active');
             $table->timestamps();
         });

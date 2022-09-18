@@ -36,8 +36,13 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // schedules
     Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
-    Route::get('schedules/add',[ScheduleController::class,'create'])->name('schedules.create');
-    
+    Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
+    Route::post('schedules/store',[ScheduleController::class,'store'])->name('schedules.store');
+    Route::get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
+    Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
+    Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
+
+
     //chuyen khoa
     Route::get('specialist',[SpecialistController::class,'index'])->name('specialist.index');
     Route::get('specialist/add',[SpecialistController::class,'add'])->name('specialist.add');
@@ -46,6 +51,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::put('specialist/edit/{id}',[SpecialistController::class,'update'])->name('specialist.update');
     Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
 
+    // benh an
+    Route::resource('patient',PatientController::class);
 
     //service
     Route::resource('service', ServiceController::class)->except('show');
@@ -71,6 +78,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::middleware('can:admin-add')->get('/account_admins/create', [AdminController::class, 'create'])->name('account_admins.create');
     Route::post('/account_admins/store', [AdminController::class, 'store'])->name('account_admins.store');
     Route::middleware('can:admin-edit')->get('/account_admins/edit/{id}', [AdminController::class, 'edit'])->name('account_admins.edit');
+    Route::get('/account_admins/updateStatus/{id}', [AdminController::class, 'updateStatus'])->name('account_admins.updateStatus');
     Route::post('/account_admins/update/{id}', [AdminController::class, 'update'])->name('account_admins.update');
     Route::middleware('can:admin-delete')->delete('/account_admins/destroy/{id}', [AdminController::class, 'destroy'])->name('account_admins.destroy');
 
@@ -96,7 +104,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 });
 
 
-// =========== route login, register
+// =========== route login, register, forgot password
 Route::middleware('guest')->prefix('/')->group(function(){
     // login
     Route::get('/login', [AuthController::class, 'getLogin'])->name('getLogin');
@@ -105,4 +113,11 @@ Route::middleware('guest')->prefix('/')->group(function(){
     // register
     Route::get('register', [AuthController::class, 'getRegister'])->name('getRegister');
     Route::post('postRegister', [AuthController::class, 'postRegister'])->name('postRegister');
+
+    // forgot password
+    Route::get('forgotPassword', [AuthController::class, 'getForgotPassword'])->name('getForgotPassword');
+    Route::post('postForgotPassword', [AuthController::class, 'postForgotPassword'])->name('postForgotPassword');
+    Route::get('changePassword/{id}', [AuthController::class, 'getChangePassword'])->name('getChangePassword');
+    Route::post('postChangePassword/{id}', [AuthController::class, 'postChangePassword'])->name('postChangePassword');
+
 });

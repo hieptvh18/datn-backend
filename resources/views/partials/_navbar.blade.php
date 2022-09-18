@@ -171,7 +171,6 @@
                                 @can('role-list')
                                 <li><a href="{{ route('roles.index') }}">Vai trò</a></li>
                                 @endcan
-                                <li><a href="ui-modals.html">Phân quyền</a></li>
                             </ul>
 
                         </li>
@@ -189,7 +188,7 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li><a href="{{ route('account_admins.index') }}">Danh sách</a></li>
-                                <li><a href="forms-components.html">Thêm mới</a></li>
+                                <li><a href="{{ route('account_admins.create') }}">Thêm mới</a></li>
                             </ul>
                         </li>
                         @endcan
@@ -204,11 +203,23 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="{{route('schedules.index')}}">Lịch khám</a></li>
-                                <li><a href="tables-bootstrap.html">Bootstrap Tables</a></li>
-                                <li><a href="tables-datatable.html">Data Tables</a></li>
-                                <li><a href="tables-footable.html">Foo Tables</a></li>
+                                <li><a href="{{route('schedules.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('schedules.create')}}">Thêm mới</a></li>
 
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Bệnh án</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('patient.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('patient.create')}}">Thêm mới</a></li>
                             </ul>
                         </li>
 
@@ -254,10 +265,8 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li><a href="{{ route('rooms.index') }}">Danh sách</a></li>
-                                <li><a href="misc-maps.html">Google Maps</a></li>
-                                <li><a href="xplugins-notifications.html">Notifications<span
-                                            class="label label-purple pull-right">Improved</span></a></li>
-                                <li><a href="misc-nestable-list.html">Nestable List</a></li>
+                                <li><a href="{{ route('rooms.create') }}">Thêm mới</a></li>
+
 
                             </ul>
                         </li>
@@ -281,7 +290,7 @@
                         <!--Menu list item-->
                         <li>
                             <a href="#">
-                                <i class="demo-pli-warning-window"></i>
+                                <i class="demo-pli-gear"></i>
                                 <span class="menu-title">Cài đặt chung</span>
                                 <i class="arrow"></i>
                             </a>

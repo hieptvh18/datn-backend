@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name',255);
             $table->string('phone',15);
-            $table->integer('age');
+            $table->date('birthday');
             $table->string('cmnd',20)->nullable()->comment('Chứng minh nd');
             $table->text('description')->comment('Mô tả chi tiết bệnh tình');
             $table->string('address')->nullable();

@@ -7,7 +7,7 @@ if(!function_exists('testHelper')){
 }
 
 if(!function_exists('fileUploader')){
-    function fileUploader($file, $prefixName = '', $folder = 'public')
+    function fileUploader($file, $prefixName = '', $folder)
     {
         $fileName = $file->hashName();
         $fileName = $prefixName
