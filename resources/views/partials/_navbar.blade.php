@@ -224,6 +224,21 @@
                         </li>
 
                         <!--Menu list item-->
+                        <li >
+                            <a href="#">
+                                <i class="demo-pli-computer-secure"></i>
+                                <span class="menu-title">Trang thiết bị</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('equipment.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('equipment.add')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
                         <li class="{{request()->is('admin/specialist') || request()->is('admin/specialist/add') ? 'active' : ''}}">
                             <a href="#">
                                 <i class="demo-pli-bar-chart"></i>
