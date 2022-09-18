@@ -4,6 +4,7 @@ use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
 use App\Http\Controllers\Backend\Dashboard\ServiceController;
+use App\Http\Controllers\Backend\Patient\PatientController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
 use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
