@@ -61,7 +61,7 @@ class EquipmentsController extends Controller
             $equipment = Equipment::where('id', $id)->first();
             return view('pages.equipment.edit', compact('equipment', 'pageTitle'));
         }
-        return redirect()->back()->with('excep', 'Không tìm thấy chuyên khoa!');
+        return redirect()->back()->with('excep', 'Không tìm thấy thiết bị!');
     }
 
     public function update(Request $request, $id) {
