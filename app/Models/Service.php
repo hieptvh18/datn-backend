@@ -15,4 +15,8 @@ class Service extends Model
         'parent_id',
         'is_active'
     ];
+
+    public function subService(){
+        return $this->hasMany(Service::class, 'parent_id');
+    }
 }

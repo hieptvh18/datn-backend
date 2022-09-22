@@ -45,22 +45,24 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-striped">
-                    <thead>
+                    <thead class="text-center">
                         <tr>
-                            <th class="text-center">ID</th>
+                            <th>ID</th>
                             <th>TÊN DỊCH VỤ</th>
                             <th>GIÁ</th>
                             <th>TRẠNG THÁI</th>
+                            <th>Ảnh</th>
                             <th></th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody class="text-center">
                         @foreach ($service as $item)
                         <tr>
                             <td>{{$item->id}}</td>
                             <td>{{$item->service_name}}</td>
                             <td>{{number_format($item->price)}}VNĐ</td>
                             <td>{{$item->is_active == 1 ? 'active': 'deactive'}}</td>
+                            <td><img src="{{asset($item->image)}}" alt="" width="100"></td>
                             <td>
                                 <a href="{{ route('service.edit', $item->id) }}" class="label label-table label-success">Edit</a>
 
