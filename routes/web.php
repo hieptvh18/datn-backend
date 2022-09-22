@@ -3,8 +3,8 @@
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
-
 use App\Http\Controllers\Backend\Patient\PatientController;
+use App\Http\Controllers\Backend\Level\LevelsController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
 use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
@@ -100,11 +100,18 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
     Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
 
+
+    // Quản lý cấp bậc, chức vụ
+    Route::get('level',[LevelsController::class,'index'])->name('level.index');
+    Route::get('level/add',[LevelsController::class,'add'])->name('level.add');
+    Route::post('level/add',[LevelsController::class,'save'])->name('level.save');
+    Route::get('level/edit/{id}',[LevelsController::class,'edit'])->name('level.edit');
+    Route::put('level/edit/{id}',[LevelsController::class,'update'])->name('level.update');
+    Route::delete('level/delete/{id}',[LevelsController::class,'delete'])->name('level.delete');
     // logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
 });
-
 
 // =========== route login, register, forgot password
 Route::middleware('guest')->prefix('/')->group(function(){
