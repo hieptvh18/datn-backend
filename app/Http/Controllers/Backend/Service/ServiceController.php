@@ -1,41 +1,25 @@
 <?php
 
-namespace App\Http\Controllers\Backend\Dashboard;
+namespace App\Http\Controllers\Backend\Service;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
-use Illuminate\Http\Request;
 
 class ServiceController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
         $service = Service::all();
-        return \view('pages.service.list',\compact('service'));
+        return \view('pages.service.list',\compact('service',));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
-        return \view('pages.service.create');
+        $parentServices = Service::where('parent_id', \null)->get();
+        return \view('pages.service.create',\compact('parentServices'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(ServiceRequest $request)
     {
         // $validatedData = $request->validate();
@@ -43,45 +27,45 @@ class ServiceController extends Controller
         $service->service_name = $request['service_name'];
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
+        $service->parent_id = $request['parent_id'];
+        if($request->hasFile('image')) {
+            $image = $request->image;
+            $imageName = $image->hashName();
+            $imageName = $request->name . '_' . $imageName;
+            $service->image = $image->storeAs('uploads/services', $imageName);
+        } else {
+            $service->image = '';
+        }
         $service->save();
         return \redirect()->route('service.index')->with(['message'=>'Tạo mới dịch vụ thành công!']);;
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit(Service $service)
     {
-        return \view('pages.service.edit',\compact('service'));
+        $parentServices = Service::where('parent_id', \null)->get();
+        return \view('pages.service.edit',\compact('service','parentServices'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(ServiceRequest $request, $service)
     {
         $service = Service::find($service);
         $service->service_name = $request['service_name'];
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
+        $service->parent_id = $request['parent_id'];
+        if($request->hasFile('image')) {
+            $image = $request->image;
+            $imageName = $image->hashName();
+            $imageName = $request->name . '_' . $imageName;
+            $service->image = $image->storeAs('uploads/services', $imageName);
+        } else {
+            $service->image = '';
+        }
         $service->update();
         return \redirect()->route('service.index')->with(['message'=>'Sửa dịch vụ thành công!']);;
 
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy(Service $service)
     {
         $service->delete();

@@ -3,13 +3,14 @@
 use App\Http\Controllers\Backend\Admin\AdminController;
 use App\Http\Controllers\Backend\Auth\AuthController;
 use App\Http\Controllers\Backend\Dashboard\DashboardController;
-use App\Http\Controllers\Backend\Dashboard\ServiceController;
+
 use App\Http\Controllers\Backend\Patient\PatientController;
 use App\Http\Controllers\Backend\Schedule\ScheduleController;
 use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
+use App\Http\Controllers\Backend\Service\ServiceController;
 use App\Http\Controllers\Equipments\EquipmentsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -98,7 +99,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
     Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
     Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
-    
+
     // logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
