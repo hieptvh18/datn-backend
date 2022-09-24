@@ -17,7 +17,7 @@ class RoomControler extends Controller
      */
     public function index()
     {
-        $listroom = Room::paginate(5);
+        $listroom = Room::sortable()->paginate(5);
         return view('pages.rooms.list', compact('listroom'));
     }
 
@@ -108,5 +108,27 @@ class RoomControler extends Controller
        $room->delete();
 
         return redirect()->route('rooms.index')->with(['message'=>'Xóa phòng ban thành công!']);
+    }
+
+
+    // search
+    public function search (){
+        $search_text = $_GET['key'];
+        try {
+            if($search_text == null){
+                $listroom = Room::sortable()->paginate(5);
+            }else {
+            $listroom=Room::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('room_name','LIKE', '%'.$search_text.'%')
+            ->orwhere('history','LIKE', '%'.$search_text.'%')
+            ->orwhere('mission','LIKE', '%'.$search_text.'%')
+            ->orwhere('achievement','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.rooms.list', compact('listroom'));
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 }

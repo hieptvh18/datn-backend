@@ -93,6 +93,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::middleware('can:room-edit')->get('/rooms/edit/{id}', [RoomControler::class, 'edit'])->name('rooms.edit');
     Route::post('/rooms/update/{id}', [RoomControler::class, 'update'])->name('rooms.update');
     Route::middleware('can:room-delete')->delete('/rooms/destroy/{id}', [RoomControler::class, 'destroy'])->name('rooms.destroy');
+    Route::get('/rooms/searching', [RoomControler::class, 'search'])->name('rooms.search');
 
     // Quản lý trang thiết bị
     Route::get('equipment',[EquipmentsController::class,'index'])->name('equipment.index');
