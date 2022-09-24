@@ -87,7 +87,7 @@ class SpecialistController extends Controller
                     $specialistGallery->save();
                 }
             }
-            return redirect()->back()->with('success', 'Cập nhật thành công chuyên khoa mới.');
+            return redirect()->back()->with('message', 'Cập nhật thành công chuyên khoa.');
         } catch (Exception $e) {
             report($e->getMessage());
             return back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
@@ -107,7 +107,7 @@ class SpecialistController extends Controller
                     }
                 }
                 Specialist::destroy($id);
-                return redirect()->back()->with('success', 'Xóa thành công chuyên khoa.');
+                return redirect()->back()->with('message', 'Xóa thành công chuyên khoa.');
             }
             return redirect()->back()->with('msg-err', 'Xóa không thành công chuyên khoa.');
         } catch (Exception $e) {

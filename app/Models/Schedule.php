@@ -18,7 +18,8 @@ class Schedule extends Model
         'address',
         'cmnd',
         'content',
-        'date'
+        'date',
+        'status'
 
     ];
 }

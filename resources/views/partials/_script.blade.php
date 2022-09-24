@@ -31,8 +31,8 @@
 <!--Specify page [ SAMPLE ]-->
 <script src="{{ asset('assets/js/demo/dashboard.js') }}"></script>
 
- <!--Form File Upload [ SAMPLE ]-->
- <script src="{{asset('assets/js/demo/form-file-upload.js')}}"></script>
+<!--Form File Upload [ SAMPLE ]-->
+<script src="{{ asset('assets/js/demo/form-file-upload.js') }}"></script>
 {{-- checkbox checked --}}
 <script src="{{ asset('assets/js/checkbox.js') }}" defer></script>
 
@@ -42,43 +42,62 @@
     // alert success
     @if (session('message'))
         Swal.fire({
-            position: 'bottom-end',
+            position: 'center',
             icon: 'success',
             title: '{{ session('message') }}',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1800
         })
     @endif
 
     // alert error
     @if (session('error'))
         Swal.fire({
-            position: 'bottom-end',
+            position: 'center',
             icon: 'error',
             title: '{{ session('error') }}',
             showConfirmButton: false,
-            timer: 1500
+            timer: 1800
         })
     @endif
 
-// confirm delete
+    // confirm delete
     $(function() {
-            $(document).on('click', '.btn-delete', function() {
-                let formId = $(this).data('form')
-                Swal.fire({
-                    title: 'Bạn chắc chắn muốn xóa?',
-                    text: "Bạn sẽ không thể khôi phục nó!",
-                    icon: 'warning',
-                    showCancelButton: true,
-                    confirmButtonColor: '#3085d6',
-                    cancelButtonColor: '#d33',
-                    confirmButtonText: 'Có, tôi chắc chắn!'
-                }).then((result) => {
-                    if (result.isConfirmed) {
-                        $(`#${formId}`).submit();
-                    }
-                })
+        $(document).on('click', '.btn-delete', function() {
+            let formId = $(this).data('form')
+            Swal.fire({
+                title: 'Bạn chắc chắn muốn xóa?',
+                text: "Bạn sẽ không thể khôi phục nó!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, tôi chắc chắn!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#${formId}`).submit();
+                }
             })
         })
-</script>
+    });
 
+    // confirm send sms notifi
+    $(function() {
+        $(document).on('click', '.confirm-sms', function() {
+            let formId = $(this).data('form')
+            Swal.fire({
+                title: 'Cập nhật trạng thái và gửi tin nhắn thông báo khách hàng?',
+                text: "Bạn sẽ cập nhật trạng thái đã xác nhận lịch đặt, đồng thời gửi tin nhắn sms thông báo lịch hẹn cho khách!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, tôi chắc chắn!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#${formId}`).submit();
+                }
+            })
+        })
+    })
+</script>

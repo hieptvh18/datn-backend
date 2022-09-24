@@ -15,11 +15,12 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 @can('room-add')
-                                <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</a>
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                    <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i
+                                            class="demo-pli-add icon-fw"></i>Add</a>
+                                    <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 @endcan
                                 <div class="btn-group">
-                                    <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
+                                    <a href=""><button class="btn btn-primary">Reload</button></a>
                                     <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
@@ -53,84 +54,78 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Fullname</th>
-                                    <th>Birthday</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
+                                    <th>Họ tên</th>
+                                    <th>Năm sinh</th>
+                                    <th>Giới tính</th>
+                                    <th>Điện thoại</th>
                                     <th>Email</th>
-                                    <th>Address</th>
                                     <th>CMND</th>
-                                    <th>Content</th>
-                                    <th>Date</th>
+                                    <th>Nội dung</th>
+                                    <th>Trạng thái</th>
+                                    <th>Ngày đặt</th>
                                     <th class="text-center">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($listSchedules as $item)
+                                    <tr>
+                                        <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
+                                        <td>{{ $item->fullname }}</td>
+                                        <td>{{ $item->birthday }}</td>
+                                        <td>
+                                            @if ($item->gender == 1)
+                                                Nam
+                                            @elseif($item->gender == 2)
+                                                Nữ
+                                            @else
+                                                ...
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->phone }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->cmnd }}</td>
+                                        <td>{{ substr($item->content, 30) }}...</td>
+                                        <td>
+                                            @if ($item->status == 0)
+                                                <span class="label label-purple"> Chờ xác nhận</span>
+                                            @elseif($item->status == 1)
+                                                <span class="label label-info"> Đã xác nhận</span>
+                                            @else
+                                                <span class="label label-danger"> Đã hủy lịch</span>
+                                            @endif
+                                        </td>
+                                        <td>{{ $item->date }}</td>
+                                        <td class="text-center">
+                                            @can('room-edit')
+                                                <a href="{{ route('schedules.edit', $item->id) }}"
+                                                    class="label label-table label-success">Chi tiết</a>
+                                            @endcan
+                                            @can('room-delete')
+                                                <form id="deleteForm{{ $item->id }}"
+                                                    action="{{ route('schedules.destroy', $item->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                                <button data-form="deleteForm{{ $item->id }}"
+                                                    class="label label-table label-danger btn-delete"
+                                                    style="border: none">Delete</button>
+                                            @endcan
+                                        </td>
 
-                                <tr>
-                                    <td><a href="#" class="btn-link">#{{$item->id}}</a></td>
-                                    <td>{{$item->fullname}}</td>
-                                    <td>{{$item->birthday}}</td>
-                                    <td>{{$item->gender ? "Nam":"Nữ"}}</td>
-                                    <td>{{$item->phone}}</td>
-                                    <td>{{$item->email}}</td>
-                                    <td>{{$item->address}}</td>
-                                    <td>{{$item->cmnd}}</td>
-                                    <td>{{$item->content}}</td>
-                                    <td>{{$item->date}}</td>
-                                    <td class="text-center">
-                                        @can('room-edit')
-                                        <a href="{{ route('schedules.edit', $item->id) }}" class="label label-table label-success">Edit</a>
-                                        @endcan
-                                        @can('room-delete')
-                                        <form id="deleteForm{{ $item->id }}" action="{{ route('schedules.destroy', $item->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                    <button data-form="deleteForm{{$item->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
-                                        @endcan
-                                    </td>
-
-                                </tr>
-
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                     <hr class="new-section-xs">
-                    <div class="pull-right">
-                        {{-- <ul class="pagination text-nowrap mar-no">
-                            <li class="page-pre disabled">
-                                <a href="#">&lt;</a>
-                            </li>
-                            <li class="page-number active">
-                                <span>1</span>
-                            </li>
-                            <li class="page-number">
-                                <a href="#">2</a>
-                            </li>
-                            <li class="page-number">
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <span>...</span>
-                            </li>
-                            <li class="page-number">
-                                <a href="#">9</a>
-                            </li>
-                            <li class="page-next">
-                                <a href="#">&gt;</a>
-                            </li>
-                        </ul> --}}
-                        {{$listSchedules->links()}}
-                    </div>
+                    {{ $listSchedules->links() }}
                 </div>
-                <!--===================================================-->
-                <!--End Data Table-->
-
             </div>
+            <!--===================================================-->
+            <!--End Data Table-->
+
         </div>
+    </div>
     </div>
 
 
