@@ -386,7 +386,7 @@
 
 	<!--JAVASCRIPT-->
 	<!--=================================================-->
-
+    @yield('script')
 	@include('partials._script')
 
 	{{-- js custom --}}

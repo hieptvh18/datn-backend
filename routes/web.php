@@ -43,6 +43,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
     Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
     Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
+    Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
 
 
     //chuyen khoa

@@ -15,8 +15,9 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 @can('room-add')
-                                <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</a>
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                    <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i
+                                            class="demo-pli-add icon-fw"></i>Add</a>
+                                    <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 @endcan
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
@@ -24,9 +25,12 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
+
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search"
-                                        id="demo-input-search2">
+                                    <form action="{{ route('schedules.search') }}" method="get">
+                                        <input type="text" autocomplete="off" name="key" class="form-control"
+                                            placeholder="Search" id="demo-input-search2">
+                                    </form>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i
@@ -52,78 +56,58 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Fullname</th>
-                                    <th>Birthday</th>
-                                    <th>Gender</th>
-                                    <th>Phone</th>
-                                    <th>Email</th>
-                                    <th>Address</th>
-                                    <th>CMND</th>
-                                    <th>Content</th>
-                                    <th>Date</th>
-                                    <th class="text-center">Action</th>
+                                    <th>@sortablelink('id')</th>
+                                    <th>@sortablelink('fullname', 'Họ và tên')</th>
+                                    <th>@sortablelink('birthday', 'Ngày sinh')</th>
+                                    <th>@sortablelink('gender', 'Giới tính')</th>
+                                    <th>@sortablelink('phone', 'SĐT')</th>
+                                    <th>@sortablelink('email', 'Email')</th>
+                                    <th>@sortablelink('address', 'Địa chỉ')</th>
+                                    <th>@sortablelink('cmnd', 'CMND')</th>
+                                    <th>@sortablelink('content', 'Nội dung')</th>
+                                    <th>@sortablelink('date', 'Ngày đặt lịch')</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="results">
                                 @foreach ($listSchedules as $item)
+                                    <tr>
+                                        <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
+                                        <td>{{ $item->fullname }}</td>
+                                        <td>{{ $item->birthday }}</td>
+                                        <td>{{ $item->gender ? 'Nam' : 'Nữ' }}</td>
+                                        <td>{{ $item->phone }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->cmnd }}</td>
+                                        <td>{{ $item->content }}</td>
+                                        <td>{{ $item->date }}</td>
+                                        <td class="text-center">
+                                            @can('room-edit')
+                                                <a href="{{ route('schedules.edit', $item->id) }}"
+                                                    class="label label-table label-success">Edit</a>
+                                            @endcan
+                                            @can('room-delete')
+                                                <form id="deleteForm{{ $item->id }}"
+                                                    action="{{ route('schedules.destroy', $item->id) }}" method="post">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                </form>
+                                                <button data-form="deleteForm{{ $item->id }}"
+                                                    class="label label-table label-danger btn-delete"
+                                                    style="border: none">Delete</button>
+                                            @endcan
+                                        </td>
 
-                                <tr>
-                                    <td><a href="#" class="btn-link">#{{$item->id}}</a></td>
-                                    <td>{{$item->fullname}}</td>
-                                    <td>{{$item->birthday}}</td>
-                                    <td>{{$item->gender ? "Nam":"Nữ"}}</td>
-                                    <td>{{$item->phone}}</td>
-                                    <td>{{$item->email}}</td>
-                                    <td>{{$item->address}}</td>
-                                    <td>{{$item->cmnd}}</td>
-                                    <td>{{$item->content}}</td>
-                                    <td>{{$item->date}}</td>
-                                    <td class="text-center">
-                                        @can('room-edit')
-                                        <a href="{{ route('schedules.edit', $item->id) }}" class="label label-table label-success">Edit</a>
-                                        @endcan
-                                        @can('room-delete')
-                                        <form id="deleteForm{{ $item->id }}" action="{{ route('schedules.destroy', $item->id) }}" method="post">
-                                        @csrf
-                                        @method('DELETE')
-                                    </form>
-                                    <button data-form="deleteForm{{$item->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
-                                        @endcan
-                                    </td>
-
-                                </tr>
-
+                                    </tr>
                                 @endforeach
                             </tbody>
                         </table>
                     </div>
                     <hr class="new-section-xs">
                     <div class="pull-right">
-                        {{-- <ul class="pagination text-nowrap mar-no">
-                            <li class="page-pre disabled">
-                                <a href="#">&lt;</a>
-                            </li>
-                            <li class="page-number active">
-                                <span>1</span>
-                            </li>
-                            <li class="page-number">
-                                <a href="#">2</a>
-                            </li>
-                            <li class="page-number">
-                                <a href="#">3</a>
-                            </li>
-                            <li>
-                                <span>...</span>
-                            </li>
-                            <li class="page-number">
-                                <a href="#">9</a>
-                            </li>
-                            <li class="page-next">
-                                <a href="#">&gt;</a>
-                            </li>
-                        </ul> --}}
-                        {{$listSchedules->links()}}
+
+                        {{ $listSchedules->links() }}
                     </div>
                 </div>
                 <!--===================================================-->
@@ -132,6 +116,5 @@
             </div>
         </div>
     </div>
-
 
 @endsection
