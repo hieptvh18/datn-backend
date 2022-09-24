@@ -53,10 +53,12 @@ class ScheduleController extends Controller
 
     // search
     public function search() {
-        $search_text = $_GET['key'];
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
        try {
         if ($search_text==null) {
-            $listSchedules = Schedule::sortable()->paginate(15);
+            return redirect()->route('schedules.index');
         } else {
             $listSchedules=Schedule::where('id','LIKE', '%'.$search_text.'%')
             ->orwhere('fullname','LIKE', '%'.$search_text.'%')

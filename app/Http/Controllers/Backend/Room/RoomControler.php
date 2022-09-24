@@ -113,10 +113,13 @@ class RoomControler extends Controller
 
     // search
     public function search (){
-        $search_text = $_GET['key'];
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+
         try {
             if($search_text == null){
-                $listroom = Room::sortable()->orderby('id', 'desc')->paginate(5);
+             return redirect()->route('rooms.index');
             }else {
             $listroom=Room::where('id','LIKE', '%'.$search_text.'%')
             ->orwhere('room_name','LIKE', '%'.$search_text.'%')

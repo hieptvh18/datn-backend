@@ -134,10 +134,12 @@ class AdminController extends Controller
     // search
 
     public function search (){
-        $search_text = $_GET['key'];
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
         try {
             if ($search_text==null) {
-                $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->sortable()->with('roles')->orderby('created_at', 'desc')->paginate(15);
+                return redirect()->route('account_admins.index');
             } else {
                 $listAccountAdmin=Admin::where('id','LIKE', '%'.$search_text.'%')
                 ->orwhere('email','LIKE', '%'.$search_text.'%')
