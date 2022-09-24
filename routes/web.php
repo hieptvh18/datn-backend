@@ -84,6 +84,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/account_admins/updateStatus/{id}', [AdminController::class, 'updateStatus'])->name('account_admins.updateStatus');
     Route::post('/account_admins/update/{id}', [AdminController::class, 'update'])->name('account_admins.update');
     Route::middleware('can:admin-delete')->delete('/account_admins/destroy/{id}', [AdminController::class, 'destroy'])->name('account_admins.destroy');
+    Route::get('/account_admins/searching', [AdminController::class, 'search'])->name('account_admins.search');
 
     // rooms
     Route::middleware('can:room-list')->get('/rooms', [RoomControler::class, 'index'])->name('rooms.index');
