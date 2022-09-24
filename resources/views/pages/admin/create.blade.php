@@ -25,7 +25,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Fullname</b></label>
+                            <label for="" class="form-label"><b>Họ và tên</b></label>
                             <input type="text" class="form-control" value="{{old('fullname')}}" name="fullname" autocomplete="fullname" autofocus placeholder="Fullname...">
                         </div>
                         @error('fullname')
@@ -36,13 +36,13 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Birthday</b></label>
+                            <label for="" class="form-label"><b>Ngày sinh</b></label>
                             <input type="date" class="form-control" name="birthday" value="{{old('birthday')}}" autocomplete="birthday" autofocus placeholder="Birthday...">
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Phone</b></label>
+                            <label for="" class="form-label"><b>SĐT</b></label>
                             <input type="text" class="form-control" name="phone" value="{{old('phone')}}" autocomplete="phone" autofocus placeholder="Phone...">
                         </div>
                         @error('phone')
@@ -53,31 +53,31 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Address</b></label>
+                            <label for="" class="form-label"><b>Địa chỉ</b></label>
                             <input type="text" class="form-control" name="address" value="{{old('address')}}" autocomplete="address" autofocus placeholder="Address...">
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Facebook_url</b></label>
+                            <label for="" class="form-label"><b>Địa chỉ facebook</b></label>
                             <input type="text" class="form-control" name="facebook_url" value="{{old('facebook_url')}}" autocomplete="facebook_url" autofocus placeholder="Facebook_url...">
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Twitter_url</b></label>
+                            <label for="" class="form-label"><b>Địa chỉ twitter</b></label>
                             <input type="text" class="form-control" name="twitter_url" value="{{old('twitter_url')}}" autocomplete="twitter_url" autofocus placeholder="Twitter_url...">
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Email_url</b></label>
+                            <label for="" class="form-label"><b>Địa chỉ email</b></label>
                             <input type="text" class="form-control" name="email_url" value="{{old('email_url')}}"  autocomplete="email_url" autofocus placeholder="Email_url...">
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Password</b></label>
+                            <label for="" class="form-label"><b>Mật khẩu</b></label>
                             <input type="password" class="form-control" name="password" value="{{old('password')}}" autocomplete="password" autofocus placeholder="Password...">
                         </div>
                         @error('password')
@@ -88,7 +88,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Room</b></label>
+                            <label for="" class="form-label"><b>Phòng ban</b></label>
                             <select name="room_id" id="" class="form-control">
                                 <option value="">Chọn phòng ban</option>
                                 @foreach ($list_room as $room)
@@ -104,7 +104,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Level</b></label>
+                            <label for="" class="form-label"><b>Chức vụ</b></label>
                             <select name="level_id" id="" class="form-control">
                                 <option value="">Chọn chức vụ</option>
                                 @foreach ($list_level as $level)
@@ -120,7 +120,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Specialist</b></label>
+                            <label for="" class="form-label"><b>Chuyên khoa</b></label>
                             <select name="specialist_id" id="" class="form-control">
                                 <option value="">Chọn chuyên khoa</option>
                                 @foreach ($list_specialist as $specialist)
@@ -136,7 +136,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Role</b></label>
+                            <label for="" class="form-label"><b>Vai trò</b></label>
                             <select name="role_id" id="" class="form-control">
                                 <option value="">Chọn vai trò</option>
                                 @foreach ($list_role as $role)
@@ -152,8 +152,9 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Avatar</b></label>
-                            <input type="file" class="form-control" name="avatar" value="{{old('avatar')}}"  autocomplete="avatar" autofocus>
+                            <label for="" class="form-label"><b>Ảnh</b></label>
+                            <input type="file" class="form-control" name="avatar" value="{{old('avatar')}}" onchange="preview()"  autocomplete="avatar" autofocus>
+                            <img src="" id="previewImage" width="120px" alt="">
                         </div>
                         @error('avatar')
                             <span class="text-danger" role="alert">
@@ -163,7 +164,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Is_active</b></label>
+                            <label for="" class="form-label"><b>Trạng thái</b></label>
                             <input type="radio" id="is_active" @checked(true) name="is_active" value="1" > Active
                             <input type="radio" id="is_active1" name="is_active" value="0" > In_Active
                             @error('is_active')

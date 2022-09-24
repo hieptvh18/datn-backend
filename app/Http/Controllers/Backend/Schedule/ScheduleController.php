@@ -16,8 +16,7 @@ class ScheduleController extends Controller
     //list
     public function index()
     {
-        $listSchedules = Schedule::select('*')
-        ->orderByDesc('id')->paginate(20);
+        $listSchedules = Schedule::sortable()->paginate(15);
         return view('pages.schedules.list', compact('listSchedules'));
     }
 
@@ -71,4 +70,30 @@ class ScheduleController extends Controller
         Schedule::destroy($id);
         return redirect()->route('schedules.index')->with(['message' => 'Xóa lịch khám thành công!']);
     }
+
+    // search
+    public function search() {
+        $search_text = $_GET['key'];
+       try {
+        if ($search_text==null) {
+            $listSchedules = Schedule::sortable()->paginate(15);
+        } else {
+            $listSchedules=Schedule::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('fullname','LIKE', '%'.$search_text.'%')
+            ->orwhere('birthday','LIKE', '%'.$search_text.'%')
+            ->orwhere('gender','LIKE', '%'.$search_text.'%')
+            ->orwhere('phone','LIKE', '%'.$search_text.'%')
+            ->orwhere('email','LIKE', '%'.$search_text.'%')
+            ->orwhere('address','LIKE', '%'.$search_text.'%')
+            ->orwhere('cmnd','LIKE', '%'.$search_text.'%')
+            ->orwhere('content','LIKE', '%'.$search_text.'%')
+            ->orwhere('date','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+        return view('pages.schedules.list', compact('listSchedules'));
+       } catch (\Throwable $th) {
+            return $th;
+       }
+    }
+
 }

@@ -23,7 +23,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->with('roles')->paginate(5);
+        $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->sortable()->with('roles')->orderby('created_at', 'desc')->paginate(15);
         return view('pages.admin.list', compact('listAccountAdmin'));
     }
 
@@ -80,23 +80,7 @@ class AdminController extends Controller
         return redirect()->route('account_admins.index')->with(['message'=>'Tạo người dùng thành công!']);
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+  // edit
     public function edit($id)
     {
         $admin = Admin::find($id);
@@ -145,5 +129,30 @@ class AdminController extends Controller
         Admin::destroy($id);
 
         return redirect()->route('account_admins.index')->with(['message'=>'Xóa dùng thành công!']);
+    }
+
+    // search
+
+    public function search (){
+        $search_text = $_GET['key'];
+        try {
+            if ($search_text==null) {
+                $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->sortable()->with('roles')->orderby('created_at', 'desc')->paginate(15);
+            } else {
+                $listAccountAdmin=Admin::where('id','LIKE', '%'.$search_text.'%')
+                ->orwhere('email','LIKE', '%'.$search_text.'%')
+                ->orwhere('fullname','LIKE', '%'.$search_text.'%')
+                ->orwhere('birthday','LIKE', '%'.$search_text.'%')
+                ->orwhere('phone','LIKE', '%'.$search_text.'%')
+                ->orwhere('address','LIKE', '%'.$search_text.'%')
+                ->orwhere('facebook_url','LIKE', '%'.$search_text.'%')
+                ->orwhere('twitter_url','LIKE', '%'.$search_text.'%')
+                ->orwhere('email_url','LIKE', '%'.$search_text.'%')
+                ->paginate(15);
+            }
+            return view('pages.admin.list', compact('listAccountAdmin'));
+           } catch (\Throwable $th) {
+                return $th;
+           }
     }
 }

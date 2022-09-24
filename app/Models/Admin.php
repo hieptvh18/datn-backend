@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Model;
+use Kyslik\ColumnSortable\Sortable;
 
 class Admin extends Authenticatable
 {
-    use HasFactory;
+    use HasFactory, Sortable;
 
     protected $guard = 'admin';
 
@@ -26,6 +27,13 @@ class Admin extends Authenticatable
         'room_id',
         'level_id',
         'specialist_id'
+    ];
+
+    protected $sortable = [
+        'id',
+        'email',
+        'fullname',
+        'phone',
     ];
 
     public function role_admins () {

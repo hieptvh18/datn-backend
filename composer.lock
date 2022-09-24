@@ -971,6 +971,7 @@
             "time": "2022-08-28T14:45:39+00:00"
         },
         {
+<<<<<<< HEAD
             "name": "laminas/laminas-diactoros",
             "version": "2.17.0",
             "source": {
@@ -1036,10 +1037,46 @@
                 ],
                 "psr-4": {
                     "Laminas\\Diactoros\\": "src/"
+=======
+            "name": "kyslik/column-sortable",
+            "version": "6.4.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Kyslik/column-sortable.git",
+                "reference": "91792a166dd02aaaeb7928417bb49d808b0c58ea"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Kyslik/column-sortable/zipball/91792a166dd02aaaeb7928417bb49d808b0c58ea",
+                "reference": "91792a166dd02aaaeb7928417bb49d808b0c58ea",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/database": "5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "illuminate/support": "5.8.*|^6.0|^7.0|^8.0|^9.0",
+                "php": ">=7.2"
+            },
+            "require-dev": {
+                "orchestra/testbench": "^5.0|^7.0",
+                "phpunit/phpunit": "^8.5|^9.5.10"
+            },
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Kyslik\\ColumnSortable\\ColumnSortableServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Kyslik\\ColumnSortable\\": "src/ColumnSortable/"
+>>>>>>> e4c922872fac1760bf0d7d7c7d0702fa71369769
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
+<<<<<<< HEAD
                 "BSD-3-Clause"
             ],
             "description": "PSR HTTP Message implementations",
@@ -1066,6 +1103,30 @@
                 }
             ],
             "time": "2022-08-30T17:01:46+00:00"
+=======
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Martin Kiesel",
+                    "email": "martin.kiesel@gmail.com",
+                    "role": "Developer and maintainer"
+                }
+            ],
+            "description": "Package for handling column sorting in Laravel 6.x",
+            "keywords": [
+                "column",
+                "laravel",
+                "sort",
+                "sortable",
+                "sorting"
+            ],
+            "support": {
+                "issues": "https://github.com/Kyslik/column-sortable/issues",
+                "source": "https://github.com/Kyslik/column-sortable/tree/6.4.2"
+            },
+            "time": "2022-02-15T23:02:23+00:00"
+>>>>>>> e4c922872fac1760bf0d7d7c7d0702fa71369769
         },
         {
             "name": "laravel/framework",

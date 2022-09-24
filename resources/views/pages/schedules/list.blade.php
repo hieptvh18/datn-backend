@@ -25,9 +25,12 @@
                                 </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
+
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search"
-                                        id="demo-input-search2">
+                                    <form action="{{ route('schedules.search') }}" method="get">
+                                        <input type="text" autocomplete="off" name="key" class="form-control"
+                                            placeholder="Search" id="demo-input-search2">
+                                    </form>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i
@@ -64,9 +67,20 @@
                                     <th>Trạng thái</th>
                                     <th>Ngày đặt</th>
                                     <th class="text-center">Action</th>
+                                    <th>@sortablelink('id')</th>
+                                    <th>@sortablelink('fullname', 'Họ và tên')</th>
+                                    <th>@sortablelink('birthday', 'Ngày sinh')</th>
+                                    <th>@sortablelink('gender', 'Giới tính')</th>
+                                    <th>@sortablelink('phone', 'SĐT')</th>
+                                    <th>@sortablelink('email', 'Email')</th>
+                                    <th>@sortablelink('address', 'Địa chỉ')</th>
+                                    <th>@sortablelink('cmnd', 'CMND')</th>
+                                    <th>@sortablelink('content', 'Nội dung')</th>
+                                    <th>@sortablelink('date', 'Ngày đặt lịch')</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody id="results">
                                 @foreach ($listSchedules as $item)
                                     <tr>
                                         <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
@@ -94,11 +108,18 @@
                                                 <span class="label label-danger"> Đã hủy lịch</span>
                                             @endif
                                         </td>
+                                        <td>{{ $item->gender ? 'Nam' : 'Nữ' }}</td>
+                                        <td>{{ $item->phone }}</td>
+                                        <td>{{ $item->email }}</td>
+                                        <td>{{ $item->address }}</td>
+                                        <td>{{ $item->cmnd }}</td>
+                                        <td>{{ $item->content }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td class="text-center">
                                             @can('room-edit')
                                                 <a href="{{ route('schedules.edit', $item->id) }}"
                                                     class="label label-table label-success">Chi tiết</a>
+                                                    class="label label-table label-success">Edit</a>
                                             @endcan
                                             @can('room-delete')
                                                 <form id="deleteForm{{ $item->id }}"
@@ -119,14 +140,14 @@
                     </div>
                     <hr class="new-section-xs">
                     {{ $listSchedules->links() }}
+                    <div class="pull-right">
+                        {{ $listSchedules->links() }}
+                    </div>
                 </div>
             </div>
-            <!--===================================================-->
-            <!--End Data Table-->
 
         </div>
     </div>
     </div>
-
 
 @endsection

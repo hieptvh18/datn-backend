@@ -25,8 +25,10 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search"
+                                    <form action="{{ route('rooms.search') }}" method="get">
+                                    <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
                                         id="demo-input-search2">
+                                    </form>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i
@@ -52,9 +54,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Room name</th>
-                                    <th class="text-center">Action</th>
+                                    <th>@sortablelink('id', '#')</th>
+                                    <th>@sortablelink('room_name', 'Room name')</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
