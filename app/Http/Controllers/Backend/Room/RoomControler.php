@@ -17,7 +17,7 @@ class RoomControler extends Controller
      */
     public function index()
     {
-        $listroom = Room::sortable()->paginate(5);
+        $listroom = Room::sortable()->orderby('id', 'desc')->paginate(15);
         return view('pages.rooms.list', compact('listroom'));
     }
 
@@ -116,7 +116,7 @@ class RoomControler extends Controller
         $search_text = $_GET['key'];
         try {
             if($search_text == null){
-                $listroom = Room::sortable()->paginate(5);
+                $listroom = Room::sortable()->orderby('id', 'desc')->paginate(5);
             }else {
             $listroom=Room::where('id','LIKE', '%'.$search_text.'%')
             ->orwhere('room_name','LIKE', '%'.$search_text.'%')
