@@ -15,6 +15,8 @@ class ScheduleController extends Controller
         try{
             $schedule = new Schedule();
             $schedule->fill($request->all());
+            // convert date
+            $schedule->date = date('Y-m-d',strtotime($request->date));
             $schedule->save();
 
             return response()->json([
@@ -32,4 +34,5 @@ class ScheduleController extends Controller
             ],400);
         }
     }
+    
 }

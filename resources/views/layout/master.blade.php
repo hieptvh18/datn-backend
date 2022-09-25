@@ -26,9 +26,8 @@
 				<div id="page-head">
 
 					<div class="pad-all text-center">
-						<h3>Welcome back to the Dashboard.</h3>
-						<p>Scroll down to see quick links and overviews of your Server, To do list, Order status or get
-							some Help using Nifty.</p>
+						<h3>Phòng khám nha khoa Đức Nghĩa</h3>
+						<p>Chào mừng bạn quay trở lại với trang quản trị Phòng khám nha khoa Đức Nghĩa. Tại đây, công việc của bạn trở nên thuận tiện hơn rất nhiều.</p>
 					</div>
 				</div>
 

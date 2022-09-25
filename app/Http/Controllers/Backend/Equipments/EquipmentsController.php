@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Equipments;
+namespace App\Http\Controllers\Backend\Equipments;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EquipmentsRequest;

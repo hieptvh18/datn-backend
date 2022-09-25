@@ -6,11 +6,15 @@
     "license": "MIT",
     "require": {
         "php": "^8.0.2",
-        "guzzlehttp/guzzle": "^7.2",
+        "guzzlehttp/guzzle": "^7.5",
         "kyslik/column-sortable": "^6.4",
         "laravel/framework": "^9.19",
+        "laravel/nexmo-notification-channel": "^3.0",
         "laravel/sanctum": "^2.14.1",
-        "laravel/tinker": "^2.7"
+        "laravel/tinker": "^2.7",
+        "laravel/vonage-notification-channel": "^3.0",
+        "twilio/sdk": "^6.42",
+        "vonage/client": "^3.0"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",

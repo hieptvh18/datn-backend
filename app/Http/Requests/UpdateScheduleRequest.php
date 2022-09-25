@@ -27,7 +27,6 @@ class UpdateScheduleRequest extends FormRequest
             'fullname'=> "required|max:50",
             'phone'=>["required","min:10","max:11", "regex:/^(84|0[2|3|5|7|8|9])+([0-9]{8,9})$\b/"],
             'gender'=>'required',
-            'content'=>'required',
             'date'=>'required'
         ];
     }
@@ -43,7 +42,6 @@ class UpdateScheduleRequest extends FormRequest
             'phone.max'=>"Số điện thoại tối đa 11 ký tự số!",
             'phone.regex'=>"Số điện thoại không đúng định dạng!",
             'gender.required'=>'Vui lòng chọn giới tính!',
-            'content.required'=>'Vui lòng nhập nội dung!',
             'date.required'=>'Vui lòng chọn ngày đặt lịch!'
         ];
     }

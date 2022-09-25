@@ -20,7 +20,7 @@
                                     <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 @endcan
                                 <div class="btn-group">
-                                    <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
+                                    <a href=""><button class="btn btn-primary">Reload</button></a>
                                     <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
@@ -62,10 +62,9 @@
                                     <th>@sortablelink('gender', 'Giới tính')</th>
                                     <th>@sortablelink('phone', 'SĐT')</th>
                                     <th>@sortablelink('email', 'Email')</th>
-                                    <th>@sortablelink('address', 'Địa chỉ')</th>
                                     <th>@sortablelink('cmnd', 'CMND')</th>
-                                    <th>@sortablelink('content', 'Nội dung')</th>
                                     <th>@sortablelink('date', 'Ngày đặt lịch')</th>
+                                    <th>Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -75,17 +74,32 @@
                                         <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
                                         <td>{{ $item->fullname }}</td>
                                         <td>{{ $item->birthday }}</td>
-                                        <td>{{ $item->gender ? 'Nam' : 'Nữ' }}</td>
+                                        <td>
+                                            @if ($item->gender == 1)
+                                                Nam
+                                            @elseif($item->gender == 2)
+                                                Nữ
+                                            @else
+                                                ...
+                                            @endif
+                                        </td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->address }}</td>
                                         <td>{{ $item->cmnd }}</td>
-                                        <td>{{ $item->content }}</td>
                                         <td>{{ $item->date }}</td>
+                                        <td>
+                                            @if ($item->status == 0)
+                                                <span class="label label-purple"> Chờ xác nhận</span>
+                                            @elseif($item->status == 1)
+                                                <span class="label label-info"> Đã xác nhận</span>
+                                            @else
+                                                <span class="label label-danger"> Đã hủy lịch</span>
+                                            @endif
+                                        </td>
                                         <td class="text-center">
                                             @can('room-edit')
                                                 <a href="{{ route('schedules.edit', $item->id) }}"
-                                                    class="label label-table label-success">Edit</a>
+                                                    class="label label-table label-success">Chi tiết</a>
                                             @endcan
                                             @can('room-delete')
                                                 <form id="deleteForm{{ $item->id }}"
@@ -105,16 +119,15 @@
                         </table>
                     </div>
                     <hr class="new-section-xs">
+                    {{ $listSchedules->links() }}
                     <div class="pull-right">
-
                         {{ $listSchedules->links() }}
                     </div>
                 </div>
-                <!--===================================================-->
-                <!--End Data Table-->
-
             </div>
+
         </div>
+    </div>
     </div>
 
 @endsection

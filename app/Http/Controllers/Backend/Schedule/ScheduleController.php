@@ -6,7 +6,10 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
+use Exception;
 use Illuminate\Http\Request;
+use Throwable;
+
 
 class ScheduleController extends Controller
 {
@@ -20,7 +23,8 @@ class ScheduleController extends Controller
     // add
     public function create()
     {
-        return view('pages.schedules.create');
+        $pageTitle = 'Tạo mới lịch khám';
+        return view('pages.schedules.create', compact('pageTitle'));
     }
 
     public function store(ScheduleRequest $request)
@@ -28,27 +32,43 @@ class ScheduleController extends Controller
         $schedule = new Schedule();
         $schedule->fill($request->all());
         $schedule->save();
-        return redirect()->route('schedules.index')->with(['message'=>'Thêm mới lịch khám thành công!']);
+        return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
     }
-
 
     // edit
-    public function edit ($id)
+    public function edit($id)
     {
+        $pageTitle = 'Cập nhật lịch khám';
         $schedule = Schedule::find($id);
-        return view('pages.schedules.edit', compact('schedule'));
+        return view('pages.schedules.edit', compact('schedule', 'pageTitle'));
     }
 
-    public function update(UpdateScheduleRequest $request, $id){
-        $schedule = Schedule::find($id);
-        $schedule->update($request->all());
-        return redirect()->route('schedules.index')->with(['message'=>'Cập nhật lịch khám thành công!']);
+    public function update(UpdateScheduleRequest $request, $id)
+    {
+        try {
+            $schedule = Schedule::find($id);
+            $update = $schedule->update($request->all());
+            if($update && $request->status == 1){
+                // check if changed status is confirmed => send sms to phone
+                $date = $request->date;
+                $phone = $request->phone;
+                $stt = $schedule->id;
+                $content = 'Cảm ơn bạn đã đăng kí lịch khám của Nha khoa Đức Nghĩa. Lịch hẹn của bạn là: '.$date .'. Số thứ tự là '.$stt;
+                sendSms($phone,$content);
+            }
+            return redirect()->back()->with(['message' => 'Cập nhật lịch khám thành công!']);
+        } catch (Throwable $e) {
+            dd($e->getMessage());
+            report($e->getMessage());
+            return redirect()->back()->with(['error' => 'Có lỗi xảy ra! Vui lòng thử lại sau!']);
+        }
     }
 
     // delete
-    public function destroy ($id){
+    public function destroy($id)
+    {
         Schedule::destroy($id);
-        return redirect()->route('schedules.index')->with(['message'=>'Xóa lịch khám thành công!']);
+        return redirect()->route('schedules.index')->with(['message' => 'Xóa lịch khám thành công!']);
     }
 
     // search
