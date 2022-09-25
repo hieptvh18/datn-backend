@@ -55,6 +55,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // benh an
     Route::resource('patient',PatientController::class);
+    Route::post('patient/import',[PatientController::class, 'importPatient'])->name('patient.importPatient');
+    Route::post('patient/export',[PatientController::class, 'exportPatient'])->name('patient.exportPatient');
 
     //service
     Route::resource('service', ServiceController::class)->except('show');
