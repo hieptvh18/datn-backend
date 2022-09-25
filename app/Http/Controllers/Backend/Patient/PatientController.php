@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Backend\Patient;
 
+use App\Exports\ExportPatient;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PatientRequest;
+use App\Imports\ImportPatient;
 use App\Models\Patient;
 use Exception;
+use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 
 class PatientController extends Controller
@@ -48,8 +51,9 @@ class PatientController extends Controller
             return redirect()->back()->with('message','Thêm thành công!');
         }catch(\Exception $e){
             report($e->getMessage());
+
             return redirect()->back()->with('exception','Đã xảy ra lỗi, vui lòng thử lại!');
-        } 
+        }
     }
 
     /**
@@ -96,7 +100,7 @@ class PatientController extends Controller
         }catch(\Exception $e){
             report($e->getMessage());
             return redirect()->back()->with('exception','Đã xảy ra lỗi, vui lòng thử lại!');
-        } 
+        }
     }
 
     /**
@@ -116,5 +120,15 @@ class PatientController extends Controller
             report($e->getMessage());
             return redirect()->back()->with('error','Có lỗi xảy ra! Vui lòng thử lại!');
         }
+    }
+
+    public function importPatient(Request $request){
+        // dd('a');
+        Excel::import(new ImportPatient, $request->file('file')->store('files'));
+        return redirect()->back()->with(['message'=>"Nhập dữ liệu thành công!"]);
+    }
+
+    public function exportPatient (Request $request){
+        return Excel::download(new ExportPatient($request->date), 'patient.xlsx');
     }
 }
