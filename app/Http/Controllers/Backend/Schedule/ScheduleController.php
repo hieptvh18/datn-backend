@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Backend\Schedule;
 
+use App\Exports\ExportSchedule;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
+use App\Imports\ImportSchedule;
 use App\Models\Schedule;
 use Exception;
 use Illuminate\Http\Request;
+use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
 
 
@@ -24,7 +27,7 @@ class ScheduleController extends Controller
                 $endDate = isset($request->end) ? date('Y-m-d',strtotime($request->end)) : $startDate;
                 $listSchedules = $listSchedules->whereBetween('date',[$startDate,$endDate]);
             }
-    
+
             $listSchedules = $listSchedules->paginate(15);
 
         }catch(Throwable $e){
@@ -117,6 +120,17 @@ class ScheduleController extends Controller
     // filter data range
     public function filterDateRange($startDate , $endDate){
 
+    }
+
+    // import
+    public function importSchedule (Request $request){
+        Excel::import(new ImportSchedule, $request->file('file')->store('files'));
+        return redirect()->back()->with(['message'=>'Nhập dữ liệu thành công!']);
+    }
+
+    // export
+    public function exportSchedule (Request $request){
+        return Excel::download(new ExportSchedule($request->date), 'schedule.xlsx');
     }
 
 }

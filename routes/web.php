@@ -43,6 +43,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
     Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
     Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
+    Route::post('schedules/import',[ScheduleController::class,'importSchedule'])->name('schedules.import');
+    Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
 
 
     //chuyen khoa

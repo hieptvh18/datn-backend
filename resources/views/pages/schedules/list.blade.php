@@ -23,7 +23,15 @@
                                     {{-- <a href=""><button class="btn btn-primary">Reload</button></a> --}}
                                     <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
-                               
+                                <div class="btn-group">
+                                    <form action="{{ route('schedules.import') }}" enctype="multipart/form-data"
+                                        method="post">
+                                        @csrf
+                                        <input type="file" class="form-control" name="file" id="">
+                                        <button class="btn btn-default">
+                                            <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
+                                    </form>
+                                </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
 
@@ -33,9 +41,18 @@
                                             placeholder="Search" id="demo-input-search2">
                                     </form>
                                 </div>
+                                <div class="form-group">
+                                    <form action="{{ route('schedules.export') }}" method="post">
+                                        @csrf
+                                        <input type="date" name="date" autocomplete="off" class="form-control">
+                                        <button class="btn btn-default">
+                                            <i class="demo-pli-download-window icon-lg"></i></button>
+                                        {{-- class="demo-pli-download-from-cloud icon-lg"></i></button> --}}
+                                    </form>
+                                </div>
                                 <div class="btn-group">
-                                    <button class="btn btn-default"><i
-                                            class="demo-pli-download-from-cloud icon-lg"></i></button>
+                                    {{-- <button class="btn btn-default"><i
+                                            class="demo-pli-download-from-cloud icon-lg"></i></button> --}}
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-default btn-active-primary dropdown-toggle"
                                             data-toggle="dropdown">
@@ -64,7 +81,7 @@
                                             <a href=""><button class="btn btn-primary">Lọc</button></a>
                                         </div>
                                     </div>
-                                    
+
                                 </div>
                             </form>
                     </div>
