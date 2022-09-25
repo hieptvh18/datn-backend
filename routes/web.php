@@ -10,7 +10,7 @@ use App\Http\Controllers\Backend\Specialist\SpecialistController;
 use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
-use App\Http\Controllers\Equipments\EquipmentsController;
+use App\Http\Controllers\Backend\Equipments\EquipmentsController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
