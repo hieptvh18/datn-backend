@@ -36,6 +36,7 @@
                 <div class="form-group">
                     <label for="" class="control-label">Thuộc dịch vụ:
                         <select class="form-select" name="parent_id" aria-label="Default select example">
+                            <option value="">Không thuộc dịch vụ cha</option>
                             @foreach ($parentServices as $parent)
                                 <option value="{{ $parent->id }}" {{ $service->parent_id === $parent->id ? 'selected' : '' }}>
                                     {{ $parent->service_name }}</option>

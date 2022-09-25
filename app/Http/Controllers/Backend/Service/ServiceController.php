@@ -5,13 +5,16 @@ namespace App\Http\Controllers\Backend\Service;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
     public function index()
     {
-        $service = Service::all();
-        return \view('pages.service.list',\compact('service',));
+        $service = Service::sortable()->orderby('id', 'desc')->paginate(15);
+        $parentServices = Service::where('parent_id', \null)->get();
+        return \view('pages.service.list',\compact('service','parentServices'));
     }
 
     public function create()
@@ -70,5 +73,31 @@ class ServiceController extends Controller
     {
         $service->delete();
         return \redirect()->back()->with(['message'=>'Xóa dịch vụ thành công!']);;
+    }
+    public function multiDelete(Request $request)
+    {
+        Service::whereIn('id', $request->get('selected'))->delete();
+
+        return response("Selected post(s) deleted successfully.", 200);
+    }
+
+    public function search (){
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+        $parentServices = Service::where('parent_id', \null)->get();
+        try {
+            if($search_text == null){
+             return redirect()->route('service.index');
+            }else {
+            $service=Service::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('service_name','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.service.list', compact('service','parentServices'));
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 }

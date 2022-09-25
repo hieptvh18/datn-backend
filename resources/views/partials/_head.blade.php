@@ -1,8 +1,8 @@
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
-<title>@yield('page-title')</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+	<title>@yield('page-title')</title>
 
 
 <!--STYLESHEET-->
@@ -22,17 +22,6 @@
 
 <!--Nifty Premium Icon [ DEMONSTRATION ]-->
 <link href="{{ asset('assets/css/demo/nifty-demo-icons.min.css') }}" rel="stylesheet">
-
-
-<!--=================================================-->
-
-<!--Pace - Page Load Progress Par [OPTIONAL]-->
-<link href="{{ asset('assets/plugins/pace/pace.min.css') }}" rel="stylesheet">
-<script src="{{ asset('assets/plugins/pace/pace.min.js') }}"></script>
-
-
-<!--Demo [ DEMONSTRATION ]-->
-<link href="{{ asset('assets/css/demo/nifty-demo.min.css') }}" rel="stylesheet">
 
 {{-- ==== schedule --}}
 <!--Pace - Page Load Progress Par [OPTIONAL]-->
