@@ -56,27 +56,15 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>#</th>
-                                    <th>Họ tên</th>
-                                    <th>Năm sinh</th>
-                                    <th>Giới tính</th>
-                                    <th>Điện thoại</th>
-                                    <th>Email</th>
-                                    <th>CMND</th>
-                                    <th>Nội dung</th>
-                                    <th>Trạng thái</th>
-                                    <th>Ngày đặt</th>
-                                    <th class="text-center">Action</th>
                                     <th>@sortablelink('id')</th>
                                     <th>@sortablelink('fullname', 'Họ và tên')</th>
                                     <th>@sortablelink('birthday', 'Ngày sinh')</th>
                                     <th>@sortablelink('gender', 'Giới tính')</th>
                                     <th>@sortablelink('phone', 'SĐT')</th>
                                     <th>@sortablelink('email', 'Email')</th>
-                                    <th>@sortablelink('address', 'Địa chỉ')</th>
                                     <th>@sortablelink('cmnd', 'CMND')</th>
-                                    <th>@sortablelink('content', 'Nội dung')</th>
                                     <th>@sortablelink('date', 'Ngày đặt lịch')</th>
+                                    <th>Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -98,7 +86,7 @@
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->cmnd }}</td>
-                                        <td>{{ substr($item->content, 30) }}...</td>
+                                        <td>{{ $item->date }}</td>
                                         <td>
                                             @if ($item->status == 0)
                                                 <span class="label label-purple"> Chờ xác nhận</span>
@@ -108,18 +96,10 @@
                                                 <span class="label label-danger"> Đã hủy lịch</span>
                                             @endif
                                         </td>
-                                        <td>{{ $item->gender ? 'Nam' : 'Nữ' }}</td>
-                                        <td>{{ $item->phone }}</td>
-                                        <td>{{ $item->email }}</td>
-                                        <td>{{ $item->address }}</td>
-                                        <td>{{ $item->cmnd }}</td>
-                                        <td>{{ $item->content }}</td>
-                                        <td>{{ $item->date }}</td>
                                         <td class="text-center">
                                             @can('room-edit')
                                                 <a href="{{ route('schedules.edit', $item->id) }}"
                                                     class="label label-table label-success">Chi tiết</a>
-                                                    class="label label-table label-success">Edit</a>
                                             @endcan
                                             @can('room-delete')
                                                 <form id="deleteForm{{ $item->id }}"
