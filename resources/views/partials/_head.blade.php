@@ -23,13 +23,6 @@
 <!--Nifty Premium Icon [ DEMONSTRATION ]-->
 <link href="{{ asset('assets/css/demo/nifty-demo-icons.min.css') }}" rel="stylesheet">
 
-
-<!--=================================================-->
-
-<!--Pace - Page Load Progress Par [OPTIONAL]-->
-<link href="{{ asset('assets/plugins/pace/pace.min.css') }}" rel="stylesheet">
-<script src="{{ asset('assets/plugins/pace/pace.min.js') }}"></script>
-
 {{-- ==== schedule --}}
 <!--Pace - Page Load Progress Par [OPTIONAL]-->
 <link href="{{asset('assets/plugins/pace/pace.min.css')}}" rel="stylesheet">
