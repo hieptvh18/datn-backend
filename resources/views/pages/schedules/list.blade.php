@@ -20,9 +20,10 @@
                                     <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 @endcan
                                 <div class="btn-group">
-                                    <a href=""><button class="btn btn-primary">Reload</button></a>
+                                    {{-- <a href=""><button class="btn btn-primary">Reload</button></a> --}}
                                     <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
+                               
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
 
@@ -51,6 +52,21 @@
                                 </div>
                             </div>
                         </div>
+                            <form action="" method="GET" class="">
+                                <div class="row" >
+                                    <div id="demo-dp-range" class="col-sm-6" style="display: flex">
+                                        <div class="input-daterange input-group" id="datepicker">
+                                            <input value="{{isset(request()->start) ? request()->start : ''}}" type="text" class="form-control" name="start" placeholder="Ngày bắt đầu"/>
+                                            <span class="input-group-addon">to</span>
+                                            <input value="{{isset(request()->end) ? request()->end : ''}}" type="text" placeholder="Ngày kết thúc" class="form-control" name="end" />
+                                        </div>
+                                        <div class="btn-group col-sm-8">
+                                            <a href=""><button class="btn btn-primary">Lọc</button></a>
+                                        </div>
+                                    </div>
+                                    
+                                </div>
+                            </form>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -88,13 +104,11 @@
                                         <td>{{ $item->cmnd }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td>
-                                            @if ($item->status == 0)
-                                                <span class="label label-purple"> Chờ xác nhận</span>
-                                            @elseif($item->status == 1)
-                                                <span class="label label-info"> Đã xác nhận</span>
-                                            @else
-                                                <span class="label label-danger"> Đã hủy lịch</span>
-                                            @endif
+                                            <select class="selectpicker">
+                                                <option value="0" {{$item->status == 0 ? 'selected' : ''}}>Chờ xác nhận</option>
+                                                <option value="1" {{$item->status == 1 ? 'selected' : ''}}>Đã xác nhận</option>
+                                                <option value="2" {{$item->status == 2 ? 'selected' : ''}}>Đã hủy</option>
+                                            </select>
                                         </td>
                                         <td class="text-center">
                                             @can('room-edit')
@@ -130,4 +144,14 @@
     </div>
     </div>
 
+@endsection
+@section('page-js')
+<script>
+    $(document).ready(function(){
+        $('#datepicker').datepicker();
+        // $('#datetimepicker2').datetimepicker({
+        //          locale: 'ru'
+        //      });
+    })
+</script>
 @endsection
