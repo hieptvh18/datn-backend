@@ -14,9 +14,25 @@ use Throwable;
 class ScheduleController extends Controller
 {
     //list
-    public function index()
+    public function index(Request $request)
     {
-        $listSchedules = Schedule::sortable()->paginate(15);
+        try{
+            $listSchedules = Schedule::sortable();
+            // dd($listSchedules->toSql());
+            if(isset($request->start) ){
+                $startDate = date('Y-m-d',strtotime($request->start));
+                $endDate = isset($request->end) ? date('Y-m-d',strtotime($request->end)) : $startDate;
+                $listSchedules = $listSchedules->whereBetween('date',[$startDate,$endDate]);
+            }
+    
+            $listSchedules = $listSchedules->paginate(15);
+
+        }catch(Throwable $e){
+            dd($e->getMessage());
+            report($e->getMessage());
+            return redirect()->route('schedules.index')->with('error','Có lỗi xảy ra, vui lòng thử lại!');
+        }
+
         return view('pages.schedules.list', compact('listSchedules'));
     }
 
@@ -96,6 +112,11 @@ class ScheduleController extends Controller
        } catch (\Throwable $th) {
             return $th;
        }
+    }
+
+    // filter data range
+    public function filterDateRange($startDate , $endDate){
+
     }
 
 }

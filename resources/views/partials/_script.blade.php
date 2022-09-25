@@ -9,7 +9,9 @@
 <!--NiftyJS [ RECOMMENDED ]-->
 <script src="{{ asset('assets/js/nifty.min.js') }}"></script>
 
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"
+    integrity="sha512-uto9mlQzrs59VwILcLiRYeLKPPbS/bT71da/OEBYEwcdNUk8jYIy+D176RYoop1Da+f9mvkYrmj5MCLZWEtQuA=="
+    crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
 <!--=================================================-->
@@ -38,6 +40,41 @@
 
 {{-- alert message --}}
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+{{-- ============= schedule --}}
+ <!--Switchery [ OPTIONAL ]-->
+ <script src="{{asset('assets/plugins/switchery/switchery.min.js')}}"></script>
+
+
+ <!--Bootstrap Select [ OPTIONAL ]-->
+ <script src="{{asset('assets/plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
+
+
+ <!--Bootstrap Tags Input [ OPTIONAL ]-->
+ <script src="{{asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
+
+
+ <!--Chosen [ OPTIONAL ]-->
+ <script src="{{asset('assets/plugins/chosen/chosen.jquery.min.js')}}"></script>
+
+
+ <!--noUiSlider [ OPTIONAL ]-->
+ <script src="{{asset('assets/plugins/noUiSlider/nouislider.min.js')}}"></script>
+
+
+ <!--Select2 [ OPTIONAL ]-->
+ <script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+
+<!--Bootstrap Timepicker [ OPTIONAL ]-->
+<script src="{{asset('assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+
+
+<!--Bootstrap Datepicker [ OPTIONAL ]-->
+<script src="{{asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+
+<!--Form Component [ SAMPLE ]-->
+<script src="{{asset('assets/js/demo/form-component.js')}}"></script>
+
 <script>
     // alert success
     @if (session('message'))
