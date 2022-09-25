@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
 use App\Http\Controllers\Backend\Service\ServiceController;
+use App\Models\Service;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -59,6 +60,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     //service
     Route::resource('service', ServiceController::class)->except('show');
+    Route::post('service/deleteSelected',[ServiceController::class,'multiDelete'])->name('service.deleteSelected');
+    Route::get('service/search', [ServiceController::class, 'search'])->name('service.search');
 
     // permissions
     Route::middleware('can:permission-list')->get('/permissions', [PermissionController::class, 'index'])->name('permissions.index');
