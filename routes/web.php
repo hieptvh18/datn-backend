@@ -12,8 +12,6 @@ use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
 use App\Http\Controllers\Backend\Service\ServiceController;
-use App\Models\Service;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
