@@ -7,15 +7,12 @@ use App\Http\Requests\SpecialistRequest;
 use App\Models\Specialist;
 use App\Models\SpecialistGallery;
 use Exception;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Log;
 
 class SpecialistController extends Controller
 {
     public function index()
     {
-        $specialists = Specialist::paginate(15);
-
+        $specialists = Specialist::sortable()->orderby('id', 'desc')->paginate(15);
         return view('pages.specialist.list', compact('specialists'));
     }
 
@@ -115,4 +112,28 @@ class SpecialistController extends Controller
             return redirect()->back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
     }
+
+    // search
+    public function search (){
+        $key = $_GET['key'];
+        $search_text = trim($key);
+
+        try {
+            if($search_text == null){
+             return redirect()->route('specialist.index');
+            }else {
+            $specialists=Specialist::sortable()->where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('specialist_name','LIKE', '%'.$search_text.'%')
+            ->orwhere('function','LIKE', '%'.$search_text.'%')
+            ->orwhere('description','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.specialist.list', compact('specialists'));
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
+        }
+    }
+
 }

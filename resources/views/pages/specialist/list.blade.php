@@ -29,8 +29,10 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search"
+                                    <form action="{{ route('specialist.search') }}" method="get">
+                                    <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
                                         id="demo-input-search2">
+                                    </form>
                                 </div>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i
@@ -64,9 +66,9 @@
                                     <th>
                                         <input type="checkbox" name="" id="">
                                     </th>
-                                    <th>ID</th>
-                                    <th>Tên chuyên khoa</th>
-                                    <th>Chức năng</th>
+                                    <th>@sortablelink('id', 'ID')</th>
+                                    <th>@sortablelink('specialist_name', 'Tên chuyên khoa')</th>
+                                    <th>@sortablelink('function', 'Chức năng')</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
