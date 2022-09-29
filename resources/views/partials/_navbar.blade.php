@@ -109,46 +109,6 @@
                             </a>
                         </li>
 
-                        <!--Menu list item-->
-                        <li>
-                            <a href="#">
-                                <i class="demo-pli-split-vertical-2"></i>
-                                <span class="menu-title">Layouts</span>
-                                <i class="arrow"></i>
-                            </a>
-
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="layouts-collapsed-navigation.html">Collapsed Navigation</a>
-                                </li>
-                                <li><a href="layouts-offcanvas-navigation.html">Off-Canvas Navigation</a>
-                                </li>
-                                <li><a href="layouts-offcanvas-slide-in-navigation.html">Slide-in
-                                        Navigation</a></li>
-                                <li><a href="layouts-offcanvas-revealing-navigation.html">Revealing
-                                        Navigation</a></li>
-                                <li class="list-divider"></li>
-                                <li><a href="layouts-aside-right-side.html">Aside on the right side</a></li>
-                                <li><a href="layouts-aside-left-side.html">Aside on the left side</a></li>
-                                <li><a href="layouts-aside-dark-theme.html">Dark version of aside</a></li>
-                                <li class="list-divider"></li>
-                                <li><a href="layouts-fixed-navbar.html">Fixed Navbar</a></li>
-                                <li><a href="layouts-fixed-footer.html">Fixed Footer</a></li>
-
-                            </ul>
-                        </li>
-
-                        <!--Menu list item-->
-                        <li>
-                            <a href="widgets.html">
-                                <i class="demo-pli-gear"></i>
-                                <span class="menu-title">
-                                    Widgets
-                                    <span class="pull-right badge badge-warning">24</span>
-                                </span>
-                            </a>
-                        </li>
-
                         <li class="list-divider"></li>
 
                         <!--Category name-->
@@ -299,6 +259,34 @@
                             <ul class="collapse">
                                 <li><a href="{{route('service.index')}}">Danh sách dịch vụ</a></li>
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Sản phẩm</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('product.index')}}">Sản phẩm</a></li>
+                                <li><a href="{{route('product-type.index')}}">Loại sản phẩm</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Đơn hàng</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('order.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('order.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
 
