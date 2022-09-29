@@ -4,9 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
-use Exception;
 use Illuminate\Http\Request;
 use Throwable;
+use Carbon\Carbon;
+
 
 class ScheduleController extends Controller
 {
@@ -14,8 +15,7 @@ class ScheduleController extends Controller
     public function add(Request $request)
     {
         try {
-            if ($this->validateBooking($request->phone, $request->date)) {
-
+            if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
                 // convert date
@@ -52,11 +52,13 @@ class ScheduleController extends Controller
         // n booking
         if ($scheduleExist) {
             $time = 86400000; // 1 day -> miligiay
-            $schedule = Schedule::select('created_at')->orderByDesc('created_at')
+            $schedule = Schedule::select('created_at')
+                ->where('phone',$phone)
+                ->orderByDesc('created_at')
                 ->limit(1)
                 ->first();
-            // khoang tg
-            $period = strtotime($date) - strtotime($schedule);
+                
+            $period = strtotime($date) - strtotime($schedule->created_at);
 
             if ($period <= $time) {
                 return false;
