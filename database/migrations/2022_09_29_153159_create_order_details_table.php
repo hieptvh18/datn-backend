@@ -17,11 +17,11 @@ return new class extends Migration
             $table->id();
             $table->foreignId('order_id');
             $table->foreign('order_id')->references('id')->on('orders')->onDelete('cascade');
-            $table->string('product_name')->nullable()->comment('ng dung mua nhung san pham nao');
-            $table->integer('product_price')->nullable();
-            $table->string('product_image')->nullable();
-            $table->string('service_name')->comment('Nguoi dung nhung dich vu nao');
-            $table->integer('service_price');
+            $table->string('product_name',255);
+            $table->string('product_price',255);
+            $table->string('product_image',255)->nullable();
+            $table->string('service_name',255)->nullable();
+            $table->string('service_price',255)->nullable();
             $table->timestamps();
         });
     }
