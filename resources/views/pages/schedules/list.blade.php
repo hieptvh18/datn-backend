@@ -181,7 +181,7 @@
     $(document).ready(function(){
         $('#datepicker').datepicker();
         // $('#datetimepicker2').datetimepicker({
-        //          locale: 'ru'
+        //          locale: 'ruu'
         //      });
     })
 </script>
