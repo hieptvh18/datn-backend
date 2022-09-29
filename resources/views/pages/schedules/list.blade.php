@@ -144,7 +144,7 @@
                                             @endcan
                                             @if ($item->status)
                                             <a  style="margin-bottom: 5px"  href="{{ route('patient.show', $item->id) }}"
-                                                class="label label-table label-info">Thêm bệnh án</a>
+                                                class="label label-table label-info">Hồ sơ bệnh án</a>
                                             @endif
                                             @can('room-delete')
                                                 <form id="deleteForm{{ $item->id }}"
