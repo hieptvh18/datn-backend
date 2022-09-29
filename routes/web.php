@@ -56,6 +56,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::put('specialist/edit/{id}',[SpecialistController::class,'update'])->name('specialist.update');
     Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
     Route::get('specialist/searching',[SpecialistController::class,'search'])->name('specialist.search');
+    Route::get('specialist/addPatient',[SpecialistController::class,'addPatient'])->name('specialist.patient');
 
     // benh an
     Route::get('patient/searching',[PatientController::class,'search'])->name('patient.search');

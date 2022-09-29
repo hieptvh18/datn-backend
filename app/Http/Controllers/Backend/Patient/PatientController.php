@@ -8,6 +8,8 @@ use App\Http\Requests\ImportRequset;
 use App\Http\Requests\PatientRequest;
 use App\Imports\ImportPatient;
 use App\Models\Patient;
+use App\Models\Schedule;
+use App\Models\Service;
 use Exception;
 use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
@@ -33,6 +35,7 @@ class PatientController extends Controller
      */
     public function create()
     {
+
         $pageTitle = 'Thêm mới bệnh án';
         return view('pages.patients.add', compact('pageTitle'));
     }
@@ -45,6 +48,8 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
+
+        dd($request->all());
         try {
             $patient = new Patient();
             $patient->fill($request->all());
@@ -65,7 +70,10 @@ class PatientController extends Controller
      */
     public function show($id)
     {
-        //
+        $pageTitle = 'Thêm mới bệnh án';
+        $services = Service::select('id', 'service_name')->get();
+        $patient = Schedule::find($id);
+        return view('pages.patients.add', compact('pageTitle', 'patient', 'services'));
     }
 
     /**

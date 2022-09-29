@@ -17,7 +17,7 @@
                     <label class="col-sm-3 control-label" for="demo-hor-name">Họ tên(*)</label>
                     <div class="col-sm-9">
                         <input type="text" placeholder="Tên bệnh nhân" id="demo-hor-name" name="customer_name"
-                            class="form-control" value="{{ old('customer_name') }}">
+                            class="form-control" value="{{ $patient->fullname }}">
                         @error('customer_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Điện thoại(*)</label>
                     <div class="col-sm-9">
-                        <input type="tel" name="phone" placeholder="Số điện thoại" id="phone" value="{{old('phone')}}" class="form-control">
+                        <input type="tel" name="phone" placeholder="Số điện thoại" id="phone" value="{{ $patient->phone }}" class="form-control">
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -35,7 +35,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Năm sinh(*)</label>
                     <div class="col-sm-9">
-                        <input type="date" value="{{old('birthday')}}" name="birthday" id="birthday" class="form-control">
+                        <input type="date" value="{{$patient->birthday}}" name="birthday" id="birthday" class="form-control">
                         @error('birthday')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">CMND/CCCD(*)</label>
                     <div class="col-sm-9">
-                        <input type="number" name="cmnd" id="cmnd" class="form-control" value="{{old('cmnd')}}" placeholder="Số chứng minh nhân dân/Căn cước công dân">
+                        <input type="number" name="cmnd" id="cmnd" class="form-control" value="{{$patient->cmnd}}" placeholder="Số chứng minh nhân dân/Căn cước công dân">
                         @error('cmnd')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -61,6 +61,17 @@
                     <div class="col-md-9">
                         <textarea name="address" id="address" cols="30" placeholder="Quê quán" rows="5" class="form-control">{{ old('address') }}</textarea>
                     </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label">Dịch vụ</label>
+                    <div class="col-md-9" style="margin-top: 5px">
+                        @foreach  ($services as $service)
+                        <input type="checkbox" name="service[]" value="{{$service->id}}"> {{$service->service_name}} &nbsp;
+                        @endforeach
+                    </div>
+                    @error('status')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
