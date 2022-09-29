@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Patient;
 
 use App\Exports\ExportPatient;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportRequset;
 use App\Http\Requests\PatientRequest;
 use App\Imports\ImportPatient;
 use App\Models\Patient;
@@ -22,7 +23,7 @@ class PatientController extends Controller
     {
         $pageTitle = 'Hồ sơ bệnh án';
         $patients = Patient::paginate(20);
-        return view('pages.patients.list',compact('patients','pageTitle'));
+        return view('pages.patients.list', compact('patients', 'pageTitle'));
     }
 
     /**
@@ -33,7 +34,7 @@ class PatientController extends Controller
     public function create()
     {
         $pageTitle = 'Thêm mới bệnh án';
-        return view('pages.patients.add',compact('pageTitle'));
+        return view('pages.patients.add', compact('pageTitle'));
     }
 
     /**
@@ -44,15 +45,15 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
-        try{
+        try {
             $patient = new Patient();
             $patient->fill($request->all());
             $patient->save();
-            return redirect()->back()->with('message','Thêm thành công!');
-        }catch(\Exception $e){
+            return redirect()->back()->with('message', 'Thêm thành công!');
+        } catch (\Exception $e) {
             report($e->getMessage());
 
-            return redirect()->back()->with('exception','Đã xảy ra lỗi, vui lòng thử lại!');
+            return redirect()->back()->with('exception', 'Đã xảy ra lỗi, vui lòng thử lại!');
         }
     }
 
@@ -75,12 +76,12 @@ class PatientController extends Controller
      */
     public function edit($id)
     {
-        if(Patient::find($id)){
+        if (Patient::find($id)) {
             $patient = Patient::find($id);
             $pageTitle = 'Cập nhật bệnh án';
-            return view('pages.patients.edit',compact('pageTitle','patient'));
+            return view('pages.patients.edit', compact('pageTitle', 'patient'));
         }
-        return redirect()->back()->with('error','Không tìm thấy hồ sơ!');
+        return redirect()->back()->with('error', 'Không tìm thấy hồ sơ!');
     }
 
     /**
@@ -92,14 +93,14 @@ class PatientController extends Controller
      */
     public function update(PatientRequest $request, $id)
     {
-        try{
+        try {
             $patient = Patient::find($id);
             $patient->fill($request->all());
             $patient->save();
-            return redirect()->back()->with('message','Cập nhật thành công!');
-        }catch(\Exception $e){
+            return redirect()->back()->with('message', 'Cập nhật thành công!');
+        } catch (\Exception $e) {
             report($e->getMessage());
-            return redirect()->back()->with('exception','Đã xảy ra lỗi, vui lòng thử lại!');
+            return redirect()->back()->with('exception', 'Đã xảy ra lỗi, vui lòng thử lại!');
         }
     }
 
@@ -111,24 +112,35 @@ class PatientController extends Controller
      */
     public function destroy($id)
     {
-        try{
-            if(Patient::find($id)){
+        try {
+            if (Patient::find($id)) {
                 Patient::destroy($id);
-                return redirect()->back()->with('message','Xóa thành công!');
+                return redirect()->back()->with('message', 'Xóa thành công!');
             }
-        }catch(Exception $e){
+        } catch (Exception $e) {
             report($e->getMessage());
-            return redirect()->back()->with('error','Có lỗi xảy ra! Vui lòng thử lại!');
+            return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
         }
     }
 
-    public function importPatient(Request $request){
-        // dd('a');
-        Excel::import(new ImportPatient, $request->file('file')->store('files'));
-        return redirect()->back()->with(['message'=>"Nhập dữ liệu thành công!"]);
+    public function importPatient(ImportRequset $request)
+    {
+        try {
+            Excel::import(new ImportPatient, $request->file('file')->store('files'));
+            return redirect()->back()->with(['message' => "Nhập dữ liệu thành công!"]);
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+        }
     }
 
-    public function exportPatient (Request $request){
-        return Excel::download(new ExportPatient($request->date), 'patient.xlsx');
+    public function exportPatient(Request $request)
+    {
+        try {
+            return Excel::download(new ExportPatient($request->date), 'patient.xlsx');
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+        }
     }
 }
