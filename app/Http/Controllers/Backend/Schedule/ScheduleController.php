@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Schedule;
 
 use App\Exports\ExportSchedule;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\ImportRequset;
 use App\Http\Requests\ScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Imports\ImportSchedule;
@@ -113,7 +114,8 @@ class ScheduleController extends Controller
         }
         return view('pages.schedules.list', compact('listSchedules'));
        } catch (\Throwable $th) {
-            return $th;
+        report($th->getMessage());
+        return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
        }
     }
 
@@ -123,14 +125,24 @@ class ScheduleController extends Controller
     }
 
     // import
-    public function importSchedule (Request $request){
+    public function importSchedule (ImportRequset $request){
+      try {
         Excel::import(new ImportSchedule, $request->file('file')->store('files'));
         return redirect()->back()->with(['message'=>'Nhập dữ liệu thành công!']);
+      } catch (\Throwable $th) {
+        report($th->getMessage());
+        return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+      }
     }
 
     // export
     public function exportSchedule (Request $request){
-        return Excel::download(new ExportSchedule($request->date), 'schedule.xlsx');
+        try {
+            return Excel::download(new ExportSchedule($request->date), 'schedule.xlsx');
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+        }
     }
 
 }
