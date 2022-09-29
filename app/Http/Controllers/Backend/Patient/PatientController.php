@@ -22,7 +22,7 @@ class PatientController extends Controller
     public function index()
     {
         $pageTitle = 'Hồ sơ bệnh án';
-        $patients = Patient::paginate(20);
+        $patients = Patient::sortable()->paginate(20);
         return view('pages.patients.list', compact('patients', 'pageTitle'));
     }
 
@@ -141,6 +141,32 @@ class PatientController extends Controller
         } catch (\Throwable $th) {
             report($th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+        }
+    }
+
+    // search
+    public function search (Request $request){
+        $pageTitle = 'Hồ sơ bệnh án';
+        $key = $_GET['key'];
+        $search_text = trim($key);
+        try {
+            if($search_text == null){
+             return redirect()->route('patient.index');
+            }else {
+            $patients=Patient::sortable()->where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('customer_name','LIKE', '%'.$search_text.'%')
+            ->orwhere('phone','LIKE', '%'.$search_text.'%')
+            ->orwhere('description','LIKE', '%'.$search_text.'%')
+            ->orwhere('birthday','LIKE', '%'.$search_text.'%')
+            ->orwhere('cmnd','LIKE', '%'.$search_text.'%')
+            ->orwhere('address','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.patients.list', compact('patients', 'pageTitle'));
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
     }
 }

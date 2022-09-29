@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
 use App\Http\Controllers\Backend\Service\ServiceController;
+use App\Models\Patient;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -57,6 +58,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('specialist/searching',[SpecialistController::class,'search'])->name('specialist.search');
 
     // benh an
+    Route::get('patient/searching',[PatientController::class,'search'])->name('patient.search');
     Route::resource('patient',PatientController::class);
     Route::post('patient/import',[PatientController::class, 'importPatient'])->name('patient.importPatient');
     Route::post('patient/export',[PatientController::class, 'exportPatient'])->name('patient.exportPatient');

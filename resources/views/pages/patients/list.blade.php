@@ -33,8 +33,10 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search"
+                                    <form action="{{ route('patient.search') }}" method="get">
+                                    <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
                                         id="demo-input-search2">
+                                    </form>
                                 </div>
                                 <div class="form-group">
                                     <form action="{{ route('patient.exportPatient') }}" method="post">
@@ -79,7 +81,7 @@
                                 </form>
                             </div>
                             <div style="width: 28%; text-align: right">
-                                <form action="{{ route('schedules.import') }}" enctype="multipart/form-data"
+                                <form action="{{ route('patient.importPatient') }}" enctype="multipart/form-data"
                                     method="post">
                                     @csrf
                                     <input type="file" class="form-control" name="file" id="">
@@ -104,12 +106,12 @@
                                     <th>
                                         <input type="checkbox" name="" id="">
                                     </th>
-                                    <th class="text-center">ID</th>
-                                    <th class="text-center">Họ tên</th>
-                                    <th class="text-center">Số điện thoại</th>
-                                    <th class="text-center">Năm sinh</th>
-                                    <th class="text-center">CMND/CCCD</th>
-                                    <th class="text-center">Mô tả ngắn</th>
+                                    <th class="text-center">@sortablelink('id', 'ID')</th>
+                                    <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
+                                    <th class="text-center">@sortablelink('phone', 'Số điện thoại')</th>
+                                    <th class="text-center">@sortablelink('birthday', 'Năm sinh')</th>
+                                    <th class="text-center">@sortablelink('cmnd', 'CMND/CCCD')</th>
+                                    <th class="text-center">@sortablelink('description', 'Mô tả ngắn')</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
