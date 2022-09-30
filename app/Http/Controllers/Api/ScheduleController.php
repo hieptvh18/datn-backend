@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Throwable;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Hash;
 
 class ScheduleController extends Controller
 {
@@ -22,16 +23,20 @@ class ScheduleController extends Controller
                 $schedule->date = date('Y-m-d', strtotime($request->date));
                 $schedule->save();
 
+                $user = $this->createUser($request->fullname, $request->email, $request->phone);
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Đặt thành công lịch khám!',
                     'data' => $schedule->toArray(),
+                    'user' => $user,
                 ], 200);
             }
             return response()->json([
                 'success' => false,
                 'message' => 'Bạn vừa đặt lịch các đây 1 ngày! vui lòng thử lại sau 24h!',
                 'data' => [],
+                'user' => [],
             ], 400);
         } catch (Throwable $tr) {
             report($tr->getMessage());
@@ -57,7 +62,7 @@ class ScheduleController extends Controller
                 ->orderByDesc('created_at')
                 ->limit(1)
                 ->first();
-                
+
             $period = strtotime($date) - strtotime($schedule->created_at);
 
             if ($period <= $time) {
@@ -65,5 +70,18 @@ class ScheduleController extends Controller
             }
         }
         return true;
+    }
+
+    public function createUser($name, $email, $phone){
+        $user = User::select('id', 'name', 'email', 'phone', 'password')->where('phone', $phone)->first();
+        if(!$user){
+        $user = new User();
+        $user->name = $name;
+        $user->email = $email;
+        $user->phone = $phone;
+        $user->password = Hash::make('123456789');
+        $user->save();
+        }
+        return $user;
     }
 }
