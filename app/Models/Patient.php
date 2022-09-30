@@ -12,8 +12,13 @@ class Patient extends Model
 
     protected $table = 'patients';
 
-    protected $fillable = ['customer_name','phone','description','address','birthday','cmnd','status'];
+    protected $fillable = ['customer_name','phone','description','address','birthday','cmnd','schedule_id', 'service_id', 'status'];
     public $sortable = ['id','customer_name','phone','description','birthday','cmnd'];
 
-
+    public function patient_services () {
+        return $this->belongsToMany(Patient::class, 'patient_services', 'patient_id', 'service_id');
+    }
+    public function service_patients () {
+        return $this->belongsToMany(Service::class, 'patient_services', 'patient_id', 'service_id');
+    }
 }

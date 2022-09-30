@@ -25,4 +25,10 @@ class Service extends Model
     public function subService(){
         return $this->hasMany(Service::class, 'parent_id');
     }
+
+    public function patient_services () {
+        return $this->belongsToMany(Service::class, 'patient_services', 'patient_id', 'service_id');
+    }
 }
+
+

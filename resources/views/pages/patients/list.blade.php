@@ -14,9 +14,9 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                <a href="{{ route('patient.create') }}">
+                                {{-- <a href="{{ route('patient.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
-                                </a>
+                                </a> --}}
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
 
                                 <div class="btn-group">

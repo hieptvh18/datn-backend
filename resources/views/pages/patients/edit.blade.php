@@ -61,6 +61,23 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label">Dịch vụ</label>
+                    <div class="col-md-9" style="margin-top: 5px">
+                        @foreach  ($services as $service)
+                        <div>
+                            @foreach  ($service->subService as $subService)
+                            <input type="checkbox" name="service[]" {{$patient->service_patients->contains('id', $service->id)?"checked":""}} value="{{$service->id}}"> {{$service->service_name}}: &nbsp;
+
+                            <input type="checkbox" name="service[]" {{$patient->service_patients->contains('id', $subService->id)?"checked":""}} value="{{$subService->id}}"> {{$subService->service_name}} &nbsp;
+                            @endforeach
+                        </div>
+                        @endforeach
+                    </div>
+                    @error('status')
+                    <span class="text-danger">{{ $message }}</span>
+                @enderror
+                </div>
+                <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">
                         <select name="status" id="status" class="form-control">
                             <option value="" disabled selected>------Chọn trạng thái------</option>

@@ -16,6 +16,8 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-name">Họ tên(*)</label>
                     <div class="col-sm-9">
+                        <input type="hidden" name="schedule_id"
+                            class="form-control" value="{{ $patient->id }}">
                         <input type="text" placeholder="Tên bệnh nhân" id="demo-hor-name" name="customer_name"
                             class="form-control" value="{{ $patient->fullname }}">
                         @error('customer_name')
@@ -66,7 +68,13 @@
                     <label for="address" class="col-sm-3 control-label">Dịch vụ</label>
                     <div class="col-md-9" style="margin-top: 5px">
                         @foreach  ($services as $service)
-                        <input type="checkbox" name="service[]" value="{{$service->id}}"> {{$service->service_name}} &nbsp;
+                        <div>
+                            @foreach  ($service->subService as $subService)
+                            <input type="checkbox" name="service[]" value="{{$service->id}}"> {{$service->service_name}}: &nbsp;
+
+                            <input type="checkbox" name="service[]" value="{{$subService->id}}"> {{$subService->service_name}} &nbsp;
+                            @endforeach
+                        </div>
                         @endforeach
                     </div>
                     @error('status')

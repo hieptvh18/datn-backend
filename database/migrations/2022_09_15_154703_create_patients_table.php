@@ -21,6 +21,8 @@ return new class extends Migration
             $table->string('cmnd',20)->nullable()->comment('Chứng minh nd');
             $table->text('description')->comment('Mô tả chi tiết bệnh tình');
             $table->string('address')->nullable();
+            $table->foreignId('schedule_id');
+            $table->foreign('schedule_id')->references('id')->on('schedules');
             $table->tinyInteger('status')->default(1);
             $table->timestamps();
         });
