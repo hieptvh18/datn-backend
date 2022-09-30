@@ -16,14 +16,14 @@ class ScheduleController extends Controller
     public function add(Request $request)
     {
         try {
+            $user = $this->createUser($request->fullname, $request->email, $request->phone);
+            if($user !== false){
             if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
                 // convert date
                 $schedule->date = date('Y-m-d', strtotime($request->date));
                 $schedule->save();
-
-                $user = $this->createUser($request->fullname, $request->email, $request->phone);
 
                 return response()->json([
                     'success' => true,
@@ -38,6 +38,16 @@ class ScheduleController extends Controller
                 'data' => [],
                 'user' => [],
             ], 400);
+
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Email này đã tồn tại!',
+                'data' => [],
+                'user' => [],
+            ], 400);
+
         } catch (Throwable $tr) {
             report($tr->getMessage());
 
@@ -45,6 +55,7 @@ class ScheduleController extends Controller
                 'success' => false,
                 'message' => 'Đã xảy ra lỗi! ' . $tr->getMessage(),
                 'data' => [],
+                'user' => [],
             ], 400);
         }
     }
@@ -73,14 +84,23 @@ class ScheduleController extends Controller
     }
 
     public function createUser($name, $email, $phone){
-        $user = User::select('id', 'name', 'email', 'phone', 'password')->where('phone', $phone)->first();
-        if(!$user){
-        $user = new User();
-        $user->name = $name;
-        $user->email = $email;
-        $user->phone = $phone;
-        $user->password = Hash::make('123456789');
-        $user->save();
+        $userExits = User::select('id', 'name', 'email', 'phone', 'password')->where('phone', $phone)->first();
+        $emailExit = User::select('email')->where('email', $email)->first();
+
+        if($emailExit){
+           $user = false;
+        }
+        if($userExits){
+           $user = $userExits;
+        }
+        if(!$userExits && !$emailExit){
+        $newUser = new User();
+        $newUser->name = $name;
+        $newUser->email = $email;
+        $newUser->phone = $phone;
+        $newUser->password = Hash::make('123456789');
+        $newUser->save();
+        $user = $newUser;
         }
         return $user;
     }
