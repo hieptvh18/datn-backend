@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('page-title', 'Loại sản phẩm')
+@section('page-title', 'Sản phẩm')
 @section('page-content')
     <div class="row">
         <div class="col-xs-12">
@@ -17,7 +17,7 @@
                                 <a 
                                 {{-- data-parent="#demo-acc-info-outline" data-toggle="collapse"
                                     href="#demo-acd-info-outline-2" --}}
-                                     href="{{ route('product-type.create') }}">
+                                     href="{{ route('product.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
@@ -71,31 +71,33 @@
                                         <input type="checkbox" name="" id="">
                                     </th>
                                     <th>ID</th>
-                                    <td>Tên loại</td>
+                                    <td>Tên</td>
+                                    <td>Giá</td>
+                                    <td>Loại sản phẩm</td>
                                     <td>Ảnh</td>
-                                    <td>Mô tả</td>
                                     <td>Hành động</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($productTypes as $type)
+                                @foreach ($products as $product)
                                     <tr class="text-center">
-                                        <td class="text-left"> <input type="checkbox" name="type_id[]" id="">
+                                        <td class="text-left"> <input type="checkbox" name="product_id[]" id="">
                                         </td>
-                                        <td>{{ $type->id }}</td>
-                                        <td>{{ $type->name }}</td>
-                                        <td><img src="{{ asset($type->image) }}" alt="" width="100px"></td>
-                                        <td>{{ substr($type->description, 50) }}...</td>
+                                        <td>{{ $product->id }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ number_format($product->price) }}</td>
+                                        <td>{{ $product->types->name }}</td>
+                                        <td><img src="{{ asset($product->image) }}" alt="" width="100px"></td>
                                         <td>
-                                            <form id="deleteForm{{ $type->id }}"
-                                                action="{{ route('product.destroy', $type->id) }}" method="post">
+                                            <form id="deleteForm{{ $product->id }}"
+                                                action="{{ route('product.destroy', $product->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
-                                            <button data-form="deleteForm{{ $type->id }}"
+                                            <button data-form="deleteForm{{ $product->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
-                                            <a href="{{ route('product.edit', $type->id) }}"
+                                            <a href="{{ route('product.edit', $product->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
@@ -107,7 +109,7 @@
                     </div>
                     <hr class="new-section-xs">
                     <div class="paginate">
-                        {{ $productTypes->links() }}
+                        {{ $products->links() }}
                     </div>
                 </div>
             </div>
