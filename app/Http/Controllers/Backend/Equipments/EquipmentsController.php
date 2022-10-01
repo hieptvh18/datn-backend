@@ -12,14 +12,14 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class EquipmentsController extends Controller
 {
-    
+
     public function index()
     {
-        $equipments = Equipment::paginate(15);
-        return view('pages.equipment.list', compact('equipments'))->with('i', (request()->input('page', 1) -1)*15);
+        $listEquipments = Equipment::paginate(15);
+        return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
     }
 
-    
+
     public function add()
     {
         $pageTitle = 'Thêm mới trang thiết bị';
@@ -78,5 +78,32 @@ class EquipmentsController extends Controller
 
         $equipment->save();
         return redirect()->route('equipment.index');
+    }
+
+    public function search() {
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+       try {
+        if ($search_text==null) {
+            return redirect()->route('equipment.index');
+        } else {
+            $listEquipments=Equipment::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('name','LIKE', '%'.$search_text.'%')
+            ->orwhere('price','LIKE', '%'.$search_text.'%')
+            ->orwhere('size','LIKE', '%'.$search_text.'%')
+            ->orwhere('short_desc','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+        return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
+       } catch (\Throwable $th) {
+        report($th->getMessage());
+        return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+       }
+    }
+
+    public function deleteMultiple (Request $request){
+       Equipment::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
     }
 }

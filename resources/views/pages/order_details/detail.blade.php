@@ -18,24 +18,24 @@
                         @endif
 
                             <div class="panel-body">
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label class="col-sm-2 control-label" for="demo-hor-name"><b>Họ tên:</b> </label>
 
                                         <span>{{$order->customer_name}}</span>
                                 </div>
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label class="col-sm-2 control-label" for="demo-hor-function"><b>Điện thoại:</b> </label>
                                     <span>{{$order->customer_phone}}</span>
                                 </div>
 
 
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label for="description" class="col-sm-2 control-label"><b>Mô tả:</b> </label>
 
                                         <span>{{$order->description}}</span>
 
                                 </div>
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label for="description" class="col-sm-2 control-label"><b>Thuốc:</b> </label>
 
                                         @foreach  ($products as $product)
@@ -45,23 +45,23 @@
                                         @endforeach
 
                                 </div>
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label for="address" class="col-sm-2 control-label"><b>Dịch vụ:</b> </label>
                                         @foreach  ($services as $service)
-                                        <div>
+                                        <div style="line-height: 23px">
                                            {{$service->service_name}}: &nbsp; <b>Giá: </b> {{number_format($service->price)}} VNĐ
                                         </div>
                                         @endforeach
 
                                 </div>
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label for="address" class="col-sm-2 control-label"><b>Tổng tiền:</b> </label>
 
                                       <span>{{number_format($total)}} VNĐ</span>
 
                                 </div>
 
-                                <div class="form-group">
+                                <div class="row form-group" style="margin-bottom: 15px">
                                     <label for="description" class="col-sm-2 control-label"><b>Phương thức thanh toán:</b> </label>
 
                                       <span>Tiền mặt</span>

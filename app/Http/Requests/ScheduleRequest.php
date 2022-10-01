@@ -24,11 +24,12 @@ class ScheduleRequest extends FormRequest
     public function rules()
     {
         return [
-            'fullname'=> "required|max:50",
+            'fullname'=> "required|max:50|alpha",
+            'fullname'=> ["regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/"],
             'phone'=>["required","min:10","max:11","unique:schedules", "regex:/^(84|0[2|3|5|7|8|9])+([0-9]{8,9})$\b/"],
             'gender'=>'required',
             'content'=>'required',
-            'date'=>'required'
+            'date'=>'required|after_or_equal:today'
         ];
     }
     public function messages()
@@ -36,7 +37,8 @@ class ScheduleRequest extends FormRequest
         return [
             'fullname.required'=> "Vui lòng nhập họ và tên!",
             'fullname.max'=> "Họ và tên tối đa 50 ký tự!",
-            'fullname.string'=> "Họ và tên phải là ký tự chữ!",
+            'fullname.alpha'=> "Họ và tên phải là ký tự chữ!",
+            'fullname.regex'=> "Định dạng họ và tên không hợp lệ!",
             'phone.required'=>"Vui lòng nhập số điện thoại!",
             'phone.numeric'=>"Số điện thoại phải là ký tự số!",
             'phone.min'=>"Số điện thoại tối thiểu 10 ký tự số!",
@@ -45,7 +47,9 @@ class ScheduleRequest extends FormRequest
             'phone.regex'=>"Số điện thoại không đúng định dạng!",
             'gender.required'=>'Vui lòng chọn giới tính!',
             'content.required'=>'Vui lòng nhập nội dung!',
-            'date.required'=>'Vui lòng chọn ngày đặt lịch!'
+            'date.required'=>'Vui lòng chọn ngày đặt lịch!',
+            'date.after_or_equal'=>'Ngày đặt lịch phải là ngày sau hoặc bằng ngày hôm nay!'
         ];
     }
 }
+///

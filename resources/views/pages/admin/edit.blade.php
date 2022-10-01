@@ -169,7 +169,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Ảnh</b></label>
-                            <input type="file" class="form-control" name="avatar" onchange="preview()" value="{{$admin->avatar}}"  autocomplete="avatar" autofocus>
+                            <input type="file" class="form-control" name="avatar" onchange="preview()"  autocomplete="avatar" autofocus>
                             <img src="" id="previewImage" width="120px" alt="">
                         </div>
                         @error('avatar')

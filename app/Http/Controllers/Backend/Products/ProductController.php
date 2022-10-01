@@ -139,4 +139,9 @@ class ProductController extends Controller
             return redirect()->back()->with('erorr','Có lỗi xảy ra! Vui lòng thử lại!');
         }
     }
+
+    public function deleteMultiple (Request $request){
+        Product::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
+    }
 }

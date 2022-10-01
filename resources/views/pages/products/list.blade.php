@@ -14,7 +14,7 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                <a 
+                                <a
                                 {{-- data-parent="#demo-acc-info-outline" data-toggle="collapse"
                                     href="#demo-acd-info-outline-2" --}}
                                      href="{{ route('product.create') }}">
@@ -23,12 +23,7 @@
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"
-                                        onclick="
-                                        if(confirm('Xóa item đã chọn?')){
-                                        }
-                                    "><i
-                                            class="demo-pli-trash icon-lg"></i></button>
+                                    <button class="btn btn-default" id="delete-multiple" data-route="{{ route('product.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
 
                             </div>
@@ -56,7 +51,7 @@
                         </div>
                         <!--Accordion content-->
                         <div class="panel-collapse collapse" id="demo-acd-info-outline-2">
-                            
+
                         </div>
                     </div>
 
@@ -64,11 +59,11 @@
                         @if (session('exception'))
                             <div class="alert alert-danger">{{ session('exception') }}</div>
                         @endif
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox" class="Parent" name="" id="">
                                     </th>
                                     <th>ID</th>
                                     <td>Tên</td>
@@ -81,7 +76,7 @@
                             <tbody>
                                 @foreach ($products as $product)
                                     <tr class="text-center">
-                                        <td class="text-left"> <input type="checkbox" name="product_id[]" id="">
+                                        <td class="text-left"> <input type="checkbox" class="Childrent" name="product_id[]" value="{{$product->id}}">
                                         </td>
                                         <td>{{ $product->id }}</td>
                                         <td>{{ $product->name }}</td>

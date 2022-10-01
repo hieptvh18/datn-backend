@@ -128,9 +128,7 @@
                     if (result.isConfirmed) {
                         $.ajax({
                             type: 'post',
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
+                            headers: {'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')},
                             url: button.data('route'),
                             data: {
                                 'selected': selected

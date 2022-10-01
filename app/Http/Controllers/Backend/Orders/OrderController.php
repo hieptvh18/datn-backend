@@ -33,8 +33,15 @@ class OrderController extends Controller
 
         $service_name = implode('|', $request->service_name);
         $service_price = implode('|', $request->service_price);
-        $product_name = implode('|', $request->product_name);
-        $product_price = implode('|', $request->product_price);
+
+        if($request->product_name == null && $request->price == null ){
+            $product_name = '';
+            $product_price = '';
+        }else{
+            $product_name = implode('|', $request->product_name);
+            $product_price = implode('|', $request->product_price);
+
+        }
 
         $test = new Order_detail();
         $test->order_id = $order->id;
