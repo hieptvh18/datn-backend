@@ -126,15 +126,15 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-    // product 
+    // product
     Route::resource('product',ProductController::class);
     Route::resource('product-type',ProductTypeController::class);
 
     //order
     Route::get('order',[OrderController::class,'index'])->name('order.index');
     Route::get('order/add',[OrderController::class,'add'])->name('order.add');
-    Route::post('order/save',[OrderController::class,'store'])->name('order.store');
-   
+    Route::post('order/save',[OrderController::class,'save'])->name('order.store');
+
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
     Route::get('order/detail/{id}',[OrderController::class,'detail'])->name('order.detail');
 
