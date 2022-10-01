@@ -41,7 +41,8 @@
 <script src="{{ asset('assets/js/checkbox.js') }}" defer></script>
 
 {{-- alert message --}}
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+{{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
+<script src="{{asset('assets/js/sweetalert2@11.js')}}"></script>
 
 {{-- ============= schedule --}}
  <!--Switchery [ OPTIONAL ]-->
