@@ -115,6 +115,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
     Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
     Route::get('schedules/searching',[EquipmentsController::class,'search'])->name('equipment.search');
+    Route::post('equipment/deleteMultiple',[EquipmentsController::class,'deleteMultiple'])->name('equipment.deleteMultiple');
 
 
     // Quản lý cấp bậc, chức vụ

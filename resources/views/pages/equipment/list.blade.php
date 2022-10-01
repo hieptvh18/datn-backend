@@ -18,15 +18,10 @@
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"
-                                        onclick="
-                                        if(confirm('Xóa item đã chọn?')){
-
-                                        }
-                                    "><i
-                                            class="demo-pli-trash icon-lg"></i></button>
+                                    <button class="btn btn-default" id="delete-multiple" data-route="{{ route('equipment.deleteMultiple') }}" ><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -53,11 +48,11 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox" class="Parent">
                                     </th>
                                     <th>STT</th>
                                     <th>Tên thiết bị</th>
@@ -69,7 +64,7 @@
                             <tbody>
                                 @foreach ($listEquipments as $equipment)
                                     <tr>
-                                        <td><input type="checkbox" name="" value=""></td>
+                                        <td><input  type="checkbox" class="Childrent"  name="equipment_id[]" value="{{$equipment->id}}"></td>
                                         <td><a href="#" class="btn-link">{{++$i}}</a></td>
                                         <td>{{ $equipment->name }}</td>
                                         <td>{{ number_format($equipment->price, 0, '', '.') }}<sup>₫</sup></td>
@@ -101,4 +96,7 @@
             </div>
         </div>
     </div>
+
 @endsection
+
+

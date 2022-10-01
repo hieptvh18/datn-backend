@@ -18,3 +18,43 @@ $(document).on('click', '.checkall', function() {
 function preview() {
     previewImage.src = URL.createObjectURL(event.target.files[0]);
 }
+
+
+$('#delete-multiple').on('click', function() {
+    var selected = [];
+    $('.Card .Childrent:checked').each(function() {
+        selected.push($(this).val());
+    });
+
+    Swal.fire({
+        icon: 'warning',
+        title: 'Bạn có muốn xóa những dữ liệu này không?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: $(this).data('route'),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "data": selected
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        window.location.reload()
+                    });
+                }
+            });
+        }
+    });
+});

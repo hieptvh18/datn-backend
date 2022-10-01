@@ -12,14 +12,14 @@ use Symfony\Contracts\Service\Attribute\Required;
 
 class EquipmentsController extends Controller
 {
-    
+
     public function index()
     {
         $listEquipments = Equipment::paginate(15);
         return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
     }
 
-    
+
     public function add()
     {
         $pageTitle = 'Thêm mới trang thiết bị';
@@ -100,5 +100,10 @@ class EquipmentsController extends Controller
         report($th->getMessage());
         return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
        }
+    }
+
+    public function deleteMultiple (Request $request){
+       Equipment::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
     }
 }

@@ -47,7 +47,7 @@
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
-    
+
                         </div>
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
@@ -72,7 +72,7 @@
                             </span>
                         @enderror
                         </div>
-                        
+
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Điện thoại</b></label>
@@ -121,7 +121,7 @@
                         </span>
                     @enderror
                     </div>
-                    
+
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Quê quán</b></label>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
 
-                    
+
 
                     <button class="btn btn-primary">Save</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
