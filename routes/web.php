@@ -129,6 +129,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
     // product
+    Route::post('product/deleteMultiple',[ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');
     Route::resource('product',ProductController::class);
     Route::resource('product-type',ProductTypeController::class);
 
