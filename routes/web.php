@@ -15,7 +15,6 @@ use App\Http\Controllers\Backend\Orders\OrderController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Products\ProductTypeController;
 use App\Http\Controllers\Backend\Service\ServiceController;
-use App\Models\Patient;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -137,6 +136,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
    
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
     Route::get('order/detail/{id}',[OrderController::class,'detail'])->name('order.detail');
+
 
 
 });

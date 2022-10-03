@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Backend\Equipments;
 
 use App\Http\Controllers\Controller;
-use App\Http\Requests\EquipmentsRequest;
 use App\Models\Equipment;
-use Exception;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
 
 class EquipmentsController extends Controller
 {

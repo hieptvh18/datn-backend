@@ -48,7 +48,8 @@ class PatientController extends Controller
      */
     public function store(PatientRequest $request)
     {
-        // dd($request->all());
+
+        dd($request->all());
         try {
             $patient = new Patient();
             $patient->fill($request->all());
@@ -88,7 +89,7 @@ class PatientController extends Controller
             $patient = Patient::find($id);
             $services = Service::select('id', 'service_name')->get();
             $pageTitle = 'Cập nhật bệnh án';
-            return view('pages.patients.edit', compact('pageTitle', 'patient', 'services'));
+            return view('pages.patients.edit', compact('pageTitle', 'patient'));
         }
         return redirect()->back()->with('error', 'Không tìm thấy hồ sơ!');
     }
@@ -106,7 +107,7 @@ class PatientController extends Controller
             $patient = Patient::find($id);
             $patient->fill($request->all());
             $patient->save();
-            $patient->patient_services()->sync($request->service);
+            $patient->patient_services()->attach($request->service);
             return redirect()->back()->with('message', 'Cập nhật thành công!');
         } catch (\Exception $e) {
             report($e->getMessage());
