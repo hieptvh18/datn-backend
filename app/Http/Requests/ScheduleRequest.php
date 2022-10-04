@@ -26,7 +26,7 @@ class ScheduleRequest extends FormRequest
         return [
             'fullname'=> "required|max:50|alpha",
             'fullname'=> ["regex:/^[a-zA-ZÀÁÂÃÈÉÊÌÍÒÓÔÕÙÚĂĐĨŨƠàáâãèéêìíòóôõùúăđĩũơƯĂẠẢẤẦẨẪẬẮẰẲẴẶẸẺẼỀỀỂẾưăạảấầẩẫậắằẳẵặẹẻẽềềểếỄỆỈỊỌỎỐỒỔỖỘỚỜỞỠỢỤỦỨỪễệỉịọỏốồổỗộớờởỡợụủứừỬỮỰỲỴÝỶỸửữựỳỵỷỹ\s\W|_]+$/"],
-            'phone'=>["required","min:10","max:11","unique:schedules", "regex:/^(84|0[2|3|5|7|8|9])+([0-9]{8,9})$\b/"],
+            'phone'=>["required","min:10","max:11", "regex:/^(84|0[2|3|5|7|8|9])+([0-9]{8,9})$\b/"],
             'gender'=>'required',
             'content'=>'required',
             'date'=>'required|after_or_equal:today',
@@ -44,7 +44,7 @@ class ScheduleRequest extends FormRequest
             'phone.numeric'=>"Số điện thoại phải là ký tự số!",
             'phone.min'=>"Số điện thoại tối thiểu 10 ký tự số!",
             'phone.max'=>"Số điện thoại tối đa 11 ký tự số!",
-            'phone.unique'=>"Số điện thoại đã tồn tại!",
+            // 'phone.unique'=>"Số điện thoại đã tồn tại!",
             'phone.regex'=>"Số điện thoại không đúng định dạng!",
             'gender.required'=>'Vui lòng chọn giới tính!',
             'content.required'=>'Vui lòng nhập nội dung!',
@@ -54,11 +54,11 @@ class ScheduleRequest extends FormRequest
         ];
     }
 
-    protected function prepareForValidation()
-     {
-         $this->merge([
-             'service_id'=>implode(',',$this->service_id)
-         ]);
-     }
+    // protected function prepareForValidation()
+    //  {
+    //      $this->merge([
+    //          'service_id'=>implode(',',$this->service_id)
+    //      ]);
+    //  }
 }
 ///
