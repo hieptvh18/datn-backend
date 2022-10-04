@@ -7,7 +7,7 @@
             <a href="{{route('equipment.index')}}" class="ml-3" style="margin-left: 20px"><- Quay về trang danh sách</a>
         </div>
 
-        
+
         <form action="{{ route('equipment.save') }}" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="panel-body">
@@ -41,7 +41,7 @@
                 <div class="form-group">
                     <label for="description" class="col-sm-3 control-label">Mô tả</label>
                     <div class="col-md-9">
-                        <textarea name="short_desc" id="short_desc" cols="30" rows="5" class="form-control">{{ old('short_desc') }}</textarea>
+                        <textarea name="short_desc" id="short_desc" cols="30" rows="5" class="ckeditor form-control">{{ old('short_desc') }}</textarea>
                     </div>
                 </div>
             </div>
@@ -54,4 +54,11 @@
         <!--End Horizontal Form-->
 
     </div>
+@endsection
+@section('page-js')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 @endsection

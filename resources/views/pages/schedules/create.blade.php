@@ -134,7 +134,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Nội dung</b></label>
-                            <textarea type="text" class="form-control" style="resize: none" rows="10" name="content">{{old('content')}}</textarea>
+                            <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="content">{{old('content')}}</textarea>
                         </div>
                         @error('content')
                         <span class="text-danger" role="alert">
@@ -163,4 +163,11 @@
         </div>
     </div>
 
+@endsection
+@section('page-js')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 @endsection
