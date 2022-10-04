@@ -88,14 +88,14 @@
                                         <td>{{ substr($type->description, 50) }}...</td>
                                         <td>
                                             <form id="deleteForm{{ $type->id }}"
-                                                action="{{ route('product.destroy', $type->id) }}" method="post">
+                                                action="{{ route('product-type.destroy', $type->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
                                             <button data-form="deleteForm{{ $type->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
-                                            <a href="{{ route('product.edit', $type->id) }}"
+                                            <a href="{{ route('product-type.edit', $type->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>

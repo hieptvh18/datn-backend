@@ -35,4 +35,9 @@ class Schedule extends Model
         'content',
         'date'
     ];
+
+
+    public function schedule_services () {
+        return $this->belongsToMany(Schedule::class, 'schedule_services', 'schedule_id', 'service_id');
+    }
 }
