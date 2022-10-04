@@ -54,7 +54,7 @@ class ScheduleController extends Controller
             $schedule = new Schedule();
             $schedule->fill($request->all());
             $schedule->status = 1;
-            $schedule->save();
+            $store = $schedule->save();
 
             //save services[]
             $schedule->schedule_services()->attach($request->service_id);
