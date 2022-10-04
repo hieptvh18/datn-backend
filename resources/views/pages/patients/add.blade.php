@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <label for="address" class="col-sm-3 control-label">Quê quán</label>
                     <div class="col-md-9">
-                        <textarea name="address" id="address" cols="30" placeholder="Quê quán" rows="5" class="form-control">{{ old('address') }}</textarea>
+                        <textarea name="address" id="address" cols="30" placeholder="Quê quán" rows="5" class="form-control">{{$patient->address}}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -70,9 +70,9 @@
                         @foreach  ($services as $service)
                         <div>
                             @foreach  ($service->subService as $subService)
-                            <input type="checkbox" name="service[]" value="{{$service->id}}"> {{$service->service_name}}: &nbsp;
+                            <input type="checkbox" {{$patient->services_schedule->contains('id', $service->id)?"checked":""}} name="service[]" value="{{$service->id}}"> {{$service->service_name}}: &nbsp;
 
-                            <input type="checkbox" name="service[]" value="{{$subService->id}}"> {{$subService->service_name}} &nbsp;
+                            <input type="checkbox" {{$patient->services_schedule->contains('id', $subService->id)?"checked":""}} name="service[]" value="{{$subService->id}}"> {{$subService->service_name}} &nbsp;
                             @endforeach
                         </div>
                         @endforeach
