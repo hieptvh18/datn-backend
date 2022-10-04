@@ -51,6 +51,7 @@ class ScheduleController extends Controller
     {
         $schedule = new Schedule();
         $schedule->fill($request->all());
+        $schedule->status = 1;
         $schedule->save();
         return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
     }

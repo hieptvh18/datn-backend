@@ -16,22 +16,22 @@
                         <div class="mb-3 ">
                             <label for="" class="form-label"><b>Trạng thái</b></label>
 
-                            <div class="radio">
+                            {{-- <div class="radio">
                                 <input id="form-radio1" value="0" class="magic-radio" type="radio" name="status" checked>
                                 <label for="form-radio1" > <span class="label label-purple"> Chờ xác nhận</span></label>
-                            </div>
+                            </div> --}}
                             <div class="radio">
-                                <input id="form-radio2" value="1" class="magic-radio" type="radio" name="status" >
+                                <input id="form-radio2" value="1" checked class="magic-radio" type="radio" name="status" >
                                 <label for="form-radio2" > <span class="label label-info"> Đã xác nhận</span></label>
                             </div>
-                            <div class="radio">
+                            {{-- <div class="radio">
                                 <input id="form-radio3" value="2" class="magic-radio" type="radio" name="status" >
                                 <label for="form-radio3" ><span class="label label-danger"> Đã hủy lịch</span></label>
                             </div>
                             <div class="radio">
                                 <input id="form-radio4" value="3" class="magic-radio" type="radio" name="status">
                                 <label for="form-radio4"><span class="label label-success"> Đã khám</span></label>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="row">
