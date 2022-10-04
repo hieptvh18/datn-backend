@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('page-title', 'Loại sản phẩm')
+@section('page-title', 'Sản phẩm')
 @section('page-content')
     <div class="row">
         <div class="col-xs-12">
@@ -14,21 +14,16 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                <a 
+                                <a
                                 {{-- data-parent="#demo-acc-info-outline" data-toggle="collapse"
                                     href="#demo-acd-info-outline-2" --}}
-                                     href="{{ route('product-type.create') }}">
+                                     href="{{ route('product.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"
-                                        onclick="
-                                        if(confirm('Xóa item đã chọn?')){
-                                        }
-                                    "><i
-                                            class="demo-pli-trash icon-lg"></i></button>
+                                    <button class="btn btn-default" id="delete-multiple" data-route="{{ route('product.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
 
                             </div>
@@ -56,7 +51,7 @@
                         </div>
                         <!--Accordion content-->
                         <div class="panel-collapse collapse" id="demo-acd-info-outline-2">
-                            
+
                         </div>
                     </div>
 
@@ -64,38 +59,40 @@
                         @if (session('exception'))
                             <div class="alert alert-danger">{{ session('exception') }}</div>
                         @endif
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox" class="Parent" name="" id="">
                                     </th>
                                     <th>ID</th>
-                                    <td>Tên loại</td>
+                                    <td>Tên</td>
+                                    <td>Giá</td>
+                                    <td>Loại sản phẩm</td>
                                     <td>Ảnh</td>
-                                    <td>Mô tả</td>
                                     <td>Hành động</td>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($productTypes as $type)
+                                @foreach ($products as $product)
                                     <tr class="text-center">
-                                        <td class="text-left"> <input type="checkbox" name="type_id[]" id="">
+                                        <td class="text-left"> <input type="checkbox" class="Childrent" name="product_id[]" value="{{$product->id}}">
                                         </td>
-                                        <td>{{ $type->id }}</td>
-                                        <td>{{ $type->name }}</td>
-                                        <td><img src="{{ asset($type->image) }}" alt="" width="100px"></td>
-                                        <td>{{ substr($type->description, 50) }}...</td>
+                                        <td>{{ $product->id }}</td>
+                                        <td>{{ $product->name }}</td>
+                                        <td>{{ number_format($product->price) }}</td>
+                                        <td>{{ $product->types->name }}</td>
+                                        <td><img src="{{ asset($product->image) }}" alt="" width="100px"></td>
                                         <td>
-                                            <form id="deleteForm{{ $type->id }}"
-                                                action="{{ route('product.destroy', $type->id) }}" method="post">
+                                            <form id="deleteForm{{ $product->id }}"
+                                                action="{{ route('product.destroy', $product->id) }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                             </form>
-                                            <button data-form="deleteForm{{ $type->id }}"
+                                            <button data-form="deleteForm{{ $product->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
-                                            <a href="{{ route('product.edit', $type->id) }}"
+                                            <a href="{{ route('product.edit', $product->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
@@ -107,7 +104,7 @@
                     </div>
                     <hr class="new-section-xs">
                     <div class="paginate">
-                        {{ $productTypes->links() }}
+                        {{ $products->links() }}
                     </div>
                 </div>
             </div>

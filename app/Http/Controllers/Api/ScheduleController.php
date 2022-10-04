@@ -4,10 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
 use App\Models\Schedule;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Throwable;
 use Carbon\Carbon;
-
+use Illuminate\Support\Facades\Hash;
 
 class ScheduleController extends Controller
 {
@@ -15,6 +16,8 @@ class ScheduleController extends Controller
     public function add(Request $request)
     {
         try {
+            $user = $this->createUser($request->fullname, $request->email, $request->phone);
+            if($user !== false){
             if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
@@ -26,13 +29,25 @@ class ScheduleController extends Controller
                     'success' => true,
                     'message' => 'Đặt thành công lịch khám!',
                     'data' => $schedule->toArray(),
+                    'user' => $user,
                 ], 200);
             }
             return response()->json([
                 'success' => false,
                 'message' => 'Bạn vừa đặt lịch các đây 1 ngày! vui lòng thử lại sau 24h!',
                 'data' => [],
+                'user' => [],
             ], 400);
+
+            }
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Email này đã tồn tại!',
+                'data' => [],
+                'user' => [],
+            ], 400);
+
         } catch (Throwable $tr) {
             report($tr->getMessage());
 
@@ -40,6 +55,7 @@ class ScheduleController extends Controller
                 'success' => false,
                 'message' => 'Đã xảy ra lỗi! ' . $tr->getMessage(),
                 'data' => [],
+                'user' => [],
             ], 400);
         }
     }
@@ -57,7 +73,7 @@ class ScheduleController extends Controller
                 ->orderByDesc('created_at')
                 ->limit(1)
                 ->first();
-                
+
             $period = strtotime($date) - strtotime($schedule->created_at);
 
             if ($period <= $time) {
@@ -65,5 +81,27 @@ class ScheduleController extends Controller
             }
         }
         return true;
+    }
+
+    public function createUser($name, $email, $phone){
+        $userExits = User::select('id', 'name', 'email', 'phone', 'password')->where('phone', $phone)->first();
+        $emailExit = User::select('email')->where('email', $email)->first();
+
+        if($emailExit){
+           $user = false;
+        }
+        if($userExits){
+           $user = $userExits;
+        }
+        if(!$userExits && !$emailExit){
+        $newUser = new User();
+        $newUser->name = $name;
+        $newUser->email = $email;
+        $newUser->phone = $phone;
+        $newUser->password = Hash::make('123456789');
+        $newUser->save();
+        $user = $newUser;
+        }
+        return $user;
     }
 }

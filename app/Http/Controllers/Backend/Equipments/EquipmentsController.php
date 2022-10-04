@@ -8,14 +8,14 @@ use Illuminate\Http\Request;
 
 class EquipmentsController extends Controller
 {
-    
+
     public function index()
     {
-        $equipments = Equipment::paginate(15);
-        return view('pages.equipment.list', compact('equipments'))->with('i', (request()->input('page', 1) -1)*15);
+        $listEquipments = Equipment::paginate(15);
+        return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
     }
 
-    
+
     public function add()
     {
         $pageTitle = 'Thêm mới trang thiết bị';

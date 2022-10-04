@@ -1,11 +1,11 @@
 @extends('layout.master')
-@section('page-title', 'Bệnh án')
+@section('page-title', 'Hóa đơn')
 @section('page-content')
     <div class="row">
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">{{ $pageTitle }}</h3>
+                    <h3 class="panel-title">Danh sách hóa đơn</h3>
                 </div>
 
                 <!--Data Table-->
@@ -106,55 +106,33 @@
                                     <th>
                                         <input type="checkbox" name="" id="">
                                     </th>
-                                    <th class="text-center">@sortablelink('id', 'ID')</th>
-                                    <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
-                                    <th class="text-center">@sortablelink('phone', 'Số điện thoại')</th>
-                                    <th class="text-center">@sortablelink('birthday', 'Năm sinh')</th>
-                                    <th class="text-center">@sortablelink('cmnd', 'CMND/CCCD')</th>
-                                    <th class="text-center">@sortablelink('description', 'Mô tả ngắn')</th>
-                                    <th class="text-center">Trạng thái</th>
+                                    <th class="text-center">ID</th>
+                                    <th class="text-center">Họ tên</th>
+                                    <th class="text-center">Số điện thoại</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($patients as $patient)
+                                @foreach ($orders as $order)
                                     <tr class="text-center">
                                         <td class="text-left"> <input type="checkbox" name="" id="">
                                         </td>
-                                        <td>{{ $patient->id }}</td>
-                                        <td>{{ $patient->customer_name }}</td>
-                                        <td>{{ $patient->phone }}</td>
-                                        <td>{{ $patient->birthday }}</td>
-                                        <td>{{ $patient->cmnd }}</td>
-                                        <td>{{ substr($patient->description, 50) }}...</td>
-                                        <td>
-                                            @if ($patient->status == 1)
-                                                <div class="label label-table label-danger">Chưa điều trị</div>
-                                            @elseif($patient->status == 0)
-                                                <div class="label label-table label-warning">Đã khám</div>
-                                            @else
-                                                <div class="label label-table label-success">Đã điều trị</div>
-                                            @endif
-                                        <td>
-                                            <form id="deleteForm{{ $patient->id }}"
-                                                action="{{ route('patient.destroy', $patient->id) }}" method="post">
-                                                @csrf
-                                                @method('DELETE')
-                                            </form>
-                                            <button data-form="deleteForm{{ $patient->id }}"
-                                                class="label label-table label-danger btn-delete"
-                                                style="border: none">Xóa</button>
-                                            <a href="{{ route('patient.edit', $patient->id) }}"
-                                                class="label label-table label-warning">
-                                                Sửa
-                                            </a>
-                                            @if ($patient->status == 0)
+                                        <td>{{ $order->id }}</td>
+                                        <td>{{ $order->customer_name }}</td>
+                                        <td>{{ $order->customer_phone }}</td>
 
-                                            <a style="margin-top: 5px " href="{{ route('order.add', ['id'=>$patient->id]) }}"
+                                        <td>
+
+
+                                            <a href="{{ route('order.detail', $order->id) }}"
+                                                class="label label-table label-warning">
+                                                Chi tiết
+                                            </a>
+
+                                            {{-- <a style="margin-top: 5px " href=""
                                                 class="label label-table label-primary">
                                                 Tạo hóa đơn
-                                            </a>
-                                            @endif
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -163,7 +141,7 @@
                     </div>
                     <hr class="new-section-xs">
                     <div class="paginate">
-                        {{ $patients->links() }}
+                        {{-- {{ $patients->links() }} --}}
                     </div>
                 </div>
             </div>
