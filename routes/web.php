@@ -14,6 +14,7 @@ use App\Http\Controllers\Backend\Equipments\EquipmentsController;
 use App\Http\Controllers\Backend\Orders\OrderController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Products\ProductTypeController;
+use App\Http\Controllers\Backend\Profile\ProfileController;
 use App\Http\Controllers\Backend\Service\ServiceController;
 use Illuminate\Support\Facades\Route;
 
@@ -113,6 +114,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
     Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
     Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
+    Route::get('schedules/searching',[EquipmentsController::class,'search'])->name('equipment.search');
+    Route::post('equipment/deleteMultiple',[EquipmentsController::class,'deleteMultiple'])->name('equipment.deleteMultiple');
 
 
     // Quản lý cấp bậc, chức vụ
@@ -125,18 +128,23 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-    // product 
+    // product
+    Route::post('product/deleteMultiple',[ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');
     Route::resource('product',ProductController::class);
     Route::resource('product-type',ProductTypeController::class);
 
     //order
     Route::get('order',[OrderController::class,'index'])->name('order.index');
     Route::get('order/add',[OrderController::class,'add'])->name('order.add');
-    Route::post('order/save',[OrderController::class,'store'])->name('order.store');
-   
+    Route::post('order/save',[OrderController::class,'save'])->name('order.store');
+
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
     Route::get('order/detail/{id}',[OrderController::class,'detail'])->name('order.detail');
 
+    // profile
+    Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
+    Route::get('/edit-profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 
 });
