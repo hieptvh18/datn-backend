@@ -58,3 +58,9 @@ $('#delete-multiple').on('click', function() {
         }
     });
 });
+
+
+// select multiple
+$(document).ready(function() {
+    $('.js-example-basic-multiple').select2();
+});
