@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreignId('schedule_id');
             $table->foreign('schedule_id')->references('id')->on('schedules');
             $table->tinyInteger('status')->default(1);
+            $table->date('date'); //ngày khám (not null)
             $table->timestamps();
         });
     }
