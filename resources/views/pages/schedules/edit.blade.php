@@ -40,13 +40,13 @@
                             </div>
                         </div>
                         <div class="mb-3 col-sm-6" style="display: flex; justify-content:flex-end;margin-bottom:20px">
-                                 
+
                             {{-- form send confirm send sms --}}
-                           
+
                             <button data-form="sendNotifi" type="button" class="btn btn-primary btn-save-change">Lưu thay đổi</button>
                             <button class="btn btn-danger" type="reset">Khôi phục</button>
                             <a href="{{ route('schedules.index') }}" class="btn btn-info">Quay lại</a>
-                       
+
                         </div>
                     </div>
                     <div class="row">
@@ -154,7 +154,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Nội dung</b></label>
-                            <textarea type="text" class="form-control" style="resize: none" rows="10" name="content">{{ $schedule->content }}</textarea>
+                            <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="content">{{ $schedule->content }}</textarea>
                         </div>
                         @error('content')
                             <span class="text-danger" role="alert">
@@ -187,4 +187,11 @@
             })
         });
     </script>
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.ckeditor').ckeditor();
+        });
+    </script>
+
 @endsection

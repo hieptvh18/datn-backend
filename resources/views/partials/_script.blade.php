@@ -14,6 +14,8 @@
 
 
 <!--=================================================-->
+{{-- ckeditor --}}
+<script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
 
 {{-- jquery check all --}}
 <script src="{{ asset('assets/js/TableCheckAll.js')}}"></script>
