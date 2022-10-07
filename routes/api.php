@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\ServiceController;
@@ -19,5 +20,8 @@ Route::get('/services/list', [ServiceController::class, 'list']);
 
 // patient
 Route::get('/patient/list/{phone}', [PatientController::class, 'list']);
+
+// login
+Route::post('/login', [AuthController::class, 'login']);
 
 
