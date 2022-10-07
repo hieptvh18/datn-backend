@@ -10,6 +10,7 @@ use App\Imports\ImportPatient;
 use App\Models\Admin;
 use App\Models\Patient;
 use App\Models\Product;
+use App\Models\Role;
 use App\Models\Schedule;
 use App\Models\Service;
 use Exception;
@@ -78,7 +79,8 @@ class PatientController extends Controller
         $pageTitle = 'Thêm mới bệnh án';
         $services = Service::select('id', 'service_name')->get();
         $patient = Schedule::find($id);
-        $roles_doctor = DB::table('role_admins')->where('role_id', '4')->get();
+        $role = Role::where('role_name','Doctor')->first();
+        $roles_doctor = DB::table('role_admins')->where('role_id', $role->id)->get();
         $listUser = Admin::where('is_active', 1)->select('id', 'fullname')->get();
         $doctors = array();
         foreach ($listUser as $user) {
@@ -104,7 +106,8 @@ class PatientController extends Controller
             $patient = Patient::find($id);
             $services = Service::select('id', 'service_name')->get();
             $pageTitle = 'Cập nhật bệnh án';
-            $roles_doctor = DB::table('role_admins')->where('role_id', '4')->get();
+            $role = Role::where('role_name','Doctor')->first();
+            $roles_doctor = DB::table('role_admins')->where('role_id', $role->id)->get();
             $listUser = Admin::where('is_active', 1)->select('id', 'fullname')->get();
             $doctors = array();
             foreach ($listUser as $user) {

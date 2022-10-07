@@ -17,10 +17,13 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name',255)->comment('ten khach hang');
             $table->string('customer_phone',15);
-            $table->foreignId('service_id')->nullable();
-            $table->foreign('service_id')->references('id')->on('services')->onDelete('cascade');
             $table->string('payment_method',255)->nullable();
             $table->text('description')->nullable();
+            $table->string('product_id');
+            $table->string('service_id');
+            $table->string('code_bill');
+            $table->integer('total');
+
             $table->timestamps();
         });
     }
