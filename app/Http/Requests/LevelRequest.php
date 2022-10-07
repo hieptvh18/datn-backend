@@ -31,7 +31,7 @@ class LevelRequest extends FormRequest
 
     public function messages(){
         return [
-            'name.required'=>'Tên thiết bị không được trống!',
+            'name.required'=>'Tên chức vụ không được trống!',
             'name.min'=>'Nhập ít nhất :min ký tự!',
             'description.required'=>'Mô tả không được trống!',
             'description.min'=>'Nhập ít nhất :min ký tự!'

@@ -14,7 +14,7 @@
             @csrf
             <div class="panel-body">
                 <div class="form-group">
-                    <label class="col-sm-3 control-label" for="demo-hor-name">Tên thiết bị</label>
+                    <label class="col-sm-3 control-label" for="demo-hor-name">Chức vụ</label>
                     <div class="col-sm-9">
                         <input type="text" placeholder="Tên chức vụ" id="name" name="name" class="form-control"
                             value="{{ old('name') }}">
