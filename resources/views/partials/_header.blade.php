@@ -67,10 +67,10 @@
                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
                         <ul class="head-list">
                             <li class="demo-icon">
-                                <a href="{!! route('user.change-language', ['vi']) !!}"><i class="flag-icon flag-icon-vn"></i><span> Việt Nam</span></a>
+                                <a href=""><i class="flag-icon flag-icon-vn"></i><span> Việt Nam</span></a>
                             </li>
                             <li>
-                                <a href="{!! route('user.change-language', ['en']) !!}"><i class="flag-icon flag-icon-us"></i><span> English</span></a>
+                                <a href=""><i class="flag-icon flag-icon-us"></i><span> English</span></a>
                             </li>
                         </ul>
                     </div>

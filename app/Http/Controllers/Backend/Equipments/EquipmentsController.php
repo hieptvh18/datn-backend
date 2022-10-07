@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Equipments;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EquipmentsRequest;
 use App\Models\Equipment;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class EquipmentsController extends Controller
         return view('pages.equipment.add', compact('pageTitle'));
     }
 
-    public function save(Request $request)
+    public function save(EquipmentsRequest $request)
     {
 
         $equipment = new Equipment();
@@ -60,7 +61,7 @@ class EquipmentsController extends Controller
         return redirect()->back()->with('excep', 'Không tìm thấy thiết bị!');
     }
 
-    public function update(Request $request, $id) {
+    public function update(EquipmentsRequest $request, $id) {
 
         $equipment = Equipment::find($id);
         $equipment->fill($request->all());
