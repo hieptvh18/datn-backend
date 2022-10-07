@@ -5,10 +5,7 @@ namespace App\Http\Controllers\Backend\Equipments;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\EquipmentsRequest;
 use App\Models\Equipment;
-use Exception;
-use GuzzleHttp\Promise\Create;
 use Illuminate\Http\Request;
-use Symfony\Contracts\Service\Attribute\Required;
 
 class EquipmentsController extends Controller
 {
@@ -26,7 +23,7 @@ class EquipmentsController extends Controller
         return view('pages.equipment.add', compact('pageTitle'));
     }
 
-    public function save(Request $request)
+    public function save(EquipmentsRequest $request)
     {
 
         $equipment = new Equipment();
@@ -64,7 +61,7 @@ class EquipmentsController extends Controller
         return redirect()->back()->with('excep', 'Không tìm thấy thiết bị!');
     }
 
-    public function update(Request $request, $id) {
+    public function update(EquipmentsRequest $request, $id) {
 
         $equipment = Equipment::find($id);
         $equipment->fill($request->all());
@@ -78,32 +75,5 @@ class EquipmentsController extends Controller
 
         $equipment->save();
         return redirect()->route('equipment.index');
-    }
-
-    public function search() {
-        $key = $_GET['key'];
-
-        $search_text = trim($key);
-       try {
-        if ($search_text==null) {
-            return redirect()->route('equipment.index');
-        } else {
-            $listEquipments=Equipment::where('id','LIKE', '%'.$search_text.'%')
-            ->orwhere('name','LIKE', '%'.$search_text.'%')
-            ->orwhere('price','LIKE', '%'.$search_text.'%')
-            ->orwhere('size','LIKE', '%'.$search_text.'%')
-            ->orwhere('short_desc','LIKE', '%'.$search_text.'%')
-            ->paginate(15);
-        }
-        return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
-       } catch (\Throwable $th) {
-        report($th->getMessage());
-        return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
-       }
-    }
-
-    public function deleteMultiple (Request $request){
-       Equipment::whereIn('id', $request->get('data'))->delete();
-        return response("Xóa thành công!", 200);
     }
 }

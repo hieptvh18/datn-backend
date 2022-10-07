@@ -29,7 +29,8 @@ class ScheduleRequest extends FormRequest
             'phone'=>["required","min:10","max:11","unique:schedules", "regex:/^(84|0[2|3|5|7|8|9])+([0-9]{8,9})$\b/"],
             'gender'=>'required',
             'content'=>'required',
-            'date'=>'required|after_or_equal:today'
+            'date'=>'required|after_or_equal:today',
+            'service_id'=>'required'
         ];
     }
     public function messages()
@@ -48,8 +49,16 @@ class ScheduleRequest extends FormRequest
             'gender.required'=>'Vui lòng chọn giới tính!',
             'content.required'=>'Vui lòng nhập nội dung!',
             'date.required'=>'Vui lòng chọn ngày đặt lịch!',
-            'date.after_or_equal'=>'Ngày đặt lịch phải là ngày sau hoặc bằng ngày hôm nay!'
+            'date.after_or_equal'=>'Ngày đặt lịch phải là ngày sau hoặc bằng ngày hôm nay!',
+            'service_id.required'=>'Vui lòng chọn dịch vụ!'
         ];
     }
+
+    protected function prepareForValidation()
+     {
+         $this->merge([
+             'service_id'=>implode(',',$this->service_id)
+         ]);
+     }
 }
 ///

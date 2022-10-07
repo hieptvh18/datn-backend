@@ -61,21 +61,45 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label">Bác sĩ</label>
+                    <div class="col-md-9">
+                        <select class="js-example-basic-multiple form-control" data-placeholder="Chọn bác sĩ..."
+                            name="doctor[]" multiple="multiple">
+                            @foreach ($doctors as $doctor)
+                                <option {{ $patient->patient_doctors->contains('id', $doctor->id) ? 'selected' : '' }} value="{{ $doctor->id }}">{{ $doctor->fullname }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label">Thuốc</label>
+                    <div class="col-md-9">
+                        <select class="js-example-basic-multiple form-control" data-placeholder="Chọn thuốc..."
+                            name="product[]" multiple="multiple">
+                            @foreach ($products as $product)
+                                <option {{ $patient->patient_products->contains('id', $product->id) ? 'selected' : '' }} value="{{ $product->id }}">{{ $product->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label for="address" class="col-sm-3 control-label">Dịch vụ</label>
                     <div class="col-md-9" style="margin-top: 5px">
-                        @foreach  ($services as $service)
-                        <div>
-                            @foreach  ($service->subService as $subService)
-                            <input type="checkbox" name="service[]" {{$patient->service_patients->contains('id', $service->id)?"checked":""}} value="{{$service->id}}"> {{$service->service_name}}: &nbsp;
-
-                            <input type="checkbox" name="service[]" {{$patient->service_patients->contains('id', $subService->id)?"checked":""}} value="{{$subService->id}}"> {{$subService->service_name}} &nbsp;
+                        <select class="js-example-basic-multiple form-control" data-placeholder="Chọn dịch vụ..."
+                            name="service[]" multiple="multiple">
+                            @foreach ($services as $service)
+                                <option {{ $patient->service_patients->contains('id', $service->id) ? 'selected' : '' }}
+                                    value="{{ $service->id }}">{{ $service->service_name }}</option>
                             @endforeach
-                        </div>
-                        @endforeach
+                        </select>
+
                     </div>
-                    @error('status')
-                    <span class="text-danger">{{ $message }}</span>
-                @enderror
+                </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label">Ngày khám</label>
+                    <div class="col-md-9">
+                        <input type="date" name="date" value="{{$patient->date}}" class="form-control">
+                    </div>
                 </div>
                 <div class="form-group">
                     <div class="col-sm-offset-3 col-sm-9">

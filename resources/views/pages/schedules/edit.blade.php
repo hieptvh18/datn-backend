@@ -113,16 +113,37 @@
                             </div>
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="mb-3">
-                            <label for="" class="form-label"><b>Ngày hẹn</b></label>
-                            <input type="date" class="form-control" name="date" value="{{ $schedule->date }}" />
+                    <div class="row">
+                        <div class="panel-body col-sm-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label"><b>Ngày hẹn</b></label>
+                                <input type="date" class="form-control" name="date" value="{{ $schedule->date }}" />
+                            </div>
+                            @error('date')
+                                <span class="text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
                         </div>
-                        @error('date')
-                            <span class="text-danger" role="alert">
-                                <strong>{{ $message }}</strong>
-                            </span>
-                        @enderror
+                        <div class="panel-body col-sm-6">
+                            <div class="mb-3">
+                                <label for="" class="form-label"><b>Dịch vụ</b></label>
+                                <div class="checkbox">
+                                    @foreach ($services as $service)
+                                        <input name="service_id[]" 
+                                        {{in_array($service->id,$arrService) ? 'checked' : ''}}
+                                        value="{{$service->id}}"
+                                        id="demo-form-inline-checkbox-{{$service->id}}" class="magic-checkbox" type="checkbox">
+                                        <label for="demo-form-inline-checkbox-{{$service->id}}">{{$service->service_name}}</label>
+                                    @endforeach
+                                </div>
+                            </div>
+                            @error('service_id')
+                                <span class="text-danger" role="alert">
+                                    <strong>{{ $message }}</strong>
+                                </span>
+                            @enderror
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">

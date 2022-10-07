@@ -54,6 +54,30 @@
             </ul>
             <ul class="nav navbar-top-links">
 
+                <!--Language-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li id="dropdown-Language" class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                        <span class="ic-user pull-right">
+                            <i class="fa fa-language"></i>
+                        </span>
+                    </a>
+
+
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
+                        <ul class="head-list">
+                            <li class="demo-icon">
+                                <a href=""><i class="flag-icon flag-icon-vn"></i><span> Việt Nam</span></a>
+                            </li>
+                            <li>
+                                <a href=""><i class="flag-icon flag-icon-us"></i><span> English</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End language-->
+
 
                 <!--Mega dropdown-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->

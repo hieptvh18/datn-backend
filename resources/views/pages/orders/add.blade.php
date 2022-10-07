@@ -42,34 +42,27 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="description" class="col-sm-3 control-label">Thuốc</label>
+                    <label for="address" class="col-sm-3 control-label">Thuốc</label>
                     <div class="col-md-9">
-                        @foreach  ($products as $product)
-                        <div class="Card">
-                            <input type="checkbox" class="Parent" name="product_name[]" value="{{$product->name}}"> {{$product->name}} =
-                            <input type="checkbox" class="Childrent" name="product_price[]" value="{{$product->price}}">
-                            {{number_format($product->price)}} VNĐ ;
-
-                        </div>
-                        @endforeach
+                        <select class="js-example-basic-multiple form-control" data-placeholder="Chọn thuốc..."
+                            name="product[]" multiple="multiple">
+                            @foreach ($products as $product)
+                                <option {{ $patient->patient_products->contains('id', $product->id) ? 'selected' : '' }} value="{{ $product->id }}">{{ $product->name }}</option>
+                            @endforeach
+                        </select>
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="address" class="col-sm-3 control-label">Dịch vụ</label>
                     <div class="col-md-9" style="margin-top: 5px">
-
-                        @foreach  ($services as $service)
-                        <div class="Card">
-                            @foreach  ($service->subService as $subService)
-                            <input type="checkbox" class="Parent" name="service_name[]" {{$patient->service_patients->contains('service_name', $service->service_name)?"checked":""}} value="{{$service->service_name}}"> {{$service->service_name}} =
-                            <input type="checkbox" class="Childrent" name="service_price[]" {{$patient->service_patients->contains('price', $service->price)?"checked":""}} value="{{$service->price}}">
-                             {{number_format($service->price)}} VNĐ &nbsp; | &nbsp;
-                            <input type="checkbox" class="SubParent" name="service_name[]" {{$patient->service_patients->contains('service_name', $subService->service_name)?"checked":""}} value="{{$subService->service_name}}"> {{$subService->service_name}} =
-                            <input type="checkbox" class="SubChildrent" name="service_price[]" {{$patient->service_patients->contains('price', $subService->price)?"checked":""}} value="{{$subService->price}}">
-                            {{number_format($subService->price)}} VNĐ &nbsp;;
+                        <select class="js-example-basic-multiple form-control" data-placeholder="Chọn dịch vụ..."
+                            name="service[]" multiple="multiple">
+                            @foreach ($services as $service)
+                                <option {{ $patient->service_patients->contains('id', $service->id) ? 'selected' : '' }}
+                                    value="{{ $service->id }}">{{ $service->service_name }}</option>
                             @endforeach
-                        </div>
-                        @endforeach
+                        </select>
+
                     </div>
 
                 </div>

@@ -12,7 +12,7 @@ class Patient extends Model
 
     protected $table = 'patients';
 
-    protected $fillable = ['customer_name','phone','description','address','birthday','cmnd','schedule_id', 'service_id', 'status'];
+    protected $fillable = ['customer_name','phone','description','address','birthday','cmnd','schedule_id', 'date', 'status'];
     public $sortable = ['id','customer_name','phone','description','birthday','cmnd'];
 
     public function patient_services () {
@@ -20,5 +20,11 @@ class Patient extends Model
     }
     public function service_patients () {
         return $this->belongsToMany(Service::class, 'patient_services', 'patient_id', 'service_id');
+    }
+    public function patient_doctors () {
+        return $this->belongsToMany(Admin::class, 'patient_doctors', 'patient_id', 'doctor_id');
+    }
+    public function patient_products () {
+        return $this->belongsToMany(Product::class, 'patient_products', 'patient_id', 'product_id');
     }
 }

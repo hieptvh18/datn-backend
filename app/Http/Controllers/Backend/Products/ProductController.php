@@ -18,7 +18,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $pageTitle = 'Loại sản phẩm';
+        $pageTitle = 'Sản phẩm';
         $products = Product::select('*')->paginate(20);
         return view('pages.products.list',compact('pageTitle','products'));
     }
