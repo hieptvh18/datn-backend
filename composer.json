@@ -16,7 +16,8 @@
         "laravel/sanctum": "^2.14.1",
         "laravel/tinker": "^2.7",
         "maatwebsite/excel": "^3.1",
-        "phpoffice/phpspreadsheet": "^1.18"
+        "phpoffice/phpspreadsheet": "^1.18",
+        "twilio/sdk": "^6.42"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.7",
