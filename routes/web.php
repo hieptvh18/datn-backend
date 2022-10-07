@@ -46,9 +46,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
     Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
     Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
-    Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
+    Route::get('schedules/searching',[ScheduleController::class,'ScheduleController@search'])->name('schedules.search');
     Route::post('schedules/import',[ScheduleController::class,'importSchedule'])->name('schedules.import');
     Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
+
 
 
     //chuyen khoa
@@ -145,7 +146,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // profile
     Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/edit-profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');  
+    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 
 

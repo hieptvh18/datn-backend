@@ -141,7 +141,7 @@
                                     showCancelButton: false,
                                     confirmButtonText: 'Yes'
                                 }).then((result) => {
-                                    window.location = '/posts'
+                                    window.location = '/admin/service'
                                 });
                             }
                         });

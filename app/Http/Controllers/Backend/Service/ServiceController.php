@@ -78,7 +78,7 @@ class ServiceController extends Controller
     {
         Service::whereIn('id', $request->get('selected'))->delete();
 
-        return response("Selected post(s) deleted successfully.", 200);
+        return \redirect()->back();
     }
 
     public function search (){
