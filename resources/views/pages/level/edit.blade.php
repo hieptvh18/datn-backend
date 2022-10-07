@@ -4,7 +4,8 @@
     <div class="panel">
         <div class="panel-heading">
             <h3 class="panel-title">{{ $pageTitle }}</h3>
-            <a href="{{route('level.index')}}" class="ml-3" style="margin-left: 20px"><- Quay về trang danh sách</a>
+            <a href="{{ route('level.index') }}" class="ml-3" style="margin-left: 20px">
+                <- Quay về trang danh sách</a>
         </div>
 
         @if (session('exception'))
@@ -20,12 +21,18 @@
                     <div class="col-sm-9">
                         <input type="text" placeholder="Tên chức vụ" id="demo-hor-name" name="name"
                             class="form-control" value="{{ $level->name }}">
+                        @error('name')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
                 <div class="form-group">
                     <label for="description" class="col-sm-3 control-label">Mô tả</label>
                     <div class="col-md-9">
                         <textarea name="description" id="description" cols="30" rows="5" class="form-control">{{ $level->description }}</textarea>
+                        @error('description')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
             </div>

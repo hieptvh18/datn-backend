@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend\Level;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\LevelRequest;
 use App\Models\Level;
 use Illuminate\Http\Request;
 
@@ -22,7 +23,7 @@ class LevelsController extends Controller
         return view('pages.level.add', compact('pageTitle'));
     }
 
-    public function save(Request $request)
+    public function save(LevelRequest $request)
     {
 
         $level = new Level();
@@ -51,7 +52,7 @@ class LevelsController extends Controller
         return redirect()->back()->with('excep', 'Không tìm thấy chức vụ!');
     }
 
-    public function update(Request $request, $id) {
+    public function update(LevelRequest $request, $id) {
 
         $level = Level::find($id);
         $level->fill($request->all());
