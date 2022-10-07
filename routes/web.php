@@ -47,9 +47,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
     Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
     Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
-    Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
+    Route::get('schedules/searching',[ScheduleController::class,'ScheduleController@search'])->name('schedules.search');
     Route::post('schedules/import',[ScheduleController::class,'importSchedule'])->name('schedules.import');
     Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
+
 
 
     //chuyen khoa
@@ -115,7 +116,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
     Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
     Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
-    Route::get('schedules/searching',[EquipmentsController::class,'search'])->name('equipment.search');
+    // Route::get('schedules/searching',[EquipmentsController::class,'search'])->name('equipment.search');
     Route::post('equipment/deleteMultiple',[EquipmentsController::class,'deleteMultiple'])->name('equipment.deleteMultiple');
 
 

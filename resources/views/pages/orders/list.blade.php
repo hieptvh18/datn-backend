@@ -148,3 +148,10 @@
         </div>
     </div>
 @endsection
+@section('page-js')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
+@endsection

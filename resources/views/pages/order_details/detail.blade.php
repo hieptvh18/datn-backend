@@ -30,7 +30,7 @@
 
 
                                 <div class="row form-group" style="margin-bottom: 15px">
-                                    <label for="description" class="col-sm-2 control-label"><b>Mô tả:</b> </label>
+                                    <label for="description" class="ckeditor col-sm-2 control-label"><b>Mô tả:</b> </label>
 
                                         <span>{{$order->description}}</span>
 
@@ -82,4 +82,11 @@
             </div>
         </div>
     </div>
+@endsection
+@section('page-js')
+<script type="text/javascript">
+    $(document).ready(function () {
+        $('.ckeditor').ckeditor();
+    });
+</script>
 @endsection
