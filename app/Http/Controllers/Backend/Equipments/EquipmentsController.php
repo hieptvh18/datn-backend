@@ -76,4 +76,26 @@ class EquipmentsController extends Controller
         $equipment->save();
         return redirect()->route('equipment.index');
     }
+
+    public function search() {
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+       try {
+        if ($search_text==null) {
+            return redirect()->route('equipment.index');
+        } else {
+            $listEquipments=Equipment::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('name','LIKE', '%'.$search_text.'%')
+            ->orwhere('price','LIKE', '%'.$search_text.'%')
+            ->orwhere('size','LIKE', '%'.$search_text.'%')
+            ->orwhere('short_desc','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+        return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
+       } catch (\Throwable $th) {
+        report($th->getMessage());
+        return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+       }
+    }
 }

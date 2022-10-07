@@ -24,7 +24,7 @@ class LevelRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => 'required|min:5',
+            'name' => ['required', 'min:6', 'max:155', 'unique:levels,name,ignore,id'],
             'description' => 'required|min:30'
         ];
     }
@@ -32,6 +32,7 @@ class LevelRequest extends FormRequest
     public function messages(){
         return [
             'name.required'=>'Tên chức vụ không được trống!',
+            'name.unique'=>'Tên chức vụ đã tồn tại mời bạn nhập tên khác!',
             'name.min'=>'Nhập ít nhất :min ký tự!',
             'description.required'=>'Mô tả không được trống!',
             'description.min'=>'Nhập ít nhất :min ký tự!'

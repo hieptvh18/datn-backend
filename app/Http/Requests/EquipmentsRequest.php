@@ -25,12 +25,8 @@ class EquipmentsRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        $ruleNameUinique = Rule::unique('equipments', 'name');
-        if($request->method() == 'PUT'){
-            $ruleNameUinique = Rule::unique('equipments', 'name')->ignore(request()->id);
-        }
         $rules = [
-            'name' => ['required', 'min:6', 'max:155', $ruleNameUinique],
+            'name' => ['required', 'min:6', 'max:155', 'unique:equipments,name,ignore,id'],
             'price' => 'required|integer',
             'size' => 'required',
             'short_desc' => 'required|min:30',
@@ -44,6 +40,7 @@ class EquipmentsRequest extends FormRequest
     {
         return [
             'name.required'=>'Tên thiết bị không được trống!',
+            'name.unique'=>'Tên thiết bị đã tồn tại mời bạn nhập tên khác!',
             'name.min'=>'Nhập ít nhất :min ký tự!',
             'name.max'=>'Nhập tối đa :max ký tự!',
             'price.required'=>'Mức giá không được trống!',
