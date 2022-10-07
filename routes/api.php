@@ -15,5 +15,3 @@ Route::post('/schedule/add',[ScheduleController::class,'add']);
 
 // service
 Route::get('/services/list', [ServiceController::class, 'list']);
-
-

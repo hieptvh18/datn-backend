@@ -61,3 +61,9 @@
 
 <!--Bootstrap Datepicker [ OPTIONAL ]-->
 <link href="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+
+<!--Ion Icons [ OPTIONAL ]-->
+<link href="{{ asset('assets/plugins/flag-icon-css/css/flag-icon.min.css') }}" rel="stylesheet">
+
+<!--Font Awesome [ OPTIONAL ]-->
+<link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">

@@ -137,6 +137,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('order',[OrderController::class,'index'])->name('order.index');
     Route::get('order/add',[OrderController::class,'add'])->name('order.add');
     Route::post('order/save',[OrderController::class,'save'])->name('order.store');
+    Route::get('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
 
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
     Route::get('order/detail/{id}',[OrderController::class,'detail'])->name('order.detail');
@@ -144,7 +145,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // profile
     Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/edit-profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');  
+
 
 
 });
