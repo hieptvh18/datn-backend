@@ -64,26 +64,26 @@ class ScheduleController extends Controller
                 $customerName = $request->fullname;
                 $date = $request->date;
                 $phone = $request->phone;
-                $stt = $scheduleId;
+                $stt = $this->getIndexer($date, $phone);
                 $companyName = 'Nha khoa Đức Nghĩa';
                 $listService = $this->getServiceNameById($request->service_id);
-                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên '.$companyName.' chúng tôi. Lịch hẹn của bạn là ngày: '.$date.' .Số thứ tự là: '.$stt .' .Dịch vụ mà bạn đăng kí là: '.$listService.' .Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
-                sendSms($phone, $contentConfirm);
-                
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . ' .Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                // sendSms($phone, $contentConfirm);
+
                 // send mail
-                if(!empty($request->email)){
+                if (!empty($request->email)) {
                     $mailTo = $request->email;
-                    $mailData = $this->getMailData($contentConfirm,$customerName);
+                    $mailData = $this->getMailData($contentConfirm, $customerName);
                     Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData));
                 }
             }
 
             //save services[]
             $schedule->schedule_services()->attach($request->service_id);
-           
+
             return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
         } catch (Throwable $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
@@ -110,21 +110,31 @@ class ScheduleController extends Controller
             $schedule = Schedule::find($id);
             $schedule->fill($request->all());
             $update = $schedule->save();
-
+            $scheduleId = $schedule->id;
             // ScheduleService::where('schedule_id', $id)->delete();
             $schedule->schedule_services()->sync($request->service_id);
-       
-            if ($update && $request->status == 1) {
-                // check if changed status is confirmed => send sms to phone
+
+            if ($scheduleId && $request->status == 1) {
+                // send sms to phone
+                $customerName = $request->fullname;
                 $date = $request->date;
                 $phone = $request->phone;
-                $stt = $schedule->id;
-                $content = 'Cảm ơn bạn đã đăng kí lịch khám của Nha khoa Đức Nghĩa. Lịch hẹn của bạn là: ' . $date . '. Số thứ tự là ' . $stt;
-                sendSms($phone, $content);
+                $stt = $this->getIndexer($date, $phone);
+                $companyName = 'Nha khoa Đức Nghĩa';
+                $listService = $this->getServiceNameById($request->service_id);
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . ' .Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                // sendSms($phone, $contentConfirm);
+
+                // send mail
+                if (!empty($request->email)) {
+                    $mailTo = $request->email;
+                    $mailData = $this->getMailData($contentConfirm, $customerName);
+                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData));
+                }
             }
             return redirect()->back()->with(['message' => 'Cập nhật lịch khám thành công!']);
         } catch (Throwable $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with(['error' => 'Có lỗi xảy ra! Vui lòng thử lại sau!']);
         }
@@ -195,34 +205,67 @@ class ScheduleController extends Controller
     }
 
     // get mailData
-    protected function getMailData($mailContent,$customerName = 'bạn',$companyName = 'Nha khoa Đức Nghĩa',){
-          // get data from web setting
-          $mailData = [];
-          $mailData['mailTitle'] = 'Thông báo xác nhận lịch khám '.$companyName;
-          $mailData['mailHead'] = 'Thông báo xác nhận.';
-          $mailData['companyName'] = $companyName;
-          $mailData['mailSubject'] = 'Chào '.$customerName;
-          $mailData['mailContent'] = $mailContent;
-          $mailData['linkPatient'] = 'https://facebook.com/tvhhh';
+    protected function getMailData($mailContent, $customerName = 'bạn', $companyName = 'Nha khoa Đức Nghĩa',)
+    {
+        // get data from web setting
+        $mailData = [];
+        $mailData['mailTitle'] = 'Thông báo xác nhận lịch khám ' . $companyName;
+        $mailData['mailHead'] = 'Thông báo xác nhận.';
+        $mailData['companyName'] = $companyName;
+        $mailData['mailSubject'] = 'Chào ' . $customerName;
+        $mailData['mailContent'] = $mailContent;
+        $mailData['linkPatient'] = 'https://facebook.com/tvhhh';
 
-          return $mailData;
+        return $mailData;
     }
 
     // get list service name by service_id
     protected function getServiceNameById($id)
     {
-        if(is_array($id)){
+        if (is_array($id)) {
             $string = '';
-            $services = Service::select('service_name')->whereIn('id',$id)->get();
-            foreach($services as $item){
-                if($string){
-                    $string .= ', '.$item->service_name;
-                }else{
+            $services = Service::select('service_name')->whereIn('id', $id)->get();
+            foreach ($services as $item) {
+                if ($string) {
+                    $string .= ', ' . $item->service_name;
+                } else {
                     $string .= $item->service_name;
                 }
             }
 
             return $string;
         }
+    }
+
+    // get so thu tu send notifi trong ngay
+    public function getIndexer($date, $phone)
+    {
+        $dateFormat = date('Y-m-d', strtotime($date));
+        $checkExistCounter = Schedule::where('counter', '>', 0)
+                                ->where('date', $dateFormat)
+                                ->where('status',1)
+                                ->where('phone','!=',$phone)
+                                ->orderBy('counter','desc')->first();
+        $setSchedule = Schedule::where('phone',$phone)
+                                ->where('date',$dateFormat)
+                                ->where('status',1)->first();
+        $myCouter = Schedule::where('counter', '>', 0)
+                                ->where('date', $dateFormat)
+                                ->where('phone',$phone)
+                                ->first();
+        
+        $counter = 0;
+        if($checkExistCounter && !$myCouter){
+            $setSchedule->counter = $checkExistCounter->counter + 1;
+            $setSchedule->save();
+            $counter = $setSchedule->counter;
+        }else if(!$checkExistCounter){
+            $setSchedule->counter = 1;
+            $setSchedule->save();
+            $counter = $setSchedule->counter;
+        }else{
+            $counter = $myCouter->counter;
+        }
+        return $counter;
     }
 }
