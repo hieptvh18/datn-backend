@@ -11,7 +11,6 @@ use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
-use App\Http\Controllers\Backend\Localization\LocalizationController;
 use App\Http\Controllers\Backend\Orders\OrderController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Products\ProductTypeController;
@@ -145,16 +144,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // profile
     Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/edit-profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-
-    // Localization
-    //Route::get('locale/{lange}', [LocalizationController::class, 'setlang']);
-    
-
-    Route::group(['middleware' => 'localization'], function() {
-        Route::get('change-language/{language}', [LocalizationController::class, 'changeLanguage'])->name('user.change-language');
-    });
-    
+    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');  
 
 
 
