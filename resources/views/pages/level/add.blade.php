@@ -8,13 +8,9 @@
                 <- Quay về trang danh sách</a>
         </div>
 
-
-<<<<<<< HEAD
-        <form action="{{ route('level.save') }}" role="form" class="form-horizontal" method="POST" enctype="multipart/form-data">
-=======
         <form action="{{ route('level.save') }}" role="form" class="form-horizontal" method="POST"
             enctype="multipart/form-data">
->>>>>>> develop
+
             @csrf
             <div class="panel-body">
                 <div class="form-group">
