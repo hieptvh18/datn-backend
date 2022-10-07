@@ -54,6 +54,30 @@
             </ul>
             <ul class="nav navbar-top-links">
 
+                <!--Language-->
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <li id="dropdown-Language" class="dropdown">
+                    <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
+                        <span class="ic-user pull-right">
+                            <i class="fa fa-language"></i>
+                        </span>
+                    </a>
+
+
+                    <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
+                        <ul class="head-list">
+                            <li class="demo-icon">
+                                <a href=""><i class="flag-icon flag-icon-vn"></i><span> Việt Nam</span></a>
+                            </li>
+                            <li>
+                                <a href=""><i class="flag-icon flag-icon-us"></i><span> English</span></a>
+                            </li>
+                        </ul>
+                    </div>
+                </li>
+                <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
+                <!--End language-->
+
 
                 <!--Mega dropdown-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -203,8 +227,7 @@
                                             <div class="media-body">
                                                 <p class="text-nowrap text-main text-semibold">HDD is full</p>
                                                 <div class="progress progress-sm mar-no">
-                                                    <div style="width: 95%;"
-                                                        class="progress-bar progress-bar-danger">
+                                                    <div style="width: 95%;" class="progress-bar progress-bar-danger">
                                                         <span class="sr-only">95% Complete</span>
                                                     </div>
                                                 </div>
@@ -326,10 +349,17 @@
                                 <a href="#"><i class="demo-pli-computer-secure icon-lg icon-fw"></i> Lock
                                     screen</a>
                             </li>
-                            <li>
-                                <a href="pages-login.html"><i class="demo-pli-unlock icon-lg icon-fw"></i>
-                                    Logout</a>
-                            </li>
+                            @if (Auth::guard('admin')->check())
+                                <li>
+                                    {{-- <a href="pages-login.html"><i class="demo-pli-unlock icon-lg icon-fw"></i>
+                                    Logout</a> --}}
+                                    <form action="{{ route('logout') }}" method="post">
+                                        @csrf
+                                        <button class="btn btn-block" style="text-align: left"><i
+                                                class="demo-pli-unlock icon-lg icon-fw"></i>Logout</button>
+                                    </form>
+                                </li>
+                            @endif
                         </ul>
                     </div>
                 </li>

@@ -1,3 +1,4 @@
+
 <nav id="mainnav-container">
     <div id="mainnav">
 
@@ -40,7 +41,7 @@
                             </a>
                         </div>
                         <div id="profile-nav" class="collapse list-group bg-trans">
-                            <a href="#" class="list-group-item">
+                            <a href="{{ route('profile.show', Auth::guard('admin')->user()->id) }}" class="list-group-item">
                                 <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
                             </a>
                             <a href="#" class="list-group-item">
@@ -108,52 +109,13 @@
                             </a>
                         </li>
 
-                        <!--Menu list item-->
-                        <li>
-                            <a href="#">
-                                <i class="demo-pli-split-vertical-2"></i>
-                                <span class="menu-title">Layouts</span>
-                                <i class="arrow"></i>
-                            </a>
-
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="layouts-collapsed-navigation.html">Collapsed Navigation</a>
-                                </li>
-                                <li><a href="layouts-offcanvas-navigation.html">Off-Canvas Navigation</a>
-                                </li>
-                                <li><a href="layouts-offcanvas-slide-in-navigation.html">Slide-in
-                                        Navigation</a></li>
-                                <li><a href="layouts-offcanvas-revealing-navigation.html">Revealing
-                                        Navigation</a></li>
-                                <li class="list-divider"></li>
-                                <li><a href="layouts-aside-right-side.html">Aside on the right side</a></li>
-                                <li><a href="layouts-aside-left-side.html">Aside on the left side</a></li>
-                                <li><a href="layouts-aside-dark-theme.html">Dark version of aside</a></li>
-                                <li class="list-divider"></li>
-                                <li><a href="layouts-fixed-navbar.html">Fixed Navbar</a></li>
-                                <li><a href="layouts-fixed-footer.html">Fixed Footer</a></li>
-
-                            </ul>
-                        </li>
-
-                        <!--Menu list item-->
-                        <li>
-                            <a href="widgets.html">
-                                <i class="demo-pli-gear"></i>
-                                <span class="menu-title">
-                                    Widgets
-                                    <span class="pull-right badge badge-warning">24</span>
-                                </span>
-                            </a>
-                        </li>
-
                         <li class="list-divider"></li>
 
                         <!--Category name-->
                         <li class="list-header">Quản lý</li>
 
                         <!--Menu list item-->
+
                         <li>
                             <a href="#">
                                 <i class="demo-pli-boot-2"></i>
@@ -163,13 +125,19 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="ui-buttons.html">Danh sách</a></li>
-                                <li><a href="ui-panels.html">Vai trò</a></li>
-                                <li><a href="ui-modals.html">Phân quyền</a></li>
+                                @can('permission-list')
+                                <li><a href="{{ route('permissions.index') }}">Danh sách permission</a></li>
+                                @endcan
+                                @can('role-list')
+                                <li><a href="{{ route('roles.index') }}">Vai trò</a></li>
+                                @endcan
                             </ul>
+
                         </li>
 
+
                         <!--Menu list item-->
+                        @can('admin-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-pen-5"></i>
@@ -179,10 +147,11 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="forms-general.html">Danh sách</a></li>
-                                <li><a href="forms-components.html">Thêm mới</a></li>
+                                <li><a href="{{ route('account_admins.index') }}">Danh sách</a></li>
+                                <li><a href="{{ route('account_admins.create') }}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
                         <li>
@@ -194,16 +163,58 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="{{route('schedules.index')}}">Lịch khám</a></li>
-                                <li><a href="tables-bootstrap.html">Bootstrap Tables</a></li>
-                                <li><a href="tables-datatable.html">Data Tables</a></li>
-                                <li><a href="tables-footable.html">Foo Tables</a></li>
+                                <li><a href="{{route('schedules.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('schedules.create')}}">Thêm mới</a></li>
 
                             </ul>
                         </li>
 
-                        <!--Menu list item-->
                         <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Bệnh án</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('patient.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('patient.create')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li >
+                            <a href="#">
+                                <i class="demo-pli-computer-secure"></i>
+                                <span class="menu-title">Trang thiết bị</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('equipment.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('equipment.add')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li >
+                            <a href="#">
+                                <i class="demo-pli-computer-secure"></i>
+                                <span class="menu-title">Chức vụ</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('level.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('level.add')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
+                        <!--Menu list item-->
+                        <li class="{{request()->is('admin/specialist') || request()->is('admin/specialist/add') ? 'active' : ''}}">
                             <a href="#">
                                 <i class="demo-pli-bar-chart"></i>
                                 <span class="menu-title">Chuyên khoa</span>
@@ -212,12 +223,13 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="charts-morris-js.html">Danh sách</a></li>
-                                <li><a href="charts-flot-charts.html">Thêm mới</a></li>
+                                <li><a href="{{route('specialist.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('specialist.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
 
                         <!--Menu list item-->
+                        @can('room-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-repair"></i>
@@ -227,14 +239,13 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="misc-timeline.html">Timeline</a></li>
-                                <li><a href="misc-maps.html">Google Maps</a></li>
-                                <li><a href="xplugins-notifications.html">Notifications<span
-                                            class="label label-purple pull-right">Improved</span></a></li>
-                                <li><a href="misc-nestable-list.html">Nestable List</a></li>
-                              
+                                <li><a href="{{ route('rooms.index') }}">Danh sách</a></li>
+                                <li><a href="{{ route('rooms.create') }}">Thêm mới</a></li>
+
+
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
                         <li>
@@ -246,15 +257,43 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="grid-bootstrap.html">Bootstrap Grid</a></li>
+                                <li><a href="{{route('service.index')}}">Danh sách dịch vụ</a></li>
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Sản phẩm</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('product.index')}}">Sản phẩm</a></li>
+                                <li><a href="{{route('product-type.index')}}">Loại sản phẩm</a></li>
+                            </ul>
+                        </li>
+
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Đơn hàng</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('order.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('order.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
 
                         <!--Menu list item-->
                         <li>
                             <a href="#">
-                                <i class="demo-pli-warning-window"></i>
+                                <i class="demo-pli-gear"></i>
                                 <span class="menu-title">Cài đặt chung</span>
                                 <i class="arrow"></i>
                             </a>
@@ -265,9 +304,6 @@
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
                             </ul>
                         </li>
-
-
-                    
 
                     <!--Widget-->
                     <!--================================-->

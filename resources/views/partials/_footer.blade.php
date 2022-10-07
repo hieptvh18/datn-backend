@@ -1,4 +1,4 @@
-<footer id="footer">
+{{-- <footer id="footer">
 
     <!-- Visible when footer positions are fixed -->
     <!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
@@ -24,4 +24,4 @@
 
 
 
-</footer>
+</footer> --}}
