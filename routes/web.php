@@ -109,7 +109,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/rooms/searching', [RoomControler::class, 'search'])->name('rooms.search');
 
     // Quản lý trang thiết bị
-    Route::get('equipment',[EquipmentsController::class,'index'])->name('equipment.index');
+    Route::middleware('can:equipment-list')->get('equipment',[EquipmentsController::class,'index'])->name('equipment.index');
     Route::get('equipment/add',[EquipmentsController::class,'add'])->name('equipment.add');
     Route::post('equipment/add',[EquipmentsController::class,'save'])->name('equipment.save');
     Route::get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
@@ -120,7 +120,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
 
     // Quản lý cấp bậc, chức vụ
-    Route::get('level',[LevelsController::class,'index'])->name('level.index');
+    Route::middleware('can:level-list')->get('level',[LevelsController::class,'index'])->name('level.index');
     Route::get('level/add',[LevelsController::class,'add'])->name('level.add');
     Route::post('level/add',[LevelsController::class,'save'])->name('level.save');
     Route::get('level/edit/{id}',[LevelsController::class,'edit'])->name('level.edit');
@@ -131,11 +131,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // product
     Route::post('product/deleteMultiple',[ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');
-    Route::resource('product',ProductController::class);
+    Route::middleware('can:product-list')->resource('product',ProductController::class);
     Route::resource('product-type',ProductTypeController::class);
 
     //order
-    Route::get('order',[OrderController::class,'index'])->name('order.index');
+    Route::middleware('can:order-list')->get('order',[OrderController::class,'index'])->name('order.index');
     Route::get('order/add',[OrderController::class,'add'])->name('order.add');
     Route::post('order/save',[OrderController::class,'save'])->name('order.store');
     Route::get('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
@@ -147,8 +147,6 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::get('/edit-profile/{id}', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
-
-
 
 });
 

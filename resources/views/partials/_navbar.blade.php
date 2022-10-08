@@ -126,7 +126,7 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 @can('permission-list')
-                                <li><a href="{{ route('permissions.index') }}">Danh sách permission</a></li>
+                                <li><a href="{{ route('permissions.index') }}">Danh sách quyền</a></li>
                                 @endcan
                                 @can('role-list')
                                 <li><a href="{{ route('roles.index') }}">Vai trò</a></li>
@@ -154,6 +154,7 @@
                         @endcan
 
                         <!--Menu list item-->
+                        @can('schedule-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-receipt-4"></i>
@@ -168,7 +169,9 @@
 
                             </ul>
                         </li>
+                        @endcan
 
+                        @can('patient-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-warning-window"></i>
@@ -182,8 +185,10 @@
                                 <li><a href="{{route('patient.create')}}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
+                        @can('equipment-list')
                         <li >
                             <a href="#">
                                 <i class="demo-pli-computer-secure"></i>
@@ -197,8 +202,10 @@
                                 <li><a href="{{route('equipment.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
+                        @can('level-list')
                         <li >
                             <a href="#">
                                 <i class="demo-pli-computer-secure"></i>
@@ -212,8 +219,10 @@
                                 <li><a href="{{route('level.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
+                        @can('specialist-list')
                         <li class="{{request()->is('admin/specialist') || request()->is('admin/specialist/add') ? 'active' : ''}}">
                             <a href="#">
                                 <i class="demo-pli-bar-chart"></i>
@@ -227,6 +236,7 @@
                                 <li><a href="{{route('specialist.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
                         @can('room-list')
@@ -248,6 +258,7 @@
                         @endcan
 
                         <!--Menu list item-->
+                        @can('service-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-warning-window"></i>
@@ -261,7 +272,10 @@
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
                             </ul>
                         </li>
+                        @endcan
 
+
+                        @can('product-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-warning-window"></i>
@@ -275,7 +289,9 @@
                                 <li><a href="{{route('product-type.index')}}">Loại sản phẩm</a></li>
                             </ul>
                         </li>
+                        @endcan
 
+                        @can('order-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-warning-window"></i>
@@ -289,6 +305,7 @@
                                 <li><a href="{{route('order.add')}}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Menu list item-->
                         <li>

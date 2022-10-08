@@ -39,6 +39,12 @@ class AuthServiceProvider extends ServiceProvider
         $definePolicy->specialistDefine();
         $definePolicy->adminDefine();
         $definePolicy->userDefine();
+        $definePolicy->patientDefine();
+        $definePolicy->scheduleDefine();
+        $definePolicy->serviceDefine();
+        $definePolicy->equipmentDefine();
+        $definePolicy->productDefine();
+        $definePolicy->orderDefine();
 
     }
 }

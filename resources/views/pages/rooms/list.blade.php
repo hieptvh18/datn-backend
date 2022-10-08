@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('page-title', 'Phòng ban')
+@section('page-title', 'Danh sách phòng ban')
 @section('page-content')
     <div class="row">
         <div class="col-xs-12">
@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 @can('room-add')
-                                <a href="{{ route('rooms.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</a>
+                                <a href="{{ route('rooms.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm</a>
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 @endcan
                                 <div class="btn-group">
@@ -55,7 +55,7 @@
                             <thead>
                                 <tr>
                                     <th>@sortablelink('id', '#')</th>
-                                    <th>@sortablelink('room_name', 'Room name')</th>
+                                    <th>@sortablelink('room_name', 'Tên phòng ban')</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -67,14 +67,14 @@
                                     <td>{{$item->room_name}}</td>
                                     <td class="text-center">
                                         @can('room-edit')
-                                        <a href="{{ route('rooms.edit', $item->id) }}" class="label label-table label-success">Edit</a>
+                                        <a href="{{ route('rooms.edit', $item->id) }}" class="label label-table label-success">Sửa</a>
                                         @endcan
                                         @can('room-delete')
                                         <form id="deleteForm{{ $item->id }}" action="{{ route('rooms.destroy', $item->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                     </form>
-                                    <button data-form="deleteForm{{$item->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
+                                    <button data-form="deleteForm{{$item->id}}" class="label label-table label-danger btn-delete" style="border: none" >Xóa</button>
                                         @endcan
                                     </td>
 

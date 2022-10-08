@@ -4,10 +4,16 @@ namespace App\Services;
 
 use App\Models\Admin;
 use App\Policies\AdminPolicy;
+use App\Policies\EquipmentPolicy;
 use App\Policies\LevelPolicy;
+use App\Policies\OrderPolicy;
+use App\Policies\PatientPolicy;
 use App\Policies\PermissionPolicy;
+use App\Policies\ProductPolicy;
 use App\Policies\RolePolicy;
 use App\Policies\RoomPolicy;
+use App\Policies\SchedulePolicy;
+use App\Policies\ServicePolicy;
 use App\Policies\SpecialistPolicy;
 use App\Policies\UserPolicy;
 use Illuminate\Support\Facades\Gate;
@@ -68,5 +74,53 @@ class DefinePolicies {
         Gate::define('user-add', [UserPolicy::class, 'create']);
         Gate::define('user-edit', [UserPolicy::class, 'update']);
         Gate::define('user-delete', [UserPolicy::class, 'delete']);
+    }
+
+    // Gate define patient
+    public function patientDefine (){
+        Gate::define('patient-list', [PatientPolicy::class, 'view']);
+        Gate::define('patient-add', [PatientPolicy::class, 'create']);
+        Gate::define('patient-edit', [PatientPolicy::class, 'update']);
+        Gate::define('patient-delete', [PatientPolicy::class, 'delete']);
+    }
+
+    // Gate define schedule
+    public function scheduleDefine (){
+        Gate::define('schedule-list', [SchedulePolicy::class, 'view']);
+        Gate::define('schedule-add', [SchedulePolicy::class, 'create']);
+        Gate::define('schedule-edit', [SchedulePolicy::class, 'update']);
+        Gate::define('schedule-delete', [SchedulePolicy::class, 'delete']);
+    }
+
+    // Gate define service
+    public function serviceDefine (){
+        Gate::define('service-list', [ServicePolicy::class, 'view']);
+        Gate::define('service-add', [ServicePolicy::class, 'create']);
+        Gate::define('service-edit', [ServicePolicy::class, 'update']);
+        Gate::define('service-delete', [ServicePolicy::class, 'delete']);
+    }
+
+    // Gate define product
+    public function productDefine (){
+        Gate::define('product-list', [ProductPolicy::class, 'view']);
+        Gate::define('product-add', [ProductPolicy::class, 'create']);
+        Gate::define('product-edit', [ProductPolicy::class, 'update']);
+        Gate::define('product-delete', [ProductPolicy::class, 'delete']);
+    }
+
+    // Gate define equipment
+    public function equipmentDefine (){
+        Gate::define('equipment-list', [EquipmentPolicy::class, 'view']);
+        Gate::define('equipment-add', [EquipmentPolicy::class, 'create']);
+        Gate::define('equipment-edit', [EquipmentPolicy::class, 'update']);
+        Gate::define('equipment-delete', [EquipmentPolicy::class, 'delete']);
+    }
+
+    // Gate define order
+    public function orderDefine (){
+        Gate::define('order-list', [OrderPolicy::class, 'view']);
+        Gate::define('order-add', [OrderPolicy::class, 'create']);
+        Gate::define('order-edit', [OrderPolicy::class, 'update']);
+        Gate::define('order-delete', [OrderPolicy::class, 'delete']);
     }
 }
