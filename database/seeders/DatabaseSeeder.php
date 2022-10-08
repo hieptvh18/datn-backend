@@ -27,66 +27,66 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // permissions
-        $permissions = [
-            ['permission_name'=>'Roles', 'permission_key_code'=>'', 'parent_id'=>0],
-            ['permission_name'=>'List Roles', 'permission_key_code'=>'List_Roles', 'parent_id'=>1],
-            ['permission_name'=>'Add Roles', 'permission_key_code'=>'Add_Roles', 'parent_id'=>1],
-            ['permission_name'=>'Edit Roles', 'permission_key_code'=>'Edit_Roles', 'parent_id'=>1],
-            ['permission_name'=>'Delete Roles', 'permission_key_code'=>'Delete_Roles', 'parent_id'=>1],
-            ['permission_name'=>'Rooms', 'permission_key_code'=>'', 'parent_id'=>0],
-            ['permission_name'=>'List Rooms', 'permission_key_code'=>'List_Rooms', 'parent_id'=>6],
-            ['permission_name'=>'Add Rooms', 'permission_key_code'=>'Add_Rooms', 'parent_id'=>6],
-            ['permission_name'=>'Edit Rooms', 'permission_key_code'=>'Edit_Rooms', 'parent_id'=>6],
-            ['permission_name'=>'Delete Rooms', 'permission_key_code'=>'Delete_Rooms', 'parent_id'=>6],
-            ['permission_name'=>'Permissions', 'permission_key_code'=>'', 'parent_id'=>0],
-            ['permission_name'=>'List Permissions', 'permission_key_code'=>'List_Permissions', 'parent_id'=>11],
-            ['permission_name'=>'Add Permissions', 'permission_key_code'=>'Add_Permissions', 'parent_id'=>11],
-            ['permission_name'=>'Edit Permissions', 'permission_key_code'=>'Edit_Permissions', 'parent_id'=>11],
-            ['permission_name'=>'Delete Permissions', 'permission_key_code'=>'Delete_Permissions', 'parent_id'=>11],
-            ['permission_name'=>'Admins', 'permission_key_code'=>'', 'parent_id'=>0],
-            ['permission_name'=>'List Admins', 'permission_key_code'=>'List_Admins', 'parent_id'=>16],
-            ['permission_name'=>'Add Admins', 'permission_key_code'=>'Add_Admins', 'parent_id'=>16],
-            ['permission_name'=>'Edit Admins', 'permission_key_code'=>'Edit_Admins', 'parent_id'=>16],
-            ['permission_name'=>'Delete Admins', 'permission_key_code'=>'Delete_Admins', 'parent_id'=>16],
-        ];
+        // $permissions = [
+        //     ['permission_name'=>'Roles', 'permission_key_code'=>'', 'parent_id'=>0],
+        //     ['permission_name'=>'List Roles', 'permission_key_code'=>'List_Roles', 'parent_id'=>1],
+        //     ['permission_name'=>'Add Roles', 'permission_key_code'=>'Add_Roles', 'parent_id'=>1],
+        //     ['permission_name'=>'Edit Roles', 'permission_key_code'=>'Edit_Roles', 'parent_id'=>1],
+        //     ['permission_name'=>'Delete Roles', 'permission_key_code'=>'Delete_Roles', 'parent_id'=>1],
+        //     ['permission_name'=>'Rooms', 'permission_key_code'=>'', 'parent_id'=>0],
+        //     ['permission_name'=>'List Rooms', 'permission_key_code'=>'List_Rooms', 'parent_id'=>6],
+        //     ['permission_name'=>'Add Rooms', 'permission_key_code'=>'Add_Rooms', 'parent_id'=>6],
+        //     ['permission_name'=>'Edit Rooms', 'permission_key_code'=>'Edit_Rooms', 'parent_id'=>6],
+        //     ['permission_name'=>'Delete Rooms', 'permission_key_code'=>'Delete_Rooms', 'parent_id'=>6],
+        //     ['permission_name'=>'Permissions', 'permission_key_code'=>'', 'parent_id'=>0],
+        //     ['permission_name'=>'List Permissions', 'permission_key_code'=>'List_Permissions', 'parent_id'=>11],
+        //     ['permission_name'=>'Add Permissions', 'permission_key_code'=>'Add_Permissions', 'parent_id'=>11],
+        //     ['permission_name'=>'Edit Permissions', 'permission_key_code'=>'Edit_Permissions', 'parent_id'=>11],
+        //     ['permission_name'=>'Delete Permissions', 'permission_key_code'=>'Delete_Permissions', 'parent_id'=>11],
+        //     ['permission_name'=>'Admins', 'permission_key_code'=>'', 'parent_id'=>0],
+        //     ['permission_name'=>'List Admins', 'permission_key_code'=>'List_Admins', 'parent_id'=>16],
+        //     ['permission_name'=>'Add Admins', 'permission_key_code'=>'Add_Admins', 'parent_id'=>16],
+        //     ['permission_name'=>'Edit Admins', 'permission_key_code'=>'Edit_Admins', 'parent_id'=>16],
+        //     ['permission_name'=>'Delete Admins', 'permission_key_code'=>'Delete_Admins', 'parent_id'=>16],
+        // ];
 
-        foreach($permissions as $permission){
-            Permission::create($permission);
-        }
+        // foreach($permissions as $permission){
+        //     Permission::create($permission);
+        // }
 
-        // roles
-        $roles = [
-            ['role_name'=>'Guest'],
-            ['role_name'=>'Manager'],
-            ['role_name'=>'Admin']
-        ];
+        // // roles
+        // $roles = [
+        //     ['role_name'=>'Guest'],
+        //     ['role_name'=>'Manager'],
+        //     ['role_name'=>'Admin']
+        // ];
 
-        foreach($roles as $role){
-           Role::create($role);
-        }
+        // foreach($roles as $role){
+        //    Role::create($role);
+        // }
 
-        //permission_roles
-        DB::insert('insert into permission_roles (permission_id, role_id) values (2, 1)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (2, 2)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (3, 2)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (4, 2)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (5, 2)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (2, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (3, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (4, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (5, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (7, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (8, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (9, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (10, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (12, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (13, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (14, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (15, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (17, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (18, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (19, 3)');
-        DB::insert('insert into permission_roles (permission_id, role_id) values (20, 3)');
+        // //permission_roles
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (2, 1)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (2, 2)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (3, 2)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (4, 2)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (5, 2)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (2, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (3, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (4, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (5, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (7, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (8, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (9, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (10, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (12, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (13, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (14, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (15, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (17, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (18, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (19, 3)');
+        // DB::insert('insert into permission_roles (permission_id, role_id) values (20, 3)');
 
         // rooms
         Room::factory(10)->create();
