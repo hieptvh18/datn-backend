@@ -10,6 +10,7 @@ use App\Models\Permission;
 use App\Models\Product;
 use App\Models\ProductType;
 use App\Models\Role;
+use App\Models\RoleAdmin;
 use App\Models\Room;
 use App\Models\Service;
 use App\Models\Specialist;
@@ -89,32 +90,48 @@ class DatabaseSeeder extends Seeder
         // DB::insert('insert into permission_roles (permission_id, role_id) values (20, 3)');
 
         // rooms
-        // Room::factory(10)->create();
+        Room::factory(10)->create();
         // levels
-        // Level::factory(6)->create();
+        Level::factory(6)->create();
         // specialists
-        // Specialist::factory(10)->create();
+        Specialist::factory(10)->create();
         //services
-        // Service::factory(20)->create();
+        Service::factory(20)->create();
 
 
         // fix migrate to heroku
          // role_admins
-         DB::insert('insert into rooms (room_name, history,mission,achievement) values ("room 1", "asdasdád","ads","asdsad")');
+        //  Room::insert([
+        //     'room_name'=>'Room 1',
+        //     'history'=>'Lich su phat trien',
+        //     'misson'=>'asdasd',
+        //     'achievement'=>'asdasdea'
+        //  ]);
 
-         DB::insert('insert into levels (name) values ("Level 1")');
+        //  Level::insert([
+        //     'name'=>'Tiến sĩ'
+        //  ]);
 
-         DB::insert('insert into specialists (specialist_name, function) values ("khoa rang", "room 1sdfsdsdfsdfsdf")');
+        //  Specialist::insert([
+        //     'specialist_name'=>"Chuyên khoa 1",
+        //     'function'=>'Chuyen khoa răng'
+        //  ]);
+
         // account admin
            $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1,'avatar'=>'asdasd.jpg'];
            Admin::create($account_admin);
 
 
         // role_admins
-        DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
+        // DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
+
+        RoleAdmin::insert([
+            'admin_id'=>1,
+            'role_id'=>3
+        ]);
 
         //product type && product
-        // ProductType::factory(10)->create();
-        // Product::factory(20)->create();
+        ProductType::factory(10)->create();
+        Product::factory(20)->create();
     }
 }
