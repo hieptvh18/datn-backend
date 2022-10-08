@@ -19,6 +19,7 @@ class ServiceFactory extends Factory
         return [
             'service_name'=>$this->faker->name(),
             'price'=>$this->faker->numberBetween(15000,70000000),
+            'is_active'=>1
         ];
     }
 }
