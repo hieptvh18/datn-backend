@@ -34,7 +34,7 @@ Route::get('/', function () {
 });
 
 // =========== route admin
-Route::middleware('auth:admin')->prefix('admin')->group(function(){
+// Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
 
     Route::get('/',[DashboardController::class,'index'])->name('dashboard');
@@ -150,10 +150,10 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
 
 
-});
+// });
 
 // =========== route login, register, forgot password
-Route::middleware('guest')->prefix('/')->group(function(){
+// Route::middleware('guest')->prefix('/')->group(function(){
     // login
     Route::get('/login', [AuthController::class, 'getLogin'])->name('getLogin');
     Route::post('postLogin', [AuthController::class, 'postLogin'])->name('postLogin');
@@ -168,4 +168,4 @@ Route::middleware('guest')->prefix('/')->group(function(){
     Route::get('changePassword/{id}', [AuthController::class, 'getChangePassword'])->name('getChangePassword');
     Route::post('postChangePassword/{id}', [AuthController::class, 'postChangePassword'])->name('postChangePassword');
 
-});
+// });
