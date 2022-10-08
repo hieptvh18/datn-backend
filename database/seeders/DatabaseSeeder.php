@@ -89,13 +89,13 @@ class DatabaseSeeder extends Seeder
         // DB::insert('insert into permission_roles (permission_id, role_id) values (20, 3)');
 
         // rooms
-        Room::factory(10)->create();
+        // Room::factory(10)->create();
         // levels
-        Level::factory(6)->create();
+        // Level::factory(6)->create();
         // specialists
-        Specialist::factory(10)->create();
+        // Specialist::factory(10)->create();
         //services
-        Service::factory(20)->create();
+        // Service::factory(20)->create();
 
         // account admin
            $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1];
@@ -106,7 +106,7 @@ class DatabaseSeeder extends Seeder
         DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
 
         //product type && product
-        ProductType::factory(10)->create();
-        Product::factory(20)->create();
+        // ProductType::factory(10)->create();
+        // Product::factory(20)->create();
     }
 }
