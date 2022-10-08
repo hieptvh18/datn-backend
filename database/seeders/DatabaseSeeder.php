@@ -97,6 +97,14 @@ class DatabaseSeeder extends Seeder
         //services
         // Service::factory(20)->create();
 
+
+        // fix migrate to heroku
+         // role_admins
+         DB::insert('insert into rooms (room_name, history,mission,achievement) values ("room 1", "asdasdád","ads","asdsad")');
+
+         DB::insert('insert into levels (name) values ("Level 1")');
+
+         DB::insert('insert into specialists (specialist_name, function) values ("khoa rang", "room 1sdfsdsdfsdfsdf")');
         // account admin
            $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1,'avatar'=>'asdasd.jpg'];
            Admin::create($account_admin);
