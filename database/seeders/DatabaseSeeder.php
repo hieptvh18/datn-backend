@@ -118,12 +118,12 @@ class DatabaseSeeder extends Seeder
         //  ]);
 
         // account admin
-           $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>2, 'specialist_id'=>1,'avatar'=>'asdasd.jpg'];
-           Admin::create($account_admin);
+        //    $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>2, 'specialist_id'=>1,'avatar'=>'asdasd.jpg'];
+        //    Admin::create($account_admin);
 
 
         // role_admins
-        DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
+        DB::insert('insert into role_admins (admin_id, role_id) values (5, 3)');
 
         // RoleAdmin::insert([
         //     'admin_id'=>1,
