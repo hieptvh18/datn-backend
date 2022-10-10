@@ -165,9 +165,7 @@
                     </div>
                     <hr class="new-section-xs">
                     {{ $listSchedules->links() }}
-                    <div class="pull-right">
-                        {{ $listSchedules->links() }}
-                    </div>
+                    
                 </div>
             </div>
 

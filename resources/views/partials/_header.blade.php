@@ -4,10 +4,10 @@
         <!--Brand logo & name-->
         <!--================================-->
         <div class="navbar-header">
-            <a href="index.html" class="navbar-brand">
-                <img src="img/logo.png" alt="Nifty Logo" class="brand-icon">
+            <a href="http://localhost:3000/" class="navbar-brand">
+                <img src="{{asset('assets/img/logo-DN.png')}}" alt="DN Logo" class="brand-icon">
                 <div class="brand-title">
-                    <span class="brand-text">Nifty</span>
+                    <span class="brand-text">DN</span>
                 </div>
             </a>
         </div>

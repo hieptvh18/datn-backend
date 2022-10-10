@@ -11,7 +11,7 @@ class ServiceController extends Controller
     public function list()
     {
         try {
-            $listService = Service::select('id', 'service_name', 'price', 'parent_id')->get();
+            $listService = Service::select('id', 'service_name', 'price', 'parent_id')->where('is_active',1)->get();
             return response()->json([
                 'success' => true,
                 'message'=> 'Danh sách dịch vụ',

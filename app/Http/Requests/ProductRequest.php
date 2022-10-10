@@ -37,7 +37,7 @@ class ProductRequest extends FormRequest
             'name.required'=>':attribute không được để trống',
             'name.min'=>'Nhập ít nhât :min kí tư',
             'name.max'=>'Nhập tối đa :max kí tư',
-            'type_id.required'=>':attribute không được để trống',
+            'type_id.required'=>'Tên loại không được để trống',
             'price.required'=>':attribute không được để trống',
             'price.numeric'=>':attribute phải là số',
             'image.image'=>':attribute phải là file ảnh',
