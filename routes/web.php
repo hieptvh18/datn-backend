@@ -60,6 +60,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
     Route::get('specialist/searching',[SpecialistController::class,'search'])->name('specialist.search');
     Route::get('specialist/addPatient',[SpecialistController::class,'addPatient'])->name('specialist.patient');
+    Route::post('specialist/deleteMultiple',[SpecialistController::class,'deleteMultiple'])->name('specialist.deleteMultiple');
 
     // benh an
     Route::get('patient/searching',[PatientController::class,'search'])->name('patient.search');
@@ -144,7 +145,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // profile
     Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
-    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');  
+    Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
 
 

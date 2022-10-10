@@ -98,4 +98,9 @@ class EquipmentsController extends Controller
         return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
        }
     }
+
+    public function deleteMultiple (Request $request){
+        Equipment::whereIn('id', $request->get('data'))->delete();
+         return response("Xóa thành công!", 200);
+     }
 }

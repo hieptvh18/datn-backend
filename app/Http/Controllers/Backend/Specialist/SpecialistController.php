@@ -7,6 +7,7 @@ use App\Http\Requests\SpecialistRequest;
 use App\Models\Specialist;
 use App\Models\SpecialistGallery;
 use Exception;
+use Illuminate\Http\Request;
 
 class SpecialistController extends Controller
 {
@@ -134,6 +135,12 @@ class SpecialistController extends Controller
             report($th->getMessage());
             return redirect()->back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
+    }
+
+    // delete multiple
+    public function deleteMultiple (Request $request){
+        Specialist::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
     }
 
 }

@@ -20,11 +20,7 @@
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default" onclick="
-                                        if(confirm('Xóa item đã chọn?')){
-
-                                        }
-                                    "><i class="demo-pli-trash icon-lg"></i></button>
+                                    <button class="btn btn-default" id="delete-multiple" data-route="{{ route('specialist.deleteMultiple') }}" ><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -60,11 +56,11 @@
                         @if (session('exception'))
                         <div class="alert alert-danger">{{ session('exception') }}</div>
                     @endif
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox" class="Parent" name="" id="">
                                     </th>
                                     <th>@sortablelink('id', 'ID')</th>
                                     <th>@sortablelink('specialist_name', 'Tên chuyên khoa')</th>
@@ -76,7 +72,7 @@
                             <tbody>
                                 @foreach ($specialists as $specialist)
                                     <tr>
-                                        <td><input type="checkbox" name="" value=""></td>
+                                        <td><input type="checkbox" class="Childrent" name="specialist_id[]" value="{{$specialist->id}}"></td>
                                         <td><a href="#" class="btn-link">#{{ $specialist->id }}</a></td>
                                         <td>{{ $specialist->specialist_name }}</td>
                                         <td>{{ substr($specialist->function, 50) }}...</td>
