@@ -61,39 +61,42 @@
                                 </div>
                             </div>
                         </div>
-                            <div class="row" style="display: flex; padding: 0 10px">
+                        <div class="row" style="display: flex; padding: 0 10px">
 
-                                <div style="width: 72%;">
-                                    <form action="" method="GET" class="">
-                                        <div class="row" >
-                                            <div id="demo-dp-range" class="col-sm-6" style="display: flex">
-                                                <div class="input-daterange input-group" id="datepicker">
-                                                    <input value="{{isset(request()->start) ? request()->start : ''}}" type="text" class="form-control" name="start" placeholder="Ngày bắt đầu"/>
-                                                    <span class="input-group-addon">to</span>
-                                                    <input value="{{isset(request()->end) ? request()->end : ''}}" type="text" placeholder="Ngày kết thúc" class="form-control" name="end" />
-                                                </div>
-                                                <div class="btn-group col-sm-8">
-                                                    <a href=""><button class="btn btn-primary">Lọc</button></a>
-                                                </div>
+                            <div style="width: 72%;">
+                                <form action="" method="GET" class="">
+                                    <div class="row">
+                                        <div id="demo-dp-range" class="col-sm-6" style="display: flex">
+                                            <div class="input-daterange input-group" id="datepicker">
+                                                <input value="{{ isset(request()->start) ? request()->start : '' }}"
+                                                    type="text" class="form-control" name="start"
+                                                    placeholder="Ngày bắt đầu" />
+                                                <span class="input-group-addon">to</span>
+                                                <input value="{{ isset(request()->end) ? request()->end : '' }}"
+                                                    type="text" placeholder="Ngày kết thúc" class="form-control"
+                                                    name="end" />
                                             </div>
-
+                                            <div class="btn-group col-sm-8">
+                                                <a href=""><button class="btn btn-primary">Lọc</button></a>
+                                            </div>
                                         </div>
-                                    </form>
-                                </div>
-                                <div style="width: 28%; text-align: right">
-                                    <form action="{{ route('schedules.import') }}" enctype="multipart/form-data"
-                                        method="post">
-                                        @csrf
-                                        <input type="file" class="form-control" name="file" id="">
-                                        <button class="btn btn-default">
-                                            <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
-                                        @error('file')
-                                            <p style="color: red; text-align: left; margin: 5px">{{$message}}</p>
-                                        @enderror
 
-                                    </form>
-                                </div>
+                                    </div>
+                                </form>
                             </div>
+                            <div style="width: 28%; text-align: right">
+                                <form action="{{ route('schedules.import') }}" enctype="multipart/form-data" method="post">
+                                    @csrf
+                                    <input type="file" class="form-control" name="file" id="">
+                                    <button class="btn btn-default">
+                                        <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
+                                    @error('file')
+                                        <p style="color: red; text-align: left; margin: 5px">{{ $message }}</p>
+                                    @enderror
+
+                                </form>
+                            </div>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="table table-striped">
@@ -130,11 +133,16 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->cmnd }}</td>
                                         <td>{{ $item->date }}</td>
-                                        <td>
+                                        <td class="change-status" data-schedule-id={{$item->id}}>
                                             <select class="selectpicker">
-                                                <option value="0" {{$item->status == 0 ? 'selected' : ''}}>Chờ xác nhận</option>
-                                                <option value="1" {{$item->status == 1 ? 'selected' : ''}}>Đã xác nhận</option>
-                                                <option value="2" {{$item->status == 2 ? 'selected' : ''}}>Đã hủy</option>
+                                                <option value="0" {{ $item->status == 0 ? 'selected' : '' }}>Chờ xác
+                                                    nhận</option>
+                                                <option value="1" {{ $item->status == 1 ? 'selected' : '' }}>Đã xác
+                                                    nhận</option>
+                                                <option value="2" {{ $item->status == 2 ? 'selected' : '' }}>Đã hủy
+                                                </option>
+                                                <option value="3" {{ $item->status == 3 ? 'selected' : '' }}>Đã khám
+                                                </option>
                                             </select>
                                         </td>
                                         <td class="text-center">
@@ -143,8 +151,9 @@
                                                     class="label label-table label-success">Chi tiết</a>
                                             @endcan
                                             @if ($item->status)
-                                            <a  style="margin-bottom: 5px"  href="{{ route('patient.show', $item->id) }}"
-                                                class="label label-table label-info">Hồ sơ bệnh án</a>
+                                                <a style="margin-bottom: 5px"
+                                                    href="{{ route('patient.show', $item->id) }}"
+                                                    class="label label-table label-info">Hồ sơ bệnh án</a>
                                             @endif
                                             @can('room-delete')
                                                 <form id="deleteForm{{ $item->id }}"
@@ -165,7 +174,7 @@
                     </div>
                     <hr class="new-section-xs">
                     {{ $listSchedules->links() }}
-                    
+
                 </div>
             </div>
 
@@ -175,12 +184,44 @@
 
 @endsection
 @section('page-js')
-<script>
-    $(document).ready(function(){
-        $('#datepicker').datepicker();
-        // $('#datetimepicker2').datetimepicker({
-        //          locale: 'ruu'
-        //      });
-    })
-</script>
+    <script>
+        $(document).ready(function() {
+            $('#datepicker').datepicker();
+            // $('#datetimepicker2').datetimepicker({
+            //          locale: 'ruu'
+            //      });
+        })
+    </script>
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            var scheduleId = null;
+            $('body').on('click','td.change-status',function(){
+                scheduleId = $(this).data('schedule-id');
+            })
+            $('body').on('click', 'td.change-status ul.dropdown-menu li', function() {
+                var status = $(this).data('original-index');
+
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+
+                $.ajax({
+                    url: "{{route('schedule.ajax.changestatus')}}",
+                    type: 'POST',
+                    data: {
+                        'scheduleId':scheduleId ,
+                        'status':status
+                    },
+                    dataType:'json',
+                    success: function(res){
+                        console.log(res);
+                    }
+
+                })
+            })
+        })
+    </script>
 @endsection
