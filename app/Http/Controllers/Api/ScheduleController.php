@@ -104,4 +104,25 @@ class ScheduleController extends Controller
         }
         return $user;
     }
+
+    public function changeStatus(Request $request){
+        try{
+            $schedule = Schedule::find($request->scheduleId);
+            $schedule->status = $request->status;
+            $schedule->save();
+
+            return response()->json([
+                'success'=> true,
+                'message'=>'Câp nhật thành công trạng thái',
+                'data'=>$schedule
+            ]);
+
+        }catch(Throwable $e){
+            report($e->getMessage());
+            return response()->json([
+                'success'=> false,
+                'message'=>'Có lỗi xảy ra, '.$e->getMessage()
+            ]);
+        }
+    }
 }

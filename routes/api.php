@@ -24,4 +24,5 @@ Route::get('/patient/list/{phone}', [PatientController::class, 'list']);
 // login
 Route::post('/login', [AuthController::class, 'login']);
 
-
+// change status schedule in listing
+Route::post('schedule/change-status',[ScheduleController::class,'changeStatus'])->name('schedule.ajax.changestatus');
