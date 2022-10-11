@@ -139,6 +139,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('order/add',[OrderController::class,'add'])->name('order.add');
     Route::post('order/save',[OrderController::class,'save'])->name('order.store');
     Route::get('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
+    Route::get('order/search',[OrderController::class,'search'])->name('order.search');
 
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');
     Route::get('order/detail/{id}',[OrderController::class,'detail'])->name('order.detail');

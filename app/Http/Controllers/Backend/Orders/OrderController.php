@@ -7,8 +7,10 @@ use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Patient;
 use App\Models\Product;
+use App\Models\Schedule;
 use App\Models\Service;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
+use Carbon\Carbon;
 use Dompdf\Options;
 use Illuminate\Http\Request;
 use PDF;
@@ -16,9 +18,20 @@ use PDF;
 class OrderController extends Controller
 {
     //
-    public function index(){
-        $orders = Order::paginate(15);
-        return view('pages.orders.list', compact('orders'));
+    public function index(Request $request){
+        try {
+            $orders = Order::sortable()->orderby('created_at', 'desc');
+            if(isset($request->start)){
+                    $startDate = date('Y-m-d', strtotime($request->start));
+                    $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
+                    $listSchedules = $orders->whereBetween('date', [$startDate, $endDate]);
+            }
+            $orders = $orders->paginate(15);
+            return view('pages.orders.list', compact('orders'));
+        } catch (\Throwable $th) {
+           report($th->getMessage());
+           return redirect()->back()->with('error', 'Đã có lỗi xảy ra!');
+        }
     }
 
     public function add(){
@@ -50,7 +63,12 @@ class OrderController extends Controller
         $order->service_id = $service_id;
         $order->code_bill = $this->generateUniqueCode();
         $order->total = $total;
+        $order->date = Carbon::now()->format('Y-m-d');
         $order->save();
+
+        $schedule = Schedule::find($request->schedule_id);
+        $schedule->status = 3;
+        $schedule->update();
 
         return view('pages.orders.detail', compact('order','services', 'products', 'total'))->with(['message'=>'Tạo hóa đơn thành công!']);
 
@@ -97,6 +115,27 @@ class OrderController extends Controller
         $pdf = FacadePdf::setOptions([$options])->setPaper('a4')->loadView('pages.orders.bill', ['order'=>$order,'services'=>$services, 'products'=>$products, 'total'=>$total, 'pic'=> $pic]);
     		// return $pdf->download('orderBill.pdf');
             return $pdf->stream('myPDF.pdf');
+    }
+
+    // search
+    public function search (){
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+        try {
+            if ($search_text==null) {
+                return redirect()->route('order.index');
+            } else {
+                $orders=Order::where('id','LIKE', '%'.$search_text.'%')
+                ->orwhere('customer_name','LIKE', '%'.$search_text.'%')
+                ->orwhere('customer_phone','LIKE', '%'.$search_text.'%')
+                ->orwhere('date','LIKE', '%'.$search_text.'%')
+                ->paginate(15);
+            }
+            return view('pages.orders.list', compact('orders'));
+           } catch (\Throwable $th) {
+                return $th;
+           }
     }
 
     public function delete($id){

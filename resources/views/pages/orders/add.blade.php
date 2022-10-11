@@ -19,6 +19,8 @@
 
                         <input type="text" placeholder="Tên bệnh nhân" id="demo-hor-name" name="customer_name"
                             class="form-control" value="{{$patient->customer_name}}">
+                        <input type="hidden" name="schedule_id"
+                            class="form-control" value="{{$patient->schedule_id}}">
                         @error('customer_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
