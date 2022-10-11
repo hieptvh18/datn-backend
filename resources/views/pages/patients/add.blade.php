@@ -73,9 +73,13 @@
                     <div class="col-md-9">
                         <select class="js-example-basic-multiple form-control" data-placeholder="Chọn bác sĩ..."
                             name="doctor[]" multiple="multiple">
+                            @if ($doctors!=='')
                             @foreach ($doctors as $doctor)
-                                <option value="{{ $doctor->id }}">{{ $doctor->fullname }}</option>
+                            <option value="{{ $doctor->id }}">{{ $doctor->fullname }}</option>
                             @endforeach
+                            @else
+                            <option value="">No results doctor</option>
+                            @endif
                         </select>
                     </div>
                 </div>
