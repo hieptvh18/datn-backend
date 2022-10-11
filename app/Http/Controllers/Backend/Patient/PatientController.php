@@ -60,7 +60,7 @@ class PatientController extends Controller
             $patient->patient_doctors()->attach($request->doctor);
             $patient->patient_products()->attach($request->product);
             $patient->service_patients()->attach($request->service);
-            return redirect()->back()->with('message', 'Thêm thành công!');
+            return redirect()->route('patient.index')->with('message', 'Thêm thành công!');
         } catch (\Exception $e) {
             report($e->getMessage());
 
