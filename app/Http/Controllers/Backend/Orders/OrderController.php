@@ -7,6 +7,7 @@ use App\Models\Order;
 use App\Models\Order_detail;
 use App\Models\Patient;
 use App\Models\Product;
+use App\Models\Schedule;
 use App\Models\Service;
 use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
@@ -64,6 +65,10 @@ class OrderController extends Controller
         $order->total = $total;
         $order->date = Carbon::now()->format('Y-m-d');
         $order->save();
+
+        $schedule = Schedule::find($request->schedule_id);
+        $schedule->status = 3;
+        $schedule->update();
 
         return view('pages.orders.detail', compact('order','services', 'products', 'total'))->with(['message'=>'Tạo hóa đơn thành công!']);
 

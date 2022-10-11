@@ -135,6 +135,7 @@
                                                 <option value="0" {{$item->status == 0 ? 'selected' : ''}}>Chờ xác nhận</option>
                                                 <option value="1" {{$item->status == 1 ? 'selected' : ''}}>Đã xác nhận</option>
                                                 <option value="2" {{$item->status == 2 ? 'selected' : ''}}>Đã hủy</option>
+                                                <option value="3" {{$item->status == 3 ? 'selected' : ''}}>Đã khám</option>
                                             </select>
                                         </td>
                                         <td class="text-center">
@@ -165,7 +166,7 @@
                     </div>
                     <hr class="new-section-xs">
                     {{ $listSchedules->links() }}
-                    
+
                 </div>
             </div>
 
