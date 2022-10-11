@@ -56,6 +56,11 @@
                     <label for="" class="col-sm-3 control-label">Ảnh dịch vụ: </label>
                     <div class="col-sm-9">
                         <input type="file" name="image">
+                        @error('image')
+                        <div class="text text-danger">
+                            {{ $message }}
+                        </div>
+                    @enderror
                     </div>
                 </div>
             </div>
