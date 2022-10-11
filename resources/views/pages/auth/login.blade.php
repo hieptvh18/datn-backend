@@ -11,7 +11,7 @@
             <div class="form-group">
                 <input id="email" type="text" placeholder="Email"
                     class="form-control @error('email') is-invalid @enderror" name="email"
-                    value="{{ old('email') }}" autocomplete="email" autofocus>
+                    value="{{ Cookie::get('emailCookie')?Cookie::get('emailCookie'):old('email') }}" autocomplete="email" autofocus>
 
                 @error('email')
                     <span class="invalid-feedback ml-2" role="alert" style="color: yellow">
@@ -22,7 +22,7 @@
             <div class="form-group">
                 <input id="password" type="password" placeholder="Password"
                     class="form-control @error('password') is-invalid @enderror" name="password"
-                    autocomplete="current-password">
+                    autocomplete="current-password" value="{{Cookie::get('passwordCookie')?Cookie::get('passwordCookie'):old('password')}}">
 
                 @error('password')
                     <span class="invalid-feedback ml-2" role="alert" style="color: yellow">
@@ -37,7 +37,7 @@
             <div class="form-group d-md-flex">
                 <div class="w-50">
                     <label class="checkbox-wrap checkbox-primary">Remember Me
-                        <input type="checkbox" checked>
+                        <input type="checkbox" checked name="remember">
                         <span class="checkmark"></span>
                     </label>
                 </div>

@@ -12,6 +12,7 @@ use App\Models\Password_reset;
 use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\Date;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -39,7 +40,14 @@ class AuthController extends Controller
         if ($user) {
             if ($user->is_active == '1') {
                 if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password, 'is_active' => 1])) {
-                    return redirect()->route('dashboard');
+                    if(isset($request->remember) == 'on'){
+                        $days = time() + 60 * 60 * 24 * 30; // time 30 days
+                        Cookie::queue('emailCookie', $request->email, $days);
+                        Cookie::queue('passwordCookie', $request->password, $days);
+                        return redirect()->route('dashboard');
+                    }else{
+                        return redirect()->route('dashboard');
+                    }
                 } elseif (!Auth::guard('admin')->attempt(['password' => $request->password])) {
                     return redirect()->route('getLogin')->withInput($request->only('email', 'remember'))->with(['error' => 'Mật khẩu không chính xác!']);
                 }
