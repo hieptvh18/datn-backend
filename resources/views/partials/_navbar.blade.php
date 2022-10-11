@@ -258,7 +258,7 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li><a href="{{route('service.index')}}">Danh sách dịch vụ</a></li>
-                                <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
+                                <li><a href="{{route('service.create')}}">Thêm dịch vụ</a></li>
                             </ul>
                         </li>
 
