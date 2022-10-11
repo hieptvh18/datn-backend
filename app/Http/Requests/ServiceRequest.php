@@ -48,6 +48,7 @@ class ServiceRequest extends FormRequest
             'image.image'=>':attribute phải là file ảnh',
             'image.mimes'=>':attribute phải là file ảnh jpg, png hoặc jpeg',
             'image.max' => 'Kích thước ảnh không lớn quá :max'
+
         ];
     }
     public function attributes()
