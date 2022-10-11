@@ -33,7 +33,7 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
-                                    <form action="{{ route('patient.search') }}" method="get">
+                                    <form action="{{ route('order.search') }}" method="get">
                                     <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
                                         id="demo-input-search2">
                                     </form>
@@ -106,9 +106,10 @@
                                     <th>
                                         <input type="checkbox" name="" id="">
                                     </th>
-                                    <th class="text-center">ID</th>
-                                    <th class="text-center">Họ tên</th>
-                                    <th class="text-center">Số điện thoại</th>
+                                    <th class="text-center">@sortablelink('id', 'ID')</th>
+                                    <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
+                                    <th class="text-center">@sortablelink('customer_phone', 'Số điện thoại')</th>
+                                    <th class="text-center">@sortablelink('date', 'Ngày tạo đơn')</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -120,6 +121,7 @@
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->customer_name }}</td>
                                         <td>{{ $order->customer_phone }}</td>
+                                        <td>{{ $order->created_at->format('Y-m-d') }}</td>
 
                                         <td>
 
@@ -149,9 +151,18 @@
     </div>
 @endsection
 @section('page-js')
+<script>
+      $(document).ready(function(){
+        $('#datepicker').datepicker();
+        // $('#datetimepicker2').datetimepicker({
+        //          locale: 'ruu'
+        //      });
+    })
+</script>
 <script type="text/javascript">
     $(document).ready(function () {
         $('.ckeditor').ckeditor();
     });
+
 </script>
 @endsection
