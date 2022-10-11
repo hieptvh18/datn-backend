@@ -16,8 +16,7 @@ class ScheduleController extends Controller
     public function add(Request $request)
     {
         try {
-            $user = $this->createUser($request->fullname, $request->email, $request->phone);
-            if($user !== false){
+            $user = $this->createUser($request->fullname, $request->phone);
             if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
@@ -35,15 +34,6 @@ class ScheduleController extends Controller
             return response()->json([
                 'success' => false,
                 'message' => 'Bạn vừa đặt lịch các đây 1 ngày! vui lòng thử lại sau 24h!',
-                'data' => [],
-                'user' => [],
-            ], 400);
-
-            }
-
-            return response()->json([
-                'success' => false,
-                'message' => 'Email này đã tồn tại!',
                 'data' => [],
                 'user' => [],
             ], 400);
@@ -83,22 +73,19 @@ class ScheduleController extends Controller
         return true;
     }
 
-    public function createUser($name, $email, $phone){
-        $userExits = User::select('id', 'name', 'email', 'phone', 'password')->where('phone', $phone)->first();
-        $emailExit = User::select('email')->where('email', $email)->first();
+    public function createUser($name, $phone){
+        $userExits = User::select('id', 'name', 'phone', 'password')->where('phone', $phone)->first();
 
-        if($emailExit){
-           $user = false;
-        }
+
         if($userExits){
            $user = $userExits;
         }
-        if(!$userExits && !$emailExit){
+        if(!$userExits){
         $newUser = new User();
         $newUser->name = $name;
-        $newUser->email = $email;
         $newUser->phone = $phone;
         $newUser->password = Hash::make('123456789');
+        $newUser->email = '';
         $newUser->save();
         $user = $newUser;
         }
