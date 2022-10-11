@@ -34,7 +34,6 @@ class CreateAdminRequest extends FormRequest
             'specialist_id'=>'required',
             'role_id'=>'required',
             'password'=>'required|max:20',
-            'avatar'=>'required',
         ];
     }
     public function messages()
@@ -61,7 +60,6 @@ class CreateAdminRequest extends FormRequest
             'role_id.required'=>'Vai trò không được trống!',
             'password.required'=>'Mật khẩu không được trống!',
             'password.max'=>'Mật khẩu tối đa 20 ký tự!',
-            'avatar.required'=>'Vui lòng chọn ảnh cá nhân!',
         ];
     }
 }

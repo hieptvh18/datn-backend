@@ -80,16 +80,21 @@ class PatientController extends Controller
         $services = Service::select('id', 'service_name')->get();
         $patient = Schedule::find($id);
         $role = Role::where('role_name','Doctor')->first();
-        $roles_doctor = DB::table('role_admins')->where('role_id', $role->id)->get();
-        $listUser = Admin::where('is_active', 1)->select('id', 'fullname')->get();
-        $doctors = array();
-        foreach ($listUser as $user) {
-            foreach ($roles_doctor as $role) {
-                if ($user->id == $role->admin_id) {
-                    array_push($doctors, $user);
+        if($role !== null){
+            $roles_doctor = DB::table('role_admins')->where('role_id', $role->id)->get();
+            $listUser = Admin::where('is_active', 1)->select('id', 'fullname')->get();
+            $doctors = array();
+            foreach ($listUser as $user) {
+                foreach ($roles_doctor as $role) {
+                    if ($user->id == $role->admin_id) {
+                        array_push($doctors, $user);
+                    }
                 }
             }
+        }else{
+            $doctors = '';
         }
+
         $products = Product::select('id', 'name', 'price')->get();
         return view('pages.patients.add', compact('pageTitle', 'patient', 'services', 'doctors', 'products'));
     }
