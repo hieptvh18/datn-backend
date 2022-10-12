@@ -134,4 +134,10 @@ class RoomControler extends Controller
             return $th;
         }
     }
+
+    // delete multiple
+    public function deleteMultiple (Request $request){
+        Room::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
+    }
 }

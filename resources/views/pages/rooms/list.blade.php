@@ -20,7 +20,7 @@
                                 @endcan
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
+                                    <button class="btn btn-default" id="delete-multiple" data-route="{{ route('rooms.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -51,9 +51,10 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
+                                    <th><input type="checkbox" class="Parent"></th>
                                     <th>@sortablelink('id', '#')</th>
                                     <th>@sortablelink('room_name', 'Tên phòng ban')</th>
                                     <th class="text-center">Hành động</th>
@@ -63,6 +64,7 @@
                                 @foreach ($listroom as $item)
 
                                 <tr>
+                                    <td><input type="checkbox" class="Childrent" name="room_id[]" value="{{$item->id}}"></td>
                                     <td><a href="#" class="btn-link">#{{$item->id}}</a></td>
                                     <td>{{$item->room_name}}</td>
                                     <td class="text-center">
