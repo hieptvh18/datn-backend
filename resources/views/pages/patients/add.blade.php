@@ -19,7 +19,7 @@
                     <div class="col-sm-9">
                         <input type="hidden" name="schedule_id" class="form-control" value="{{ $patient->id }}">
                         <input type="text" placeholder="Tên bệnh nhân" id="demo-hor-name" name="customer_name"
-                            class="form-control" value="{{ $patient->fullname }}">
+                            class="form-control" value="{{ $patient->fullname? $patient->fullname:old('fullname') }}">
                         @error('customer_name')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -29,7 +29,7 @@
                     <label class="col-sm-3 control-label" for="demo-hor-function">Điện thoại(*)</label>
                     <div class="col-sm-9">
                         <input type="tel" name="phone" placeholder="Số điện thoại" id="phone"
-                            value="{{ $patient->phone }}" class="form-control">
+                            value="{{ $patient->phone?$patient->phone:old('phone') }}" class="form-control">
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Năm sinh(*)</label>
                     <div class="col-sm-9">
-                        <input type="date" value="{{ $patient->birthday }}" name="birthday" id="birthday"
+                        <input type="date" value="{{ $patient->birthday?$patient->birthday:old('birthday') }}" name="birthday" id="birthday"
                             class="form-control">
                         @error('birthday')
                             <span class="text-danger">{{ $message }}</span>
@@ -49,7 +49,7 @@
                     <label class="col-sm-3 control-label" for="demo-hor-function">CMND/CCCD(*)</label>
                     <div class="col-sm-9">
                         <input type="number" name="cmnd" id="cmnd" class="form-control"
-                            value="{{ $patient->cmnd }}" placeholder="Số chứng minh nhân dân/Căn cước công dân">
+                            value="{{ $patient->cmnd?$patient->cmnd:old('cmnd') }}" placeholder="Số chứng minh nhân dân/Căn cước công dân">
                         @error('cmnd')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -68,7 +68,7 @@
                 <div class="form-group">
                     <label for="address" class="col-sm-3 control-label">Quê quán</label>
                     <div class="col-md-9">
-                        <textarea name="address" id="address" cols="30" placeholder="Quê quán" rows="5" class="form-control">{{ $patient->address }}</textarea>
+                        <textarea name="address" id="address" cols="30" placeholder="Quê quán" rows="5" class="form-control">{{ old('address')?old('address'):$patient->address }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
@@ -78,7 +78,7 @@
                             name="doctor[]" multiple="multiple">
                             @if ($doctors!=='')
                             @foreach ($doctors as $doctor)
-                            <option value="{{ $doctor->id }}">{{ $doctor->fullname }}</option>
+                            <option value="{{ $doctor->id }}" {{ (collect(old('doctor'))->contains($doctor->id)) ? 'selected':'' }}>{{ $doctor->fullname }}</option>
                             @endforeach
                             @else
                             <option value="">No results doctor</option>
@@ -92,7 +92,7 @@
                         <select class="js-example-basic-multiple form-control" data-placeholder="Chọn thuốc..."
                             name="product[]" multiple="multiple">
                             @foreach ($products as $product)
-                                <option value="{{ $product->id }}">{{ $product->name }}</option>
+                                <option value="{{ $product->id }}" {{ (collect(old('product'))->contains($product->id)) ? 'selected':'' }} >{{ $product->name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -104,7 +104,7 @@
                             name="service[]" multiple="multiple">
                             @foreach ($services as $service)
                                 <option {{ $patient->services_schedule->contains('id', $service->id) ? 'selected' : '' }}
-                                    value="{{ $service->id }}">{{ $service->service_name }}</option>
+                                    value="{{ $service->id }}"  {{ (collect(old('service'))->contains($service->id)) ? 'selected':'' }}>{{ $service->service_name }}</option>
                             @endforeach
                         </select>
 
