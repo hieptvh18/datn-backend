@@ -85,7 +85,7 @@ class ScheduleController extends Controller
         $newUser->name = $name;
         $newUser->phone = $phone;
         $newUser->password = Hash::make('123456789');
-        $newUser->email = '';
+        $newUser->email_user = '';
         $newUser->save();
         $user = $newUser;
         }
