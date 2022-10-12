@@ -33,6 +33,7 @@ class PatientRequest extends FormRequest
                 }
             }],
             'status'=>'required',
+            'description'=>'required',
         ];
     }
 
@@ -52,6 +53,7 @@ class PatientRequest extends FormRequest
             'cmnd.required'=>':attribute không được để trống',
             'cmnd.regex'=>':attribute phải là dãy số 9 hoăc 12 kí tự',
             'birthday.required'=>':attribute không được để trống',
+            'description.required'=>':attribute không được để trống',
         ];
     }
 
@@ -63,6 +65,7 @@ class PatientRequest extends FormRequest
             'cmnd'=>'Số  CMND/CCCD',
             'status'=>'Trạng thái',
             'birthday'=>'Năm sinh',
+            'description'=>'Mô tả',
         ];
     }
 }
