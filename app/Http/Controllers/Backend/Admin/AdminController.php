@@ -71,6 +71,8 @@ class AdminController extends Controller
         if($request->hasFile('avatar')){
             $file = $request->file('avatar');
              $account_admin->avatar = fileUploader($file, 'admin', '/uploads/admin');
+        }else{
+            $account_admin->avatar = 'assets/img/profile-photos/Profile-Icon.png';
         }
 
         $account_admin->save();
