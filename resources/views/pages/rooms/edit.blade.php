@@ -1,5 +1,5 @@
 @extends('layout.master')
-@section('page-title', 'Phòng ban')
+@section('page-title', 'Cập nhật phòng ban')
 @section('page-content')
     <div class="row">
         <div class="col-xs-12">
@@ -14,7 +14,7 @@
                     @csrf
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Room name</b></label>
+                            <label for="" class="form-label"><b>Tên phòng ban</b></label>
                             <input type="text" class="form-control" name="room_name" value="{{$room->room_name}}">
                         </div>
                         @error('room_name')
@@ -25,7 +25,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>History</b></label>
+                            <label for="" class="form-label"><b>Lịch sử</b></label>
                             <textarea type="text" class="form-control" name="history" rows="5" style="resize: none">{{$room->history}}</textarea>
                         </div>
                         @error('history')
@@ -36,7 +36,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Mission</b></label>
+                            <label for="" class="form-label"><b>Nhiệm vụ</b></label>
                             <textarea type="text" class="form-control" name="mission" rows="5" style="resize: none">{{$room->mission}}</textarea>
                         </div>
                         @error('mission')
@@ -47,7 +47,7 @@
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">
-                            <label for="" class="form-label"><b>Achivement</b></label>
+                            <label for="" class="form-label"><b>Thành tựu</b></label>
                             <textarea type="text" class="form-control" name="achievement" rows="5" style="resize: none">{{$room->achievement}}</textarea>
                         </div>
                         @error('achievement')

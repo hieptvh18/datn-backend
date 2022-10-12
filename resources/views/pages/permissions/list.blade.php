@@ -5,7 +5,7 @@
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Permissions</h3>
+                    <h3 class="panel-title">Danh sách quyền</h3>
                 </div>
 
                 <!--Data Table-->
@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 @can('permission-add')
-                                <a href="{{ route('permissions.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</a>
+                                <a href="{{ route('permissions.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm</a>
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 @endcan
                                 <div class="btn-group">
@@ -53,8 +53,8 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Permission name</th>
-                                    <th class="text-center">Action</th>
+                                    <th>Tên mô đun</th>
+                                    <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -66,14 +66,14 @@
                                     @if ($item->parent_id == 0)
                                     <td class="text-center">
                                         @can('permission-edit')
-                                        <a href="{{ route('permissions.edit', $item->id) }}" class="label label-table label-success">Edit</a>
+                                        <a href="{{ route('permissions.edit', $item->id) }}" class="label label-table label-success">Sửa</a>
                                        @endcan
                                         @can('permission-delete')
                                         <form id="deleteForm{{ $item->id }}" action="{{ route('permissions.destroy', $item->id) }}" method="post">
                                         @csrf
                                         @method('DELETE')
                                     </form>
-                                    <button data-form="deleteForm{{ $item->id }}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
+                                    <button data-form="deleteForm{{ $item->id }}" class="label label-table label-danger btn-delete" style="border: none" >Xóa</button>
                                         @endcan
                                     </td>
                                     @endif
