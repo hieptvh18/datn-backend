@@ -1,97 +1,7 @@
 @extends('layout.master') @section('page-title', 'view proflie')
 @section('page-content')
-    <div id="container" class="effect aside-float aside-bright mainnav-sm page-fixedbar page-fixedbar-right">
+    <div id="container">
         <div class="boxed">
-            <!--Fixedbar-->
-            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-            <div class="page-fixedbar-container">
-                <div class="page-fixedbar-content">
-                    <div class="nano">
-                        <div class="nano-content">
-                            <p class="pad-all text-main text-sm text-uppercase text-bold">
-                                Users
-                            </p>
-
-                            <!--Family-->
-                            <div class="list-group bg-trans bord-btm">
-                                <div class="list-group-item list-item-sm">
-                                    <div class="media-left pos-rel">
-                                        <a href="#"><img class="img-circle img-xs" src="img/profile-photos/2.png"
-                                                alt="Profile Picture" /></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="text-main">
-                                            <p>Stephen Tran</p>
-                                        </a>
-                                        <button class="btn btn-xs btn-default">
-                                            <i class="demo-pli-add-user"></i> Follow
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="media-left pos-rel">
-                                        <a href="#"><img class="img-circle img-xs" src="img/profile-photos/8.png"
-                                                alt="Profile Picture" /></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="text-main">
-                                            <p>Brittany Meyer</p>
-                                        </a>
-                                        <button class="btn btn-xs btn-default">
-                                            <i class="demo-pli-add-user"></i> Follow
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="media-left pos-rel">
-                                        <a href="#"><img class="img-circle img-xs" src="img/profile-photos/4.png"
-                                                alt="Profile Picture" /></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="text-main">
-                                            <p>Donald Brown</p>
-                                        </a>
-                                        <button class="btn btn-xs btn-default">
-                                            <i class="demo-pli-add-user"></i> Follow
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="media-left pos-rel">
-                                        <a href="#"><img class="img-circle img-xs" src="img/profile-photos/9.png"
-                                                alt="Profile Picture" /></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="text-main">
-                                            <p>Betty Murphy</p>
-                                        </a>
-                                        <button class="btn btn-xs btn-default">
-                                            <i class="demo-pli-add-user"></i> Follow
-                                        </button>
-                                    </div>
-                                </div>
-                                <div class="list-group-item">
-                                    <div class="media-left pos-rel">
-                                        <a href="#"><img class="img-circle img-xs" src="img/profile-photos/7.png"
-                                                alt="Profile Picture" /></a>
-                                    </div>
-                                    <div class="media-body">
-                                        <a href="#" class="text-main">
-                                            <p>Samantha Reid</p>
-                                        </a>
-                                        <button class="btn btn-xs btn-default">
-                                            <i class="demo-pli-add-user"></i> Follow
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-            <!--End Fixedbar-->
-
             <!--Page content-->
             <!--===================================================-->
             <div id="page-content">
@@ -121,7 +31,6 @@
                                         <a href="#" class="btn btn-icon demo-pli-instagram icon-lg add-tooltip"
                                             data-original-title="Instagram" data-container="body"></a>
                                     </div>
-                                    <button class="btn btn-block btn-success btn-lg">Follow</button>
                                 </div>
                                 <hr />
 
@@ -137,10 +46,6 @@
                                 </p>
                             </div>
                             <div class="fluid">
-                                <div class="text-right">
-                                    <button class="btn btn-sm btn-primary">Send Message</button>
-                                </div>
-                                <hr class="new-section-md bord-no" />
 
                                 <!--Default Tabs (Right Aligned)-->
                                 <!--===================================================-->
@@ -158,6 +63,7 @@
                                     <!--Tabs Content-->
                                     <div class="tab-content">
                                         <div id="demo-rgt-tab-1" class="tab-pane fade active in">
+                                            <hr class="new-section-md bord-no" />
                                             <!--Bordered Accordion-->
                                             <!--===================================================-->
                                             <div class="panel-group accordion" id="demo-acc-info-outline">
@@ -223,74 +129,6 @@
                                                     <div class="panel-collapse collapse" id="demo-acd-info-outline-4">
                                                         <div class="panel-body">
                                                             {{ $profile->birthday }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="panel panel-bordered panel-info">
-                                                    <!--Accordion title-->
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
-                                                                href="#demo-acd-info-outline-5">Địa chỉ</a>
-                                                        </h4>
-                                                    </div>
-
-                                                    <!--Accordion content-->
-                                                    <div class="panel-collapse collapse" id="demo-acd-info-outline-5">
-                                                        <div class="panel-body">
-                                                            {{ $profile->address }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="panel panel-bordered panel-info">
-                                                    <!--Accordion title-->
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
-                                                                href="#demo-acd-info-outline-6">Địa chỉ Facebook</a>
-                                                        </h4>
-                                                    </div>
-
-                                                    <!--Accordion content-->
-                                                    <div class="panel-collapse collapse" id="demo-acd-info-outline-6">
-                                                        <div class="panel-body">
-                                                            {{ $profile->facebook_url }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="panel panel-bordered panel-info">
-                                                    <!--Accordion title-->
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
-                                                                href="#demo-acd-info-outline-7">Địa chỉ Twitter</a>
-                                                        </h4>
-                                                    </div>
-
-                                                    <!--Accordion content-->
-                                                    <div class="panel-collapse collapse" id="demo-acd-info-outline-7">
-                                                        <div class="panel-body">
-                                                            {{ $profile->twitter_url }}
-                                                        </div>
-                                                    </div>
-                                                </div>
-
-                                                <div class="panel panel-bordered panel-info">
-                                                    <!--Accordion title-->
-                                                    <div class="panel-heading">
-                                                        <h4 class="panel-title">
-                                                            <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
-                                                                href="#demo-acd-info-outline-8">Địa chỉ Email</a>
-                                                        </h4>
-                                                    </div>
-
-                                                    <!--Accordion content-->
-                                                    <div class="panel-collapse collapse" id="demo-acd-info-outline-8">
-                                                        <div class="panel-body">
-                                                            {{ $profile->email_url }}
                                                         </div>
                                                     </div>
                                                 </div>
