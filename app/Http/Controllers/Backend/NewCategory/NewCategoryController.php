@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\NewCategoryRequets;
 use App\Http\Requests\updateNewCategoryRequets;
 use App\Models\NewCategory;
+use App\Models\News;
+use App\Models\NewsImage;
 use Illuminate\Http\Request;
 
 class NewCategoryController extends Controller
@@ -116,7 +118,16 @@ class NewCategoryController extends Controller
     public function destroy($id)
     {
 try {
-    NewCategory::destroy($id);
+    $newCategory = NewCategory::find($id);
+    $news = News::where('news_category', $id)->get();
+    foreach($news as $new){
+        $newsImage = NewsImage::where('news_id', $new->id)->get();
+        foreach($newsImage as $img){
+            $img->delete();
+        }
+        $new->delete();
+    }
+    $newCategory->delete();
     return redirect()->route('newCategories.index')->with('message', 'Xóa danh mục tin tức thành công!');
 } catch (\Throwable $th) {
     report($th->getMessage());

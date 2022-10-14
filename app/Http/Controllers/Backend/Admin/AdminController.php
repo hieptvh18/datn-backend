@@ -7,6 +7,7 @@ use App\Http\Requests\CreateAdminRequest;
 use App\Http\Requests\UpdateAdminRequest;
 use App\Models\Admin;
 use App\Models\Level;
+use App\Models\News;
 use App\Models\Role;
 use App\Models\Room;
 use App\Models\Specialist;
@@ -128,6 +129,12 @@ class AdminController extends Controller
      */
     public function destroy($id)
     {
+
+        $updateAuthor_id = News::where('author_id', $id)->get();
+        foreach($updateAuthor_id as $item){
+            $item->author_id = null;
+            $item->update();
+        }
         Admin::destroy($id);
 
         return redirect()->route('account_admins.index')->with(['message'=>'Xóa dùng thành công!']);

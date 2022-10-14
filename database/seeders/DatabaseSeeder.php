@@ -111,6 +111,11 @@ class DatabaseSeeder extends Seeder
                 ['permission_name'=>'Add Schedules', 'permission_key_code'=>'Add_Schedules', 'parent_id'=>51],
                 ['permission_name'=>'Edit Schedules', 'permission_key_code'=>'Edit_Schedules', 'parent_id'=>51],
                 ['permission_name'=>'Delete Schedules', 'permission_key_code'=>'Delete_Schedules', 'parent_id'=>51],
+                ['permission_name'=>'Specialists', 'permission_key_code'=>'', 'parent_id'=>0],
+                ['permission_name'=>'List Specialists', 'permission_key_code'=>'List_Specialists', 'parent_id'=>56],
+                ['permission_name'=>'Add Specialists', 'permission_key_code'=>'Add_Specialists', 'parent_id'=>56],
+                ['permission_name'=>'Edit Specialists', 'permission_key_code'=>'Edit_Specialists', 'parent_id'=>56],
+                ['permission_name'=>'Delete Specialists', 'permission_key_code'=>'Delete_Specialists', 'parent_id'=>56],
         ];
          foreach($permissions as $permission){
             Permission::create($permission);
@@ -184,5 +189,9 @@ class DatabaseSeeder extends Seeder
         DB::insert('insert into permission_roles (permission_id, role_id) values (53, 3)');
         DB::insert('insert into permission_roles (permission_id, role_id) values (54, 3)');
         DB::insert('insert into permission_roles (permission_id, role_id) values (55, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (57, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (58, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (59, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (60, 3)');
     }
 }
