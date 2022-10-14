@@ -20,12 +20,7 @@
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"
-                                        onclick="
-                                        if(confirm('Xóa item đã chọn?')){
-
-                                        }
-                                    "><i
+                                    <button class="btn btn-default" id="delete-multiple" data-route="{{ route('level.deleteMultiple') }}"><i
                                             class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
@@ -51,11 +46,11 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" name="" id="">
+                                        <input type="checkbox" name="" class="Parent" id="">
                                     </th>
                                     <th>STT</th>
                                     <th>Chức vụ</th>
@@ -65,7 +60,7 @@
                             <tbody>
                                 @foreach ($levels as $level)
                                     <tr>
-                                        <td><input type="checkbox" name="" value=""></td>
+                                        <td><input type="checkbox" name="level_id" class="Childrent" value="{{ $level->id }}"></td>
                                         <td><a href="#" class="btn-link">{{++$i}}</a></td>
                                         <td>{{ $level->name }}</td>
                                         <td>{{ $level->description }}</td>

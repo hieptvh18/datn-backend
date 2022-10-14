@@ -9,14 +9,14 @@ use Illuminate\Http\Request;
 
 class LevelsController extends Controller
 {
-    
+
     public function index()
     {
         $levels = Level::paginate(5);
         return view('pages.level.list', compact('levels'))->with('i', (request()->input('page', 1) -1)*5);
     }
 
-    
+
     public function add()
     {
         $pageTitle = 'Thêm mới chức vụ';
@@ -59,5 +59,11 @@ class LevelsController extends Controller
 
         $level->save();
         return redirect()->route('level.index');
+    }
+
+
+    public function deleteMultiple (Request $request){
+        Level::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
     }
 }

@@ -129,6 +129,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('level/edit/{id}',[LevelsController::class,'edit'])->name('level.edit');
     Route::put('level/edit/{id}',[LevelsController::class,'update'])->name('level.update');
     Route::delete('level/delete/{id}',[LevelsController::class,'delete'])->name('level.delete');
+    Route::post('level/deleteMultiple',[LevelsController::class,'deleteMultiple'])->name('level.deleteMultiple');
+
     // logout
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
