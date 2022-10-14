@@ -25,12 +25,14 @@ class ServiceRequest extends FormRequest
      */
     public function rules(Request $request)
     {
-        $ruleNameUinique = Rule::unique('services', 'service_name');
+        $ruleNameUnique = Rule::unique('services', 'service_name');
+        // \dd($request->method() == 'PUT');\
+
         if($request->method() == 'PUT'){
-            $ruleNameUinique = Rule::unique('services', 'service_name')->ignore(request()->id);
+            $ruleNameUnique = Rule::unique('services', 'service_name')->ignore($this->route()->parameter('service'));
         }
         return [
-            'service_name' => ['required','min:6','max:255',$ruleNameUinique],
+            'service_name' => ['required','min:6','max:255',$ruleNameUnique],
             'price' => 'numeric|
                         required',
             'image'=>'image|mimes:jpg,png,jpeg|max:2040'
