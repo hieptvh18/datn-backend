@@ -31,7 +31,7 @@ class SpecialistPolicy
      */
     public function view(Admin $user)
     {
-        return $user->checkPermission('List_Specialits');
+        return $user->checkPermission('List_Specialists');
     }
 
     /**
@@ -42,7 +42,7 @@ class SpecialistPolicy
      */
     public function create(Admin $user)
     {
-        return $user->checkPermission('Add_Specialits');
+        return $user->checkPermission('Add_Specialists');
     }
 
     /**
@@ -54,7 +54,7 @@ class SpecialistPolicy
      */
     public function update(Admin $user)
     {
-        return $user->checkPermission('Edit_Specialits');
+        return $user->checkPermission('Edit_Specialists');
     }
 
     /**
@@ -66,7 +66,7 @@ class SpecialistPolicy
      */
     public function delete(Admin $user)
     {
-        return $user->checkPermission('Delete_Specialits');
+        return $user->checkPermission('Delete_Specialists');
     }
 
     /**

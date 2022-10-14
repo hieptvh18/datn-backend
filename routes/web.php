@@ -12,6 +12,7 @@ use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
 use App\Http\Controllers\Backend\NewCategory\NewCategoryController;
+use App\Http\Controllers\Backend\News\NewsController;
 use App\Http\Controllers\Backend\Orders\OrderController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Products\ProductTypeController;
@@ -160,6 +161,14 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/newCategories/edit/{id}', [NewCategoryController::class, 'edit'])->name('newCategories.edit');
     Route::post('/newCategories/update/{id}', [NewCategoryController::class, 'update'])->name('newCategories.update');
     Route::delete('/newCategories/delete/{id}', [NewCategoryController::class, 'destroy'])->name('newCategories.delete');
+
+    // news
+    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
+    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+    Route::post('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
+    Route::delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
 
 });
 

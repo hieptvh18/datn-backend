@@ -322,6 +322,21 @@
                             </ul>
                         </li>
 
+                        {{-- news--}}
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Tin tức</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('news.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('news.create')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
                         <!--Menu list item-->
                         <li>
                             <a href="#">
