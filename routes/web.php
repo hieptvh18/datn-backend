@@ -11,11 +11,13 @@ use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
+use App\Http\Controllers\Backend\NewCategory\NewCategoryController;
 use App\Http\Controllers\Backend\Orders\OrderController;
 use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Products\ProductTypeController;
 use App\Http\Controllers\Backend\Profile\ProfileController;
 use App\Http\Controllers\Backend\Service\ServiceController;
+use App\Models\NewCategory;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -148,6 +150,14 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // profile
     Route::get('/view-profile/{id}', [ProfileController::class, 'show'])->name('profile.show');
     Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
+
+    // new Category
+    Route::get('/newCategories', [NewCategoryController::class, 'index'])->name('newCategories.index');
+    Route::get('/newCategories/create', [NewCategoryController::class, 'create'])->name('newCategories.create');
+    Route::post('/newCategories/store', [NewCategoryController::class, 'store'])->name('newCategories.store');
+    Route::get('/newCategories/edit/{id}', [NewCategoryController::class, 'edit'])->name('newCategories.edit');
+    Route::post('/newCategories/update/{id}', [NewCategoryController::class, 'update'])->name('newCategories.update');
+    Route::delete('/newCategories/delete/{id}', [NewCategoryController::class, 'destroy'])->name('newCategories.delete');
 
 });
 
