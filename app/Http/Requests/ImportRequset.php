@@ -24,7 +24,7 @@ class ImportRequset extends FormRequest
     public function rules()
     {
         return [
-            'file'=>'required|mimes:csv, xlsx|mimetypes:text/csv, text/xlsx'
+            'file'=> 'required|mimes:xlsx'
         ];
     }
 
@@ -32,8 +32,7 @@ class ImportRequset extends FormRequest
     {
         return [
             'file.required'=>'Vui lòng chọn tệp!',
-            'file.mimes'=>'Tệp phải là tệp thuộc loại: csv, xlsx!',
-            'file.mimetypes'=>'Tệp phải là tệp thuộc loại: csv, xlsx!'
+            'file.mimes'=>'Tệp phải là tệp thuộc loại: .xlsx!',
         ];
     }
 }

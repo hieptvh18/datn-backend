@@ -20,7 +20,9 @@ class Schedule extends Model
         'cmnd',
         'content',
         'date',
-        'status'
+        'status',
+        // 'service_id',
+        // 'counter'
 
     ];
     public $sortable = [

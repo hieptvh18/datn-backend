@@ -43,7 +43,7 @@ function handleFileSelect() {
         console.log("Your browser does not support File API");
     }
 }
-document.getElementById('files').addEventListener('change', handleFileSelect, false);
+// document.getElementById('files').addEventListener('change', handleFileSelect, false);
 
 
 $('#delete-multiple').on('click', function() {

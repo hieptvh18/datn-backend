@@ -184,10 +184,13 @@ class ScheduleController extends Controller
     // import
     public function importSchedule(ImportRequset $request)
     {
+        // dd($request->all());
+
         try {
             Excel::import(new ImportSchedule, $request->file('file')->store('files'));
             return redirect()->back()->with(['message' => 'Nhập dữ liệu thành công!']);
         } catch (\Throwable $th) {
+            dd($th->getMessage());
             report($th->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
         }
@@ -253,7 +256,7 @@ class ScheduleController extends Controller
                                 ->where('date', $dateFormat)
                                 ->where('phone',$phone)
                                 ->first();
-        
+
         $counter = 0;
         if($checkExistCounter && !$myCouter){
             $setSchedule->counter = $checkExistCounter->counter + 1;
