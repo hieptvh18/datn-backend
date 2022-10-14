@@ -31,9 +31,7 @@
                     <div class="col-md-9">
 
                         <textarea name="description" id="description" cols="30" rows="5" class="ckeditor form-control">{{ $level->description }}</textarea>
-                        @error('description')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
+                        
                     </div>
                 </div>
             </div>
