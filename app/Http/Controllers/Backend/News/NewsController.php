@@ -9,6 +9,7 @@ use App\Models\NewCategory;
 use App\Models\News;
 use App\Models\NewsImage;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
@@ -46,9 +47,11 @@ class NewsController extends Controller
     {
        try {
         $tag = implode(',', $request->tags);
+        $authorId = Auth::user()->id;
         $news = new News();
         $news->fill($request->all());
         $news->tags = $tag;
+        $news->author_id = $authorId;
         $news->save();
 
         if($request->hasFile('image')){
@@ -111,7 +114,6 @@ class NewsController extends Controller
             $news->title = $request->title;
             $news->content = $request->content;
             $news->news_category = $request->news_category;
-            $news->author_id = $request->author_id;
             $news->tags = $tag;
             $news->update();
 

@@ -187,6 +187,22 @@
                         </li>
                         @endcan
 
+                        @can('order-list')
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Hóa đơn</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('order.index')}}">Danh sách</a></li>
+                                <li><a href="{{route('order.add')}}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+                        @endcan
+
                         <!--Menu list item-->
                         @can('equipment-list')
                         <li >
@@ -291,37 +307,6 @@
                         </li>
                         @endcan
 
-                        @can('order-list')
-                        <li>
-                            <a href="#">
-                                <i class="demo-pli-warning-window"></i>
-                                <span class="menu-title">Đơn hàng</span>
-                                <i class="arrow"></i>
-                            </a>
-
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="{{route('order.index')}}">Danh sách</a></li>
-                                <li><a href="{{route('order.add')}}">Thêm mới</a></li>
-                            </ul>
-                        </li>
-                        @endcan
-
-                        {{-- new category --}}
-                        <li>
-                            <a href="#">
-                                <i class="demo-pli-warning-window"></i>
-                                <span class="menu-title">Danh mục tin tức</span>
-                                <i class="arrow"></i>
-                            </a>
-
-                            <!--Submenu-->
-                            <ul class="collapse">
-                                <li><a href="{{route('newCategories.index')}}">Danh sách</a></li>
-                                <li><a href="{{route('newCategories.create')}}">Thêm mới</a></li>
-                            </ul>
-                        </li>
-
                         {{-- news--}}
                         <li>
                             <a href="#">
@@ -332,8 +317,8 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="{{route('news.index')}}">Danh sách</a></li>
-                                <li><a href="{{route('news.create')}}">Thêm mới</a></li>
+                                <li><a href="{{route('newCategories.index')}}">Danh mục tin</a></li>
+                                <li><a href="{{route('news.index')}}">Bài viết</a></li>
                             </ul>
                         </li>
 
