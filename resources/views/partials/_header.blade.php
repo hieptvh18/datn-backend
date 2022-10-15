@@ -234,7 +234,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="media" href="#">
                                             <div class="media-left">
                                                 <i class="demo-pli-file-edit icon-2x"></i>
@@ -258,7 +258,7 @@
                                                 <small>Last Update 8 hours ago</small>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                     <li>
                                         <a class="media" href="#">
                                             <div class="media-left">
@@ -271,7 +271,7 @@
                                             </div>
                                         </a>
                                     </li>
-                                    <li>
+                                    {{-- <li>
                                         <a class="media" href="#">
                                             <div class="media-left">
                                                 <img class="img-circle img-sm" alt="Profile Picture"
@@ -296,7 +296,7 @@
                                                 <small>40 minutes ago</small>
                                             </div>
                                         </a>
-                                    </li>
+                                    </li> --}}
                                 </ul>
                             </div>
                         </div>
@@ -338,16 +338,8 @@
                                 <a href="#"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
                             </li>
                             <li>
-                                <a href="#"><span class="badge badge-danger pull-right">9</span><i
-                                        class="demo-pli-mail icon-lg icon-fw"></i> Messages</a>
-                            </li>
-                            <li>
                                 <a href="#"><span class="label label-success pull-right">New</span><i
                                         class="demo-pli-gear icon-lg icon-fw"></i> Settings</a>
-                            </li>
-                            <li>
-                                <a href="#"><i class="demo-pli-computer-secure icon-lg icon-fw"></i> Lock
-                                    screen</a>
                             </li>
                             @if (Auth::guard('admin')->check())
                                 <li>

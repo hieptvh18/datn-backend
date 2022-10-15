@@ -67,6 +67,7 @@ class ScheduleController extends Controller
                 $contentAccount = '';
                 if (!User::where('phone', $request->phone)->exists()) {
                     $user = new User();
+                    $user->fill($request->all());
                     $user->name = $request->fullname;
                     $user->phone = $request->phone;
                     $user->email_user = $request->email;
@@ -88,8 +89,9 @@ class ScheduleController extends Controller
                 // send mail
                 if (!empty($request->email)) {
                     $mailTo = $request->email;
+                    $subject = 'Thông báo đặt lịch thành công';
                     $mailData = $this->getMailData($contentConfirm, $customerName);
-                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData));
+                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
                 }
             }
 
@@ -135,6 +137,7 @@ class ScheduleController extends Controller
                 $contentAccount = '';
                 if (!User::where('phone', $request->phone)->exists()) {
                     $user = new User();
+                    $user->fill($request->all());
                     $user->name = $request->fullname;
                     $user->phone = $request->phone;
                     $user->email_user = $request->email;
@@ -157,8 +160,9 @@ class ScheduleController extends Controller
                 // send mail
                 if (!empty($request->email)) {
                     $mailTo = $request->email;
+                    $subject = 'Thông báo đặt lịch thành công';
                     $mailData = $this->getMailData($contentConfirm, $customerName);
-                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData));
+                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
                 }
             }
             return redirect()->back()->with(['message' => 'Cập nhật lịch khám thành công!']);

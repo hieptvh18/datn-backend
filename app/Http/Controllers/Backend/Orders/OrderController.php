@@ -15,6 +15,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use PDF;
 use App\Mail\EmailConfirmSchedule;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -74,11 +75,14 @@ class OrderController extends Controller
         $linkPatientPage = 'https://localhost:3000';
 
         // send mail
-        if (!empty($request->customer_email)) {
-            $mailTo = $request->customer_email;
+        $customerExist = User::where('phone',$request->customer_phone)->first();
+        if ($customerExist && $customerExist->email_user) {
+            $mailTo = $customerExist->email_user;
+            $subject  = 'Cảm ơn bạn đã sử dụng dịch vụ';
             $mailData = $this->getMailData($customerName,$companyName,$linkPatientPage);
-            Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData));
+            Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
         }
+        // send sms
 
         $schedule = Schedule::find($request->schedule_id);
         $schedule->status = 3;

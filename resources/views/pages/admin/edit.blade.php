@@ -5,7 +5,7 @@
         <div class="col-xs-12">
             <div class="panel">
                 <div class="panel-heading">
-                    <h3 class="panel-title">Cập nhật người dùng</h3>
+                    <h3 class="panel-title">Cập nhật admin</h3>
                 </div>
 
                 <!--Data Table-->

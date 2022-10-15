@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::table('users', function (Blueprint $table) {
             $table->date('birthday')->nullable()->comment('sinh nhat customer');
             $table->tinyInteger('gender')->nullable();
-            $table->integer('cmnd')->nullable();
+            $table->string('cmnd')->nullable();
             $table->text('address')->nullable();
             $table->tinyInteger('is_active')->nullable()->default(1)->comment('disable hay active');
         });
