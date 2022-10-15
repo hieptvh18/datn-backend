@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Backend\Orders;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
-use App\Models\Order_detail;
 use App\Models\Patient;
 use App\Models\Product;
 use App\Models\Schedule;
@@ -61,6 +60,7 @@ class OrderController extends Controller
         $order->fill($request->all());
         $order->product_id = $product_id;
         $order->service_id = $service_id;
+        $order->patient_id = $_GET['id'];
         $order->code_bill = $this->generateUniqueCode();
         $order->total = $total;
         $order->date = Carbon::now()->format('Y-m-d');
@@ -69,6 +69,12 @@ class OrderController extends Controller
         $schedule = Schedule::find($request->schedule_id);
         $schedule->status = 3;
         $schedule->update();
+
+
+        $patient = Patient::find($_GET['id']);
+        $patient->status = 3;
+        $patient->order_id = $order->id;
+        $patient->update();
 
         return view('pages.orders.detail', compact('order','services', 'products', 'total'))->with(['message'=>'Tạo hóa đơn thành công!']);
 
