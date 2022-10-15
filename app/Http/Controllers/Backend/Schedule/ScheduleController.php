@@ -12,6 +12,7 @@ use App\Mail\EmailConfirmSchedule;
 use App\Models\Schedule;
 use App\Models\ScheduleService;
 use App\Models\Service;
+use App\Models\User;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -52,6 +53,7 @@ class ScheduleController extends Controller
 
     public function store(ScheduleRequest $request)
     {
+        dd($request->all());
         try {
             $schedule = new Schedule();
             $schedule->fill($request->all());
@@ -59,8 +61,18 @@ class ScheduleController extends Controller
             $schedule->save();
             $scheduleId = $schedule->id;
 
+            // auto create account customer
+            if(User::where('phone',$request->phone)->get()->exist()){
+                $user = new User();
+                $user->name = $request->fullname;
+                $user->phone = $request->phone;
+                $user->email_user = $request->email;
+                $user->password = bcrypt('12345678');
+                $user->save();
+            }
+
+            // send sms to phone || mail
             if ($scheduleId && $request->status == 1) {
-                // send sms to phone
                 $customerName = $request->fullname;
                 $date = $request->date;
                 $phone = $request->phone;
