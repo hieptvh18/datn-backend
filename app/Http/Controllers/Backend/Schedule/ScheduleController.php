@@ -217,7 +217,8 @@ class ScheduleController extends Controller
         $mailData['companyName'] = $companyName;
         $mailData['mailSubject'] = 'Chào ' . $customerName;
         $mailData['mailContent'] = $mailContent;
-        $mailData['linkPatient'] = 'https://facebook.com/tvhhh';
+        $mailData['linkPatient'] = '';
+        $mailData['baseUrl'] = 'https://localhost:3000';
 
         return $mailData;
     }
