@@ -53,7 +53,6 @@ class ScheduleController extends Controller
 
     public function store(ScheduleRequest $request)
     {
-        dd($request->all());
         try {
             $schedule = new Schedule();
             $schedule->fill($request->all());
@@ -61,25 +60,29 @@ class ScheduleController extends Controller
             $schedule->save();
             $scheduleId = $schedule->id;
 
-            // auto create account customer
-            if(User::where('phone',$request->phone)->get()->exist()){
-                $user = new User();
-                $user->name = $request->fullname;
-                $user->phone = $request->phone;
-                $user->email_user = $request->email;
-                $user->password = bcrypt('12345678');
-                $user->save();
-            }
-
             // send sms to phone || mail
             if ($scheduleId && $request->status == 1) {
+
+                // auto create account customer
+                $contentAccount = '';
+                if (!User::where('phone', $request->phone)->exists()) {
+                    $user = new User();
+                    $user->name = $request->fullname;
+                    $user->phone = $request->phone;
+                    $user->email_user = $request->email;
+                    $password = randomString(6);
+                    $user->password = bcrypt($password);
+                    $user->save();
+                    $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
+                }
+
                 $customerName = $request->fullname;
                 $date = $request->date;
                 $phone = $request->phone;
                 $stt = $this->getIndexer($date, $phone);
                 $companyName = 'Nha khoa Đức Nghĩa';
                 $listService = $this->getServiceNameById($request->service_id);
-                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . ' .Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ của ' . $companyName . '. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. ' . $contentAccount . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
                 // sendSms($phone, $contentConfirm);
 
                 // send mail
@@ -127,6 +130,20 @@ class ScheduleController extends Controller
             $schedule->schedule_services()->sync($request->service_id);
 
             if ($scheduleId && $request->status == 1) {
+
+                // auto create account customer
+                $contentAccount = '';
+                if (!User::where('phone', $request->phone)->exists()) {
+                    $user = new User();
+                    $user->name = $request->fullname;
+                    $user->phone = $request->phone;
+                    $user->email_user = $request->email;
+                    $password = randomString(6);
+                    $user->password = bcrypt($password);
+                    $user->save();
+                    $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
+                }
+
                 // send sms to phone
                 $customerName = $request->fullname;
                 $date = $request->date;
@@ -134,7 +151,7 @@ class ScheduleController extends Controller
                 $stt = $this->getIndexer($date, $phone);
                 $companyName = 'Nha khoa Đức Nghĩa';
                 $listService = $this->getServiceNameById($request->service_id);
-                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . ' .Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. '.$contentAccount.'.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
                 // sendSms($phone, $contentConfirm);
 
                 // send mail
@@ -146,7 +163,7 @@ class ScheduleController extends Controller
             }
             return redirect()->back()->with(['message' => 'Cập nhật lịch khám thành công!']);
         } catch (Throwable $e) {
-            // dd($e->getMessage());
+            dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with(['error' => 'Có lỗi xảy ra! Vui lòng thử lại sau!']);
         }
@@ -257,28 +274,28 @@ class ScheduleController extends Controller
     {
         $dateFormat = date('Y-m-d', strtotime($date));
         $checkExistCounter = Schedule::where('counter', '>', 0)
-                                ->where('date', $dateFormat)
-                                ->where('status',1)
-                                ->where('phone','!=',$phone)
-                                ->orderBy('counter','desc')->first();
-        $setSchedule = Schedule::where('phone',$phone)
-                                ->where('date',$dateFormat)
-                                ->where('status',1)->first();
+            ->where('date', $dateFormat)
+            ->where('status', 1)
+            ->where('phone', '!=', $phone)
+            ->orderBy('counter', 'desc')->first();
+        $setSchedule = Schedule::where('phone', $phone)
+            ->where('date', $dateFormat)
+            ->where('status', 1)->first();
         $myCouter = Schedule::where('counter', '>', 0)
-                                ->where('date', $dateFormat)
-                                ->where('phone',$phone)
-                                ->first();
+            ->where('date', $dateFormat)
+            ->where('phone', $phone)
+            ->first();
 
         $counter = 0;
-        if($checkExistCounter && !$myCouter){
+        if ($checkExistCounter && !$myCouter) {
             $setSchedule->counter = $checkExistCounter->counter + 1;
             $setSchedule->save();
             $counter = $setSchedule->counter;
-        }else if(!$checkExistCounter){
+        } else if (!$checkExistCounter) {
             $setSchedule->counter = 1;
             $setSchedule->save();
             $counter = $setSchedule->counter;
-        }else{
+        } else {
             $counter = $myCouter->counter;
         }
         return $counter;
