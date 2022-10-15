@@ -132,6 +132,8 @@
                                                 <div class="label label-table label-danger">Chưa điều trị</div>
                                             @elseif($patient->status == 0)
                                                 <div class="label label-table label-warning">Đã khám</div>
+                                            @elseif($patient->status == 3)
+                                                <div class="label label-table label-warning">Đã thanh toán</div>
                                             @else
                                                 <div class="label label-table label-success">Đã điều trị</div>
                                             @endif
