@@ -12,7 +12,10 @@ use Barryvdh\DomPDF\Facade\Pdf as FacadePdf;
 use Carbon\Carbon;
 use Dompdf\Options;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use PDF;
+use App\Mail\EmailConfirmSchedule;
+use App\Models\User;
 
 class OrderController extends Controller
 {
@@ -66,6 +69,21 @@ class OrderController extends Controller
         $order->date = Carbon::now()->format('Y-m-d');
         $order->save();
 
+        // send notifi thank you
+        $customerName = $order->customer_name;
+        $companyName = 'Nha khoa Đức Nghĩa';
+        $linkPatientPage = 'https://localhost:3000';
+
+        // send mail
+        $customerExist = User::where('phone',$request->customer_phone)->first();
+        if ($customerExist && $customerExist->email_user) {
+            $mailTo = $customerExist->email_user;
+            $subject  = 'Cảm ơn bạn đã sử dụng dịch vụ';
+            $mailData = $this->getMailData($customerName,$companyName,$linkPatientPage);
+            Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
+        }
+        // send sms
+
         $schedule = Schedule::find($request->schedule_id);
         $schedule->status = 3;
         $schedule->update();
@@ -78,6 +96,22 @@ class OrderController extends Controller
 
         return view('pages.orders.detail', compact('order','services', 'products', 'total'))->with(['message'=>'Tạo hóa đơn thành công!']);
 
+    }
+
+    // get mailData
+    protected function getMailData($customerName = 'bạn', $companyName = 'Nha khoa Đức Nghĩa',$linkPatientPage='https://fb.com/tvhh18')
+    {
+        // get data from web setting
+        $mailData = [];
+        $mailData['mailTitle'] = $companyName.' cảm ơn quý khách đã tin tưởng và ủng hộ.';
+        $mailData['mailHead'] = '';
+        $mailData['companyName'] = $companyName;
+        $mailData['mailSubject'] = 'Chào ' . $customerName;
+        $mailData['mailContent'] = 'Cảm ơn quý khách đã tin tưởng và sử dụng dịch vụ của '.$companyName.' hãy truy cập đường link bên dưới để  xem chi tiết hóa đơn của quý khách.';
+        $mailData['linkPatient'] = $linkPatientPage;
+        $mailData['baseUrl'] = 'https://localhost:3000';
+
+        return $mailData;
     }
 
     public function generateUniqueCode()

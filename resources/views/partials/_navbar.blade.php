@@ -185,12 +185,12 @@
                                     <i class="arrow"></i>
                                 </a>
 
-                                <!--Submenu-->
-                                <ul class="collapse">
-                                    <li><a href="{{ route('patient.index') }}">Danh sách</a></li>
-                                    <li><a href="{{ route('patient.create') }}">Thêm mới</a></li>
-                                </ul>
-                            </li>
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{route('patient.index')}}">Danh sách</a></li>
+                                {{-- <li><a href="{{route('patient.create')}}">Thêm mới</a></li> --}}
+                            </ul>
+                        </li>
                         @endcan
 
                         @can('order-list')

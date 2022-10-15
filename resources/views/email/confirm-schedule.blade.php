@@ -115,6 +115,7 @@
               </td>
             </tr>
 
+            {{-- button redirect --}}
             <tr>
               <td align="center" valign="top">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#F8F8F8">
@@ -129,7 +130,7 @@
                                   <table border="0" cellpadding="0" cellspacing="0" width="50%" class="emailButton" style="background-color: #2E7D32;">
                                     <tr>
                                       <td align="center" valign="middle" class="buttonContent" style="padding-top:15px;padding-bottom:15px;padding-right:15px;padding-left:15px;">
-                                        <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="{{$mailData['linkPatient']}}" target="_blank">https://link to benh an frontend</a>
+                                        <a style="color:#FFFFFF;text-decoration:none;font-family:Helvetica,Arial,sans-serif;font-size:20px;line-height:135%;" href="{{$mailData['linkPatient'] ? $mailData['linkPatient'] : $mailData['baseUrl']}}" target="_blank">{{$mailData['linkPatient'] ? 'Xem chi tiết' : 'Đi đến website'}}</a>
                                       </td>
                                     </tr>
                                   </table>
