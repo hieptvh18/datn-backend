@@ -74,8 +74,7 @@
                                         <td><input type="checkbox" class="Childrent" name="news_id[]" value="{{$news->id}}"></td>
                                         <td><a href="#" class="btn-link">#{{ $news->id }}</a></td>
                                         <td>{{ $news->title }}</td>
-
-                                        <td>{{ substr($news->content, 10) }}...</td>
+                                        <td>{{ substr($news->content, 0,50) }}...</td>
                                         <td class="text-center">
 
                                             <a href="{{ route('news.edit', $news->id) }}" class="label label-table label-success">Edit</a>
