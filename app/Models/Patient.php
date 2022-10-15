@@ -12,7 +12,7 @@ class Patient extends Model
 
     protected $table = 'patients';
 
-    protected $fillable = ['customer_name','phone','description','address','birthday','cmnd','schedule_id', 'date', 'status'];
+    protected $fillable = ['customer_name','phone','description','address','birthday','cmnd','schedule_id', 'date', 'status', 'order_id'];
     public $sortable = ['id','customer_name','phone','description','birthday','cmnd'];
 
     public function patient_services () {

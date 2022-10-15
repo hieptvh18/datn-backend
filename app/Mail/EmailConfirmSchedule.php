@@ -29,6 +29,6 @@ class EmailConfirmSchedule extends Mailable
      */
     public function build()
     {
-        return $this->view('email.confirm-schedule');
+        return $this->subject('Thông báo đặt lịch thành công')->view('email.confirm-schedule');
     }
 }
