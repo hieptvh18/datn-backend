@@ -30,7 +30,7 @@
                 <div class="panel-body">
 
                     <div style="width:90%; margin: 0 auto">
-                        <div class="row form-group" style="margin-bottom: 5px; font-size: 14px">
+                        <div class="row form-group" style="margin-bottom: 5px; font-size: 15px">
                             <label class="col-sm-2 control-label" style="margin-right: -10px" for="demo-hor-name"><b>Họ tên khách hàng:</b> </label>
 
                                 <span>{{$order->customer_name}}</span>
@@ -38,6 +38,10 @@
                         <div class="row form-group" style="margin-bottom: 14px; font-size: 15px">
                             <label class="col-sm-2 control-label" style="width: 195px" for="demo-hor-function"><b>Điện thoại khách hàng:</b> </label>
                             <span>{{$order->customer_phone}}</span>
+                        </div>
+                        <div class="row form-group" style="margin-top: -10px; margin-bottom: 14px; font-size: 15px">
+                            <label class="col-sm-2 control-label" style="width: 195px" for="demo-hor-function"><b>Hình thức thanh toán:</b> </label>
+                            <span>{{$order->payment_method}}</span>
                         </div>
 
 
