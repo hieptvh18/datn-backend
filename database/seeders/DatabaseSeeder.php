@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Level;
+use App\Models\NewCategory;
 use App\Models\Permission;
 use App\Models\Product;
 use App\Models\ProductType;
@@ -27,6 +28,9 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        // new category
+        NewCategory::factory(10)->create();
+
         // rooms
         Room::factory(10)->create();
         // levels
@@ -45,7 +49,7 @@ class DatabaseSeeder extends Seeder
         // role permission
         $this->createRolePermissionFactory();
         // account admin
-        $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1, 'avatar'=>''];
+        $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1, 'avatar'=>'assets/img/profile-photos/Profile-Icon.png'];
         Admin::create($account_admin);
         // role_admins
         DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');

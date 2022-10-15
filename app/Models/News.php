@@ -13,13 +13,16 @@ class News extends Model
 
     protected $fillable = ['title', 'news_category', 'content', 'author_id', 'tags'];
 
-    public function news_images () {
+    public function imageNews () {
         return $this->hasMany(NewsImage::class, 'news_id', 'id');
     }
 
+    public function news_newCategory () {
+        return $this->belongsTo(NewCategory::class, 'news_category', 'id');
+    }
 
-    // public function news_author () {
-    //     return $this->b(NewsImage::class, 'news_id', 'id');
-    // }
+    public function news_author () {
+        return $this->belongsTo(Admin::class, 'author_id', 'id');
+    }
 
 }

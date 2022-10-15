@@ -132,6 +132,8 @@
                                                 <div class="label label-table label-danger">Chưa điều trị</div>
                                             @elseif($patient->status == 0)
                                                 <div class="label label-table label-warning">Đã khám</div>
+                                            @elseif($patient->status == 3)
+                                                <div class="label label-table label-warning">Đã thanh toán</div>
                                             @else
                                                 <div class="label label-table label-success">Đã điều trị</div>
                                             @endif
@@ -153,6 +155,11 @@
                                             <a style="margin-top: 5px " href="{{ route('order.add', ['id'=>$patient->id]) }}"
                                                 class="label label-table label-primary">
                                                 Tạo hóa đơn
+                                            </a>
+                                            @elseif ($patient->status == 3)
+                                            <a style="margin-top: 5px " href="{{ route('order.detail', $patient->order_id) }}"
+                                                class="label label-table label-primary">
+                                                Xem hóa đơn
                                             </a>
                                             @endif
                                         </td>

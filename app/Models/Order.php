@@ -15,6 +15,7 @@ class Order extends Model
         'customer_phone',
         'service_id',
         'product_id',
+        'patient_id',
         'code_bill',
         'payment_method',
         'description',
