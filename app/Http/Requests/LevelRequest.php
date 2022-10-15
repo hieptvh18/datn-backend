@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Http\Request;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class LevelRequest extends FormRequest
 {
@@ -21,11 +23,17 @@ class LevelRequest extends FormRequest
      *
      * @return array<string, mixed>
      */
-    public function rules()
+    public function rules(Request $request)
     {
-        return [
-            'name' => ['required', 'min:6', 'max:155', 'unique:levels,name,ignore,id']
+        $ruleNameUnique = Rule::unique('levels', 'name');
+
+        if($request->method() == 'PUT'){
+            $ruleNameUnique = Rule::unique('levels', 'name')->ignore(request()->id);
+        }
+        $rules = [
+            'name' => ['required', 'min:6', 'max:155', $ruleNameUnique]
         ];
+        return $rules;
     }
 
     public function messages(){
