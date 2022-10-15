@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\NewCategoryController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\ServiceController;
@@ -26,3 +27,6 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // change status schedule in listing
 Route::post('schedule/change-status',[ScheduleController::class,'changeStatus'])->name('schedule.ajax.changestatus');
+
+// new category
+Route::get('/newCategory/list', [NewCategoryController::class, 'list']);

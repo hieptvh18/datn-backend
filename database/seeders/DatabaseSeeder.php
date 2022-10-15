@@ -6,6 +6,7 @@ namespace Database\Seeders;
 
 use App\Models\Admin;
 use App\Models\Level;
+use App\Models\NewCategory;
 use App\Models\Permission;
 use App\Models\Product;
 use App\Models\ProductType;
@@ -26,6 +27,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
+
+        // new category
+        NewCategory::factory(10)->create();
 
         // rooms
         Room::factory(10)->create();
