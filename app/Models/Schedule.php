@@ -46,4 +46,5 @@ class Schedule extends Model
     public function services_schedule () {
         return $this->belongsToMany(Service::class, 'schedule_services', 'schedule_id', 'service_id');
     }
+
 }

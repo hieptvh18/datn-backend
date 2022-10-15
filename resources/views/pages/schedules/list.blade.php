@@ -150,10 +150,14 @@
                                                 <a style="margin-bottom: 5px" href="{{ route('schedules.edit', $item->id) }}"
                                                     class="label label-table label-success">Chi tiết</a>
                                             @endcan
-                                            @if ($item->status)
+                                            @if ($item->status == 1)
                                                 <a style="margin-bottom: 5px"
                                                     href="{{ route('patient.show', $item->id) }}"
                                                     class="label label-table label-info">Hồ sơ bệnh án</a>
+                                                @elseif ($item->status == 3)
+                                                    <a style="margin-bottom: 5px"
+                                                        href="{{ route('patient.edit', $item->patient_id) }}"
+                                                        class="label label-table label-info">Xem hồ sơ bệnh án</a>
                                             @endif
                                             @can('room-delete')
                                                 <form id="deleteForm{{ $item->id }}"
