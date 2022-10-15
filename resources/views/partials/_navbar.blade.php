@@ -44,15 +44,14 @@
                             <a href="{{ route('profile.show', Auth::guard('admin')->user()->id) }}" class="list-group-item">
                                 <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
                             </a>
-                            <a href="#" class="list-group-item">
-                                <i class="demo-pli-gear icon-lg icon-fw"></i> Settings
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="demo-pli-information icon-lg icon-fw"></i> Help
-                            </a>
-                            <a href="#" class="list-group-item">
-                                <i class="demo-pli-unlock icon-lg icon-fw"></i> Logout
-                            </a>
+                            <form action="{{ route('logout') }}" method="post">
+                                @csrf
+                                <a href="#" class="list-group-item">
+                                     <button class="btn btn-block" style="text-align: left"><i
+                                        class="demo-pli-unlock icon-lg icon-fw"></i>
+                                        Logout</button>
+                                </a>
+                            </form>
                         </div>
                     </div>
 
