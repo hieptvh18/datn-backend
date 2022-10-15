@@ -73,8 +73,8 @@
                     <label for="description" class="col-sm-3 control-label">Phương thức thanh toán</label>
                     <div class="col-md-9">
                         <select name="payment_method" class="form-control" id="">
-                            <option value="tiền mặt">Tiền mặt</option>
-                            <option value="chuyển khoản">Chuyển khoản</option>
+                            <option value="Tiền mặt">Tiền mặt</option>
+                            <option value="Chuyển khoản">Chuyển khoản</option>
                         </select>
                     </div>
                 </div>
