@@ -17,11 +17,6 @@ class News extends Model
         return $this->hasMany(NewsImage::class, 'news_id', 'id');
     }
 
-    // public function news_images () {
-
-    //     return $this->belongsToMany(NewsImage::class);
-    // }
-
     public function news_newCategory () {
         return $this->belongsTo(NewCategory::class, 'news_category', 'id');
     }

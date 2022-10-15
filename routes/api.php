@@ -34,3 +34,4 @@ Route::get('/newCategory/list', [NewCategoryController::class, 'list']);
 
 // news
 Route::get('/news/list', [NewsController::class, 'list']);
+Route::get('/news/detail/{newId}', [NewsController::class, 'detail']);
