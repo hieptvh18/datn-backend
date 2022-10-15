@@ -4,9 +4,10 @@ namespace App\Imports;
 
 use App\Models\Schedule;
 use App\Models\ScheduleService;
-
+use Carbon\Carbon;
 use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
+use PhpOffice\PhpSpreadsheet\Shared\Date;
 
 class ImportSchedule implements ToModel, WithHeadingRow
 {
@@ -22,6 +23,7 @@ class ImportSchedule implements ToModel, WithHeadingRow
     {
        $schedules = $this->schedule = Schedule::create([
             'fullname'=> $row['fullname'],
+                // 'birthday'=> Date::excelToDateTimeObject($row['birthday']),
                 // 'birthday'=> $row['birthday'],
                 'birthday'=> \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['birthday'])->format('Y-m-d'),
                 'gender'=> $row['gender'],
@@ -30,9 +32,10 @@ class ImportSchedule implements ToModel, WithHeadingRow
                 'address'=> $row['address'],
                 'cmnd'=> $row['cmnd'],
                 'content'=> '',
-                'date'=> $row['date'],
+                // 'date'=> Date::excelToDateTimeObject($row['date']),
+                // 'date'=> $row['date'],
                 'date'=> \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row['date'])->format('Y-m-d'),
-                // 'service_id'=> $row['service'],
+                'service_id'=> $row['service'],
                 'counter'=> 0,
                 'status'=>0,
         ]);

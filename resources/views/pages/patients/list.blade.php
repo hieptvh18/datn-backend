@@ -154,6 +154,11 @@
                                                 class="label label-table label-primary">
                                                 Tạo hóa đơn
                                             </a>
+                                            @elseif ($patient->status == 3)
+                                            <a style="margin-top: 5px " href="{{ route('order.detail', $patient->order_id) }}"
+                                                class="label label-table label-primary">
+                                                Xem hóa đơn
+                                            </a>
                                             @endif
                                         </td>
                                     </tr>
