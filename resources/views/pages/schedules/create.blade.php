@@ -115,14 +115,15 @@
                             <div class="mb-3">
                                 <label for="service_id" class="form-label"><b>Dịch vụ</b></label>
                                 <div class="checkbox">
+                                    <select class="js-example-basic-multiple form-control" data-placeholder="Chọn dịch vụ..."
+                                    name="service_id[]" multiple="multiple">
                                     @foreach ($services as $service)
-                                        <input name="service_id[]" 
-                                        @if(is_array(old('service_id')) && in_array($service->id, old('service_id'))) checked @endif
-                                        value="{{$service->id}}"
-                                        id="demo-form-inline-checkbox-{{$service->id}}" class="magic-checkbox" type="checkbox">
-                                        <label for="demo-form-inline-checkbox-{{$service->id}}">{{$service->service_name}}</label>
+                                        <option
+                                            value="{{ $service->id }}"  {{ (collect(old('service_id'))->contains($service->id)) ? 'selected':'' }}>{{ $service->service_name }}</option>
                                     @endforeach
-                                </div>
+                                </select>
+
+
                             </div>
                             @error('service_id')
                             <span class="text-danger" role="alert">
