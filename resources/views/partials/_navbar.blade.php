@@ -47,7 +47,11 @@
                             <form action="{{ route('logout') }}" method="post">
                                 @csrf
                                 <a href="#" class="list-group-item">
-                                    <button class="btn btn-block" style="text-align: left"><i
+                                    <button class="btn btn-block" style="text-align: left"
+                                        onclick="
+                                    if(!confirm('Bạn chắc chắn muốn thoát ?')){
+                                event.preventDefault();
+                            }"><i
                                             class="demo-pli-unlock icon-lg icon-fw"></i>
                                         Logout</button>
                                 </a>

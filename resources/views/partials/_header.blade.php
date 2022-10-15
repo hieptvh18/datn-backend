@@ -5,7 +5,7 @@
         <!--================================-->
         <div class="navbar-header">
             <a href="http://localhost:3000/" class="navbar-brand">
-                <img src="{{asset('assets/img/logo-DN.png')}}" alt="DN Logo" class="brand-icon">
+                <img src="{{ asset('assets/img/logo-DN.png') }}" alt="DN Logo" class="brand-icon">
                 <div class="brand-title">
                     <span class="brand-text">DN</span>
                 </div>
@@ -355,7 +355,11 @@
                                     Logout</a> --}}
                                     <form action="{{ route('logout') }}" method="post">
                                         @csrf
-                                        <button class="btn btn-block" style="text-align: left"><i
+                                        <button class="btn btn-block" style="text-align: left"
+                                            onclick="
+                                        if(!confirm('Bạn chắc chắn muốn thoát ?')){
+                                    event.preventDefault();
+                                }"><i
                                                 class="demo-pli-unlock icon-lg icon-fw"></i>Logout</button>
                                     </form>
                                 </li>
