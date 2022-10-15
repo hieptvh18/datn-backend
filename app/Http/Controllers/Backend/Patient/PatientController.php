@@ -60,6 +60,11 @@ class PatientController extends Controller
             $patient->patient_doctors()->attach($request->doctor);
             $patient->patient_products()->attach($request->product);
             $patient->service_patients()->attach($request->service);
+
+            $schedule = Schedule::find($request->schedule_id);
+            $schedule->status = 3;
+            $schedule->patient_id = $patient->id;
+            $schedule->update();
             return redirect()->route('patient.index')->with('message', 'Thêm thành công!');
         } catch (\Exception $e) {
             report($e->getMessage());
