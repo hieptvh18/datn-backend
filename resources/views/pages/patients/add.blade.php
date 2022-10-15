@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <label for="address" class="col-sm-3 control-label">Ngày khám</label>
                     <div class="col-md-9">
-                        <input type="date" name="date" value="{{old('date')}}" class="form-control">
+                        <input type="date" name="date" value="{{$patient->date?$patient->date:old('date')}}" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">
