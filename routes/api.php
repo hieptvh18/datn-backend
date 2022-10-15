@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\NewCategoryController;
+use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\ServiceController;
@@ -30,3 +31,6 @@ Route::post('schedule/change-status',[ScheduleController::class,'changeStatus'])
 
 // new category
 Route::get('/newCategory/list', [NewCategoryController::class, 'list']);
+
+// news
+Route::get('/news/list', [NewsController::class, 'list']);
