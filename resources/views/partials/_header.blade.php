@@ -353,15 +353,13 @@
                                 <li>
                                     {{-- <a href="pages-login.html"><i class="demo-pli-unlock icon-lg icon-fw"></i>
                                     Logout</a> --}}
-                                    <form action="{{ route('logout') }}" method="post">
+                                    <form id="deleteForm" action="{{ route('logout') }}" method="post">
                                         @csrf
-                                        <button class="btn btn-block" style="text-align: left"
-                                            onclick="
-                                        if(!confirm('Bạn chắc chắn muốn thoát ?')){
-                                    event.preventDefault();
-                                }"><i
-                                                class="demo-pli-unlock icon-lg icon-fw"></i>Logout</button>
+
                                     </form>
+                                    <button data-form="deleteForm" class="btn btn-block logout"
+                                        style="text-align: left"><i
+                                            class="demo-pli-unlock icon-lg icon-fw"></i>Logout</button>
                                 </li>
                             @endif
                         </ul>
