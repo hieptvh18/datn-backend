@@ -10,7 +10,7 @@
 
                 <!--Data Table-->
                 <!--===================================================-->
-                <form action="{{ route('schedules.store') }}" method="post">
+                <form name="formPostUpdateSchedule" id="sendNotifi" action="{{ route('schedules.store') }}" method="post">
                     @csrf
                     <div class="panel-body">
                         <div class="mb-3 ">
@@ -152,7 +152,7 @@
                     </div>
 
 
-                    <button class="btn btn-primary">Save</button>
+                    <button data-form="sendNotifi" type="button" class="confirm-sms btn btn-primary">Lưu thay đổi</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
                     <a href="{{ route('schedules.index') }}" class="btn btn-info">Back</a>
 

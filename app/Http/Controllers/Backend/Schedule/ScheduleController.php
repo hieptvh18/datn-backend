@@ -112,11 +112,10 @@ class ScheduleController extends Controller
         $pageTitle = 'Cập nhật lịch khám';
         $schedule = Schedule::find($id);
         $services = Service::where('is_active', 1)->get();
-        $scheduleServices = $schedule->schedule_services()
-            ->get()->toArray();
+        $scheduleServices = ScheduleService::where('schedule_id',$id)->get();
         $arrService = array();
         foreach ($scheduleServices as $item) {
-            array_push($arrService, $item['pivot']['service_id']);
+            array_push($arrService, $item->service_id);
         }
         return view('pages.schedules.edit', compact('schedule', 'pageTitle', 'services', 'arrService'));
     }
@@ -145,6 +144,13 @@ class ScheduleController extends Controller
                     $user->password = bcrypt($password);
                     $user->save();
                     $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
+                }else{
+                    $userExist = User::where('phone', $request->phone)->first();
+                    $userExist->fill($request->all());
+                    $userExist->name = $request->fullname;
+                    $userExist->phone = $request->phone;
+                    $userExist->email_user = $request->email;
+                    $userExist->save();
                 }
 
                 // send sms to phone
@@ -251,7 +257,7 @@ class ScheduleController extends Controller
         $mailData['mailSubject'] = 'Chào ' . $customerName;
         $mailData['mailContent'] = $mailContent;
         $mailData['linkPatient'] = '';
-        $mailData['baseUrl'] = 'https://localhost:3000';
+        $mailData['baseUrl'] = 'http://localhost:3000';
 
         return $mailData;
     }

@@ -72,7 +72,7 @@ class OrderController extends Controller
         // send notifi thank you
         $customerName = $order->customer_name;
         $companyName = 'Nha khoa Đức Nghĩa';
-        $linkPatientPage = 'https://localhost:3000';
+        $linkPatientPage = 'http://localhost:3000/ho-so-benh-nhan';
 
         // send mail
         $customerExist = User::where('phone',$request->customer_phone)->first();

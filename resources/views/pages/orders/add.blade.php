@@ -75,13 +75,14 @@
                         <select name="payment_method" class="form-control" id="">
                             <option value="Tiền mặt">Tiền mặt</option>
                             <option value="Chuyển khoản">Chuyển khoản</option>
+                            <option value="Chuyển khoản">Quẹt thẻ</option>
                         </select>
                     </div>
                 </div>
 
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
+                <button class="btn btn-primary" type="submit">Tạo hóa đơn</button>
                 <button class="btn btn-black" type="reset">Reset</button>
             </div>
         </form>

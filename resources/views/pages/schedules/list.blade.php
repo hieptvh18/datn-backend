@@ -153,7 +153,7 @@
                                             @if ($item->status == 1)
                                                 <a style="margin-bottom: 5px"
                                                     href="{{ route('patient.show', $item->id) }}"
-                                                    class="label label-table label-info">Hồ sơ bệnh án</a>
+                                                    class="label label-table label-info">Tạo bệnh án</a>
                                                 @elseif ($item->status == 3)
                                                     <a style="margin-bottom: 5px"
                                                         href="{{ route('patient.edit', $item->patient_id) }}"
