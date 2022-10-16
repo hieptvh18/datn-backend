@@ -16,7 +16,7 @@ class ScheduleController extends Controller
     public function add(Request $request)
     {
         try {
-            $user = $this->createUser($request->fullname, $request->phone);
+
             if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
@@ -24,20 +24,22 @@ class ScheduleController extends Controller
                 $schedule->date = date('Y-m-d', strtotime($request->date));
                 $schedule->save();
 
+                // auto create account customer
+                // $user = $this->createUser($request->all());
+
                 return response()->json([
                     'success' => true,
                     'message' => 'Đặt thành công lịch khám!',
                     'data' => $schedule->toArray(),
-                    'user' => $user,
+                    // 'user' => $user,
                 ], 200);
             }
             return response()->json([
                 'success' => false,
                 'message' => 'Bạn vừa đặt lịch các đây 1 ngày! vui lòng thử lại sau 24h!',
                 'data' => [],
-                'user' => [],
+                // 'user' => [],
             ], 400);
-
         } catch (Throwable $tr) {
             report($tr->getMessage());
 
@@ -45,7 +47,7 @@ class ScheduleController extends Controller
                 'success' => false,
                 'message' => 'Đã xảy ra lỗi! ' . $tr->getMessage(),
                 'data' => [],
-                'user' => [],
+                // 'user' => [],
             ], 400);
         }
     }
@@ -59,7 +61,7 @@ class ScheduleController extends Controller
         if ($scheduleExist) {
             $time = 86400000; // 1 day -> miligiay
             $schedule = Schedule::select('created_at')
-                ->where('phone',$phone)
+                ->where('phone', $phone)
                 ->orderByDesc('created_at')
                 ->limit(1)
                 ->first();
@@ -73,42 +75,47 @@ class ScheduleController extends Controller
         return true;
     }
 
-    public function createUser($name, $phone){
-        $userExits = User::select('id', 'name', 'phone', 'password')->where('phone', $phone)->first();
+    public function createUser($requestData)
+    {
+        $userExits = User::select('*')->where('phone', $requestData['phone'])->first();
 
+        if ($userExits) {
+            $obj = $userExits;
+        }
+        if (!$userExits) {
+            $newUser = new User();
+            $newUser->fill($requestData);
+            $newUser->name = $requestData['fullname'];
+            $newUser->phone = $requestData['phone'];
+            $password = randomString(6);
+            $newUser->password = Hash::make($password);
+            $newUser->email_user = $requestData['email'];
+            $newUser->name = $requestData['fullname'];
+            $newUser->save();
+            $obj = $newUser;
+            $obj->password_user = $password;
+        }
 
-        if($userExits){
-           $user = $userExits;
-        }
-        if(!$userExits){
-        $newUser = new User();
-        $newUser->name = $name;
-        $newUser->phone = $phone;
-        $newUser->password = Hash::make('123456789');
-        $newUser->email_user = '';
-        $newUser->save();
-        $user = $newUser;
-        }
-        return $user;
+        return $obj;
     }
 
-    public function changeStatus(Request $request){
-        try{
+    public function changeStatus(Request $request)
+    {
+        try {
             $schedule = Schedule::find($request->scheduleId);
             $schedule->status = $request->status;
             $schedule->save();
 
             return response()->json([
-                'success'=> true,
-                'message'=>'Câp nhật thành công trạng thái',
-                'data'=>$schedule
+                'success' => true,
+                'message' => 'Câp nhật thành công trạng thái',
+                'data' => $schedule
             ]);
-
-        }catch(Throwable $e){
+        } catch (Throwable $e) {
             report($e->getMessage());
             return response()->json([
-                'success'=> false,
-                'message'=>'Có lỗi xảy ra, '.$e->getMessage()
+                'success' => false,
+                'message' => 'Có lỗi xảy ra, ' . $e->getMessage()
             ]);
         }
     }

@@ -12,14 +12,18 @@ class EmailConfirmSchedule extends Mailable
     use Queueable, SerializesModels;
 
     public $mailData;
+
+    public $subject = 'Thông báo';
+
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($mailData)
+    public function __construct($mailData,$subject)
     {
         $this->mailData = $mailData;
+        $this->subject = $subject;
     }
 
     /**
@@ -29,6 +33,6 @@ class EmailConfirmSchedule extends Mailable
      */
     public function build()
     {
-        return $this->view('email.confirm-schedule');
+        return $this->subject($this->subject)->view('email.confirm-schedule');
     }
 }
