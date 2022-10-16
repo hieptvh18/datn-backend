@@ -47,18 +47,15 @@
                                 class="list-group-item">
                                 <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
                             </a>
-                            <form action="{{ route('logout') }}" method="post">
+                            <form id="deleteForm" action="{{ route('logout') }}" method="post">
                                 @csrf
-                                <a href="#" class="list-group-item">
-                                    <button class="btn btn-block" style="text-align: left"
-                                        onclick="
-                                    if(!confirm('Bạn chắc chắn muốn thoát ?')){
-                                event.preventDefault();
-                            }"><i
-                                            class="demo-pli-unlock icon-lg icon-fw"></i>
-                                        Logout</button>
-                                </a>
+
                             </form>
+                            <a data-form="deleteForm" href="#" class="list-group-item logout">
+                                <button type="submit" class="btn btn-block" style="text-align: left"><i
+                                        class="demo-pli-unlock icon-lg icon-fw"></i>
+                                    Logout</button>
+                            </a>
                         </div>
                     </div>
 

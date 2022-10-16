@@ -15,10 +15,10 @@
 
 <!--=================================================-->
 {{-- ckeditor --}}
-<script src="{{asset('assets/js/ckeditor/ckeditor.js')}}"></script>
+<script src="{{ asset('assets/js/ckeditor/ckeditor.js') }}"></script>
 
 {{-- jquery check all --}}
-<script src="{{ asset('assets/js/TableCheckAll.js')}}"></script>
+<script src="{{ asset('assets/js/TableCheckAll.js') }}"></script>
 
 <!--Demo script [ DEMONSTRATION ]-->
 <script src="{{ asset('assets/js/demo/nifty-demo.min.js') }}"></script>
@@ -44,41 +44,41 @@
 
 {{-- alert message --}}
 {{-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> --}}
-<script src="{{asset('assets/js/sweetalert2@11.js')}}"></script>
+<script src="{{ asset('assets/js/sweetalert2@11.js') }}"></script>
 
 {{-- ============= schedule --}}
- <!--Switchery [ OPTIONAL ]-->
- <script src="{{asset('assets/plugins/switchery/switchery.min.js')}}"></script>
+<!--Switchery [ OPTIONAL ]-->
+<script src="{{ asset('assets/plugins/switchery/switchery.min.js') }}"></script>
 
 
- <!--Bootstrap Select [ OPTIONAL ]-->
- <script src="{{asset('assets/plugins/bootstrap-select/bootstrap-select.min.js')}}"></script>
+<!--Bootstrap Select [ OPTIONAL ]-->
+<script src="{{ asset('assets/plugins/bootstrap-select/bootstrap-select.min.js') }}"></script>
 
 
- <!--Bootstrap Tags Input [ OPTIONAL ]-->
- <script src="{{asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js')}}"></script>
+<!--Bootstrap Tags Input [ OPTIONAL ]-->
+<script src="{{ asset('assets/plugins/bootstrap-tagsinput/bootstrap-tagsinput.min.js') }}"></script>
 
 
- <!--Chosen [ OPTIONAL ]-->
- <script src="{{asset('assets/plugins/chosen/chosen.jquery.min.js')}}"></script>
+<!--Chosen [ OPTIONAL ]-->
+<script src="{{ asset('assets/plugins/chosen/chosen.jquery.min.js') }}"></script>
 
 
- <!--noUiSlider [ OPTIONAL ]-->
- <script src="{{asset('assets/plugins/noUiSlider/nouislider.min.js')}}"></script>
+<!--noUiSlider [ OPTIONAL ]-->
+<script src="{{ asset('assets/plugins/noUiSlider/nouislider.min.js') }}"></script>
 
 
- <!--Select2 [ OPTIONAL ]-->
- <script src="{{asset('assets/plugins/select2/js/select2.min.js')}}"></script>
+<!--Select2 [ OPTIONAL ]-->
+<script src="{{ asset('assets/plugins/select2/js/select2.min.js') }}"></script>
 
 <!--Bootstrap Timepicker [ OPTIONAL ]-->
-<script src="{{asset('assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/bootstrap-timepicker/bootstrap-timepicker.min.js') }}"></script>
 
 
 <!--Bootstrap Datepicker [ OPTIONAL ]-->
-<script src="{{asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js')}}"></script>
+<script src="{{ asset('assets/plugins/bootstrap-datepicker/bootstrap-datepicker.min.js') }}"></script>
 
 <!--Form Component [ SAMPLE ]-->
-<script src="{{asset('assets/js/demo/form-component.js')}}"></script>
+<script src="{{ asset('assets/js/demo/form-component.js') }}"></script>
 
 <script>
     // alert success
@@ -111,6 +111,25 @@
                 title: 'Bạn chắc chắn muốn xóa?',
                 text: "Bạn sẽ không thể khôi phục nó!",
                 icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Có, tôi chắc chắn!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $(`#${formId}`).submit();
+                }
+            })
+        })
+    });
+
+    // confim logout
+    $(function() {
+        $(document).on('click', '.logout', function() {
+            let formId = $(this).data('form')
+            Swal.fire({
+                title: 'Bạn chắc chắn muốn thoát?',
+                icon: 'question',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
