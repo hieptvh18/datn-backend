@@ -22,6 +22,7 @@ Route::get('/services/list', [ServiceController::class, 'list']);
 
 // patient
 Route::get('/patient/list/{phone}', [PatientController::class, 'list']);
+Route::get('/patient/detail/{phone}/{patientId}', [PatientController::class, 'detail']);
 
 // login
 Route::post('/login', [AuthController::class, 'login']);

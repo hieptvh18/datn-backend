@@ -25,4 +25,27 @@ class PatientController extends Controller
             ]);
         }
     }
+    public function detail ($phone, $patientId){
+        try {
+            $patient = Patient::where('phone', $phone)->where('id', $patientId)->with(['service_patients'=>function($query){
+                $query->select('service_name');
+            }])->with(['patient_doctors'=>function($query){
+                $query->select('fullname');
+            }])->with(['patient_products'=>function($query){
+                $query->select('name');
+            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date"]);
+            return response()->json([
+                'success'=>true,
+                'message'=>'Chi tiết bệnh án của bệnh nhân có sđt '. $phone,
+                'data'=> $patient
+            ]);
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return response()->json([
+                'success'=>false,
+                'message'=>'Đã xảy ra lỗi! '.$th->getMessage(),
+                'data'=> []
+            ]);
+        }
+    }
 }

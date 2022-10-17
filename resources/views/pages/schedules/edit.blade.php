@@ -130,7 +130,7 @@
                                 <label for="" class="form-label"><b>Dịch vụ</b></label>
                                 <div class="checkbox">
                                     @foreach ($services as $service)
-                                        <input name="service_id[]" 
+                                        <input name="service_id[]"
                                         {{in_array($service->id,$arrService) ? 'checked' : ''}}
                                         value="{{$service->id}}"
                                         id="demo-form-inline-checkbox-{{$service->id}}" class="magic-checkbox" type="checkbox">
@@ -182,7 +182,7 @@
                     $(this).addClass('confirm-sms');
                 }else{
                     $(this).removeClass('confirm-sms');
-                    $('form[name=formPostUpdateSchedule]').submit();
+                    // $('form[name=formPostUpdateSchedule]').submit();
                 }
             })
         });
