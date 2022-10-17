@@ -87,114 +87,313 @@
                     </a>
                     <div class="dropdown-menu mega-dropdown-menu">
                         <div class="row">
-                            <div class="col-sm-4 col-md-3">
+                            <div class="col-sm-4 col-md-4">
+                                <!--Bordered Accordion-->
+                                <!--===================================================-->
+                                <div class="panel-group accordion" id="demo-acc-info-outline">
+                                    <div class="panel panel-bordered panel-info">
+                                        <!--Accordion title-->
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                    href="#acd-info-outline-1">Quản trị viên</a>
+                                            </h4>
+                                        </div>
 
-                                <!--Mega menu list-->
-                                <ul class="list-unstyled">
-                                    <li class="dropdown-header"><i class="demo-pli-file icon-lg icon-fw"></i>
-                                        Pages</li>
-                                    <li><a href="#">Profile</a></li>
-                                    <li><a href="#">Search Result</a></li>
-                                    <li><a href="#">FAQ</a></li>
-                                    <li><a href="#">Sreen Lock</a></li>
-                                    <li><a href="#">Maintenance</a></li>
-                                    <li><a href="#">Invoice</a></li>
-                                    <li><a href="#" class="disabled">Disabled</a></li>
-                                </ul>
+                                        <!--Accordion content-->
+                                        <div class="panel-collapse collapse in" id="acd-info-outline-1">
+                                            <div class="panel-body">
+                                                <ul style="list-style-type: none;">
+                                                    @can('permission-list')
+                                                        <li><a href="{{ route('permissions.index') }}">Danh sách quyền</a>
+                                                        </li>
+                                                    @endcan
+                                                    @can('role-list')
+                                                        <li><a href="{{ route('roles.index') }}">Vai trò</a></li>
+                                                    @endcan
+                                                </ul>
+                                            </div>
+                                        </div>
+                                    </div>
 
-                            </div>
-                            <div class="col-sm-4 col-md-3">
+                                    @can('admin-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-2">Người dùng</a>
+                                                </h4>
+                                            </div>
 
-                                <!--Mega menu list-->
-                                <ul class="list-unstyled">
-                                    <li class="dropdown-header"><i class="demo-pli-mail icon-lg icon-fw"></i>
-                                        Mailbox</li>
-                                    <li><a href="#"><span
-                                                class="pull-right label label-danger">Hot</span>Indox</a></li>
-                                    <li><a href="#">Read Message</a></li>
-                                    <li><a href="#">Compose</a></li>
-                                    <li><a href="#">Template</a></li>
-                                </ul>
-                                <p class="pad-top text-main text-sm text-uppercase text-bold"><i
-                                        class="icon-lg demo-pli-calendar-4 icon-fw"></i>News</p>
-                                <p class="pad-top mar-top bord-top text-sm">Lorem ipsum dolor sit amet,
-                                    consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
-                                    massa. Cum sociis natoque penatibus et magnis dis parturient montes.</p>
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-2">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('account_admins.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('account_admins.create') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+
+                                    @can('schedule-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-3">Đặt lịch</a>
+                                                </h4>
+                                            </div>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-3">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('schedules.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('schedules.create') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+
+                                    @can('patient-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-4">Bệnh án</a>
+                                                </h4>
+                                            </div>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-4">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('patient.index') }}">Danh sách</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+
+                                    @can('order-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-5">Hóa đơn</a>
+                                                </h4>
+                                            </div>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-5">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('order.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('order.add') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+                                </div>
+                                <!--===================================================-->
+                                <!--End Bordered Accordion-->
                             </div>
-                            <div class="col-sm-4 col-md-3">
-                                <!--Mega menu list-->
-                                <ul class="list-unstyled">
-                                    <li>
-                                        <a href="#" class="media mar-btm">
-                                            <span class="badge badge-success pull-right">90%</span>
-                                            <div class="media-left">
-                                                <i class="demo-pli-data-settings icon-2x"></i>
+                            <div class="col-sm-4 col-md-4">
+                                <!--Bordered Accordion-->
+                                <!--===================================================-->
+                                <div class="panel-group accordion" id="demo-acc-info-outline">
+                                    @can('equipment-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-6">Trang thiết bị</a>
+                                                </h4>
                                             </div>
-                                            <div class="media-body">
-                                                <p class="text-semibold text-main mar-no">Data Backup</p>
-                                                <small class="text-muted">This is the item description</small>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-6">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('equipment.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('equipment.add') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="media mar-btm">
-                                            <div class="media-left">
-                                                <i class="demo-pli-support icon-2x"></i>
+                                        </div>
+                                    @endcan
+
+                                    @can('level-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-7">Chức vụ</a>
+                                                </h4>
                                             </div>
-                                            <div class="media-body">
-                                                <p class="text-semibold text-main mar-no">Support</p>
-                                                <small class="text-muted">This is the item description</small>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-7">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('level.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('level.add') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="media mar-btm">
-                                            <div class="media-left">
-                                                <i class="demo-pli-computer-secure icon-2x"></i>
+                                        </div>
+                                    @endcan
+
+                                    @can('specialist-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-8">Chuyên khoa</a>
+                                                </h4>
                                             </div>
-                                            <div class="media-body">
-                                                <p class="text-semibold text-main mar-no">Security</p>
-                                                <small class="text-muted">This is the item description</small>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-8">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('specialist.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('specialist.add') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#" class="media mar-btm">
-                                            <div class="media-left">
-                                                <i class="demo-pli-map-2 icon-2x"></i>
+                                        </div>
+                                    @endcan
+
+                                    @can('room-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-9">Phòng ban</a>
+                                                </h4>
                                             </div>
-                                            <div class="media-body">
-                                                <p class="text-semibold text-main mar-no">Location</p>
-                                                <small class="text-muted">This is the item description</small>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-9">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('rooms.index') }}">Danh sách</a></li>
+                                                        <li><a href="{{ route('rooms.create') }}">Thêm mới</a></li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </a>
-                                    </li>
-                                </ul>
+                                        </div>
+                                    @endcan
+
+                                    @can('service-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-10">Dịch vụ</a>
+                                                </h4>
+                                            </div>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-10">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('service.index') }}">Danh sách dịch vụ</a>
+                                                        </li>
+                                                        <li><a href="{{ route('service.create') }}">Thêm dịch vụ</a></li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+                                </div>
+                                <!--===================================================-->
+                                <!--End Bordered Accordion-->
                             </div>
-                            <div class="col-sm-12 col-md-3">
-                                <p class="dropdown-header"><i class="demo-pli-file-jpg icon-lg icon-fw"></i>
-                                    Gallery</p>
-                                <div class="row img-gallery">
-                                    <div class="col-xs-4">
-                                        <img class="img-responsive" src="img/thumbs/img-1.jpg" alt="thumbs">
+                            <div class="col-sm-4 col-md-4">
+                                <!--Bordered Accordion-->
+                                <!--===================================================-->
+                                <div class="panel-group accordion" id="demo-acc-info-outline">
+                                    @can('product-list')
+                                        <div class="panel panel-bordered panel-info">
+                                            <!--Accordion title-->
+                                            <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                    <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                        href="#acd-info-outline-11">Sản phẩm</a>
+                                                </h4>
+                                            </div>
+
+                                            <!--Accordion content-->
+                                            <div class="panel-collapse collapse in" id="acd-info-outline-11">
+                                                <div class="panel-body">
+                                                    <ul style="list-style-type: none;">
+                                                        <li><a href="{{ route('product.index') }}">Sản phẩm</a></li>
+                                                        <li><a href="{{ route('product-type.index') }}">Loại sản phẩm</a>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    @endcan
+
+                                    <div class="panel panel-bordered panel-info">
+                                        <!--Accordion title-->
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                    href="#acd-info-outline-12">Tin tức</a>
+                                            </h4>
+                                        </div>
+
+                                        <!--Accordion content-->
+                                        <div class="panel-collapse collapse in" id="acd-info-outline-12">
+                                            <div class="panel-body">
+                                                <ul style="list-style-type: none;">
+                                                    <li><a href="{{ route('newCategories.index') }}">Danh mục tin</a>
+                                                    </li>
+                                                    <li><a href="{{ route('news.index') }}">Bài viết</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="col-xs-4">
-                                        <img class="img-responsive" src="img/thumbs/img-3.jpg" alt="thumbs">
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <img class="img-responsive" src="img/thumbs/img-2.jpg" alt="thumbs">
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <img class="img-responsive" src="img/thumbs/img-4.jpg" alt="thumbs">
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <img class="img-responsive" src="img/thumbs/img-6.jpg" alt="thumbs">
-                                    </div>
-                                    <div class="col-xs-4">
-                                        <img class="img-responsive" src="img/thumbs/img-5.jpg" alt="thumbs">
+
+                                    <div class="panel panel-bordered panel-info">
+                                        <!--Accordion title-->
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
+                                                    href="#acd-info-outline-13">Cài đặt chung</a>
+                                            </h4>
+                                        </div>
+
+                                        <!--Accordion content-->
+                                        <div class="panel-collapse collapse in" id="acd-info-outline-13">
+                                            <div class="panel-body">
+                                                <ul style="list-style-type: none;">
+                                                    <li><a href="grid-bootstrap.html">Bootstrap Grid</a></li>
+                                                    <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
+                                                </ul>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
-                                <a href="#" class="btn btn-block btn-primary">Browse Gallery</a>
+                                <!--===================================================-->
+                                <!--End Bordered Accordion-->
                             </div>
                         </div>
                     </div>
