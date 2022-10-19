@@ -45,6 +45,18 @@ class Admin extends Authenticatable
         return $this->belongsToMany(Role::class, 'role_admins', 'admin_id', 'role_id');
     }
 
+    public function AdminLevel () {
+        return $this->belongsTo(Level::class, 'level_id', 'id');
+    }
+
+    public function AdminSpecialist () {
+        return $this->belongsTo(Specialist::class, 'specialist_id', 'id');
+    }
+
+    public function AdminRoom () {
+        return $this->belongsTo(Room::class, 'room_id', 'id');
+    }
+
     public function checkPermission ($permissionCheck) {
         $roles = auth('admin')->user()->roles;
         foreach($roles as $role){
