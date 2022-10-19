@@ -17,7 +17,9 @@ return new class extends Migration
             $table->id();
             $table->string('customer_name',255)->comment('ten khach feedback');
             $table->string('customer_email',255);
+            $table->string('customer_avatar',255)->nullable()->comment('avatar fake');
             $table->text('content');
+            $table->tinyInteger('is_active')->default(0)->comment('Có được phép hiển thị phía fe hay không');
             $table->timestamps();
         });
     }
