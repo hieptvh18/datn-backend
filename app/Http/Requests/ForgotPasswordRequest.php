@@ -24,7 +24,7 @@ class ForgotPasswordRequest extends FormRequest
     public function rules()
     {
         return [
-            'email'=>'required|exists:admins'
+            'email'=>'required|exists:admins|email'
         ];
     }
 
@@ -32,7 +32,7 @@ class ForgotPasswordRequest extends FormRequest
     {
         return [
             'email.required'=>'Vui lòng nhập email!',
-            'email.exists'=>'Email không tồn tại trong hệ thống!!'
+            'email.exists'=>'Email không tồn tại trong hệ thống!!',
         ];
     }
 }

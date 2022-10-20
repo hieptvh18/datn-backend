@@ -78,6 +78,7 @@ class AdminController extends Controller
 
         $account_admin->save();
 
+
         $account_admin->role_admins()->attach($request->role_id);
 
         return redirect()->route('account_admins.index')->with(['message'=>'Tạo người dùng thành công!']);

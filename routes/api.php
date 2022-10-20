@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EquipmentController;
 use App\Http\Controllers\Api\NewCategoryController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PatientController;
@@ -40,3 +41,6 @@ Route::get('/news/detail/{newId}', [NewsController::class, 'detail']);
 
 // doctor
 Route::get('/doctor/list', [PatientController::class, 'doctor']);
+
+// equipment
+Route::get('/equipment/list',[EquipmentController::class,'list']);
