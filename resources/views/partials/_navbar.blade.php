@@ -336,7 +336,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="grid-bootstrap.html">Bootstrap Grid</a></li>
+                                <li><a href="{{route('webSetting.index')}}">Setting</a></li>
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
                             </ul>
                         </li>
