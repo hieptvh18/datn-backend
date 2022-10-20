@@ -6,6 +6,8 @@ use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\ServiceController;
+use App\Http\Controllers\Api\SpecialistController;
+use App\Models\Specialist;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -40,3 +42,6 @@ Route::get('/news/detail/{newId}', [NewsController::class, 'detail']);
 
 // doctor
 Route::get('/doctor/list', [PatientController::class, 'doctor']);
+
+// specialist
+Route::get('/specialist/list',[SpecialistController::class,'index']);
