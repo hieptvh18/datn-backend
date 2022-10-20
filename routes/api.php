@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\Api\AuthController;
+use App\Http\Controllers\Api\EquipmentController;
 use App\Http\Controllers\Api\NewCategoryController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PatientController;
@@ -19,6 +20,7 @@ Route::post('/schedule/add',[ScheduleController::class,'add']);
 
 // service
 Route::get('/services/list', [ServiceController::class, 'list']);
+Route::get('/services/listTop4', [ServiceController::class, 'listTop4']);
 
 // patient
 Route::get('/patient/list/{phone}', [PatientController::class, 'list']);
@@ -36,3 +38,9 @@ Route::get('/newCategory/list', [NewCategoryController::class, 'list']);
 // news
 Route::get('/news/list', [NewsController::class, 'list']);
 Route::get('/news/detail/{newId}', [NewsController::class, 'detail']);
+
+// doctor
+Route::get('/doctor/list', [PatientController::class, 'doctor']);
+
+// equipment
+Route::get('/equipment/list',[EquipmentController::class,'list']);

@@ -18,6 +18,7 @@ use App\Http\Controllers\Backend\Products\ProductController;
 use App\Http\Controllers\Backend\Products\ProductTypeController;
 use App\Http\Controllers\Backend\Profile\ProfileController;
 use App\Http\Controllers\Backend\Service\ServiceController;
+use App\Http\Controllers\Backend\WebSetting\WebSettingController;
 use App\Models\NewCategory;
 use Illuminate\Support\Facades\Route;
 
@@ -169,6 +170,11 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
     Route::post('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
     Route::delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
+
+    // Web setting
+    Route::get('/webSetting', [WebSettingController::class, 'index'])->name('webSetting.index');
+    Route::get('/webSetting/edit/{id}', [WebSettingController::class, 'edit'])->name('webSetting.edit');
+    Route::post('/webSetting/update/{id}', [WebSettingController::class, 'update'])->name('webSetting.update');
 
 });
 
