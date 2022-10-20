@@ -35,7 +35,7 @@ class EquipmentsRequest extends FormRequest
             'price' => 'required|integer',
             'size' => 'required',
             'short_desc' => 'required|min:30',
-            'image' => 'image|mimes:jpg,png,jpeg|max:2040'
+            'image' => 'image|mimes:jpg,png,jpeg,webp|max:2040'
         ];
 
         return $rules;
@@ -51,6 +51,8 @@ class EquipmentsRequest extends FormRequest
             'price.required'=>'Mức giá không được trống!',
             'price.integer'=>'Dữ liệu nhập vào phải là số nguyên!',
             'image.required'=>'Ảnh không được trống!',
+            'image.mimes'=>'Ảnh không đúng định dạng jpg,png,jpeg,webp!',
+            'image.max'=>'Ảnh không được lớn hơn 2040M !',
             'size.required'=>'Kích thước không được trống!',
             'short_desc.required'=>'Mô tả không được trống!',
             'short_desc.min'=>'Nhập ít nhất :min ký tự!'
