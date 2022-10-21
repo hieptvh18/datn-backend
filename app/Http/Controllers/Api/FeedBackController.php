@@ -34,4 +34,22 @@ class FeedBackController extends Controller
         ]);
        }
     }
+
+    public function list () {
+        try {
+            $listFeedback = FeedBack::where('is_active', 1)->get(['id', 'customer_name', 'customer_email', 'customer_avatar', 'content']);
+            return response()->json([
+                'success'=>true,
+                'message'=>'Danh sách đánh giá!',
+                'data'=> $listFeedback
+            ]);
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+        return response()->json([
+            'success'=>false,
+            'message'=>'Đã xảy ra lỗi!'. $th->getMessage(),
+            'data'=> []
+        ]);
+        }
+    }
 }

@@ -52,3 +52,4 @@ Route::get('/specialist/list',[SpecialistController::class,'index']);
 
 //feedback
 Route::post('/feedback/add', [FeedBackController::class, 'add']);
+Route::get('/feedback/list',[FeedBackController::class,'list']);
