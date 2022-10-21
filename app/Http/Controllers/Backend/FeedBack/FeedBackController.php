@@ -38,17 +38,22 @@ class FeedBackController extends Controller
      */
     public function store(FeedBackRequest $request)
     {
-        $feedback = new FeedBack();
-        $feedback->fill($request->all());
-        if($request->hasFile('customer_avatar')){
-            $file = $request->file('customer_avatar');
-            $feedback->customer_avatar = fileUploader($file, 'feedback', 'uploads/feedbacks');
-        }else{
-            $feedback->customer_avatar = 'assets/img/profile-photos/no-image.png';
-        }
-        $feedback->save();
+        try {
+            $feedback = new FeedBack();
+            $feedback->fill($request->all());
+            if ($request->hasFile('customer_avatar')) {
+                $file = $request->file('customer_avatar');
+                $feedback->customer_avatar = fileUploader($file, 'feedback', 'uploads/feedbacks');
+            } else {
+                $feedback->customer_avatar = 'assets/img/profile-photos/no-image.png';
+            }
+            $feedback->save();
 
-        return redirect()->route('feedback.index')->with('message', 'Tạo đánh giá thành công!');
+            return redirect()->route('feedback.index')->with('message', 'Tạo đánh giá thành công!');
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('message', 'Đã xảy ra lỗi!' . $th->getMessage());
+        }
     }
 
     /**
@@ -83,16 +88,21 @@ class FeedBackController extends Controller
      */
     public function update(FeedBackRequest $request, $id)
     {
-        $feedback = FeedBack::find($id);
-        $feedback->fill($request->all());
-        if($request->hasFile('customer_avatar')){
-            $file = $request->file('customer_avatar');
-            $feedback->customer_avatar = fileUploader($file, 'feedback', 'uploads/feedbacks');
-        }
-        $feedback->is_active = $request->is_active == 'on'?1:0;
-        $feedback->update();
+        try {
+            $feedback = FeedBack::find($id);
+            $feedback->fill($request->all());
+            if ($request->hasFile('customer_avatar')) {
+                $file = $request->file('customer_avatar');
+                $feedback->customer_avatar = fileUploader($file, 'feedback', 'uploads/feedbacks');
+            }
+            $feedback->is_active = $request->is_active == 'on' ? 1 : 0;
+            $feedback->update();
 
-        return redirect()->route('feedback.index')->with('message', 'Cập nhật đánh giá thành công!');
+            return redirect()->route('feedback.index')->with('message', 'Cập nhật đánh giá thành công!');
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('message', 'Đã xảy ra lỗi!' . $th->getMessage());
+        }
     }
 
     /**
@@ -103,14 +113,25 @@ class FeedBackController extends Controller
      */
     public function destroy($id)
     {
-        FeedBack::destroy($id);
-        return redirect()->route('feedback.index')->with('message', 'Xóa đánh giá thành công!');
+        try {
+            FeedBack::destroy($id);
+            return redirect()->route('feedback.index')->with('message', 'Xóa đánh giá thành công!');
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('message', 'Đã xảy ra lỗi!' . $th->getMessage());
+        }
     }
 
-    public function changeStatus ($id) {
-        $feedback = FeedBack::find($id);
-        $feedback->is_active = $feedback->is_active?0:1;
-        $feedback->update();
-        return redirect()->route('feedback.index')->with('message', 'Chuyển trạng thái thành công!');
+    public function changeStatus($id)
+    {
+        try {
+            $feedback = FeedBack::find($id);
+            $feedback->is_active = $feedback->is_active ? 0 : 1;
+            $feedback->update();
+            return redirect()->route('feedback.index')->with('message', 'Chuyển trạng thái thành công!');
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('message', 'Đã xảy ra lỗi!' . $th->getMessage());
+        }
     }
 }

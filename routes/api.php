@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Api\AuthController;
 use App\Http\Controllers\Api\EquipmentController;
+use App\Http\Controllers\Api\FeedBackController;
 use App\Http\Controllers\Api\NewCategoryController;
 use App\Http\Controllers\Api\NewsController;
 use App\Http\Controllers\Api\PatientController;
@@ -48,3 +49,6 @@ Route::get('/equipment/list',[EquipmentController::class,'list']);
 
 // specialist
 Route::get('/specialist/list',[SpecialistController::class,'index']);
+
+//feedback
+Route::post('/feedback/add', [FeedBackController::class, 'add']);
