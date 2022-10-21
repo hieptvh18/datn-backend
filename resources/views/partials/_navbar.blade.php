@@ -326,6 +326,21 @@
                             </ul>
                         </li>
 
+                        {{-- feedback --}}
+                        <li>
+                            <a href="#">
+                                <i class="demo-pli-warning-window"></i>
+                                <span class="menu-title">Đánh giá</span>
+                                <i class="arrow"></i>
+                            </a>
+
+                            <!--Submenu-->
+                            <ul class="collapse">
+                                <li><a href="{{ route('feedback.index') }}">Danh sách</a></li>
+                                <li><a href="{{ route('feedback.index') }}">Thêm mới</a></li>
+                            </ul>
+                        </li>
+
                         <!--Menu list item-->
                         <li>
                             <a href="#">

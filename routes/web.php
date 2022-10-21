@@ -11,6 +11,7 @@ use App\Http\Controllers\Backend\Permission\PermissionController;
 use App\Http\Controllers\Backend\Role\RoleController;
 use App\Http\Controllers\Backend\Room\RoomControler;
 use App\Http\Controllers\Backend\Equipments\EquipmentsController;
+use App\Http\Controllers\Backend\FeedBack\FeedBackController;
 use App\Http\Controllers\Backend\NewCategory\NewCategoryController;
 use App\Http\Controllers\Backend\News\NewsController;
 use App\Http\Controllers\Backend\Orders\OrderController;
@@ -175,6 +176,15 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/webSetting', [WebSettingController::class, 'index'])->name('webSetting.index');
     Route::get('/webSetting/edit/{id}', [WebSettingController::class, 'edit'])->name('webSetting.edit');
     Route::post('/webSetting/update/{id}', [WebSettingController::class, 'update'])->name('webSetting.update');
+
+    // feedback
+    Route::get('/feedback', [FeedBackController::class, 'index'])->name('feedback.index');
+    Route::get('/feedback/create', [FeedBackController::class, 'create'])->name('feedback.create');
+    Route::post('/feedback/store', [FeedBackController::class, 'store'])->name('feedback.store');
+    Route::get('/feedback/edit/{id}', [FeedBackController::class, 'edit'])->name('feedback.edit');
+    Route::post('/feedback/update/{id}', [FeedBackController::class, 'update'])->name('feedback.update');
+    Route::delete('/feedback/destroy/{id}', [FeedBackController::class, 'destroy'])->name('feedback.destroy');
+    Route::get('/feedback/changeStatus/{id}', [FeedBackController::class, 'changeStatus'])->name('feedback.changeStatus');
 
 });
 
