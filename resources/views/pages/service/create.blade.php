@@ -45,7 +45,7 @@
                     <label for="" class="col-sm-3 control-label">Thuộc dịch vụ: </label>
                     <div class="col-sm-9">
                         <select class="form-select" name="parent_id" aria-label="Default select example">
-                            <option value="">Không thuộc dịch vụ cha</option>
+                            <option value="0">Không thuộc dịch vụ cha</option>
                             @foreach ($parentServices as $service)
                                 <option value="{{ $service->id }}">{{ $service->service_name }}</option>
                             @endforeach
