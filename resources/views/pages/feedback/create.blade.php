@@ -44,7 +44,7 @@
                 <div class="form-group">
                     <label for="content" class="col-sm-3 control-label">Nội dung</label>
                     <div class="col-md-9">
-                        <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="content">{{old('content')}}</textarea>
+                        <textarea type="text" class="form-control" style="resize: none" rows="10" name="content">{{old('content')}}</textarea>
                             @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -53,7 +53,7 @@
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Kích hoạt</label>
                     <div class="col-sm-9">
-                        <input type="checkbox" style="margin-top: 10px" checked name="is_active" class="">
+                        <input type="checkbox" style="margin-top: 10px" checked name="is_active" value="1" class="">
                     </div>
                 </div>
             </div>

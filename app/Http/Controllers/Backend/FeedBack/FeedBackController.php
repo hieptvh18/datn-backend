@@ -41,6 +41,7 @@ class FeedBackController extends Controller
         try {
             $feedback = new FeedBack();
             $feedback->fill($request->all());
+            $feedback->is_active = $request->is_active == 1?1:0;
             if ($request->hasFile('customer_avatar')) {
                 $file = $request->file('customer_avatar');
                 $feedback->customer_avatar = fileUploader($file, 'feedback', 'uploads/feedbacks');

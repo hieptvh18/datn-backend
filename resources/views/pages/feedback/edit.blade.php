@@ -52,7 +52,7 @@
                 <div class="form-group">
                     <label for="content" class="col-sm-3 control-label">Nội dung</label>
                     <div class="col-md-9">
-                        <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="content">{{$feedback->content?$feedback->content:old('content')}}</textarea>
+                        <textarea type="text" class="form-control" style="resize: none" rows="10" name="content">{{$feedback->content?$feedback->content:old('content')}}</textarea>
                             @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
