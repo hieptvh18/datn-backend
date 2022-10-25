@@ -25,12 +25,13 @@ class ServiceController extends Controller
 
     public function store(ServiceRequest $request)
     {
-        // $validatedData = $request->validate();
+
         $service = new Service;
         $service->service_name = $request['service_name'];
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
         $service->parent_id = $request['parent_id'];
+        $service->description = $request['description'];
         if($request->hasFile('image')) {
             $image = $request->image;
             $imageName = $image->hashName();
@@ -39,13 +40,14 @@ class ServiceController extends Controller
         } else {
             $service->image = '';
         }
+        // \dd($service);
         $service->save();
         return \redirect()->route('service.index')->with(['message'=>'Tạo mới dịch vụ thành công!']);;
     }
 
     public function edit(Service $service)
     {
-        $parentServices = Service::where('parent_id', \null)->get();
+        $parentServices = Service::where('parent_id', 0)->get();
         return \view('pages.service.edit',\compact('service','parentServices'));
     }
 
@@ -56,6 +58,7 @@ class ServiceController extends Controller
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
         $service->parent_id = $request['parent_id'];
+        $service->description = $request['description'];
         if($request->hasFile('image')) {
             $image = $request->image;
             $imageName = $image->hashName();

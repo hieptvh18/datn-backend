@@ -14,7 +14,9 @@ class Service extends Model
         'service_name',
         'price',
         'parent_id',
-        'is_active'
+        'is_active',
+        'image',
+        'description'
     ];
     public $sortable = [
         'id',
