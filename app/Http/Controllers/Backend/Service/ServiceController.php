@@ -13,13 +13,13 @@ class ServiceController extends Controller
     public function index()
     {
         $service = Service::sortable()->orderby('id', 'desc')->paginate(15);
-        $parentServices = Service::where('parent_id', \null)->get();
+        $parentServices = Service::where('parent_id', 0)->get();
         return \view('pages.service.list',\compact('service','parentServices'));
     }
 
     public function create()
     {
-        $parentServices = Service::where('parent_id', \null)->get();
+        $parentServices = Service::where('parent_id', 0)->get();
         return \view('pages.service.create',\compact('parentServices'));
     }
 
