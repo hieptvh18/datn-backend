@@ -6,31 +6,33 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ServiceRequest;
 use App\Models\Service;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 
 class ServiceController extends Controller
 {
     public function index()
     {
         $service = Service::sortable()->orderby('id', 'desc')->paginate(15);
-        $parentServices = Service::where('parent_id', \null)->get();
+        $parentServices = Service::where('parent_id', 0)->get();
+
         return \view('pages.service.list',\compact('service','parentServices'));
     }
 
     public function create()
     {
-        $parentServices = Service::where('parent_id', \null)->get();
+        $parentServices = Service::where('parent_id', 0)->get();
+
         return \view('pages.service.create',\compact('parentServices'));
     }
 
     public function store(ServiceRequest $request)
     {
-        // $validatedData = $request->validate();
         $service = new Service;
         $service->service_name = $request['service_name'];
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
         $service->parent_id = $request['parent_id'];
+        $service->description = $request['description'];
+
         if($request->hasFile('image')) {
             $image = $request->image;
             $imageName = $image->hashName();
@@ -40,12 +42,14 @@ class ServiceController extends Controller
             $service->image = '';
         }
         $service->save();
+
         return \redirect()->route('service.index')->with(['message'=>'Tạo mới dịch vụ thành công!']);;
     }
 
     public function edit(Service $service)
     {
-        $parentServices = Service::where('parent_id', \null)->get();
+        $parentServices = Service::where('parent_id', 0)->get();
+
         return \view('pages.service.edit',\compact('service','parentServices'));
     }
 
@@ -56,6 +60,8 @@ class ServiceController extends Controller
         $service->price = $request['price'];
         $service->is_active = $request->active == true ? 1 : 0;
         $service->parent_id = $request['parent_id'];
+        $service->description = $request['description'];
+
         if($request->hasFile('image')) {
             $image = $request->image;
             $imageName = $image->hashName();
@@ -65,8 +71,8 @@ class ServiceController extends Controller
             $service->image = '';
         }
         $service->update();
-        return \redirect()->route('service.index')->with(['message'=>'Sửa dịch vụ thành công!']);;
 
+        return \redirect()->route('service.index')->with(['message'=>'Sửa dịch vụ thành công!']);;
     }
 
     public function destroy(Service $service)
@@ -97,6 +103,7 @@ class ServiceController extends Controller
 
         return view('pages.service.list', compact('service','parentServices'));
         } catch (\Throwable $th) {
+
             return $th;
         }
     }

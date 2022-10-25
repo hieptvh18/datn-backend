@@ -37,14 +37,15 @@
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Kích hoạt</label>
                     <div class="col-sm-9">
-                        <input type="checkbox" name="active" class="">
+                         <input id="demo-form-inline-checkbox" class="magic-checkbox" type="checkbox" name="active" checked>
+                        <label for="demo-form-inline-checkbox"></label>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Thuộc dịch vụ: </label>
                     <div class="col-sm-9">
-                        <select class="form-select" name="parent_id" aria-label="Default select example">
+                        <select class="form-control" name="parent_id" aria-label="Default select example">
                             <option value="0">Không thuộc dịch vụ cha</option>
                             @foreach ($parentServices as $service)
                                 <option value="{{ $service->id }}">{{ $service->service_name }}</option>
@@ -52,10 +53,22 @@
                         </select>
                     </div>
                 </div>
+                    <div class="form-group">
+                        <label for="" class="col-sm-3 control-label"><b>Nội dung</b></label>
+                        <div class="col-sm-9">
+                        <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="description">{{old('description')}}</textarea>
+                    </div>
+                    </div>
+                    @error('description')
+                    <span class="text-danger" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+
                 <div class="form-group">
                     <label for="" class="col-sm-3 control-label">Ảnh dịch vụ: </label>
                     <div class="col-sm-9">
-                        <input type="file" name="image">
+                        <input type="file" class="form-control" name="image">
                         @error('image')
                         <div class="text text-danger">
                             {{ $message }}
