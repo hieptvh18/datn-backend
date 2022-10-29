@@ -31,11 +31,11 @@ class PatientController extends Controller
     public function detail ($phone, $patientId){
         try {
             $patient = Patient::where('phone', $phone)->where('id', $patientId)->with(['service_patients'=>function($query){
-                $query->select('service_name');
+                $query->select('service_name','price');
             }])->with(['patient_doctors'=>function($query){
                 $query->select('fullname');
             }])->with(['patient_products'=>function($query){
-                $query->select('name');
+                $query->select('name','price');
             }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date"]);
             return response()->json([
                 'success'=>true,
