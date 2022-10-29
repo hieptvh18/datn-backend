@@ -51,7 +51,7 @@
                 <div class="form-group">
                     <label for="description" class="col-sm-3 control-label">Mô tả</label>
                     <div class="col-md-9">
-                        <textarea name="description" id="description" cols="30" rows="5" class="ckeditor form-control" placeholder="Mô tả bệnh tình">{{ $patient->description }}</textarea>
+                        <textarea name="description" id="description" cols="30" rows="5" class="form-control" placeholder="Mô tả bệnh tình">{{ $patient->description }}</textarea>
                     </div>
                 </div>
                 <div class="form-group">
