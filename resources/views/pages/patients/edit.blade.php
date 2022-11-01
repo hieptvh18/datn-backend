@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Điện thoại(*)</label>
                     <div class="col-sm-9">
-                        <input type="tel" name="phone" placeholder="Số điện thoại" id="phone" value="{{$patient->phone}}" class="form-control">
+                        <input readonly type="tel" name="phone" placeholder="Số điện thoại" id="phone" value="{{$patient->phone}}" class="form-control">
                         @error('phone')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror

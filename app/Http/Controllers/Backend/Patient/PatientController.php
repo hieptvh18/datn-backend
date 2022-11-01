@@ -55,7 +55,9 @@ class PatientController extends Controller
     {
         try {
             $patient = new Patient();
+            $tokenUrl = strtolower(randomString(25));
             $patient->fill($request->all());
+            $patient->token_url = $tokenUrl;
             $patient->save();
             $patient->patient_doctors()->attach($request->doctor);
             $patient->patient_products()->attach($request->product);
@@ -65,7 +67,8 @@ class PatientController extends Controller
             $schedule->status = 3;
             $schedule->patient_id = $patient->id;
             $schedule->update();
-            return redirect()->route('patient.index')->with('message', 'Thêm thành công!');
+
+            return redirect()->route('order.add', ['id'=>$patient->id])->with('message', 'Thêm thành công bệnh án!');
         } catch (\Exception $e) {
             report($e->getMessage());
 
@@ -149,7 +152,7 @@ class PatientController extends Controller
             $patient->patient_doctors()->sync($request->doctor);
             $patient->patient_products()->sync($request->product);
             $patient->service_patients()->sync($request->service);
-            return redirect()->back()->with('message', 'Cập nhật thành công!');
+            return redirect()->route('order.add', ['id'=>$patient->id])->with('message', 'Cập nhật thành công bệnh án!');
         } catch (\Exception $e) {
             report($e->getMessage());
             return redirect()->back()->with('exception', 'Đã xảy ra lỗi, vui lòng thử lại!');

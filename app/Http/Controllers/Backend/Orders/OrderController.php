@@ -58,7 +58,10 @@ class OrderController extends Controller
             $total += $services[$i]->price;
         }
 
-
+        $patient = Patient::where('phone',$request->customer_phone)->first();
+        $token = $patient->token_url;
+        $patientId = $patient->id;
+        $linkPatientPage = 'http://localhost:3000/ho-so-benh-an/'.$token.'/id/'.$patientId;
         $order = new Order();
         $order->fill($request->all());
         $order->product_id = $product_id;
@@ -72,7 +75,7 @@ class OrderController extends Controller
         // send notifi thank you
         $customerName = $order->customer_name;
         $companyName = 'Nha khoa Đức Nghĩa';
-        $linkPatientPage = 'http://localhost:3000/ho-so-benh-nhan';
+        
 
         // send mail
         $customerExist = User::where('phone',$request->customer_phone)->first();

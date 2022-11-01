@@ -36,7 +36,7 @@ class PatientController extends Controller
                 $query->select('fullname');
             }])->with(['patient_products'=>function($query){
                 $query->select('name','price');
-            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date"]);
+            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date",'token_url']);
             return response()->json([
                 'success'=>true,
                 'message'=>'Chi tiết bệnh án của bệnh nhân có sđt '. $phone,
