@@ -9,6 +9,7 @@ use App\Http\Controllers\Api\PatientController;
 use App\Http\Controllers\Api\ScheduleController;
 use App\Http\Controllers\Api\ServiceController;
 use App\Http\Controllers\Api\SpecialistController;
+use App\Http\Controllers\Api\WebsettingController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -53,3 +54,6 @@ Route::get('/specialist/list',[SpecialistController::class,'index']);
 //feedback
 Route::post('/feedback/add', [FeedBackController::class, 'add']);
 Route::get('/feedback/list',[FeedBackController::class,'list']);
+
+// websetting
+Route::get('/websetting', [WebsettingController::class, 'websetting']);
