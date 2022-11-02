@@ -5,14 +5,9 @@ namespace App\Http\Controllers\Backend\WebSetting;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\WebSettingRequest;
 use App\Models\WebSetting;
-use Illuminate\Http\Request;
 
 class WebSettingController extends Controller
 {
-    public function index () {
-        $webSetting = WebSetting::get(['id', 'logo', 'web_name']);
-        return view('pages.webSetting.index', compact('webSetting'));
-    }
 
     public function edit ($id) {
         $webSetting = WebSetting::find($id);
@@ -27,6 +22,6 @@ class WebSettingController extends Controller
             $webSetting->logo = fileUploader($file, 'webSetting', 'uploads/webSetting');
         }
         $webSetting->update();
-        return redirect()->route('webSetting.index');
+        return redirect()->back()->with('message', 'Cập nhật thông tin phòng khám thành công!');
     }
 }
