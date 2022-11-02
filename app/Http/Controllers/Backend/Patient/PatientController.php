@@ -57,6 +57,8 @@ class PatientController extends Controller
             $patient = new Patient();
             $tokenUrl = strtolower(randomString(25));
             $patient->fill($request->all());
+            $patient->date = date('Y-m-d', strtotime($request->date));
+            $patient->birthday = date('Y-m-d', strtotime($request->birthday));
             $patient->token_url = $tokenUrl;
             $patient->save();
             $patient->patient_doctors()->attach($request->doctor);
@@ -148,6 +150,8 @@ class PatientController extends Controller
         try {
             $patient = Patient::find($id);
             $patient->fill($request->all());
+            $patient->date = date('Y-m-d', strtotime($request->date));
+            $patient->birthday = date('Y-m-d', strtotime($request->birthday));
             $patient->save();
             $patient->patient_doctors()->sync($request->doctor);
             $patient->patient_products()->sync($request->product);

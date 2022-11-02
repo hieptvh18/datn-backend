@@ -56,6 +56,8 @@ class ScheduleController extends Controller
         try {
             $schedule = new Schedule();
             $schedule->fill($request->all());
+            $schedule->date = date('Y-m-d', strtotime($request->date));
+            $schedule->birthday = date('Y-m-d', strtotime($request->birthday));
             $schedule->status = 1;
             $schedule->save();
             $scheduleId = $schedule->id;
@@ -125,6 +127,8 @@ class ScheduleController extends Controller
         try {
             $schedule = Schedule::find($id);
             $schedule->fill($request->all());
+            $schedule->date = date('Y-m-d', strtotime($request->date));
+            $schedule->birthday = date('Y-m-d', strtotime($request->birthday));
             $update = $schedule->save();
             $scheduleId = $schedule->id;
             // ScheduleService::where('schedule_id', $id)->delete();

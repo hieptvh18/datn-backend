@@ -38,7 +38,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Năm sinh(*)</label>
                     <div class="col-sm-9">
-                        <input type="date" value="{{ $patient->birthday?$patient->birthday:old('birthday') }}" name="birthday" id="birthday"
+                        <input type="text" id="datepickerFuture" value="{{ $patient->birthday?$patient->birthday:old('birthday') }}" name="birthday" id="birthday"
                             class="form-control">
                         @error('birthday')
                             <span class="text-danger">{{ $message }}</span>
@@ -116,7 +116,7 @@
                 <div class="form-group">
                     <label for="address" class="col-sm-3 control-label">Ngày khám</label>
                     <div class="col-md-9">
-                        <input type="date" name="date" value="{{$patient->date?$patient->date:old('date')}}" class="form-control">
+                        <input type="text" id="datepickerPast" name="date" value="{{$patient->date?date('d-m-Y', strtotime($patient->date)):old('date')}}" class="form-control">
                     </div>
                 </div>
                 <div class="form-group">

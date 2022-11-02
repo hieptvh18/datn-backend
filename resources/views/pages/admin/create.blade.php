@@ -37,7 +37,7 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Ngày sinh</b></label>
-                            <input type="date" class="form-control" name="birthday" value="{{old('birthday')}}" autocomplete="birthday" autofocus placeholder="Birthday...">
+                            <input type="text" id="datepickerFuture" class="form-control" name="birthday" value="{{old('birthday')}}" autocomplete="birthday" autofocus placeholder="Birthday...">
                         </div>
                     </div>
                     <div class="panel-body">

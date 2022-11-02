@@ -65,8 +65,8 @@
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày sinh</b></label>
-                                <input type="date" class="form-control" name="birthday"
-                                    value="{{ $schedule->birthday }}">
+                                <input type="text" id="datepickerFuture" class="form-control" name="birthday"
+                                    value="{{ date('d-m-Y', strtotime($schedule->birthday))}}">
                             </div>
                         </div>
                     </div>
@@ -117,7 +117,7 @@
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày hẹn</b></label>
-                                <input type="date" class="form-control" name="date" value="{{ $schedule->date }}" />
+                                <input type="text" id="datepickerPast" class="form-control" name="date" value="{{ date('d-m-Y', strtotime($schedule->date)) }}" />
                             </div>
                             @error('date')
                                 <span class="text-danger" role="alert">

@@ -67,3 +67,6 @@
 
 <!--Font Awesome [ OPTIONAL ]-->
 <link href="{{ asset('assets/plugins/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet">
+
+{{-- datepicker --}}
+<link href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.css" rel="stylesheet"/>

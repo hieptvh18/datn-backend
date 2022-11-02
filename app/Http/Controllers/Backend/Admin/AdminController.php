@@ -66,6 +66,8 @@ class AdminController extends Controller
 
         $account_admin->fill($request->all());
 
+        $account_admin->birthday = date('Y-m-d', strtotime($request->birthday));
+
         $account_admin->password = Hash::make($request->password);
 
 
@@ -108,6 +110,8 @@ class AdminController extends Controller
         $account_admin = Admin::find($id);
 
         $account_admin->fill($request->all());
+
+        $account_admin->birthday = date('Y-m-d', strtotime($request->birthday));
 
 
         if($request->hasFile('avatar')){

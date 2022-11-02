@@ -95,3 +95,13 @@ $(document).ready(function() {
 $(function() {
     $('#tags-inp').tagsinput();
 });
+
+// datepicker
+$(function() {
+    // $( "#datepicker" ).datepicker({startDate: '-0m'});
+    $("#datepickerFuture").datepicker({ endDate: new Date() });
+});
+$(function() {
+    // $( "#datepicker" ).datepicker({startDate: '-0m'});
+    $("#datepickerPast").datepicker({ startDate: new Date() });
+});

@@ -52,7 +52,7 @@
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Năm sinh</b></label>
-                                <input type="date" class="form-control" name="birthday" value="{{old('birthday')}}">
+                                <input type="text" id="datepickerFuture" class="form-control" name="birthday" value="{{old('birthday')}}">
                             </div>
                         </div>
                     </div>
@@ -103,7 +103,7 @@
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày hẹn</b></label>
-                                <input type="date" class="form-control" name="date" value="{{old('date')}}"/>
+                                <input type="text" class="form-control" id="datepickerPast" name="date" value="{{old('date')}}"/>
                             </div>
                             @error('date')
                             <span class="text-danger" role="alert">
@@ -171,4 +171,5 @@
         $('.ckeditor').ckeditor();
     });
 </script>
+
 @endsection

@@ -80,6 +80,9 @@
 <!--Form Component [ SAMPLE ]-->
 <script src="{{ asset('assets/js/demo/form-component.js') }}"></script>
 
+{{-- datepicker --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
+
 <script>
     // alert success
     @if (session('message'))
