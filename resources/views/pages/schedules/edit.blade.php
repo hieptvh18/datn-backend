@@ -117,7 +117,7 @@
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày hẹn</b></label>
-                                <input type="text" id="datepickerPast" class="form-control" name="date" value="{{ date('d-m-Y', strtotime($schedule->date)) }}" />
+                                <input type="text" id="datepickerPast" class="form-control" name="date" value="{{date('d-m-Y', strtotime($schedule->date))}}" />
                             </div>
                             @error('date')
                                 <span class="text-danger" role="alert">

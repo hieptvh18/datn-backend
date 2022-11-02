@@ -72,6 +72,7 @@ class ScheduleController extends Controller
                     $user->fill($request->all());
                     $user->name = $request->fullname;
                     $user->phone = $request->phone;
+                    $user->birthday = date('Y-m-d', strtotime($request->birthday));
                     $user->email_user = $request->email;
                     $password = randomString(6);
                     $user->password = bcrypt($password);
@@ -102,7 +103,7 @@ class ScheduleController extends Controller
 
             return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
         } catch (Throwable $e) {
-            // dd($e->getMessage());
+            dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
@@ -142,6 +143,7 @@ class ScheduleController extends Controller
                     $user = new User();
                     $user->fill($request->all());
                     $user->name = $request->fullname;
+                    $user->birthday = date('Y-m-d', strtotime($request->birthday));
                     $user->phone = $request->phone;
                     $user->email_user = $request->email;
                     $password = randomString(6);
@@ -153,6 +155,7 @@ class ScheduleController extends Controller
                     $userExist->fill($request->all());
                     $userExist->name = $request->fullname;
                     $userExist->phone = $request->phone;
+                    $userExist->birthday = date('Y-m-d', strtotime($request->birthday));
                     $userExist->email_user = $request->email;
                     $userExist->save();
                 }
