@@ -14,6 +14,7 @@ use App\Models\Role;
 use App\Models\Room;
 use App\Models\Service;
 use App\Models\Specialist;
+use App\Models\WebSetting;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -53,6 +54,9 @@ class DatabaseSeeder extends Seeder
         Admin::create($account_admin);
         // role_admins
         DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
+
+        // websetting
+        $this->createDataWebsetting();
 
     }
 
@@ -197,5 +201,11 @@ class DatabaseSeeder extends Seeder
         DB::insert('insert into permission_roles (permission_id, role_id) values (58, 3)');
         DB::insert('insert into permission_roles (permission_id, role_id) values (59, 3)');
         DB::insert('insert into permission_roles (permission_id, role_id) values (60, 3)');
+    }
+
+    // websetting
+    public function createDataWebsetting () {
+        $websetting = ['logo'=> 'assets/img/logo-DN.png', 'web_name'=>'Nha khoa Đức Nghĩa', 'base_url'=>'nhakhoaducnghia.vn', 'phones'=>'0989581167', 'email'=>'nhakhoaducnghia@gmail.com', 'facebook_url'=>'https://facebook.com', 'twitter_url'=>'https://twitter.com', 'instagram_url'=>'https://instagram.com', 'youtobe_url'=>'https://youtobe.com', 'address'=>'Ngõ 155, Đường Cầu Giấy', 'open_time'=>'08h00', 'close_time'=>'18h30', 'start_date'=>'2022-10-18', 'end_date'=>'2022-10-23', 'short_introduce'=>'Triết lý của ĐỨC NGHĨA sẽ giúp bạn khỏe mạnh, hạnh phúc vì chúng tôi hiểu vai trò quan trọng trong sức khỏe răng miệng của bạn.', 'introduce'=>'Triết lý của ĐỨC NGHĨA sẽ giúp bạn khỏe mạnh, hạnh phúc vì chúng tôi hiểu vai trò quan trọng trong sức khỏe răng miệng của bạn.'];
+        WebSetting::create($websetting);
     }
 }

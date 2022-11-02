@@ -351,7 +351,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="{{route('webSetting.index')}}">Setting</a></li>
+                                <li><a href="{{ route('webSetting.edit', 1) }}">Setting</a></li>
                                 <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
                             </ul>
                         </li>
