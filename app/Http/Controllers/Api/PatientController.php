@@ -52,6 +52,30 @@ class PatientController extends Controller
         }
     }
 
+    public function detailById ($token, $id){
+        try {
+            $patient = Patient::where('id', $id)->where('token_url', $token)->with(['service_patients'=>function($query){
+                $query->select('service_name','price');
+            }])->with(['patient_doctors'=>function($query){
+                $query->select('fullname');
+            }])->with(['patient_products'=>function($query){
+                $query->select('name','price');
+            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date",'token_url']);
+            return response()->json([
+                'success'=>true,
+                'message'=>'Chi tiết bệnh án của 1 bệnh nhân',
+                'data'=> $patient
+            ]);
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return response()->json([
+                'success'=>false,
+                'message'=>'Đã xảy ra lỗi! '.$th->getMessage(),
+                'data'=> []
+            ],400);
+        }
+    }
+
     // list doctor
     public function doctor () {
         try {
