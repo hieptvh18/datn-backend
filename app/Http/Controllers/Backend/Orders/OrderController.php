@@ -61,7 +61,7 @@ class OrderController extends Controller
         $patient = Patient::where('phone',$request->customer_phone)->first();
         $token = $patient->token_url;
         $patientId = $patient->id;
-        $linkPatientPage = 'http://localhost:3000/ho-so-benh-an/'.$token.'/id/'.$patientId;
+        $linkPatientPage = 'http://localhost:3000/ho-so-benh-an/'.$token.'/'.$patientId;
         $order = new Order();
         $order->fill($request->all());
         $order->product_id = $product_id;
