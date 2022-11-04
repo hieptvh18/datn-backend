@@ -185,6 +185,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('/feedback/update/{id}', [FeedBackController::class, 'update'])->name('feedback.update');
     Route::delete('/feedback/destroy/{id}', [FeedBackController::class, 'destroy'])->name('feedback.destroy');
     Route::get('/feedback/changeStatus/{id}', [FeedBackController::class, 'changeStatus'])->name('feedback.changeStatus');
+    Route::get('/feedback/search', [FeedBackController::class, 'search'])->name('feedback.search');
+    Route::post('/feedback/deleteMultiple', [FeedBackController::class, 'deleteMultiple'])->name('feedback.deleteMultiple');
 
 });
 

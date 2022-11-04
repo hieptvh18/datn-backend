@@ -17,16 +17,15 @@
                         <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
                         <div class="btn-group">
                             <button class="btn btn-default"><i class="demo-pli-exclamation"></i></button>
-                            <button class="btn btn-default" id="multi-delete" data-route="{{ route('service.deleteSelected') }}"><i
-                                    class="demo-pli-recycling"></i></button>
+                            <button class="btn btn-default" id="delete-multiple" data-route="{{ route('feedback.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                         </div>
                     </div>
                     <div class="col-sm-6 table-toolbar-right">
                         <div class="form-group">
-                            <form action="{{ route('service.search') }}" method="get">
-                                <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
-                                    id="demo-input-search2">
-                                </form>
+                            <form action="{{ route('feedback.search') }}" method="get">
+                            <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
+                                id="demo-input-search2">
+                            </form>
                         </div>
                         <div class="btn-group">
                             <button class="btn btn-default"><i class="demo-pli-download-from-cloud"></i></button>
@@ -48,13 +47,13 @@
                 </div>
             </div>
             <div class="table-responsive">
-                <table class="table table-striped" id="service-table">
+                <table class="table table-striped Card" id="service-table">
                     <thead>
                         <tr>
-                            <th scope="col"><input type="checkbox" class="check-all"></th>
-                            <th>ID</th>
-                            <th>Tên khách hàng</th>
-                            <th>Email</th>
+                            <th scope="col"><input type="checkbox" class="Parent"></th>
+                            <th>@sortablelink('id', 'ID')</th>
+                            <th>@sortablelink('customer_name','Tên khách hàng')</th>
+                            <th>@sortablelink('customer_email','Email')</th>
                             <th>Ảnh</th>
                             <th>TRẠNG THÁI</th>
                             <th>Hành động</th>
@@ -64,7 +63,7 @@
 
                         @foreach ($listFeedback as $item)
                             <tr>
-                                <td><input type="checkbox" class="check" value="{{ $item->id }}"></td>
+                                <td><input type="checkbox" class="Childrent" name="feedback_id[]" value="{{ $item->id }}"></td>
                                 <td>{{ $item->id }}</td>
                                 <td>{{ $item->customer_name }}</td>
                                 <td>{{ $item->customer_email }}</td>
