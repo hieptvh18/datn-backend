@@ -16,7 +16,7 @@ class FeedBackController extends Controller
      */
     public function index()
     {
-        $listFeedback = FeedBack::select('id', 'customer_name', 'customer_email', 'customer_avatar', 'is_active')->paginate(15);
+        $listFeedback = FeedBack::sortable()->orderby('id', 'desc')->select('id', 'customer_name', 'customer_email', 'customer_avatar', 'is_active')->paginate(15);
         return view('pages.feedback.list', compact('listFeedback'));
     }
 
@@ -134,5 +134,34 @@ class FeedBackController extends Controller
             report($th->getMessage());
             return redirect()->back()->with('message', 'Đã xảy ra lỗi!' . $th->getMessage());
         }
+    }
+
+
+    // search
+    public function search (){
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+
+        try {
+            if($search_text == null){
+             return redirect()->route('feedback.index');
+            }else {
+            $listFeedback=FeedBack::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('customer_name','LIKE', '%'.$search_text.'%')
+            ->orwhere('customer_email','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.feedback.list', compact('listFeedback'));
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
+
+    // delete multiple
+    public function deleteMultiple (Request $request){
+        FeedBack::whereIn('id', $request->get('data'))->delete();
+        return response("Xóa thành công!", 200);
     }
 }
