@@ -137,7 +137,7 @@
                                             @else
                                                 <div class="label label-table label-success">Đã điều trị</div>
                                             @endif
-                                        <td>
+                                        <td style="width:300px">
                                             <form id="deleteForm{{ $patient->id }}"
                                                 action="{{ route('patient.destroy', $patient->id) }}" method="post">
                                                 @csrf
@@ -149,6 +149,10 @@
                                             <a href="{{ route('patient.edit', $patient->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
+                                            </a>
+                                            <a href="{{ route('reBooking', $patient->id) }}"
+                                                class="label label-table label-success">
+                                                Đặt lịch khám lại
                                             </a>
                                             @if ($patient->status == 0)
 
