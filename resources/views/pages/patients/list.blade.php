@@ -150,6 +150,10 @@
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
+                                            <a href="{{ route('reBooking', $patient->id) }}"
+                                                class="label label-table label-warning">
+                                                Đặt lịch khám lại
+                                            </a>
                                             @if ($patient->status == 0)
 
                                             <a style="margin-top: 5px " href="{{ route('order.add', ['id'=>$patient->id]) }}"

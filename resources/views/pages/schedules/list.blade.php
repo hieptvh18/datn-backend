@@ -143,6 +143,9 @@
                                                 </option>
                                                 <option value="3" {{ $item->status == 3 ? 'selected' : '' }}>Đã khám
                                                 </option>
+                                                <option value="1" {{ $item->status == 1 && $item->is_rebooking == 1 ? 'selected' : '' }}>Đã xác
+                                                    nhận khám lại</option>
+
                                             </select>
                                         </td>
                                         <td class="text-center">

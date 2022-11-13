@@ -54,6 +54,8 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
     Route::post('schedules/import',[ScheduleController::class,'importSchedule'])->name('schedules.import');
     Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
+    Route::get('schedules/re-booking/{id}',[ScheduleController::class,'reBooking'])->name('reBooking');
+    Route::post('shcedules/re-booking',[ScheduleController::class,'reBookingSave'])->name('reBooking.save');
 
 
     //chuyen khoa

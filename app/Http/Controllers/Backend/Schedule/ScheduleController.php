@@ -9,10 +9,12 @@ use App\Http\Requests\ScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Imports\ImportSchedule;
 use App\Mail\EmailConfirmSchedule;
+use App\Models\Patient;
 use App\Models\Schedule;
 use App\Models\ScheduleService;
 use App\Models\Service;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -298,7 +300,8 @@ class ScheduleController extends Controller
             ->orderBy('counter', 'desc')->first();
         $setSchedule = Schedule::where('phone', $phone)
             ->where('date', $dateFormat)
-            ->where('status', 1)->first();
+            ->where('status', 1)
+            ->first();
         $myCouter = Schedule::where('counter', '>', 0)
             ->where('date', $dateFormat)
             ->where('phone', $phone)
@@ -317,5 +320,60 @@ class ScheduleController extends Controller
             $counter = $myCouter->counter;
         }
         return $counter;
+    }
+
+    public function reBooking($id){
+        $pageTitle = 'Tạo mới lịch khám';
+        $services = Service::where('is_active', 1)->get();
+        $patient = Patient::find($id);
+        return \view('pages.schedules.reBooking',\compact('patient','services','pageTitle'));
+    }
+
+    public function reBookingSave(ScheduleRequest $request){
+        $schedule = new Schedule();
+        $schedule->fill($request->all());
+        $schedule->date = date('Y-m-d', strtotime($request->date));
+        $schedule->birthday = date('Y-m-d', strtotime($request->birthday));
+        $schedule->status = 1;
+        $schedule->is_rebooking = 1;
+        $schedule->save();
+        $scheduleId = $schedule->id;
+
+        if ($scheduleId && $request->status == 1) {
+
+            // auto create account customer
+            $contentAccount = '';
+            if (!User::where('phone', $request->phone)->exists()) {
+                $user = new User();
+                $user->fill($request->all());
+                $user->name = $request->fullname;
+                $user->phone = $request->phone;
+                $user->birthday = date('Y-m-d', strtotime($request->birthday));
+                $user->email_user = $request->email;
+                $password = randomString(6);
+                $user->password = bcrypt($password);
+                $user->save();
+                $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
+            }
+
+            $customerName = $request->fullname;
+            $date = $request->date;
+            $phone = $request->phone;
+            $stt = $this->getIndexer($date, $phone);
+            $companyName = 'Nha khoa Đức Nghĩa';
+            $listService = $this->getServiceNameById($request->service_id);
+            $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ của ' . $companyName . '. Lịch hẹn khám lại của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. ' . $contentAccount . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+            // sendSms($phone, $contentConfirm);
+
+            // send mail
+            if (!empty($request->email)) {
+                $mailTo = $request->email;
+                $subject = 'Thông báo đặt lịch thành công';
+                $mailData = $this->getMailData($contentConfirm, $customerName);
+                Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
+            }
+        }
+
+        return redirect()->route('schedules.index')->with(['message' => 'Thêm lịch khám lại thành công!']);
     }
 }
