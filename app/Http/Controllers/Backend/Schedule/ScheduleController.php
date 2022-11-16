@@ -356,5 +356,6 @@ class ScheduleController extends Controller
             "patient" => $list1,
             "sum" => $list2,
         ]);
+        //
     }
 }
