@@ -9,8 +9,9 @@ use App\Models\WebSetting;
 class WebSettingController extends Controller
 {
 
-    public function edit ($id) {
-        $webSetting = WebSetting::find($id);
+
+    public function view () {
+        $webSetting = WebSetting::find(1);
         return view('pages.webSetting.edit', compact('webSetting'));
     }
 

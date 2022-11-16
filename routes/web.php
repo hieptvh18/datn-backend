@@ -175,7 +175,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // Web setting
     Route::get('/webSetting', [WebSettingController::class, 'index'])->name('webSetting.index');
-    Route::get('/webSetting/edit/{id}', [WebSettingController::class, 'edit'])->name('webSetting.edit');
+    Route::get('/webSetting/view', [WebSettingController::class, 'view'])->name('webSetting.edit');
     Route::post('/webSetting/update/{id}', [WebSettingController::class, 'update'])->name('webSetting.update');
 
     // feedback
