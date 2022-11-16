@@ -54,6 +54,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
     Route::post('schedules/import',[ScheduleController::class,'importSchedule'])->name('schedules.import');
     Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
+    Route::post('schedules/chart',[ScheduleController::class,'statistical_schedules'])->name('schedules.chart');
 
 
     //chuyen khoa

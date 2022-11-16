@@ -13,8 +13,10 @@ use App\Models\Schedule;
 use App\Models\ScheduleService;
 use App\Models\Service;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 use Throwable;
@@ -298,7 +300,8 @@ class ScheduleController extends Controller
             ->orderBy('counter', 'desc')->first();
         $setSchedule = Schedule::where('phone', $phone)
             ->where('date', $dateFormat)
-            ->where('status', 1)->first();
+            ->where('status', 1)
+            ->first();
         $myCouter = Schedule::where('counter', '>', 0)
             ->where('date', $dateFormat)
             ->where('phone', $phone)
@@ -317,5 +320,41 @@ class ScheduleController extends Controller
             $counter = $myCouter->counter;
         }
         return $counter;
+    }
+
+
+    public function statistical_schedules (Request $req) {
+          //     $now = Carbon::now()->subDays(2)->format('Y-m-d');
+    //     $currentDateTime = Carbon::now('Asia/Ho_Chi_Minh');
+    //     $newDateTime = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->format('Y-m-d');
+        $date_from = $req->date_from;
+        $date_to = $req->date_to;
+        $list = DB::table('schedules')
+        ->select(DB::raw('count(id) as schedule_count, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
+
+        $list1 = DB::table('patients')
+        ->select(DB::raw('count(id) as patient_count, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
+
+        $list2 = DB::table('orders')
+        ->select(DB::raw('sum(total) as sum, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
+
+        // return json_decode($list1);
+        return response()->json([
+            "schedule" => $list,
+            "patient" => $list1,
+            "sum" => $list2,
+        ]);
     }
 }

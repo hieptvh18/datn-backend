@@ -98,10 +98,10 @@ $(function() {
 
 // datepicker
 $(function() {
-    // $( "#datepicker" ).datepicker({startDate: '-0m'});
-    $("#datepickerFuture").datepicker({ endDate: new Date() });
+    // $("#datepickerFuture").datepicker({ endDate: new Date() });
+    $("#datepickerFuture").datepicker({ maxDate: new Date() });
 });
 $(function() {
-    // $( "#datepicker" ).datepicker({startDate: '-0m'});
-    $("#datepickerPast").datepicker({ startDate: new Date() });
+    // $("#datepickerPast").datepicker({ startDate: new Date() });
+    $("#datepickerPast").datepicker({ minDate: new Date() });
 });
