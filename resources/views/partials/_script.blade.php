@@ -81,7 +81,13 @@
 <script src="{{ asset('assets/js/demo/form-component.js') }}"></script>
 
 {{-- datepicker --}}
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script>
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+{{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/0.6.5/datepicker.min.js"></script> --}}
+
+{{-- morris chart --}}
+<script src="//cdnjs.cloudflare.com/ajax/libs/raphael/2.1.0/raphael-min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.min.js"></script>
+
 
 <script>
     // alert success

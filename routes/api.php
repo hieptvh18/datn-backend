@@ -35,6 +35,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
 // change status schedule in listing
 Route::post('schedule/change-status',[ScheduleController::class,'changeStatus'])->name('schedule.ajax.changestatus');
+Route::post('schedule/sumss',[ScheduleController::class,'statistical_schedules']);
 
 // new category
 Route::get('/newCategory/list', [NewCategoryController::class, 'list']);

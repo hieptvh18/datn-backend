@@ -9,8 +9,8 @@
             <!--Network Line Chart-->
             <!--===================================================-->
             <div id="demo-panel-network" class="panel">
-                <div class="panel-heading">
-                    <div class="panel-control">
+                <div class="panel-heading" style="display: flex; align-items: center">
+                    {{-- <div class="panel-control">
                         <button id="demo-panel-network-refresh" class="btn btn-default btn-active-primary"
                             data-toggle="panel-overlay" data-target="#demo-panel-network"><i
                                 class="demo-psi-repeat-2"></i></button>
@@ -25,14 +25,51 @@
                                 <li><a href="#">Separated link</a></li>
                             </ul>
                         </div>
-                    </div>
+                    </div> --}}
+
+                    <div style="padding-top: 15px; width: 32%">
                     <h3 class="panel-title">Network</h3>
+                    </div>
+                    <div style="padding-top: 20px;">
+                            <form autocomplete="off" >
+                                <div class="row">
+                                    <div id="demo-dp-range" class="col-sm-6" style="display: flex">
+                                        <div class="input-daterange input-group" >
+                                            <input id="datepicker"
+                                                type="text" style="width: 120px" class="form-control"
+                                                placeholder="Ngày bắt đầu" />
+                                            <span class="input-group-addon">to</span>
+                                            <input id="datepicker2"
+                                                type="text" placeholder="Ngày kết thúc" style="width: 120px" class="form-control"/>
+                                        </div>
+                                        <div>
+                                            <select id="changeFillter" style="width: 120px" class="form-control">
+                                                <option value="">Chọn ngày</option>
+                                                <option value="today">Hôm nay</option>
+                                                <option value="7">7 Ngày trước</option>
+                                                <option value="14">14 Ngày trước</option>
+                                                <option value="30">30 Ngày trước</option>
+                                                <option value="60">60 Ngày trước</option>
+                                                <option value="90">90 Ngày trước</option>
+                                                <option value="365">365 Ngày trước</option>
+                                            </select>
+                                        </div>
+                                        <div class="btn-group col-sm-8">
+                                            <a href=""><button class="btn btn-primary _btn_send_data">Lọc</button></a>
+                                        </div>
+                                    </div>
+
+                                </div>
+                        </form>
+                    </div>
                 </div>
 
 
                 <!--chart placeholder-->
                 <div class="pad-all">
-                    <div id="demo-chart-network" style="height: 255px"></div>
+                    {{-- <div id="demo-chart-network" style="height: 255px"></div> --}}
+                    <div id="myfirstchart" style="height: 278px; padding: 0px;
+                    position: relative;"></div>
                 </div>
 
 
@@ -133,11 +170,11 @@
 
         </div>
         <div class="col-lg-5">
-            <div class="row">
-                <div class="col-sm-6 col-lg-6">
+            <div class="row"  style="margin: 0">
+                {{-- <div class="col-sm-6 col-lg-6">
 
                     <!--Sparkline Area Chart-->
-                    <div class="panel panel-success panel-colorful">
+                    <div class="panel panel-success panel-colorful" >
                         <div class="pad-all">
                             <p class="text-lg text-semibold"><i class="demo-pli-data-storage icon-fw"></i> HDD Usage</p>
                             <p class="mar-no">
@@ -173,13 +210,15 @@
 
                         </div>
                     </div>
-                </div>
+                </div> --}}
+                <div class="bg-gray-light panel" id="myfirstchart1" style="height: 190px"></div>
+
             </div>
-            <div class="row">
-                <div class="col-sm-6 col-lg-6">
+            <div class="row" style="margin: 0">
+                {{-- <div class="col-sm-6 col-lg-6">
 
                     <!--Sparkline bar chart -->
-                    <div class="panel panel-purple panel-colorful">
+                    <div class="panel panel-purple panel-colorful" >
                         <div class="pad-all">
                             <p class="text-lg text-semibold"><i class="demo-pli-basket-coins icon-fw"></i> Sales</p>
                             <p class="mar-no">
@@ -200,7 +239,7 @@
                 <div class="col-sm-6 col-lg-6">
 
                     <!--Sparkline pie chart -->
-                    <div class="panel panel-warning panel-colorful">
+                    <div class="panel panel-warning panel-colorful" >
                         <div class="pad-all">
                             <p class="text-lg text-semibold">Task Progress</p>
                             <p class="mar-no">
@@ -227,7 +266,8 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
+                <div class="bg-gray-light panel" id="myfirstchart2" style="height: 190px"></div>
             </div>
 
 
@@ -486,3 +526,144 @@
         </div>
     </div>
 @endsection
+@section('page-js')
+    <script >
+    $(document).ready(function () {
+        $('#changeFillter').on('change', function (e) {
+            e.preventDefault();
+            var dateChange = $(this).val();
+            var now = new Date();
+            var to = new Date().toJSON().slice(0, 10);
+            if(dateChange == 'today'){
+                from = to
+            }else{
+                var from = new Date(now.setDate(now.getDate() - dateChange)).toJSON().slice(0, 10);
+            }
+            $.ajax({
+                url: "{{route('schedules.chart')}}",
+                type: "POST",
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                dataType: "JSON",
+                data: {date_from:from, date_to:to},
+                success: function (data) {
+                    chart.setData(data.schedule)
+                    chart1.setData(data.patient)
+                    chart2.setData(data.sum)
+                }
+            });
+         });
+
+         $('._btn_send_data').on('click', function (e) {
+            e.preventDefault();
+            var now = new Date().toJSON().slice(0, 10);
+            var _token = $('input[name="_token"]').val();
+            var date_from = $('#datepicker').val()
+            var date_to = $('#datepicker2').val()
+            var from = now;
+            var to = now;
+            if(date_from && date_to){
+                from = date_from;
+                to = date_to;
+            }
+            else if(date_from && !date_to){
+                from = date_from
+                to = date_from
+            }
+
+            $.ajax({
+                url: "{{route('schedules.chart')}}",
+                type: "POST",
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                dataType: "JSON",
+                data: {date_from:from, date_to:to},
+                success: function (data) {
+                    chart.setData(data.schedule)
+                    chart1.setData(data.patient)
+                    chart2.setData(data.sum)
+                }
+            });
+        });
+
+        defaultStatistic();
+
+        var chart =  new Morris.Bar({
+        element: 'myfirstchart',
+        lineColors:['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
+        pointFillColors: ['#ffffff'],
+        pointStrokeColors:['black'],
+        fillOpacity:0.6,
+        hiddeHover:'auto',
+        parseTime: false,
+        xkey: 'date',
+        ykeys: ['schedule_count'],
+        behaveLikeLine:true,
+        labels: ['Số lượt đặt lịch']
+        });
+
+        var chart1 =  new Morris.Area({
+        element: 'myfirstchart1',
+        lineColors:['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
+        pointFillColors: ['#ffffff'],
+        pointStrokeColors:['black'],
+        fillOpacity:0.6,
+        hiddeHover:'auto',
+        parseTime: false,
+        xkey: 'date',
+        ykeys: ['patient_count'],
+        behaveLikeLine:true,
+        labels: ['Số người khám']
+        });
+
+        var chart2 =  new Morris.Line({
+        element: 'myfirstchart2',
+        lineColors:['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
+        pointFillColors: ['#ffffff'],
+        pointStrokeColors:['black'],
+        fillOpacity:0.6,
+        hiddeHover:'auto',
+        parseTime: false,
+        xkey: 'date',
+        ykeys: ['sum'],
+        behaveLikeLine:true,
+        labels: ['Doanh thu']
+        });
+
+        function defaultStatistic() {
+            var now = new Date();
+            var from = new Date(now.setDate(now.getDate() - 365)).toJSON().slice(0, 10);
+            var to = new Date().toJSON().slice(0, 10);
+
+            $.ajax({
+                url: "{{route('schedules.chart')}}",
+                type: "POST",
+                headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                dataType: "JSON",
+                data: {date_from:from, date_to:to},
+                success: function (data) {
+                    chart.setData(data.schedule)
+                    chart1.setData(data.patient)
+                    chart2.setData(data.sum)
+                }
+            });
+        };
+
+    });
+    </script>
+    <script>
+        var option = {
+            prevText:"Tháng trước",
+            nextText:"Tháng sau",
+            dayNamesMin:['Thứ 2', 'Thứ 3', 'Thứ 4', 'Thứ 5', 'Thứ 6', 'Thứ 7', 'Chủ nhật'],
+            dateFormat:"yy-mm-dd"
+        }
+        $('#datepicker').datepicker(option);
+        $('#datepicker2').datepicker(option);
+    </script>
+@endsection
+

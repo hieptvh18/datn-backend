@@ -56,6 +56,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
     Route::get('schedules/re-booking/{id}',[ScheduleController::class,'reBooking'])->name('reBooking');
     Route::post('shcedules/re-booking',[ScheduleController::class,'reBookingSave'])->name('reBooking.save');
+    Route::post('schedules/chart',[ScheduleController::class,'statistical_schedules'])->name('schedules.chart');
 
 
     //chuyen khoa
@@ -176,7 +177,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // Web setting
     Route::get('/webSetting', [WebSettingController::class, 'index'])->name('webSetting.index');
-    Route::get('/webSetting/edit/{id}', [WebSettingController::class, 'edit'])->name('webSetting.edit');
+    Route::get('/webSetting/view', [WebSettingController::class, 'view'])->name('webSetting.edit');
     Route::post('/webSetting/update/{id}', [WebSettingController::class, 'update'])->name('webSetting.update');
 
     // feedback
