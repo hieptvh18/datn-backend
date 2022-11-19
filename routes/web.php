@@ -214,4 +214,5 @@ Route::middleware('guest')->prefix('/')->group(function(){
     Route::get('changePassword/{id}', [AuthController::class, 'getChangePassword'])->name('getChangePassword');
     Route::post('postChangePassword/{id}', [AuthController::class, 'postChangePassword'])->name('postChangePassword');
 
+    
 });
