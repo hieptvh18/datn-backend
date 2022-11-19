@@ -28,9 +28,10 @@
                         <div class="profile-wrap text-center">
                             <div class="pad-btm">
                                 @if (Auth::check())
-                                    <img class="img-circle img-md" src="{{ Auth::user()->avatar }}"
-                                        alt="Profile Picture">
+                                    <img class="img-circle img-md" src="{{ asset(Auth::user()->avatar) }}"
+                                    alt="Profile Picture">
                                 @endif
+
                             </div>
                             <a href="#profile-nav" class="box-block" data-toggle="collapse" aria-expanded="false">
                                 <span class="pull-right dropdown-toggle">
