@@ -341,22 +341,7 @@ class ScheduleController extends Controller
         $scheduleId = $schedule->id;
 
         if ($scheduleId && $request->status == 1) {
-
-            // auto create account customer
             $contentAccount = '';
-            if (!User::where('phone', $request->phone)->exists()) {
-                $user = new User();
-                $user->fill($request->all());
-                $user->name = $request->fullname;
-                $user->phone = $request->phone;
-                $user->birthday = date('Y-m-d', strtotime($request->birthday));
-                $user->email_user = $request->email;
-                $password = randomString(6);
-                $user->password = bcrypt($password);
-                $user->save();
-                $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
-            }
-
             $customerName = $request->fullname;
             $date = $request->date;
             $phone = $request->phone;

@@ -22,8 +22,6 @@
 
                             <button data-form="sendNotifi"  class="btn btn-primary btn-save-change">Lưu thay đổi</button>
                             <button class="btn btn-danger" type="reset">Khôi phục</button>
-                            <a href="{{ route('webSetting.index') }}" class="btn btn-info">Quay lại</a>
-
                         </div>
                     </div>
                     <div class="row">

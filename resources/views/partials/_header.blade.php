@@ -40,12 +40,12 @@
                             data-target="#nav-searchbox">
                             <i class="demo-pli-magnifi-glass"></i>
                         </label>
-                        <form>
+                        {{-- <form>
                             <div class="search-container collapse" id="nav-searchbox">
                                 <input id="search-input" type="text" class="form-control"
                                     placeholder="Type for search...">
                             </div>
-                        </form>
+                        </form> --}}
                     </div>
                 </li>
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
@@ -457,7 +457,7 @@
                                 <a href="#"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
                             </li>
                             <li>
-                                <a href="#"><span class="label label-success pull-right">New</span><i
+                                <a href="{{route('webSetting.edit')}}"><i
                                         class="demo-pli-gear icon-lg icon-fw"></i> Settings</a>
                             </li>
                             @if (Auth::guard('admin')->check())
@@ -480,11 +480,6 @@
                 <!--End user dropdown-->
 
 
-                <li>
-                    <a href="#" class="aside-toggle">
-                        <i class="demo-pli-dot-vertical"></i>
-                    </a>
-                </li>
             </ul>
         </div>
         <!--================================-->
