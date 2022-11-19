@@ -11,6 +11,7 @@ use Carbon\Carbon;
 use DateTime;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use App\Events\NoticeBookingEvent;
 
 class ScheduleController extends Controller
 {
@@ -28,6 +29,11 @@ class ScheduleController extends Controller
 
                 // auto create account customer
                 // $user = $this->createUser($request->all());
+
+                // dispatch event noitice
+                $contents = 'SDT '.$request->phone.' đã đặt lịch khám.';
+                $request->contents=$contents;
+                event(new NoticeBookingEvent($request));
 
                 return response()->json([
                     'success' => true,

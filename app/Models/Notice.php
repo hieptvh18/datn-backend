@@ -9,5 +9,7 @@ class Notice extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['user_id','content','date','read'];
+    protected $fillable = ['user_id','content','date','read']; // ead is đã đọc hay chưa
+
+    // public function
 }
