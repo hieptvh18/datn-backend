@@ -125,25 +125,29 @@
                                 </span>
                             @enderror
                         </div>
+                        {{--  --}}
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
-                                <label for="" class="form-label"><b>Dịch vụ</b></label>
+                                <label for="service_id" class="form-label"><b>Dịch vụ</b></label>
                                 <div class="checkbox">
+                                    <select class="js-example-basic-multiple form-control" data-placeholder="Chọn dịch vụ..."
+                                    name="service_id[]" multiple="multiple">
                                     @foreach ($services as $service)
-                                        <input name="service_id[]"
-                                        {{in_array($service->id,$arrService) ? 'checked' : ''}}
-                                        value="{{$service->id}}"
-                                        id="demo-form-inline-checkbox-{{$service->id}}" class="magic-checkbox" type="checkbox">
-                                        <label for="demo-form-inline-checkbox-{{$service->id}}">{{$service->service_name}}</label>
+                                        <option
+                                            value="{{ $service->id }}"  {{ $schedule->services_schedule->contains('id', $service->id) ? 'selected':'' }}>{{ $service->service_name }}</option>
                                     @endforeach
-                                </div>
+                                </select>
+
+
                             </div>
                             @error('service_id')
-                                <span class="text-danger" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                </span>
-                            @enderror
+                            <span class="text-danger" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
                         </div>
+                        {{--  --}}
+
                     </div>
                     <div class="panel-body">
                         <div class="mb-3">

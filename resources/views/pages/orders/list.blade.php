@@ -67,7 +67,7 @@
                                 <form action="" method="GET" class="">
                                     <div class="row" >
                                         <div id="demo-dp-range" class="col-sm-6" style="display: flex">
-                                            <div class="input-daterange input-group" id="datepicker">
+                                            <div class="input-daterange input-group">
                                                 <input value="{{isset(request()->start) ? request()->start : ''}}" type="text" class="form-control" name="start" placeholder="Ngày bắt đầu"/>
                                                 <span class="input-group-addon">to</span>
                                                 <input value="{{isset(request()->end) ? request()->end : ''}}" type="text" placeholder="Ngày kết thúc" class="form-control" name="end" />
