@@ -64,15 +64,15 @@
                         <div class="row" style="display: flex; padding: 0 10px">
 
                             <div style="width: 72%;">
-                                <form action="" method="GET" class="">
+                                <form action="" method="GET" class="" autocomplete="off">
                                     <div class="row">
                                         <div id="demo-dp-range" class="col-sm-6" style="display: flex">
-                                            <div class="input-daterange input-group" id="datepicker">
-                                                <input value="{{ isset(request()->start) ? request()->start : '' }}"
+                                            <div class="input-daterange input-group" >
+                                                <input id="fromdatepicker" value="{{ isset(request()->start) ? request()->start : '' }}"
                                                     type="text" class="form-control" name="start"
                                                     placeholder="Ngày bắt đầu" />
                                                 <span class="input-group-addon">to</span>
-                                                <input value="{{ isset(request()->end) ? request()->end : '' }}"
+                                                <input id="todatepicker" value="{{ isset(request()->end) ? request()->end : '' }}"
                                                     type="text" placeholder="Ngày kết thúc" class="form-control"
                                                     name="end" />
                                             </div>
@@ -193,7 +193,13 @@
 @section('page-js')
     <script>
         $(document).ready(function() {
-            $('#datepicker').datepicker();
+            $('#fromdatepicker').datepicker();
+            // $('#datetimepicker2').datetimepicker({
+            //          locale: 'ruu'
+            //      });
+        })
+        $(document).ready(function() {
+            $('#todatepicker').datepicker();
             // $('#datetimepicker2').datetimepicker({
             //          locale: 'ruu'
             //      });
