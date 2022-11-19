@@ -40,6 +40,11 @@ Route::get('/', function () {
 
 // =========== route admin
 Route::middleware('auth:admin')->prefix('admin')->group(function(){
+    // Route::get('/pusher', function(Illuminate\Http\Request $request) {
+    //     $request->contents = 'da dat lich';
+    //     event(new App\Events\NoticeBookingEvent($request));
+    // });
+
     Route::get('dashboard',[DashboardController::class,'index'])->name('dashboard');
 
     Route::get('/',[DashboardController::class,'index'])->name('dashboard');

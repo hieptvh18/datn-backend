@@ -369,7 +369,7 @@
                             </div>
 
                             <!-- Hide the content on collapsed navigation -->
-                            <div id="demo-wg-server" class="hide-small mainnav-widget-content">
+                            {{-- <div id="demo-wg-server" class="hide-small mainnav-widget-content">
                                 <ul class="list-group">
                                     <li class="list-header pad-no mar-ver">Server Status</li>
                                     <li class="mar-btm">
@@ -393,7 +393,7 @@
                                     <li class="pad-ver"><a href="#" class="btn btn-success btn-bock">View
                                             Details</a></li>
                                 </ul>
-                            </div>
+                            </div> --}}
                         </div>
                         <!--================================-->
                         <!--End widget-->
