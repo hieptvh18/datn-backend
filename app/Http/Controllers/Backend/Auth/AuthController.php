@@ -46,6 +46,8 @@ class AuthController extends Controller
                         Cookie::queue('passwordCookie', $request->password, $days);
                         return redirect()->route('dashboard');
                     }else{
+                       Cookie::queue(Cookie::forget('emailCookie'));
+                         Cookie::queue(Cookie::forget('passwordCookie'));
                         return redirect()->route('dashboard');
                     }
                 } elseif (!Auth::guard('admin')->attempt(['password' => $request->password])) {
