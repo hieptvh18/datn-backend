@@ -540,7 +540,7 @@
                            </div>
                                <div class="media-body">
                                 <p style="word-wrap: break-word;" class="mar-no text-nowrap text-main text-semibold">${data.message}</p>
-                        <small>4 phút trước</small>
+                        <small>1 phút trước</small>
                     </div>
                 </a>
             </li>

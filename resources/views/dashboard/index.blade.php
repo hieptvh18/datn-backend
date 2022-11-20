@@ -28,7 +28,7 @@
                     </div> --}}
 
                     <div style="padding-top: 15px; width: 32%">
-                    <h3 class="panel-title">Network</h3>
+                    <h3 class="panel-title">Thống kê</h3>
                     </div>
                     <div style="padding-top: 20px;">
                             <form autocomplete="off" >
@@ -78,7 +78,7 @@
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <p class="text-semibold text-uppercase text-main">CPU Temperature</p>
+                            <p class="text-semibold text-uppercase text-main">THỜI TIẾT</p>
                             <div class="row">
                                 <div class="col-xs-5">
                                     <div class="media">
@@ -124,7 +124,7 @@
                         </div>
 
                         <div class="col-lg-4">
-                            <p class="text-uppercase text-semibold text-main">Bandwidth Usage</p>
+                            <p class="text-uppercase text-semibold text-main">Băng thông sử dụng</p>
                             <ul class="list-unstyled">
                                 <li>
                                     <div class="media pad-btm">
