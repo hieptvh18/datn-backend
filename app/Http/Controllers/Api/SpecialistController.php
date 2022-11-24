@@ -23,7 +23,7 @@ class SpecialistController extends Controller
                 'success' => false,
                 'message'=> 'Đã xảy ra lỗi!'.$th->getMessage(),
                 'data' => []
-            ]);
+            ],500);
         }
     }
 }

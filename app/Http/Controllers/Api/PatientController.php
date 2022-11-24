@@ -25,7 +25,7 @@ class PatientController extends Controller
                 'success'=>false,
                 'message'=>'Đã xảy ra lỗi! '.$th->getMessage(),
                 'data'=> []
-            ]);
+            ],500);
         }
     }
     public function detail ($phone, $patientId){
@@ -48,7 +48,7 @@ class PatientController extends Controller
                 'success'=>false,
                 'message'=>'Đã xảy ra lỗi! '.$th->getMessage(),
                 'data'=> []
-            ]);
+            ],500);
         }
     }
 
@@ -103,7 +103,7 @@ class PatientController extends Controller
                 'success'=>false,
                 'message'=>'Không có bác sĩ nào!',
                 'data'=> []
-            ]);
+            ],500);
            }
         } catch (\Throwable $th) {
             report($th->getMessage());
@@ -111,7 +111,7 @@ class PatientController extends Controller
                 'success'=>false,
                 'message'=>'Đã xảy ra lỗi! '.$th->getMessage(),
                 'data'=> []
-            ]);
+            ],500);
         }
     }
 }

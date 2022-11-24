@@ -23,7 +23,7 @@ class ServiceController extends Controller
                 'success' => false,
                 'message'=> 'Đã xảy ra lỗi!'.$th->getMessage(),
                 'data' => []
-            ]);
+            ],500);
         }
     }
 
@@ -43,7 +43,7 @@ class ServiceController extends Controller
                 'success' => false,
                 'message'=> 'Đã xảy ra lỗi!'.$th->getMessage(),
                 'data' => []
-            ]);
+            ],500);
         }
     }
 }

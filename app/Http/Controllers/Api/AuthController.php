@@ -38,20 +38,20 @@ class AuthController extends Controller
                         'success' => false,
                         'message' => 'Mật khẩu sai!',
                         'data' => []
-                    ]);
+                    ],500);
                 }
             }
             return response()->json([
                 'success' => false,
                 'message' => 'Số điện thoại không tồn tại!',
                 'data' => []
-            ]);
+            ],404);
         } catch (\Throwable $th) {
             return response()->json([
                 'success' => false,
                 'message' => 'Đã xảy ra lỗi! ' . $th->getMessage(),
                 'data' => []
-            ]);
+            ],500);
         }
     }
 }
