@@ -353,22 +353,12 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li><a href="{{ route('webSetting.edit') }}">Setting</a></li>
-                                <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
                             </ul>
                         </li>
 
                         <!--Widget-->
                         <!--================================-->
                         <div class="mainnav-widget">
-
-                            <!-- Show the button on collapsed navigation -->
-                            <div class="show-small">
-                                <a href="#" data-toggle="menu-widget" data-target="#demo-wg-server">
-                                    <i class="demo-pli-monitor-2"></i>
-                                    Phản hồi
-                                </a>
-                            </div>
-
                             <!-- Hide the content on collapsed navigation -->
                             {{-- <div id="demo-wg-server" class="hide-small mainnav-widget-content">
                                 <ul class="list-group">
