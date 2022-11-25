@@ -124,9 +124,9 @@
             <div class="panel-footer text-right">
                 <button class="btn btn-primary" type="submit">Save changes</button>
                 <button class="btn btn-black" type="reset">Reset</button>
-                <button class="btn btn-success">  <a href="{{ route('reBooking', $patient->id) }}">
+                {{-- <button class="btn btn-success">  <a href="{{ route('reBooking', $patient->id) }}">
                     Đặt lịch khám lại
-                </a></button>
+                </a></button> --}}
             </div>
         </form>
 

@@ -105,3 +105,7 @@ $(function() {
     // $("#datepickerPast").datepicker({ startDate: new Date() });
     $("#datepickerPast").datepicker({ minDate: new Date() });
 });
+$(function() {
+    // $("#datepickerPast").datepicker({ startDate: new Date() });
+    $("#datepicker_Past").datepicker({ minDate: new Date() });
+});

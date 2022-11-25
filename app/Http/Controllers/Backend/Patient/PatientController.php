@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ImportRequset;
 use App\Http\Requests\PatientRequest;
 use App\Imports\ImportPatient;
+use App\Mail\EmailConfirmSchedule;
 use App\Models\Admin;
 use App\Models\Patient;
 use App\Models\Product;
@@ -18,6 +19,7 @@ use Maatwebsite\Excel\Facades\Excel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class PatientController extends Controller
 {
@@ -70,6 +72,10 @@ class PatientController extends Controller
             $schedule->patient_id = $patient->id;
             $schedule->update();
 
+            if($request->rebooking){
+                $this->reBookingSave($request);
+            }
+
             return redirect()->route('order.add', ['id'=>$patient->id])->with('message', 'Thêm thành công bệnh án!');
         } catch (\Exception $e) {
             report($e->getMessage());
@@ -107,6 +113,40 @@ class PatientController extends Controller
 
         $products = Product::select('id', 'name', 'price')->get();
         return view('pages.patients.add', compact('pageTitle', 'patient', 'services', 'doctors', 'products'));
+    }
+
+    public function reBookingSave(Request $request){
+        $schedule = new Schedule();
+        $schedule->fill($request->all());
+        $schedule->fullname = $request->customer_name;
+        $schedule->date = date('Y-m-d', strtotime($request->rebooking));
+        $schedule->birthday = date('Y-m-d', strtotime($request->birthday));
+        $schedule->status = 1;
+        $schedule->is_rebooking = 1;
+        $schedule->save();
+        $scheduleId = $schedule->id;
+
+        if ($scheduleId && $request->status == 1) {
+            $contentAccount = '';
+            $customerName = $request->fullname;
+            $date = $request->date;
+            $phone = $request->phone;
+            $stt = $this->getIndexer($date, $phone);
+            $companyName = 'Nha khoa Đức Nghĩa';
+            $listService = $this->getServiceNameById($request->service_id);
+            $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ của ' . $companyName . '. Lịch hẹn khám lại của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. ' . $contentAccount . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+            // sendSms($phone, $contentConfirm);
+
+            // send mail
+            if (!empty($request->email)) {
+                $mailTo = $request->email;
+                $subject = 'Thông báo đặt lịch thành công';
+                $mailData = $this->getMailData($contentConfirm, $customerName);
+                Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
+            }
+        }
+
+        // return redirect()->route('schedules.index')->with(['message' => 'Thêm lịch khám lại thành công!']);
     }
 
     /**

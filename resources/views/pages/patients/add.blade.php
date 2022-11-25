@@ -132,6 +132,12 @@
                         @enderror
                     </div>
                 </div>
+                <div class="form-group">
+                    <label for="address" class="col-sm-3 control-label"><button type="button" class="btn btn-info" id="rebook" style="margin-top: -8px">Khám lại</button></label>
+                    <div class="col-md-9 rebooking" style="display: none">
+                        <input type="text" id="datepicker_Past" name="rebooking" value="" class="form-control">
+                    </div>
+                </div>
             </div>
             <div class="panel-footer text-right">
                 <button class="btn btn-primary" type="submit">Save changes</button>
@@ -148,5 +154,10 @@
     $(document).ready(function () {
         $('.ckeditor').ckeditor();
     });
+</script>
+<script>
+    $('#rebook').on('click', function () {
+        $('.rebooking').toggle()
+    })
 </script>
 @endsection
