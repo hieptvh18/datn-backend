@@ -313,6 +313,7 @@
                         @endcan
 
                         {{-- news --}}
+                        @can('newCategory-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-warning-window"></i>
@@ -322,12 +323,18 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
+                                @can('newCategory-list')
                                 <li><a href="{{ route('newCategories.index') }}">Danh mục tin</a></li>
+                                @endcan
+                                @can('news-list')
                                 <li><a href="{{ route('news.index') }}">Bài viết</a></li>
+                                @endcan
                             </ul>
                         </li>
+                        @endcan
 
                         {{-- feedback --}}
+                        @can('feedBack-list')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-warning-window"></i>
@@ -341,8 +348,11 @@
                                 <li><a href="{{ route('feedback.index') }}">Thêm mới</a></li>
                             </ul>
                         </li>
+                        @endcan
+
 
                         <!--Menu list item-->
+                        @can('webSetting-edit')
                         <li>
                             <a href="#">
                                 <i class="demo-pli-gear"></i>
@@ -355,6 +365,7 @@
                                 <li><a href="{{ route('webSetting.edit') }}">Setting</a></li>
                             </ul>
                         </li>
+                        @endcan
 
                         <!--Widget-->
                         <!--================================-->

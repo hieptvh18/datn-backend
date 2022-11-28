@@ -50,12 +50,12 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::get('/',[DashboardController::class,'index'])->name('dashboard');
 
     // schedules
-    Route::get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
-    Route::get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
+    Route::middleware('can:schedule-list')->get('schedules',[ScheduleController::class,'index'])->name('schedules.index');
+    Route::middleware('can:schedule-add')->get('schedules/create',[ScheduleController::class,'create'])->name('schedules.create');
     Route::post('schedules/store',[ScheduleController::class,'store'])->name('schedules.store');
-    Route::get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
+    Route::middleware('can:schedule-edit')->get('schedules/edit/{id}',[ScheduleController::class,'edit'])->name('schedules.edit');
     Route::post('schedules/update/{id}',[ScheduleController::class,'update'])->name('schedules.update');
-    Route::delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
+    Route::middleware('can:schedule-delete')->delete('schedules/destroy/{id}',[ScheduleController::class,'destroy'])->name('schedules.destroy');
     Route::get('schedules/searching',[ScheduleController::class,'search'])->name('schedules.search');
     Route::post('schedules/import',[ScheduleController::class,'importSchedule'])->name('schedules.import');
     Route::post('schedules/export',[ScheduleController::class,'exportSchedule'])->name('schedules.export');
@@ -65,12 +65,12 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
 
     //chuyen khoa
-    Route::get('specialist',[SpecialistController::class,'index'])->name('specialist.index');
-    Route::get('specialist/add',[SpecialistController::class,'add'])->name('specialist.add');
+    Route::middleware('can:specialist-list')->get('specialist',[SpecialistController::class,'index'])->name('specialist.index');
+    Route::middleware('can:specialist-add')->get('specialist/add',[SpecialistController::class,'add'])->name('specialist.add');
     Route::post('specialist/add',[SpecialistController::class,'save'])->name('specialist.save');
-    Route::get('specialist/edit/{id}',[SpecialistController::class,'edit'])->name('specialist.edit');
+    Route::middleware('can:specialist-edit')->get('specialist/edit/{id}',[SpecialistController::class,'edit'])->name('specialist.edit');
     Route::put('specialist/edit/{id}',[SpecialistController::class,'update'])->name('specialist.update');
-    Route::delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
+    Route::middleware('can:specialist-delete')->delete('specialist/delete/{id}',[SpecialistController::class,'delete'])->name('specialist.delete');
     Route::get('specialist/searching',[SpecialistController::class,'search'])->name('specialist.search');
     Route::get('specialist/addPatient',[SpecialistController::class,'addPatient'])->name('specialist.patient');
     Route::post('specialist/deleteMultiple',[SpecialistController::class,'deleteMultiple'])->name('specialist.deleteMultiple');
@@ -82,7 +82,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('patient/export',[PatientController::class, 'exportPatient'])->name('patient.exportPatient');
 
     //service
-    Route::resource('service', ServiceController::class)->except('show');
+    Route::middleware('can:service-list')->resource('service', ServiceController::class)->except('show');
     Route::post('service/deleteSelected',[ServiceController::class,'multiDelete'])->name('service.deleteSelected');
     Route::get('service/search', [ServiceController::class, 'search'])->name('service.search');
 
@@ -124,22 +124,22 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // Quản lý trang thiết bị
     Route::middleware('can:equipment-list')->get('equipment',[EquipmentsController::class,'index'])->name('equipment.index');
-    Route::get('equipment/add',[EquipmentsController::class,'add'])->name('equipment.add');
+    Route::middleware('can:equipment-add')->get('equipment/add',[EquipmentsController::class,'add'])->name('equipment.add');
     Route::post('equipment/add',[EquipmentsController::class,'save'])->name('equipment.save');
-    Route::get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
+    Route::middleware('can:equipment-edit')->get('equipment/edit/{id}',[EquipmentsController::class,'edit'])->name('equipment.edit');
     Route::put('equipment/edit/{id}',[EquipmentsController::class,'update'])->name('equipment.update');
-    Route::delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
+    Route::middleware('can:equipment-delete')->delete('equipment/delete/{id}',[EquipmentsController::class,'delete'])->name('equipment.delete');
     Route::get('equipment/searching',[EquipmentsController::class,'search'])->name('equipment.search');
     Route::post('equipment/deleteMultiple',[EquipmentsController::class,'deleteMultiple'])->name('equipment.deleteMultiple');
 
 
     // Quản lý cấp bậc, chức vụ
     Route::middleware('can:level-list')->get('level',[LevelsController::class,'index'])->name('level.index');
-    Route::get('level/add',[LevelsController::class,'add'])->name('level.add');
+    Route::middleware('can:level-add')->get('level/add',[LevelsController::class,'add'])->name('level.add');
     Route::post('level/add',[LevelsController::class,'save'])->name('level.save');
-    Route::get('level/edit/{id}',[LevelsController::class,'edit'])->name('level.edit');
+    Route::middleware('can:level-edit')->get('level/edit/{id}',[LevelsController::class,'edit'])->name('level.edit');
     Route::put('level/edit/{id}',[LevelsController::class,'update'])->name('level.update');
-    Route::delete('level/delete/{id}',[LevelsController::class,'delete'])->name('level.delete');
+    Route::middleware('can:level-delete')->delete('level/delete/{id}',[LevelsController::class,'delete'])->name('level.delete');
     Route::post('level/deleteMultiple',[LevelsController::class,'deleteMultiple'])->name('level.deleteMultiple');
 
     // logout
@@ -152,7 +152,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     //order
     Route::middleware('can:order-list')->get('order',[OrderController::class,'index'])->name('order.index');
-    Route::get('order/add',[OrderController::class,'add'])->name('order.add');
+    Route::middleware('can:order-add')->get('order/add',[OrderController::class,'add'])->name('order.add');
     Route::post('order/save',[OrderController::class,'save'])->name('order.store');
     Route::get('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
     Route::get('order/search',[OrderController::class,'search'])->name('order.search');
@@ -165,33 +165,33 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('/update-profile/{id}', [ProfileController::class, 'update'])->name('profile.update');
 
     // new Category
-    Route::get('/newCategories', [NewCategoryController::class, 'index'])->name('newCategories.index');
-    Route::get('/newCategories/create', [NewCategoryController::class, 'create'])->name('newCategories.create');
+    Route::middleware('can:newCategory-list')->get('/newCategories', [NewCategoryController::class, 'index'])->name('newCategories.index');
+    Route::middleware('can:newCategory-add')->get('/newCategories/create', [NewCategoryController::class, 'create'])->name('newCategories.create');
     Route::post('/newCategories/store', [NewCategoryController::class, 'store'])->name('newCategories.store');
-    Route::get('/newCategories/edit/{id}', [NewCategoryController::class, 'edit'])->name('newCategories.edit');
+    Route::middleware('can:newCategory-edit')->get('/newCategories/edit/{id}', [NewCategoryController::class, 'edit'])->name('newCategories.edit');
     Route::post('/newCategories/update/{id}', [NewCategoryController::class, 'update'])->name('newCategories.update');
-    Route::delete('/newCategories/delete/{id}', [NewCategoryController::class, 'destroy'])->name('newCategories.delete');
+    Route::middleware('can:newCategory-delete')->delete('/newCategories/delete/{id}', [NewCategoryController::class, 'destroy'])->name('newCategories.delete');
 
     // news
-    Route::get('/news', [NewsController::class, 'index'])->name('news.index');
-    Route::get('/news/create', [NewsController::class, 'create'])->name('news.create');
+    Route::middleware('can:news-list')->get('/news', [NewsController::class, 'index'])->name('news.index');
+    Route::middleware('can:news-add')->get('/news/create', [NewsController::class, 'create'])->name('news.create');
     Route::post('/news/store', [NewsController::class, 'store'])->name('news.store');
-    Route::get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
+    Route::middleware('can:news-edit')->get('/news/edit/{id}', [NewsController::class, 'edit'])->name('news.edit');
     Route::post('/news/update/{id}', [NewsController::class, 'update'])->name('news.update');
-    Route::delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
+    Route::middleware('can:news-delete')->delete('/news/delete/{id}', [NewsController::class, 'destroy'])->name('news.delete');
 
     // Web setting
     Route::get('/webSetting', [WebSettingController::class, 'index'])->name('webSetting.index');
-    Route::get('/webSetting/view', [WebSettingController::class, 'view'])->name('webSetting.edit');
+    Route::middleware('can:webSetting-edit')->get('/webSetting/view', [WebSettingController::class, 'view'])->name('webSetting.edit');
     Route::post('/webSetting/update/{id}', [WebSettingController::class, 'update'])->name('webSetting.update');
 
     // feedback
-    Route::get('/feedback', [FeedBackController::class, 'index'])->name('feedback.index');
-    Route::get('/feedback/create', [FeedBackController::class, 'create'])->name('feedback.create');
+    Route::middleware('can:feedBack-list')->get('/feedback', [FeedBackController::class, 'index'])->name('feedback.index');
+    Route::middleware('can:feedBack-add')->get('/feedback/create', [FeedBackController::class, 'create'])->name('feedback.create');
     Route::post('/feedback/store', [FeedBackController::class, 'store'])->name('feedback.store');
-    Route::get('/feedback/edit/{id}', [FeedBackController::class, 'edit'])->name('feedback.edit');
+    Route::middleware('can:feedBack-edit')->get('/feedback/edit/{id}', [FeedBackController::class, 'edit'])->name('feedback.edit');
     Route::post('/feedback/update/{id}', [FeedBackController::class, 'update'])->name('feedback.update');
-    Route::delete('/feedback/destroy/{id}', [FeedBackController::class, 'destroy'])->name('feedback.destroy');
+    Route::middleware('can:feedBack-delete')->delete('/feedback/destroy/{id}', [FeedBackController::class, 'destroy'])->name('feedback.destroy');
     Route::get('/feedback/changeStatus/{id}', [FeedBackController::class, 'changeStatus'])->name('feedback.changeStatus');
     Route::get('/feedback/search', [FeedBackController::class, 'search'])->name('feedback.search');
     Route::post('/feedback/deleteMultiple', [FeedBackController::class, 'deleteMultiple'])->name('feedback.deleteMultiple');
@@ -214,5 +214,12 @@ Route::middleware('guest')->prefix('/')->group(function(){
     Route::get('changePassword/{id}', [AuthController::class, 'getChangePassword'])->name('getChangePassword');
     Route::post('postChangePassword/{id}', [AuthController::class, 'postChangePassword'])->name('postChangePassword');
 
-    
+
 });
+
+Route::any('{url}', function(){
+    return view('errors.404');
+})->where('url', '.*');
+
+
+

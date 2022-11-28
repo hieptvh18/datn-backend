@@ -68,7 +68,8 @@ class ScheduleController extends Controller
 
         // n booking
         if ($scheduleExist) {
-            $time = 86400000; // 1 day -> miligiay
+            $time = 86400; // 1 day -> miligiay
+            // $time = 86400000; // 1 day -> miligiay
             $schedule = Schedule::select('created_at')
                 ->where('phone', $phone)
                 ->orderByDesc('created_at')

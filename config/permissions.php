@@ -16,6 +16,9 @@ return [
         'Equipments'=>'Quản lý trang thiết bị',
         'Orders'=>'Quản lý đơn hàng',
         'Products'=>'Quản lý thuốc',
+        'NewCategory' => 'Quản lý danh mục tin tức',
+        'News' => 'Quản lý tin tức',
+        'FeedBack' => 'Quản lý đánh giá',
         'Web_settings'=>'Quản lý cài đặt'
     ],
     'childrent'=>[
