@@ -149,13 +149,14 @@
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Logo</b></label>
-                                <input type="file" class="form-control" name="logo" />
+                                <input type="file" class="form-control" name="logo" onchange="preview()" />
                             </div>
                             @error('logo')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
                             @enderror
+                            <img src="" id="previewImage" width="120px" alt="">
                         </div>
                         <div class="panel-body col-sm-6">
                             <label for=""><b>Ảnh cũ</b></label> <br>
