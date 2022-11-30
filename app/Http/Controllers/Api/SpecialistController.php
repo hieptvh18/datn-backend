@@ -11,7 +11,7 @@ class SpecialistController extends Controller
     //api list chuyen khoa
     public function index(){
         try {
-            $listSpecialist = Specialist::where('is_active',1)->get();
+            $listSpecialist = Specialist::where('is_active',1)->with('galleries')->get();
             return response()->json([
                 'success' => true,
                 'message'=> 'Danh sách chuyên khoa',
