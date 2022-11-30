@@ -38,7 +38,9 @@
                 <div class="form-group">
                     <label class="col-md-3 control-label">Các hình ảnh</label>
                     <div class="col-md-9">
-                        <input type="file" name="image[]" id="" multiple>
+                        {{-- <input type="file" name="image[]" id="" multiple> --}}
+                        <input type="file"  name="image[]" onchange="handleFileSelect()" multiple>
+                        <output id="result" style="display: flex"/>
                         @error('image.*')
                             <div class="text-danger">
                                 <span>{{$message}}</span>

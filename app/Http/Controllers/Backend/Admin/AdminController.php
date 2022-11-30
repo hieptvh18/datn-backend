@@ -24,7 +24,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->sortable()->with('roles')->orderby('created_at', 'desc')->paginate(15);
+        $listAccountAdmin = Admin::select("id","email", "fullname", "phone", "is_active", "avatar")->sortable()->with('roles')->orderby('id', 'desc')->paginate(15);
         return view('pages.admin.list', compact('listAccountAdmin'));
     }
 

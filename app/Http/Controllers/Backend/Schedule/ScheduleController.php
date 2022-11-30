@@ -37,7 +37,7 @@ class ScheduleController extends Controller
                 $listSchedules = $listSchedules->whereBetween('date', [$startDate, $endDate]);
             }
 
-            $listSchedules = $listSchedules->paginate(15);
+            $listSchedules = $listSchedules->orderBy('id', 'desc')->paginate(15);
         } catch (Throwable $e) {
             report($e->getMessage());
             return redirect()->route('schedules.index')->with('error', 'Có lỗi xảy ra, vui lòng thử lại!');
@@ -192,7 +192,10 @@ class ScheduleController extends Controller
     // delete
     public function destroy($id)
     {
-        Schedule::destroy($id);
+        $schedule = Schedule::find($id);
+        $schedule->schedule_services()->detach();
+        $schedule->delete();
+        // Schedule::destroy($id);
         return redirect()->route('schedules.index')->with(['message' => 'Xóa lịch khám thành công!']);
     }
 

@@ -16,7 +16,7 @@ class PermissionController extends Controller
      */
     public function index()
     {
-        $listPermission = Permission::where('parent_id', 0)->paginate(5);
+        $listPermission = Permission::where('parent_id', 0)->orderBy('id', 'desc')->paginate(5);
 
         return view('pages.permissions.list', compact('listPermission'));
     }

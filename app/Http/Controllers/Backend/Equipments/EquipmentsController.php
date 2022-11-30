@@ -12,7 +12,7 @@ class EquipmentsController extends Controller
 
     public function index()
     {
-        $listEquipments = Equipment::paginate(15);
+        $listEquipments = Equipment::orderBy('id', 'desc')->paginate(15);
         return view('pages.equipment.list', compact('listEquipments'))->with('i', (request()->input('page', 1) -1)*15);
     }
 

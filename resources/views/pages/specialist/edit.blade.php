@@ -42,7 +42,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    
+
                     <div class="col-md-9">
                         <div class="show-img" style="display: flex">
                             @if ($specialist->galleries)
@@ -56,13 +56,15 @@
                         </div>
                         <br>
                         <label class="col-md-4 control-label">Tải lên hình ảnh</label>
-                        <input type="file" name="image[]" id="" class="" multiple>
+                        {{-- <input type="file" name="image[]" id="" class="" multiple> --}}
+                        <input type="file"  name="image[]" onchange="handleFileSelect()" multiple>
+                        <output id="result" style="display: flex"/>
                         @error('image.*')
                             <div class="text-danger">
                                 <span>{{ $message }}</span>
                             </div>
                         @enderror
-                        
+
                     </div>
                 </div>
                 <div class="form-group">

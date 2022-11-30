@@ -18,7 +18,7 @@ class ProductTypeController extends Controller
     {
         //
         $pageTitle = 'Loại sản phẩm';
-        $productTypes = ProductType::select('*')->with('products')->paginate(20);
+        $productTypes = ProductType::select('*')->with('products')->orderBy('id', 'desc')->paginate(20);
         return view('pages.product-type.list',compact('pageTitle','productTypes'));
     }
 
@@ -58,7 +58,7 @@ class ProductTypeController extends Controller
             $type = new ProductType();
             $type->fill($request->all());
 
-            // save upload 
+            // save upload
             if ($request->hasFile('image')) {
                     $file = $request->file('image');
                     $prefixImg = 'type-product';
@@ -131,7 +131,7 @@ class ProductTypeController extends Controller
             $type = ProductType::find($id);
             $type->fill($request->all());
 
-            // save upload 
+            // save upload
             if ($request->hasFile('image')) {
                     $file = $request->file('image');
                     $prefixImg = 'type-product';

@@ -31,7 +31,7 @@ class PatientController extends Controller
     public function index()
     {
         $pageTitle = 'Hồ sơ bệnh án';
-        $patients = Patient::sortable()->paginate(20);
+        $patients = Patient::sortable()->orderBy('id', 'desc')->paginate(20);
         return view('pages.patients.list', compact('patients', 'pageTitle'));
     }
 

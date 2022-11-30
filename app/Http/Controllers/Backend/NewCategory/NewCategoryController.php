@@ -19,7 +19,7 @@ class NewCategoryController extends Controller
      */
     public function index()
     {
-        $listNewCategory = NewCategory::paginate(15);
+        $listNewCategory = NewCategory::orderBy('id', 'desc')->paginate(15);
         return view('pages.newCategories.list', compact('listNewCategory'));
     }
 
