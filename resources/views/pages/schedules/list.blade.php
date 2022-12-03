@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel">
-                <div class="panel-heading">
+                <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">Danh sách đặt lịch</h3>
+                    <h4 class="panel-title">Xuất/Nhập</h4>
                 </div>
 
                 <!--Data Table-->

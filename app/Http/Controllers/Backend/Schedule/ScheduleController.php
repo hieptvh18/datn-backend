@@ -106,7 +106,7 @@ class ScheduleController extends Controller
 
             return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
         } catch (Throwable $e) {
-            dd($e->getMessage());
+            // dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }

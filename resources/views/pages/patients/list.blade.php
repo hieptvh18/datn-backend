@@ -126,7 +126,7 @@
                                         <td>{{ $patient->phone }}</td>
                                         <td>{{ $patient->birthday }}</td>
                                         <td>{{ $patient->cmnd }}</td>
-                                        <td>{{ substr($patient->description, 50) }}...</td>
+                                        <td>{{ substr($patient->description, 0,50) }}...</td>
                                         <td>
                                             @if ($patient->status == 1)
                                                 <div class="label label-table label-danger">Chưa điều trị</div>
