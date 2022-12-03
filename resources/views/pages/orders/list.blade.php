@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel">
-                <div class="panel-heading">
+                <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">Danh sách hóa đơn</h3>
+                    <h4 class="panel-title">Xuất/Nhập</h4>
                 </div>
 
                 <!--Data Table-->
@@ -17,7 +18,7 @@
                                 {{-- <a href="{{ route('patient.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a> --}}
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
 
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
@@ -28,7 +29,7 @@
                                         }
                                     "><i
                                             class="demo-pli-trash icon-lg"></i></button>
-                                </div>
+                                </div> --}}
 
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -42,13 +43,13 @@
                                     <form action="{{ route('patient.exportPatient') }}" method="post">
                                         @csrf
                                         <input type="date" name="date" autocomplete="off" class="form-control">
-                                        <button class="btn btn-default">
+                                        <button class="btn btn-default" title="Xuất danh sách">
                                             <i class="demo-pli-download-window icon-lg"></i></button>
                                         {{-- class="demo-pli-download-from-cloud icon-lg"></i></button> --}}
                                     </form>
                                 </div>
 
-                                <div class="btn-group">
+                                {{-- <div class="btn-group">
 
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-default btn-active-primary dropdown-toggle"
@@ -59,7 +60,7 @@
                                             <li><a href="#">Delete selected</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="row" style="display: flex;  padding: 0 10px">
@@ -80,15 +81,22 @@
                                     </div>
                                 </form>
                             </div>
-                            <div style="width: 28%; text-align: right">
+                            <div style="width: 50%; text-align: right">
                                 <form action="{{ route('patient.importPatient') }}" enctype="multipart/form-data"
                                     method="post">
                                     @csrf
-                                    <input type="file" class="form-control" name="file" id="">
-                                    <button class="btn btn-default">
+                                    <div class="form-group">
+                                        {{-- <label class="col-md-5 control-label">Tệp</label> --}}
+                                        <div class="col-md-7">
+                                            <span class="pull-left btn btn-primary btn-file">
+                                                Browse... <input type="file" name="file">
+                                            </span>
+                                        </div>
+                                    </div>                         
+                                        <button class="btn btn-default" title="Nhập danh sách">
                                         <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
                                     @error('file')
-                                        <p style="color: red; text-align: left; margin: 5px 10px">{{$message}}</p>
+                                        <span style="color: red; text-align: left; margin: 5px 10px">{{$message}}</span>
                                     @enderror
 
                                 </form>
@@ -103,9 +111,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>
+                                    {{-- <th>
                                         <input type="checkbox" name="" id="">
-                                    </th>
+                                    </th> --}}
                                     <th class="text-center">@sortablelink('id', 'ID')</th>
                                     <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
                                     <th class="text-center">@sortablelink('customer_phone', 'Số điện thoại')</th>
@@ -116,8 +124,8 @@
                             <tbody>
                                 @foreach ($orders as $order)
                                     <tr class="text-center">
-                                        <td class="text-left"> <input type="checkbox" name="" id="">
-                                        </td>
+                                        {{-- <td class="text-left"> <input type="checkbox" name="" id="">
+                                        </td> --}}
                                         <td>{{ $order->id }}</td>
                                         <td>{{ $order->customer_name }}</td>
                                         <td>{{ $order->customer_phone }}</td>

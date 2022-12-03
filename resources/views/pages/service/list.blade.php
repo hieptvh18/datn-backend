@@ -14,9 +14,9 @@
                     <div class="col-sm-6 table-toolbar-left">
                         <a href="{{ route('service.create') }}"><button id="demo-btn-addrow" class="btn btn-purple"><i
                                     class="demo-pli-add"></i> Thêm dịch vụ</button></a>
-                        <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
+                        {{-- <button class="btn btn-default"><i class="demo-pli-printer"></i></button> --}}
                         <div class="btn-group">
-                            <button class="btn btn-default"><i class="demo-pli-exclamation"></i></button>
+                            {{-- <button class="btn btn-default"><i class="demo-pli-exclamation"></i></button> --}}
                             <button class="btn btn-default" id="multi-delete" data-route="{{ route('service.deleteSelected') }}"><i
                                     class="demo-pli-recycling"></i></button>
                         </div>
@@ -27,22 +27,6 @@
                                 <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
                                     id="demo-input-search2">
                                 </form>
-                        </div>
-                        <div class="btn-group">
-                            <button class="btn btn-default"><i class="demo-pli-download-from-cloud"></i></button>
-                            <div class="btn-group dropdown">
-                                <button data-toggle="dropdown" class="btn btn-default dropdown-toggle">
-                                    <i class="demo-pli-gear"></i>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul role="menu" class="dropdown-menu dropdown-menu-right">
-                                    <li><a href="#">Action</a></li>
-                                    <li><a href="#">Another action</a></li>
-                                    <li><a href="#">Something else here</a></li>
-                                    <li class="divider"></li>
-                                    <li><a href="#">Separated link</a></li>
-                                </ul>
-                            </div>
                         </div>
                     </div>
                 </div>

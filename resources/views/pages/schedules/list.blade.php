@@ -18,7 +18,7 @@
                                 @can('room-add')
                                     <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i
                                             class="demo-pli-add icon-fw"></i>Add</a>
-                                    <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                    {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 @endcan
                                 <div class="btn-group">
                                     {{-- <a href=""><button class="btn btn-primary">Reload</button></a> --}}
@@ -38,7 +38,7 @@
                                     <form action="{{ route('schedules.export') }}" method="post">
                                         @csrf
                                         <input type="date" name="date" autocomplete="off" class="form-control">
-                                        <button class="btn btn-default">
+                                        <button class="btn btn-default" title="Xuất lịch khám">
                                             <i class="demo-pli-download-window icon-lg"></i></button>
                                         {{-- class="demo-pli-download-from-cloud icon-lg"></i></button> --}}
                                     </form>
@@ -68,16 +68,22 @@
                                     </div>
                                 </form>
                             </div>
-                            <div style="width: 28%; text-align: right">
+                            <div style="width: 50%; text-align: right">
                                 <form action="{{ route('schedules.import') }}" enctype="multipart/form-data" method="post">
                                     @csrf
-                                    <input type="file" class="form-control" name="file" id="">
-                                    <button class="btn btn-default">
+                                    <div class="form-group">
+                                        {{-- <label class="col-md-5 control-label">Tệp</label> --}}
+                                        <div class="col-md-7">
+                                            <span class="pull-left btn btn-primary btn-file">
+                                            Browse... <input type="file" name="file">
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <button class="btn btn-default" title="Nhập lịch khám">
                                         <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
-                                    @error('file')
-                                        <p style="color: red; text-align: left; margin: 5px">{{ $message }}</p>
-                                    @enderror
-
+                                        @error('file')
+                                            <span style="color: red; text-align: left; margin: 5px">{{ $message }}</span>
+                                        @enderror
                                 </form>
                             </div>
                         </div>

@@ -18,11 +18,11 @@
                                 {{-- data-parent="#demo-acc-info-outline" data-toggle="collapse"
                                     href="#demo-acd-info-outline-2" --}}
                                      href="{{ route('product.create') }}">
-                                    <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
+                                    <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm mới</button>
                                 </a>
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 <div class="btn-group">
-                                    <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
+                                    {{-- <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button> --}}
                                     <button class="btn btn-default" id="delete-multiple" data-route="{{ route('product.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
 
@@ -33,19 +33,6 @@
                                         <input type="text" autocomplete="off" name="key" class="form-control"
                                             placeholder="Search" id="demo-input-search2">
                                     </form>
-                                </div>
-
-                                <div class="btn-group">
-
-                                    <div class="btn-group dropdown">
-                                        <button class="btn btn-default btn-active-primary dropdown-toggle"
-                                            data-toggle="dropdown">
-                                            <i class="demo-pli-dot-vertical icon-lg"></i>
-                                        </button>
-                                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                                            <li><a href="#">Delete selected</a></li>
-                                        </ul>
-                                    </div>
                                 </div>
                             </div>
                         </div>
