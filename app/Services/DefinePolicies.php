@@ -5,7 +5,10 @@ namespace App\Services;
 use App\Models\Admin;
 use App\Policies\AdminPolicy;
 use App\Policies\EquipmentPolicy;
+use App\Policies\FeedBackPolicy;
 use App\Policies\LevelPolicy;
+use App\Policies\New_CategoryPolicy;
+use App\Policies\NewsPolicy;
 use App\Policies\OrderPolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\PermissionPolicy;
@@ -16,6 +19,7 @@ use App\Policies\SchedulePolicy;
 use App\Policies\ServicePolicy;
 use App\Policies\SpecialistPolicy;
 use App\Policies\UserPolicy;
+use App\Policies\WebSettingPolicy;
 use Illuminate\Support\Facades\Gate;
 
 class DefinePolicies {
@@ -122,5 +126,34 @@ class DefinePolicies {
         Gate::define('order-add', [OrderPolicy::class, 'create']);
         Gate::define('order-edit', [OrderPolicy::class, 'update']);
         Gate::define('order-delete', [OrderPolicy::class, 'delete']);
+    }
+
+    // Gate define web setting
+    public function webSettingDefine (){
+        Gate::define('webSetting-list', [WebSettingPolicy::class, 'view']);
+        Gate::define('webSetting-add', [WebSettingPolicy::class, 'create']);
+        Gate::define('webSetting-edit', [WebSettingPolicy::class, 'update']);
+        Gate::define('webSetting-delete', [WebSettingPolicy::class, 'delete']);
+    }
+    // Gate define new category
+    public function newCategoryDefine (){
+        Gate::define('newCategory-list', [New_CategoryPolicy::class, 'view']);
+        Gate::define('newCategory-add', [New_CategoryPolicy::class, 'create']);
+        Gate::define('newCategory-edit', [New_CategoryPolicy::class, 'update']);
+        Gate::define('newCategory-delete', [New_CategoryPolicy::class, 'delete']);
+    }
+    // Gate define news
+    public function newsDefine (){
+        Gate::define('news-list', [NewsPolicy::class, 'view']);
+        Gate::define('news-add', [NewsPolicy::class, 'create']);
+        Gate::define('news-edit', [NewsPolicy::class, 'update']);
+        Gate::define('news-delete', [NewsPolicy::class, 'delete']);
+    }
+    // Gate define feedback
+    public function feedBackDefine (){
+        Gate::define('feedBack-list', [FeedBackPolicy::class, 'view']);
+        Gate::define('feedBack-add', [FeedBackPolicy::class, 'create']);
+        Gate::define('feedBack-edit', [FeedBackPolicy::class, 'update']);
+        Gate::define('feedBack-delete', [FeedBackPolicy::class, 'delete']);
     }
 }

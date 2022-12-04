@@ -12,7 +12,7 @@ class LevelsController extends Controller
 
     public function index()
     {
-        $levels = Level::paginate(5);
+        $levels = Level::orderBy('id', 'desc')->paginate(5);
         return view('pages.level.list', compact('levels'))->with('i', (request()->input('page', 1) -1)*5);
     }
 

@@ -22,7 +22,7 @@ class OrderController extends Controller
     //
     public function index(Request $request){
         try {
-            $orders = Order::sortable()->orderby('created_at', 'desc');
+            $orders = Order::sortable()->orderby('id', 'desc');
             if(isset($request->start)){
                     $startDate = date('Y-m-d', strtotime($request->start));
                     $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
@@ -75,7 +75,7 @@ class OrderController extends Controller
         // send notifi thank you
         $customerName = $order->customer_name;
         $companyName = 'Nha khoa Đức Nghĩa';
-        
+
 
         // send mail
         $customerExist = User::where('phone',$request->customer_phone)->first();

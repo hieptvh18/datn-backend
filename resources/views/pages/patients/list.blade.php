@@ -4,8 +4,9 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel">
-                <div class="panel-heading">
+                <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">{{ $pageTitle }}</h3>
+                    <h4 class="panel-title">Xuất/Nhập</h4>
                 </div>
 
                 <!--Data Table-->
@@ -34,21 +35,21 @@
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
                                     <form action="{{ route('patient.search') }}" method="get">
-                                    <input type="text" autocomplete="off" name="key" class="form-control" placeholder="Search"
-                                        id="demo-input-search2">
+                                        <input type="text" autocomplete="off" name="key" class="form-control"
+                                            placeholder="Search" id="demo-input-search2">
                                     </form>
                                 </div>
                                 <div class="form-group">
                                     <form action="{{ route('patient.exportPatient') }}" method="post">
                                         @csrf
                                         <input type="date" name="date" autocomplete="off" class="form-control">
-                                        <button class="btn btn-default">
+                                        <button class="btn btn-default" title="Xuất lịch khám">
                                             <i class="demo-pli-download-window icon-lg"></i></button>
                                         {{-- class="demo-pli-download-from-cloud icon-lg"></i></button> --}}
                                     </form>
                                 </div>
 
-                                <div class="btn-group">
+                                {{-- <div class="btn-group">
 
                                     <div class="btn-group dropdown">
                                         <button class="btn btn-default btn-active-primary dropdown-toggle"
@@ -59,18 +60,22 @@
                                             <li><a href="#">Delete selected</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                         <div class="row" style="display: flex;  padding: 0 10px">
                             <div style="width: 72%;">
                                 <form action="" method="GET" class="">
-                                    <div class="row" >
+                                    <div class="row">
                                         <div id="demo-dp-range" class="col-sm-6" style="display: flex">
                                             <div class="input-daterange input-group" id="datepicker">
-                                                <input value="{{isset(request()->start) ? request()->start : ''}}" type="text" class="form-control" name="start" placeholder="Ngày bắt đầu"/>
+                                                <input value="{{ isset(request()->start) ? request()->start : '' }}"
+                                                    type="text" class="form-control" name="start"
+                                                    placeholder="Ngày bắt đầu" />
                                                 <span class="input-group-addon">to</span>
-                                                <input value="{{isset(request()->end) ? request()->end : ''}}" type="text" placeholder="Ngày kết thúc" class="form-control" name="end" />
+                                                <input value="{{ isset(request()->end) ? request()->end : '' }}"
+                                                    type="text" placeholder="Ngày kết thúc" class="form-control"
+                                                    name="end" />
                                             </div>
                                             <div class="btn-group col-sm-8">
                                                 <a href=""><button class="btn btn-primary">Lọc</button></a>
@@ -80,15 +85,22 @@
                                     </div>
                                 </form>
                             </div>
-                            <div style="width: 28%; text-align: right">
+                            <div style="width: 50%; text-align: right">
                                 <form action="{{ route('patient.importPatient') }}" enctype="multipart/form-data"
                                     method="post">
                                     @csrf
-                                    <input type="file" class="form-control" name="file" id="">
-                                    <button class="btn btn-default">
+                                    <div class="form-group">
+                                        {{-- <label class="col-md-5 control-label">Tệp</label> --}}
+                                        <div class="col-md-7">
+                                            <span class="pull-left btn btn-primary btn-file">
+                                                Browse... <input type="file" name="file">
+                                            </span>
+                                        </div>
+                                    </div> 
+                                    <button class="btn btn-default" title="Nhập lịch khám">
                                         <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
                                     @error('file')
-                                        <p style="color: red; text-align: left; margin: 5px 10px">{{$message}}</p>
+                                        <span style="color: red; text-align: left; margin: 5px 10px">{{ $message }}</span>
                                     @enderror
 
                                 </form>
@@ -126,7 +138,7 @@
                                         <td>{{ $patient->phone }}</td>
                                         <td>{{ $patient->birthday }}</td>
                                         <td>{{ $patient->cmnd }}</td>
-                                        <td>{{ substr($patient->description, 50) }}...</td>
+                                        <td>{{ substr($patient->description, 0, 50) }}...</td>
                                         <td>
                                             @if ($patient->status == 1)
                                                 <div class="label label-table label-danger">Chưa điều trị</div>
@@ -155,16 +167,17 @@
                                                 Đặt lịch khám lại
                                             </a> --}}
                                             @if ($patient->status == 0)
-
-                                            <a style="margin-top: 5px " href="{{ route('order.add', ['id'=>$patient->id]) }}"
-                                                class="label label-table label-primary">
-                                                Tạo hóa đơn
-                                            </a>
+                                                <a style="margin-top: 5px "
+                                                    href="{{ route('order.add', ['id' => $patient->id]) }}"
+                                                    class="label label-table label-primary">
+                                                    Tạo hóa đơn
+                                                </a>
                                             @elseif ($patient->status == 3)
-                                            <a style="margin-top: 5px " href="{{ route('order.detail', $patient->order_id) }}"
-                                                class="label label-table label-primary">
-                                                Xem hóa đơn
-                                            </a>
+                                                <a style="margin-top: 5px "
+                                                    href="{{ route('order.detail', $patient->order_id) }}"
+                                                    class="label label-table label-primary">
+                                                    Xem hóa đơn
+                                                </a>
                                             @endif
                                         </td>
                                     </tr>

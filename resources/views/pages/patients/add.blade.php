@@ -120,9 +120,10 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <div class="col-sm-offset-3 col-sm-9">
+                    <label for="status" class="col-sm-3 control-label">Trạng thái</label>
+                    <div class="col-md-9">
                         <select name="status" id="status" class="form-control">
-                            <option value="" disabled selected>------Chọn trạng thái------</option>
+                            {{-- <option value="" disabled selected>------Chọn trạng thái------</option> --}}
                             <option {{ old('status') == 0 ? 'selected' : '' }} value="0">Đã khám</option>
                             <option {{ old('status') == 1 ? 'selected' : '' }} value="1">Chưa điều trị</option>
                             <option {{ old('status') == 2 ? 'selected' : '' }} value="2">Đã điều trị</option>

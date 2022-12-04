@@ -75,6 +75,7 @@ class SpecialistController extends Controller
             // save upload multiple image to gallery specialist
             if ($request->hasFile('image')) {
                 $files = $request->file('image');
+                $specialist->galleries()->delete();
                 foreach ($files as $image) {
                     $specialistGallery = new SpecialistGallery();
                     $specialistGallery->specialist_id = $specialist->id;

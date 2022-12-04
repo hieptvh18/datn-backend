@@ -5,7 +5,8 @@
         <!--================================-->
         <div class="navbar-header">
             <a href="http://localhost:3000/" class="navbar-brand">
-                <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon">
+                <img src="{{ asset($logoWeb->logo) }}" alt="DN Logo" width="100%" class="brand-icon">
+                {{-- <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon"> --}}
                 {{-- <div class="brand-title">
                     <span class="brand-text">DN</span>
                 </div> --}}
@@ -417,14 +418,14 @@
                         <div class="nano scrollable">
                             <div class="nano-content">
                                 <ul class="head-list notification-dropdown">
-                                   
+
                                 </ul>
                             </div>
                         </div>
 
                         <!--Dropdown footer-->
                         <div class="pad-all bord-top view-all-noti">
-                            
+
                         </div>
                     </div>
                 </li>
@@ -502,7 +503,7 @@
     var notificationsCountElem = $('li.notifi-wrapper span.count-noti');
     var notificationsCount     = parseInt(notificationsCountElem.data('count'));
     var notifications          = $('ul.notification-dropdown');
-    var viewAllNoti = $('.view-all-noti'); 
+    var viewAllNoti = $('.view-all-noti');
     var viewAllNotiHtml = `<a href="#" class="btn-link text-main box-block">
                                 <i class="pci-chevron chevron-right pull-right"></i>Xem tất cả thông báo<a>`;
 
@@ -513,7 +514,7 @@
         viewAllNoti.html(`<div class="btn-link text-main box-block">
                                 Chưa có thông báo </div>`);
     }
-    
+
     // if (notificationsCount <= 0) {
     //     notificationsWrapper.hide();
     // }
@@ -553,5 +554,5 @@
         // notificationsWrapper.find('.notif-count').text(notificationsCount);
         // notificationsWrapper.show();
     });
-</script>   
+</script>
 {{-- @endsection --}}

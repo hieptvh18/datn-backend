@@ -45,6 +45,9 @@ class AuthServiceProvider extends ServiceProvider
         $definePolicy->equipmentDefine();
         $definePolicy->productDefine();
         $definePolicy->orderDefine();
-
+        $definePolicy->webSettingDefine();
+        $definePolicy->newCategoryDefine();
+        $definePolicy->newsDefine();
+        $definePolicy->feedBackDefine();
     }
 }

@@ -10,7 +10,7 @@ class WebsettingController extends Controller
 {
     public function websetting () {
         try {
-            $websetting = WebSetting::all(['logo', 'web_name', 'base_url', 'phones', 'email', 'facebook_url', 'twitter_url', 'instagram_url', 'youtobe_url', 'address', 'open_time', 'close_time', 'start_date', 'end_date', 'short_introduce', 'introduce',]);
+            $websetting = WebSetting::where('id', 1)->first(['logo', 'web_name', 'base_url', 'phones', 'email', 'facebook_url', 'twitter_url', 'instagram_url', 'youtobe_url', 'address', 'open_time', 'close_time', 'start_date', 'end_date', 'short_introduce', 'introduce',]);
             return response()->json([
                 'success' => true,
                 'message'=> 'Thông tin phòng khám',

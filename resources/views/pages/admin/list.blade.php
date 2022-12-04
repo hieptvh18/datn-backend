@@ -16,12 +16,12 @@
                             <div class="col-sm-6 table-toolbar-left">
                                 @can('admin-add')
                                 <a href="{{ route('account_admins.create') }}" class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</a>
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 @endcan
-                                <div class="btn-group">
+                                {{-- <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
                                     <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
-                                </div>
+                                </div> --}}
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
@@ -30,7 +30,7 @@
                                         id="demo-input-search2">
                                     </form>
                                 </div>
-                                <div class="btn-group">
+                                {{-- <div class="btn-group">
                                     <button class="btn btn-default"><i
                                             class="demo-pli-download-from-cloud icon-lg"></i></button>
                                     <div class="btn-group dropdown">
@@ -46,7 +46,7 @@
                                             <li><a href="#">Separated link</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

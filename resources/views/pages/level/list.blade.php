@@ -17,9 +17,9 @@
                                 <a href="{{ route('level.add') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 <div class="btn-group">
-                                    <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
+                                    {{-- <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button> --}}
                                     <button class="btn btn-default" id="delete-multiple" data-route="{{ route('level.deleteMultiple') }}"><i
                                             class="demo-pli-trash icon-lg"></i></button>
                                 </div>
@@ -29,7 +29,7 @@
                                     <input type="text" autocomplete="off" class="form-control" placeholder="Search"
                                         id="demo-input-search2">
                                 </div>
-                                <div class="btn-group">
+                                {{-- <div class="btn-group">
                                     <button class="btn btn-default"><i
                                             class="demo-pli-download-from-cloud icon-lg"></i></button>
                                     <div class="btn-group dropdown">
@@ -41,7 +41,7 @@
                                             <li><a href="#">Delete selected</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

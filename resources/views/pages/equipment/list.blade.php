@@ -17,10 +17,10 @@
                                 <a href="{{ route('equipment.add') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
 
                                 <div class="btn-group">
-                                    <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
+                                    {{-- <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button> --}}
                                     <button class="btn btn-default" id="delete-multiple" data-route="{{ route('equipment.deleteMultiple') }}" ><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
                             </div>
@@ -31,7 +31,7 @@
                                             placeholder="Search" id="demo-input-search2">
                                     </form>
                                 </div>
-                                <div class="btn-group">
+                                {{-- <div class="btn-group">
                                     <button class="btn btn-default"><i
                                             class="demo-pli-download-from-cloud icon-lg"></i></button>
                                     <div class="btn-group dropdown">
@@ -43,7 +43,7 @@
                                             <li><a href="#">Delete selected</a></li>
                                         </ul>
                                     </div>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
                     </div>

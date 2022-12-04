@@ -19,7 +19,7 @@ class ProductController extends Controller
     public function index()
     {
         $pageTitle = 'Sản phẩm';
-        $products = Product::select('*')->paginate(20);
+        $products = Product::select('*')->orderBy('id', 'desc')->paginate(20);
         return view('pages.products.list',compact('pageTitle','products'));
     }
 
