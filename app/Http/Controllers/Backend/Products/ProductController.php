@@ -144,4 +144,28 @@ class ProductController extends Controller
         Product::whereIn('id', $request->get('data'))->delete();
         return response("Xóa thành công!", 200);
     }
+
+    // search
+    public function search()
+    {
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+
+        $pageTitle = 'Sản phẩm';
+        try {
+            if ($search_text == null) {
+                return redirect()->route('product.index');
+            } else {
+                $products = Product::where('id', 'LIKE', '%' . $search_text . '%')
+                    ->orwhere('price', 'LIKE', '%' . $search_text . '%')
+                    ->orwhere('name', 'LIKE', '%' . $search_text . '%')
+                    ->paginate(15);
+            }
+            return view('pages.products.list',compact('pageTitle','products'));
+        } catch (\Throwable $th) {
+            report($th->getMessage());
+            return redirect()->back()->with('error', 'Có lỗi xảy ra! Vui lòng thử lại!');
+        }
+    }
 }

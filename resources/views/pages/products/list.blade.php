@@ -29,7 +29,7 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
-                                    <form action="{{ route('patient.search') }}" method="get">
+                                    <form action="{{ route('product.search') }}" method="get">
                                         <input type="text" autocomplete="off" name="key" class="form-control"
                                             placeholder="Search" id="demo-input-search2">
                                     </form>

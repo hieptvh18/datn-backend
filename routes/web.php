@@ -147,6 +147,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // product
     Route::post('product/deleteMultiple',[ProductController::class, 'deleteMultiple'])->name('product.deleteMultiple');
+    Route::get('product/searching',[ProductController::class, 'search'])->name('product.search');
     Route::middleware('can:product-list')->resource('product',ProductController::class);
     Route::resource('product-type',ProductTypeController::class);
 
