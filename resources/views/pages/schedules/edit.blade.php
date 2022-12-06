@@ -106,12 +106,7 @@
                                 <input type="text" class="form-control" name="email" value="{{ $schedule->email }}">
                             </div>
                         </div>
-                        <div class="panel-body col-sm-6">
-                            <div class="mb-3">
-                                <label for="" class="form-label"><b>CMND</b></label>
-                                <input type="text" class="form-control" name="cmnd" value="{{ $schedule->cmnd }}">
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="panel-body col-sm-6">

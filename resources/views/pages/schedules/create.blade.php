@@ -10,7 +10,7 @@
 
                 <!--Data Table-->
                 <!--===================================================-->
-                <form name="formPostUpdateSchedule" id="sendNotifi" action="{{ route('schedules.store') }}" method="post">
+                <form name="formPostUpdateSchedule" autocomplete="off" id="sendNotifi" action="{{ route('schedules.store') }}" method="post">
                     @csrf
                     <div class="panel-body">
                         <div class="mb-3 ">
@@ -92,12 +92,7 @@
                                 <input type="text" class="form-control" name="email" value="{{old('email')}}">
                             </div>
                         </div>
-                        <div class="panel-body col-sm-6">
-                            <div class="mb-3">
-                                <label for="" class="form-label"><b>CMND</b></label>
-                                <input type="text" class="form-control" name="cmnd" value="{{old('cmnd')}}">
-                            </div>
-                        </div>
+
                     </div>
                     <div class="row">
                         <div class="panel-body col-sm-6">
