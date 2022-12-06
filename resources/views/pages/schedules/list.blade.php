@@ -91,7 +91,6 @@
                                     <th>@sortablelink('gender', 'Giới tính')</th>
                                     <th>@sortablelink('phone', 'SĐT')</th>
                                     <th>@sortablelink('email', 'Email')</th>
-                                    <th>@sortablelink('cmnd', 'CMND')</th>
                                     <th>@sortablelink('date', 'Ngày đặt lịch')</th>
                                     <th>Trạng thái</th>
                                     <th class="text-center">Hành động</th>
@@ -114,7 +113,6 @@
                                         </td>
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
-                                        <td>{{ $item->cmnd }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td class="change-status" data-schedule-id={{$item->id}}>
                                             <select class="selectpicker">

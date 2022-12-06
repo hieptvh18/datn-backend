@@ -40,15 +40,6 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="col-sm-3 control-label" for="demo-hor-function">CMND/CCCD(*)</label>
-                    <div class="col-sm-9">
-                        <input type="number" name="cmnd" id="cmnd" class="form-control" value="{{$patient->cmnd}}" placeholder="Số chứng minh nhân dân/Căn cước công dân">
-                        @error('cmnd')
-                            <span class="text-danger">{{ $message }}</span>
-                        @enderror
-                    </div>
-                </div>
-                <div class="form-group">
                     <label for="description" class="col-sm-3 control-label">Mô tả</label>
                     <div class="col-md-9">
                         <textarea name="description" id="description" cols="30" rows="5" class="form-control" placeholder="Mô tả bệnh tình">{{ $patient->description }}</textarea>

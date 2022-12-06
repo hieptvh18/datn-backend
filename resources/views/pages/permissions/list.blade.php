@@ -59,10 +59,17 @@
                             </thead>
                             <tbody>
                                 @foreach ($listPermission as $item)
-
                                 <tr>
                                     <td><a href="#" class="btn-link">#{{$item->id}}</a></td>
-                                    <td>{{$item->permission_name}}</td>
+                                    @php
+                                    foreach (Config::get('permissions.parent') as $key => $parent){
+                                        if($key == $item->permission_name){
+                                            $permissionName = $parent;
+                                        }
+                                    }
+                                    @endphp
+                                    <td>{{$permissionName}}</td>
+                                    {{-- <td>{{$item->permission_name}}</td> --}}
                                     @if ($item->parent_id == 0)
                                     <td class="text-center">
                                         @can('permission-edit')

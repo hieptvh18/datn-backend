@@ -110,7 +110,6 @@
                                     <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
                                     <th class="text-center">@sortablelink('phone', 'Số điện thoại')</th>
                                     <th class="text-center">@sortablelink('birthday', 'Năm sinh')</th>
-                                    <th class="text-center">@sortablelink('cmnd', 'CMND/CCCD')</th>
                                     <th class="text-center">@sortablelink('description', 'Mô tả ngắn')</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
@@ -125,7 +124,6 @@
                                         <td>{{ $patient->customer_name }}</td>
                                         <td>{{ $patient->phone }}</td>
                                         <td>{{ $patient->birthday }}</td>
-                                        <td>{{ $patient->cmnd }}</td>
                                         <td>{{ substr($patient->description, 50) }}...</td>
                                         <td>
                                             @if ($patient->status == 1)

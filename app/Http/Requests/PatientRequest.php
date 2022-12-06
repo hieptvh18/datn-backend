@@ -27,11 +27,6 @@ class PatientRequest extends FormRequest
             'customer_name'=>'required|min:3|max:50',
             'phone'=>['required','regex:/(((\+|)84)|0)(3|5|7|8|9)+([0-9]{8})\b/'],
             'birthday'=>'required',
-            'cmnd'=>['required',function($attribute, $value, $fail){
-                if((int)strlen($value) != 9 && (int)strlen($value) != 12){
-                    $fail($attribute.' phải là dãy số 9 hoặc 12 kí tư.');
-                }
-            }],
             'status'=>'required',
             'description'=>'required',
         ];
@@ -50,8 +45,6 @@ class PatientRequest extends FormRequest
             'customer_name.max'=>':attribute không được lớn hơn :max kí tự',
             'customer_name.min'=>':attribute phải lớn hơn :min kí tự',
             'status.required'=>':attribute không được để trống',
-            'cmnd.required'=>':attribute không được để trống',
-            'cmnd.regex'=>':attribute phải là dãy số 9 hoăc 12 kí tự',
             'birthday.required'=>':attribute không được để trống',
             'description.required'=>':attribute không được để trống',
         ];
@@ -62,7 +55,6 @@ class PatientRequest extends FormRequest
         return [
             'phone'=>'Điện thoại',
             'customer_name'=>'Tên bệnh nhân',
-            'cmnd'=>'Số  CMND/CCCD',
             'status'=>'Trạng thái',
             'birthday'=>'Năm sinh',
             'description'=>'Mô tả',
