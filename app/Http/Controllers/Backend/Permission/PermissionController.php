@@ -123,4 +123,26 @@ class PermissionController extends Controller
 
         return redirect()->route('permissions.index')->with(['message' => 'Xóa Permission thành công!']);
     }
+
+     // search
+     public function search (){
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+
+        try {
+            if($search_text == null){
+             return redirect()->route('permissions.index');
+            }else {
+            $listPermission=Permission::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('permission_name','LIKE', '%'.$search_text.'%')
+            ->where('parent_id', "=", 0)
+            ->paginate(15);
+        }
+
+        return view('pages.permissions.list', compact('listPermission'));
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 }

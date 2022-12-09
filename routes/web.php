@@ -92,6 +92,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('/permissions/store', [PermissionController::class, 'store'])->name('permissions.store');
     Route::middleware('can:permission-edit')->get('/permissions/edit/{id}', [PermissionController::class, 'edit'])->name('permissions.edit');
     Route::post('/permissions/update/{id}', [PermissionController::class, 'update'])->name('permissions.update');
+    Route::get('permissions/searching',[PermissionController::class,'search'])->name('permissions.search');
     Route::middleware('can:permission-delete')->delete('/permissions/destroy/{id}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
 
     // roles
@@ -100,6 +101,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::post('/roles/store', [RoleController::class, 'store'])->name('roles.store');
     Route::middleware('can:role-edit')->get('/roles/edit/{id}', [RoleController::class, 'edit'])->name('roles.edit');
     Route::post('/roles/update/{id}', [RoleController::class, 'update'])->name('roles.update');
+    Route::get('roles/searching',[RoleController::class,'search'])->name('roles.search');
     Route::middleware('can:role-delete')->delete('/roles/destroy/{id}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
     // account admin
@@ -140,6 +142,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::middleware('can:level-edit')->get('level/edit/{id}',[LevelsController::class,'edit'])->name('level.edit');
     Route::put('level/edit/{id}',[LevelsController::class,'update'])->name('level.update');
     Route::middleware('can:level-delete')->delete('level/delete/{id}',[LevelsController::class,'delete'])->name('level.delete');
+    Route::get('level/searching',[LevelsController::class,'search'])->name('level.search');
     Route::post('level/deleteMultiple',[LevelsController::class,'deleteMultiple'])->name('level.deleteMultiple');
 
     // logout
