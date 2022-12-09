@@ -202,7 +202,7 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('order.index') }}">Danh sách</a></li>
-                                    <li><a href="{{ route('order.add') }}">Thêm mới</a></li>
+                                    {{-- <li><a href="{{ route('order.add') }}">Thêm mới</a></li> --}}
                                 </ul>
                             </li>
                         @endcan

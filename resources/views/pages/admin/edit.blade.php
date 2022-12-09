@@ -197,6 +197,14 @@
                         @enderror
                         </div>
                     </div>
+                    <div class="panel-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label"><b>Mô tả</b></label>
+                            <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="description">{{$admin->description?$admin->description:old('description')}}</textarea>
+                        </div>
+
+                    </div>
+
                     <button class="btn btn-primary">Save</button>
                     <button class="btn btn-danger" type="reset">Reset</button>
                     <a href="{{ route('account_admins.index') }}" class="btn btn-info">Back</a>
