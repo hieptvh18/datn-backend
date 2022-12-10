@@ -25,8 +25,10 @@
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
                                 <div class="form-group">
-                                    <input type="text" autocomplete="off" class="form-control" placeholder="Search"
-                                        id="demo-input-search2">
+                                    <form action="{{ route('permissions.search') }}" method="get">
+                                        <input type="text" autocomplete="off" name="key" class="form-control"
+                                            placeholder="Search" id="demo-input-search2">
+                                    </form>
                                 </div>
                                 {{-- <div class="btn-group">
                                     <button class="btn btn-default"><i
@@ -53,16 +55,24 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>Key mô đun</th>
                                     <th>Tên mô đun</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach ($listPermission as $item)
-
                                 <tr>
                                     <td><a href="#" class="btn-link">#{{$item->id}}</a></td>
+                                    @php
+                                    foreach (Config::get('permissions.parent') as $key => $parent){
+                                        if($key == $item->permission_name){
+                                            $permissionName = $parent;
+                                        }
+                                    }
+                                    @endphp
                                     <td>{{$item->permission_name}}</td>
+                                    <td>{{$permissionName}}</td>
                                     @if ($item->parent_id == 0)
                                     <td class="text-center">
                                         @can('permission-edit')

@@ -66,4 +66,26 @@ class LevelsController extends Controller
         Level::whereIn('id', $request->get('data'))->delete();
         return response("Xóa thành công!", 200);
     }
+
+    // search
+    public function search (){
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+
+        try {
+            if($search_text == null){
+             return redirect()->route('level.index');
+            }else {
+            $levels=Level::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('name','LIKE', '%'.$search_text.'%')
+            ->orwhere('description','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.level.list', compact('levels'))->with('i', (request()->input('page', 1) -1)*5);
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 }

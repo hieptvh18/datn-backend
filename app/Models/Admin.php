@@ -26,6 +26,7 @@ class Admin extends Authenticatable
         'is_active',
         'room_id',
         'level_id',
+        'description',
         'specialist_id'
     ];
 

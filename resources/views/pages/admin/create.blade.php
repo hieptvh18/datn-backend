@@ -175,7 +175,13 @@
                         @enderror
                         </div>
                     </div>
+                    <div class="panel-body">
+                        <div class="mb-3">
+                            <label for="" class="form-label"><b>Mô tả</b></label>
+                            <textarea type="text" class="ckeditor form-control" style="resize: none" rows="10" name="description">{{old('description')}}</textarea>
+                        </div>
 
+                    </div>
 
 
 

@@ -113,4 +113,25 @@ class RoleController extends Controller
        $role->delete();
         return redirect()->route('roles.index')->with(['message'=>'Xóa vai trò thành công!']);
     }
+
+    // search
+    public function search (){
+        $key = $_GET['key'];
+
+        $search_text = trim($key);
+
+        try {
+            if($search_text == null){
+             return redirect()->route('roles.index');
+            }else {
+            $listRole=Role::where('id','LIKE', '%'.$search_text.'%')
+            ->orwhere('role_name','LIKE', '%'.$search_text.'%')
+            ->paginate(15);
+        }
+
+        return view('pages.roles.list', compact('listRole'));
+        } catch (\Throwable $th) {
+            return $th;
+        }
+    }
 }

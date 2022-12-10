@@ -17,7 +17,6 @@ class Schedule extends Model
         'phone',
         'email',
         'address',
-        'cmnd',
         'content',
         'date',
         'status',
@@ -33,7 +32,6 @@ class Schedule extends Model
         'phone',
         'email',
         'address',
-        'cmnd',
         'content',
         'date'
     ];
