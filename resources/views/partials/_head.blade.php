@@ -3,6 +3,7 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('page-title')</title>
+	<link rel="icon" href="{{ asset('assets/img/favicon.ico') }}">
 
 
 <!--STYLESHEET-->
