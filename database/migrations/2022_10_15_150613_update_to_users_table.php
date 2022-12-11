@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('birthday')->nullable()->comment('sinh nhat customer');
             $table->tinyInteger('gender')->nullable();
             $table->string('cmnd')->nullable();
-            $table->text('address')->nullable()->default('');
+            $table->string('address')->nullable();
             $table->tinyInteger('is_active')->nullable()->default(1)->comment('disable hay active');
         });
     }
