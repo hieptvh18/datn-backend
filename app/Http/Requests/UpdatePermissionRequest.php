@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class PermissionRequest extends FormRequest
+class UpdatePermissionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -23,8 +24,10 @@ class PermissionRequest extends FormRequest
      */
     public function rules()
     {
+        $id = $this->request->get('id');
         return [
-            'permission_name'=>['required', 'unique:permissions'],
+            'permission_name'=>['required'],
+            'permission_name'=>[Rule::unique('permissions')->ignore($id, 'id')],
             'childrent'=>'required|min:1',
         ];
     }
