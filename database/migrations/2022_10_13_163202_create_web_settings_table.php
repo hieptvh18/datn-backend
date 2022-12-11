@@ -24,12 +24,12 @@ return new class extends Migration
             $table->string('twitter_url',255)->nullable()->default('https://facebook.com')->comment('twitter_url');
             $table->string('instagram_url',255)->nullable()->default('https://facebook.com')->comment('instagram_url');
             $table->string('youtobe_url',255)->nullable()->default('https://facebook.com')->comment('youtobe_url');
-            $table->text('address')->default('ngõ 155, đường Cầu Giấy')->comment('dia chi');
+            $table->text('address')->comment('dia chi');
             $table->string('open_time')->comment('gio mo cua');
             $table->string('close_time')->comment('gio dong cua');
             $table->date('start_date')->comment('ngay bat dau lam viec trong tuan');
             $table->date('end_date')->comment('ngay ket thuc trong tuan');
-            $table->text('short_introduce')->nullable()->comment('gioi thieu ngan')->default('Triết lý của ĐỨC NGHĨA sẽ giúp bạn khỏe mạnh, hạnh phúc vì chúng tôi hiểu vai trò quan trọng trong sức khỏe răng miệng của bạn.');
+            $table->text('short_introduce')->nullable()->comment('gioi thieu ngan');
             $table->longText('introduce')->comment('gioi thieu chi tiet ve chung toi');
             $table->timestamps();
         });
