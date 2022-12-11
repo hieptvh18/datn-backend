@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Nội dung bài viết</label>
                     <div class="col-sm-9">
-                        <textarea placeholder="Chức năng của chuyên khoa" id="demo-hor-function" class="form-control" name="content">{{ $news->content }}</textarea>
+                        <textarea placeholder="Chức năng của chuyên khoa" id="demo-hor-function" class="ckeditor form-control" name="content">{{ $news->content }}</textarea>
                         @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
