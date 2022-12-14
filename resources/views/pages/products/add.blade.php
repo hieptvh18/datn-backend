@@ -29,7 +29,7 @@
                         <select name="type_id" id="type_id" class="form-control">
                             @foreach ($types as $type)
                                 <option value="{{$type->id}}">{{$type->name}}</option>
-                            @endforeach    
+                            @endforeach
                         </select>
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
@@ -67,8 +67,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Thêm mới</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

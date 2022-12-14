@@ -4,7 +4,7 @@
 @section('content')
 <div class="col-md-6 col-lg-4">
     <div class="login-wrap p-0">
-        <h3 class="mb-4 text-center">Bạn chưa có tài khoản ? Đăng kí tại đây</h3>
+        <h3 class="mb-4 text-center">Nha khoa Đức Nghĩa</h3>
 
         <form method="POST" action="{{ route('postChangePassword', $admin->id) }}" class="signin-form">
             @csrf

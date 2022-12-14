@@ -92,7 +92,7 @@
                                                 Browse... <input type="file" name="file">
                                             </span>
                                         </div>
-                                    </div>                         
+                                    </div>
                                         <button class="btn btn-default" title="Nhập danh sách">
                                         <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
                                     @error('file')
