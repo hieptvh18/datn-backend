@@ -16,9 +16,10 @@
                         <div class="panel">
                             <div class="panel-heading">
                                 <h3 class="panel-title">Mô-đun</h3>
+                                <input type="hidden" class="form-control" name="id" value="{{ $permission->id }}">
                             </div>
                             <div class="panel-body">
-                                <select id="demo-select2" name="parent" class="demo_select2 form-control">
+                                <select id="demo-select2" name="permission_name" class="demo_select2 form-control">
                                     <optgroup label="Select permission parent">
                                         @foreach (Config::get('permissions.parent') as $key => $parent)
                                         @if ($permission->permission_name == $key)
@@ -31,7 +32,7 @@
                                         @endforeach
                                     </optgroup>
                                 </select>
-                                @error('parent')
+                                @error('permission_name')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>

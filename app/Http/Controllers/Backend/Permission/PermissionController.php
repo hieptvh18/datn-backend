@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Permission;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\PermissionRequest;
+use App\Http\Requests\UpdatePermissionRequest;
 use App\Models\Permission;
 use Illuminate\Http\Request;
 
@@ -41,15 +42,15 @@ class PermissionController extends Controller
     {
 
         $parentPermission = new Permission();
-        $parentPermission->permission_name = $request->parent;
+        $parentPermission->permission_name = $request->permission_name;
         $parentPermission->permission_key_code = '';
         $parentPermission->parent_id = 0;
         $parentPermission->save();
 
         foreach ($request->childrent as $childrent) {
             $parentPermission->getChildrentPermission()->create([
-                'permission_name' => $childrent . ' ' . $request->parent,
-                'permission_key_code' => $childrent . '_' . $request->parent,
+                'permission_name' => $childrent . ' ' . $request->permission_name,
+                'permission_key_code' => $childrent . '_' . $request->permission_name,
                 'parent_id' => $parentPermission->id
             ]);
         }
@@ -87,7 +88,7 @@ class PermissionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(PermissionRequest $request, $id)
+    public function update(UpdatePermissionRequest $request, $id)
     {
         $permission = Permission::find($id);
 
@@ -100,8 +101,8 @@ class PermissionController extends Controller
 
         foreach ($request->childrent as $childrent) {
             $permission->getChildrentPermission()->create([
-                'permission_name' => $childrent . ' ' . $request->parent,
-                'permission_key_code' => $childrent . '_' . $request->parent,
+                'permission_name' => $childrent . ' ' . $request->permission_name,
+                'permission_key_code' => $childrent . '_' . $request->permission_name,
                 'parent_id' => $permission->id
             ]);
         }
