@@ -4,7 +4,7 @@
 @section('content')
 <div class="col-md-6 col-lg-4">
     <div class="login-wrap p-0">
-        <h3 class="mb-4 text-center">Bạn chưa có tài khoản ? Đăng kí tại đây</h3>
+        <h3 class="mb-4 text-center">Nha khoa Đức Nghĩa</h3>
 
         <form method="POST" action="{{ route('postLogin') }}" class="signin-form">
             @csrf
@@ -36,7 +36,7 @@
             </div>
             <div class="form-group d-md-flex">
                 <div class="w-50">
-                    <label class="checkbox-wrap checkbox-primary">Remember Me
+                    <label class="checkbox-wrap checkbox-primary">Ghi nhớ tài khoản
                         <input type="checkbox" checked name="remember">
                         <span class="checkmark"></span>
                     </label>

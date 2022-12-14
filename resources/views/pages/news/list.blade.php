@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 <a href="{{ route('news.create') }}">
-                                    <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
+                                    <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm</button>
                                 </a>
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
@@ -77,14 +77,14 @@
                                         <td>{{ substr($news->content, 0,50) }}...</td>
                                         <td class="text-center">
 
-                                            <a href="{{ route('news.edit', $news->id) }}" class="label label-table label-success">Edit</a>
+                                            <a href="{{ route('news.edit', $news->id) }}" class="label label-table label-success">Sửa</a>
 
 
                                             <form id="deleteForm{{ $news->id }}" action="{{ route('news.delete', $news->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                         </form>
-                                        <button data-form="deleteForm{{$news->id}}" class="label label-table label-danger btn-delete" style="border: none" >Delete</button>
+                                        <button data-form="deleteForm{{$news->id}}" class="label label-table label-danger btn-delete" style="border: none" >Xóa</button>
                                         </td>
                                     </tr>
                                 @endforeach

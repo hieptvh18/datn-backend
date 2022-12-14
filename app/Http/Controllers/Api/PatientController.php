@@ -92,7 +92,7 @@ class PatientController extends Controller
                 $query->select('id', 'name', 'description');
             }])->with(['AdminRoom'=>function($query){
                 $query->select('id', 'room_name', 'achievement', 'history', 'mission');
-            }])->get(['id', 'fullname', 'room_id', 'level_id', 'specialist_id', 'avatar']);
+            }])->get(['id', 'fullname', 'room_id', 'level_id', 'specialist_id', 'avatar', 'description']);
             return response()->json([
                 'success'=>true,
                 'message'=>'Danh sách bác sĩ!',

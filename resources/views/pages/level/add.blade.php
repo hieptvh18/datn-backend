@@ -28,13 +28,13 @@
                     <div class="col-md-9">
 
                         <textarea name="description" id="description" cols="30" rows="5" class="ckeditor form-control">{{ old('description') }}</textarea>
-                        
+
                     </div>
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Thêm mới</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

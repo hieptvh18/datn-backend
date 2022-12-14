@@ -83,7 +83,7 @@
             </div>
             <div class="panel-footer text-right">
                 <button class="btn btn-primary" type="submit">Tạo hóa đơn</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->
