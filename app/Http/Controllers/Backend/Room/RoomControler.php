@@ -102,7 +102,7 @@ class RoomControler extends Controller
         $account_admin = Admin::where('room_id', $room->id)->get();
 
         foreach($account_admin as $item){
-            Admin::where('id', $item->id)->update(['room_id'=>001]);
+            Admin::where('id', $item->id)->update(['room_id'=>0]);
         }
 
        $room->delete();
