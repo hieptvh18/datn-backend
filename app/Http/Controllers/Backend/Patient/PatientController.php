@@ -31,7 +31,7 @@ class PatientController extends Controller
     public function index()
     {
         $pageTitle = 'Hồ sơ bệnh án';
-        $patients = Patient::sortable()->orderBy('id', 'desc')->paginate(20);
+        $patients = Patient::where('is_deleted', 0)->sortable()->orderBy('id', 'desc')->paginate(20);
         return view('pages.patients.list', compact('patients', 'pageTitle'));
     }
 
@@ -212,8 +212,11 @@ class PatientController extends Controller
     public function destroy($id)
     {
         try {
-            if (Patient::find($id)) {
-                Patient::destroy($id);
+            $patient = Patient::find($id);
+            if ($patient) {
+                // Patient::destroy($id);
+                $patient->is_deleted = 1;
+                $patient->update();
                 return redirect()->back()->with('message', 'Xóa thành công!');
             }
         } catch (Exception $e) {
@@ -254,12 +257,17 @@ class PatientController extends Controller
                 return redirect()->route('patient.index');
             } else {
                 $patients = Patient::sortable()->where('id', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('customer_name', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('phone', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('description', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('birthday', 'LIKE', '%' . $search_text . '%')
-                    ->orwhere('cmnd', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('address', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->paginate(15);
             }
 
