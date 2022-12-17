@@ -85,7 +85,7 @@
     <script>
         @if (session('message'))
             Swal.fire({
-                position: 'bottom-end',
+                position: 'center',
                 icon: 'success',
                 title: '{{ session('message') }}',
                 showConfirmButton: false,
@@ -94,7 +94,7 @@
         @endif
         @if (session('error'))
             Swal.fire({
-                position: 'top-end',
+                position: 'center',
                 icon: 'error',
                 title: '{{ session('error') }}',
                 showConfirmButton: true,

@@ -14,9 +14,7 @@
                     <div class="col-sm-6 table-toolbar-left">
                         <a href="{{ route('service.create') }}"><button id="demo-btn-addrow" class="btn btn-purple"><i
                                     class="demo-pli-add"></i> Thêm dịch vụ</button></a>
-                        {{-- <button class="btn btn-default"><i class="demo-pli-printer"></i></button> --}}
                         <div class="btn-group">
-                            {{-- <button class="btn btn-default"><i class="demo-pli-exclamation"></i></button> --}}
                             <button class="btn btn-default" id="multi-delete" data-route="{{ route('service.deleteSelected') }}"><i
                                     class="demo-pli-recycling"></i></button>
                         </div>
@@ -63,7 +61,7 @@
                                 </td>
                                 <td>
                                     <a href="{{ route('service.edit', $item->id) }}"
-                                        class="label label-table label-success">Edit</a>
+                                        class="label label-table label-success">Sửa</a>
 
 
                                     <form id="deleteForm{{ $item->id }}"
@@ -73,7 +71,7 @@
                                     </form>
                                     <button data-form="deleteForm{{ $item->id }}"
                                         class="label label-table label-danger btn-delete"
-                                        style="border: none">Delete</button>
+                                        style="border: none">Xóa</button>
                                 </td>
                             </tr>
                         @endforeach

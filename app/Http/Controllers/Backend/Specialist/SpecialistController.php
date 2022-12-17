@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Specialist;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\SpecialistRequest;
+use App\Models\Admin;
 use App\Models\Specialist;
 use App\Models\SpecialistGallery;
 use Exception;
@@ -97,6 +98,13 @@ class SpecialistController extends Controller
     {
         try {
             if (Specialist::find($id)) {
+                $admins = Admin::where('specialist_id', $id)->get();
+                foreach($admins as $admin){
+                    $changeValAdmin = Admin::find($admin->id);
+                    $changeValAdmin->specialist_id = 0;
+                    $changeValAdmin->update();
+                };
+
                 $specialistGallery = SpecialistGallery::where('specialist_id', $id)->get();
 
                 // delete list image saved in storage
@@ -105,6 +113,7 @@ class SpecialistController extends Controller
                         unlink(public_path($item->path));
                     }
                 }
+
                 Specialist::destroy($id);
                 return redirect()->back()->with('message', 'Xóa thành công chuyên khoa.');
             }

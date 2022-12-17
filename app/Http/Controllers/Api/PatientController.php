@@ -86,13 +86,13 @@ class PatientController extends Controller
             foreach($list_role_doctor as $role) {
                 array_push($id_role_doctor, $role->admin_id);
             }
-            $list_doctor = Admin::where('is_active', 1)->whereIn('id', $id_role_doctor)->with(['AdminSpecialist'=>function($query){
+            $list_doctor = Admin::select('*')->where('is_active', 1)->whereIn('id', $id_role_doctor)->with(['AdminSpecialist'=>function($query){
                 $query->select('id', 'specialist_name', 'function', 'description');
             }])->with(['AdminLevel'=>function($query){
                 $query->select('id', 'name', 'description');
             }])->with(['AdminRoom'=>function($query){
                 $query->select('id', 'room_name', 'achievement', 'history', 'mission');
-            }])->get(['id', 'fullname', 'room_id', 'level_id', 'specialist_id', 'avatar']);
+            }])->get(['id', 'fullname', 'room_id', 'level_id', 'specialist_id', 'avatar', 'description']);
             return response()->json([
                 'success'=>true,
                 'message'=>'Danh sách bác sĩ!',

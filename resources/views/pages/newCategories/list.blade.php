@@ -72,7 +72,7 @@
                                 <td><img src="{{ asset($item->category_image) }}" alt="" width="100"></td>
                                 <td>
                                     <a href="{{ route('newCategories.edit', $item->id) }}"
-                                        class="label label-table label-success">Edit</a>
+                                        class="label label-table label-success">Sửa</a>
 
 
                                     <form id="deleteForm{{ $item->id }}"
@@ -82,7 +82,7 @@
                                     </form>
                                     <button data-form="deleteForm{{ $item->id }}"
                                         class="label label-table label-danger btn-delete"
-                                        style="border: none">Delete</button>
+                                        style="border: none">Xóa</button>
                                 </td>
                             </tr>
                         @endforeach

@@ -71,7 +71,7 @@
                             <option value="{{ $doctor->id }}" {{ (collect(old('doctor'))->contains($doctor->id)) ? 'selected':'' }}>{{ $doctor->fullname }}</option>
                             @endforeach
                             @else
-                            <option value="">No results doctor</option>
+                            <option value="">Không có bác sĩ!</option>
                             @endif
                         </select>
                     </div>
@@ -131,8 +131,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Thêm mới</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

@@ -53,9 +53,9 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary">Save</button>
-                    <button class="btn btn-danger" type="reset">Reset</button>
-                    <a href="{{ route('permissions.index') }}" class="btn btn-info">Back</a>
+                    <button class="btn btn-primary">Thêm mới</button>
+                    <button class="btn btn-danger" type="reset">Nhập lại</button>
+                    <a href="{{ route('permissions.index') }}" class="btn btn-info">Quay lại</a>
 
                 </form>
                 <!--===================================================-->

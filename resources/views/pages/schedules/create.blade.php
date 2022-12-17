@@ -148,8 +148,8 @@
 
 
                     <button data-form="sendNotifi" type="button" class="confirm-sms btn btn-primary">Lưu thay đổi</button>
-                    <button class="btn btn-danger" type="reset">Reset</button>
-                    <a href="{{ route('schedules.index') }}" class="btn btn-info">Back</a>
+                    <button class="btn btn-danger" type="reset">Nhập lại</button>
+                    <a href="{{ route('schedules.index') }}" class="btn btn-info">Quay lại</a>
 
                 </form>
                 <!--===================================================-->

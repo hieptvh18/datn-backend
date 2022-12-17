@@ -29,7 +29,7 @@ class ScheduleController extends Controller
     public function index(Request $request)
     {
         try {
-            $listSchedules = Schedule::sortable();
+            $listSchedules = Schedule::where('is_deleted', 0)->sortable();
             // dd($listSchedules->toSql());
             if (isset($request->start)) {
                 $startDate = date('Y-m-d', strtotime($request->start));
@@ -193,8 +193,9 @@ class ScheduleController extends Controller
     public function destroy($id)
     {
         $schedule = Schedule::find($id);
-        $schedule->schedule_services()->detach();
-        $schedule->delete();
+        $schedule->is_deleted = 1;
+        // $schedule->schedule_services()->detach();
+        $schedule->update();
         // Schedule::destroy($id);
         return redirect()->route('schedules.index')->with(['message' => 'Xóa lịch khám thành công!']);
     }
@@ -210,15 +211,23 @@ class ScheduleController extends Controller
                 return redirect()->route('schedules.index');
             } else {
                 $listSchedules = Schedule::where('id', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('fullname', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('birthday', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('gender', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('phone', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('email', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('address', 'LIKE', '%' . $search_text . '%')
-                    ->orwhere('cmnd', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('content', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->orwhere('date', 'LIKE', '%' . $search_text . '%')
+                    ->where('is_deleted', 0)
                     ->paginate(15);
             }
             return view('pages.schedules.list', compact('listSchedules'));
