@@ -16,6 +16,8 @@ use Illuminate\Support\Facades\Mail;
 use PDF;
 use App\Mail\EmailConfirmSchedule;
 use App\Models\User;
+use App\Models\WebSetting;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -146,10 +148,13 @@ class OrderController extends Controller
         $services = Service::whereIn('id', $service_id)->select('service_name', 'price')->get();
         $total = $order->total;
 
+        $logoWeb =  Auth::guard('admin')->id() ? WebSetting::where('id', 1)->first(['logo']) : [];
+
         $options = new Options();
         $options->setDefaultFont('Dejavu Sans');
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
+        // $path = base_path("public/$logoWeb->logo");
         $path = base_path('public/assets/img/logo-logo.jpg');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
