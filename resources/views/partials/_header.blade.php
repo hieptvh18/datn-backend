@@ -4,7 +4,7 @@
         <!--Brand logo & name-->
         <!--================================-->
         <div class="navbar-header">
-            <a href="http://localhost:3000/" class="navbar-brand">
+            <a href="https://nhakhoaducnghia.vercel.app/" class="navbar-brand">
                 <img src="{{ asset($logoWeb->logo) }}" alt="DN Logo" width="100%" class="brand-icon">
                 {{-- <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon"> --}}
                 {{-- <div class="brand-title">
