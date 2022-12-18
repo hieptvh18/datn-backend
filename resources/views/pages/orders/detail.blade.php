@@ -7,7 +7,7 @@
                 <div class="panel-heading">
                     <div class="row" style="display: flex; width: 95%; margin: 0 auto; padding: 25px 0">
                         <div class="col-sm-1" style="margin-top: -42px">
-                            <img src="{{asset('assets/img/logo-DN.png')}}" width="200px"  style="padding-top: 17px;" alt="">
+                            <img src="{{asset($logoWeb->logo)}}" width="200px"  style="padding-top: 17px;" alt="">
                         </div>
                         <div class="col-sm-8" style="text-align: center; margin: 12px 0 0 140px ; line-height: 25px">
                             <h4>PHÒNG KHÁM NHA KHOA ĐỨC NGHĨA</h4>

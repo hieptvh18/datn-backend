@@ -13,7 +13,7 @@ class PatientController extends Controller
 {
     public function list ($phone){
         try {
-            $listPatient = Patient::where('phone', $phone)->get();
+            $listPatient = Patient::where('phone', $phone)->where('is_deleted', 0)->get();
             return response()->json([
                 'success'=>true,
                 'message'=>'Danh sách bệnh án của bệnh nhân có sđt '. $phone,
@@ -30,13 +30,13 @@ class PatientController extends Controller
     }
     public function detail ($phone, $patientId){
         try {
-            $patient = Patient::where('phone', $phone)->where('id', $patientId)->with(['service_patients'=>function($query){
+            $patient = Patient::where('phone', $phone)->where('id', $patientId)->where('is_deleted', 0)->with(['service_patients'=>function($query){
                 $query->select('service_name','price');
             }])->with(['patient_doctors'=>function($query){
                 $query->select('fullname');
             }])->with(['patient_products'=>function($query){
                 $query->select('name','price');
-            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date",'token_url']);
+            }])->first(["id", "customer_name", "phone", "birthday", "description", "address", "schedule_id", "date",'token_url']);
             return response()->json([
                 'success'=>true,
                 'message'=>'Chi tiết bệnh án của bệnh nhân có sđt '. $phone,
@@ -54,13 +54,13 @@ class PatientController extends Controller
 
     public function detailById ($token, $id){
         try {
-            $patient = Patient::where('id', $id)->where('token_url', $token)->with(['service_patients'=>function($query){
+            $patient = Patient::where('id', $id)->where('token_url', $token)->where('is_deleted', 0)->with(['service_patients'=>function($query){
                 $query->select('service_name','price');
             }])->with(['patient_doctors'=>function($query){
                 $query->select('fullname');
             }])->with(['patient_products'=>function($query){
                 $query->select('name','price');
-            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date",'token_url']);
+            }])->first(["id", "customer_name", "phone", "birthday", "description", "address", "schedule_id", "date",'token_url']);
             return response()->json([
                 'success'=>true,
                 'message'=>'Chi tiết bệnh án của 1 bệnh nhân',
