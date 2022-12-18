@@ -109,3 +109,7 @@ $(function() {
     // $("#datepickerPast").datepicker({ startDate: new Date() });
     $("#datepicker_Past").datepicker({ minDate: new Date() });
 });
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

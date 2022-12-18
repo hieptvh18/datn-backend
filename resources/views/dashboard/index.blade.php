@@ -117,9 +117,8 @@
                             <hr>
 
                             <div class="pad-rgt">
-                                <p class="text-semibold text-uppercase text-main">Today Tips</p>
-                                <p class="text-muted mar-top">Lorem ipsum dolor sit amet, consectetuer
-                                    adipiscing elit, sed diam nonummy nibh euismod tincidunt.</p>
+                                <p class="text-semibold text-uppercase text-main">Sắp xếp công việc khoa học</p>
+                                <p class="text-muted mar-top">Việc đặt lịch hẹn online nhanh chóng mọi lúc mọi nơi giúp tăng sự chủ động tối đa về mặt thời gian cho các y bác sĩ, lễ tân và cả bệnh nhân đến khám chữa.</p>
                             </div>
                         </div>
 
@@ -283,7 +282,7 @@
                     </div>
                     <div class="col-sm-8">
                         <button class="btn btn-pink mar-ver">View Details</button>
-                        <p class="text-xs">Lorem ipsum dolor sit amet, consectetuer adipiscing elit.</p>
+                        <p class="text-xs">Thành công bắt nguồn từ đam mê và sự tận tâm.</p>
                         <ul class="list-unstyled text-center bord-top pad-top mar-no row">
                             <li class="col-xs-4">
                                 <span class="text-lg text-semibold text-main">1,345</span>
@@ -318,7 +317,7 @@
                     </div>
                 </div>
                 <div class="media-body">
-                    <p class="text-2x mar-no text-semibold">241</p>
+                    <p class="text-2x mar-no text-semibold" id="total_patient"></p>
                     <p class="mar-no">Số lượng bệnh nhân</p>
                 </div>
             </div>
@@ -331,8 +330,8 @@
                     </div>
                 </div>
                 <div class="media-body">
-                    <p class="text-2x mar-no text-semibold">10</p>
-                    <p class="mar-no">Số lượng nhân sự</p>
+                    <p class="text-2x mar-no text-semibold" id="total_schedule"></p>
+                    <p class="mar-no">Số lượng đặt lịch</p>
                 </div>
             </div>
         </div>
@@ -344,7 +343,7 @@
                     </div>
                 </div>
                 <div class="media-body">
-                    <p class="text-2x mar-no text-semibold">20.999.000</p>
+                    <p class="text-2x mar-no text-semibold" id="total_sum"></p>
                     <p class="mar-no">Doanh thu tổng</p>
                 </div>
             </div>
@@ -487,6 +486,10 @@
                 data: {date_from:from, date_to:to},
                 success: function (data) {
                     chart.setData(data.schedule)
+                    $("#total_patient").html(data.patient[0].patient_count);
+                    $("#total_schedule").html(data.schedule[0].schedule_count);
+                    $("#total_sum").html(numberWithCommas(data.sum[0].sum));
+
                     chart1.setData(data.patient)
                     chart2.setData(data.sum)
                 }
