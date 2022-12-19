@@ -486,10 +486,24 @@
                 data: {date_from:from, date_to:to},
                 success: function (data) {
                     chart.setData(data.schedule)
-                    $("#total_patient").html(data.patient[0].patient_count);
-                    $("#total_schedule").html(data.schedule[0].schedule_count);
-                    $("#total_sum").html(numberWithCommas(data.sum[0].sum));
-
+                    var total = 0;
+                    var total_schedule = 0;
+                    var total_patient = 0;
+                    $.each(data.sum, function(key, value) {
+                        var number = parseFloat(value.sum); //Convert to numbers with parseFloat
+                        total += number;
+                    });
+                    $.each(data.schedule, function(key, value) {
+                        var number = parseFloat(value.schedule_count); //Convert to numbers with parseFloat
+                        total_schedule += number;
+                    });
+                    $.each(data.patient, function(key, value) {
+                        var number = parseFloat(value.patient_count); //Convert to numbers with parseFloat
+                        total_patient += number;
+                    });
+                    $("#total_sum").html(numberWithCommas(total));
+                    $("#total_patient").html(total_patient);
+                    $("#total_schedule").html(total_schedule);
                     chart1.setData(data.patient)
                     chart2.setData(data.sum)
                 }
