@@ -181,6 +181,7 @@
                     $(this).addClass('confirm-sms');
                 }else{
                     $(this).removeClass('confirm-sms');
+                    $('form#sendNotifi').submit();
                     // $('form[name=formPostUpdateSchedule]').submit();
                 }
             })
