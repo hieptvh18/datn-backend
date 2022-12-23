@@ -68,7 +68,7 @@
                 <!--chart placeholder-->
                 <div class="pad-all">
                     {{-- <div id="demo-chart-network" style="height: 255px"></div> --}}
-                    <div id="myfirstchart" style="height: 278px; padding: 0px;
+                    <div id="myfirstchart" style="height: 250px; padding: 0px;
                     position: relative;"></div>
                 </div>
 
@@ -78,9 +78,12 @@
 
                     <div class="row">
                         <div class="col-lg-8">
-                            <p class="text-semibold text-uppercase text-main">THỜI TIẾT</p>
+                            <p class="text-semibold text-uppercase text-main">Thống kê dịch vụ </p>
+                            <p>Tổng số lượng dịch vụ: <span id="totalService"></span></p>
                             <div class="row">
-                                <div class="col-xs-5">
+                                <div id="myfirstchartServices" style="height: 180px; width: 669px; padding: 0px;
+                                position: relative;"></div>
+                                {{-- <div class="col-xs-5">
                                     <div class="media">
                                         <div class="media-left">
                                             <span class="text-3x text-thin text-main">43.7</span>
@@ -89,8 +92,8 @@
                                             <p class="mar-no">°C</p>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-xs-7 text-sm">
+                                </div> --}}
+                                {{-- <div class="col-xs-7 text-sm">
                                     <p>
                                         <span>Min Values</span>
                                         <span class="pad-lft text-semibold">
@@ -111,18 +114,18 @@
                                             </span>
                                         </span>
                                     </p>
-                                </div>
+                                </div> --}}
                             </div>
 
-                            <hr>
+                            {{-- <hr> --}}
 
-                            <div class="pad-rgt">
+                            {{-- <div class="pad-rgt">
                                 <p class="text-semibold text-uppercase text-main">Sắp xếp công việc khoa học</p>
                                 <p class="text-muted mar-top">Việc đặt lịch hẹn online nhanh chóng mọi lúc mọi nơi giúp tăng sự chủ động tối đa về mặt thời gian cho các y bác sĩ, lễ tân và cả bệnh nhân đến khám chữa.</p>
-                            </div>
+                            </div> --}}
                         </div>
 
-                        <div class="col-lg-4">
+                        {{-- <div class="col-lg-4">
                             <p class="text-uppercase text-semibold text-main">Băng thông sử dụng</p>
                             <ul class="list-unstyled">
                                 <li>
@@ -158,8 +161,9 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div> --}}
                     </div>
+
                 </div>
 
 
@@ -170,102 +174,12 @@
         </div>
         <div class="col-lg-5">
             <div class="row"  style="margin: 0">
-                {{-- <div class="col-sm-6 col-lg-6">
 
-                    <!--Sparkline Area Chart-->
-                    <div class="panel panel-success panel-colorful" >
-                        <div class="pad-all">
-                            <p class="text-lg text-semibold"><i class="demo-pli-data-storage icon-fw"></i> HDD Usage</p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">132Gb</span> Free Space
-                            </p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">1,45Gb</span> Used space
-                            </p>
-                        </div>
-                        <div class="pad-top text-center">
-                            <!--Placeholder-->
-                            <div id="demo-sparkline-area" class="sparklines-full-content"></div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-6">
-
-                    <!--Sparkline Line Chart-->
-                    <div class="panel panel-info panel-colorful">
-                        <div class="pad-all">
-                            <p class="text-lg text-semibold">Earning</p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">$764</span> Today
-                            </p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">$1,332</span> Last 7 Day
-                            </p>
-                        </div>
-                        <div class="pad-top text-center">
-
-                            <!--Placeholder-->
-                            <div id="demo-sparkline-line" class="sparklines-full-content"></div>
-
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="bg-gray-light panel" id="myfirstchart1" style="height: 190px"></div>
 
             </div>
             <div class="row" style="margin: 0">
-                {{-- <div class="col-sm-6 col-lg-6">
 
-                    <!--Sparkline bar chart -->
-                    <div class="panel panel-purple panel-colorful" >
-                        <div class="pad-all">
-                            <p class="text-lg text-semibold"><i class="demo-pli-basket-coins icon-fw"></i> Sales</p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">$764</span> Today
-                            </p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">$1,332</span> Last 7 Day
-                            </p>
-                        </div>
-                        <div class="text-center">
-
-                            <!--Placeholder-->
-                            <div id="demo-sparkline-bar" class="box-inline"></div>
-
-                        </div>
-                    </div>
-                </div>
-                <div class="col-sm-6 col-lg-6">
-
-                    <!--Sparkline pie chart -->
-                    <div class="panel panel-warning panel-colorful" >
-                        <div class="pad-all">
-                            <p class="text-lg text-semibold">Task Progress</p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">34</span> Completed
-                            </p>
-                            <p class="mar-no">
-                                <span class="pull-right text-bold">79</span> Total
-                            </p>
-                        </div>
-                        <div class="pad-all">
-                            <div class="pad-btm">
-                                <div class="progress progress-sm">
-                                    <div style="width: 45%;" class="progress-bar progress-bar-light">
-                                        <span class="sr-only">45%</span>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="pad-btm">
-                                <div class="progress progress-sm">
-                                    <div style="width: 89%;" class="progress-bar progress-bar-light">
-                                        <span class="sr-only">89%</span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="bg-gray-light panel" id="myfirstchart2" style="height: 190px"></div>
             </div>
 
@@ -276,25 +190,25 @@
                 <div class="panel-body text-center clearfix">
                     <div class="col-sm-4 pad-top">
                         <div class="text-lg">
-                            <p class="text-5x text-thin text-main">95</p>
+                            <p class="text-5x text-thin text-main" id="totalProduct" ></p>
                         </div>
-                        <p class="text-sm text-bold text-uppercase">New Friends</p>
+                        <p class="text-sm text-bold text-uppercase">Thuốc</p>
                     </div>
                     <div class="col-sm-8">
                         <button class="btn btn-pink mar-ver">View Details</button>
                         <p class="text-xs">Thành công bắt nguồn từ đam mê và sự tận tâm.</p>
                         <ul class="list-unstyled text-center bord-top pad-top mar-no row">
                             <li class="col-xs-4">
-                                <span class="text-lg text-semibold text-main">1,345</span>
-                                <p class="text-sm text-muted mar-no">Following</p>
+                                <span class="text-lg text-semibold text-main" id="totalEquipment"></span>
+                                <p class="text-sm text-muted mar-no">Trang thiết bị</p>
                             </li>
                             <li class="col-xs-4">
-                                <span class="text-lg text-semibold text-main">23K</span>
-                                <p class="text-sm text-muted mar-no">Followers</p>
+                                <span class="text-lg text-semibold text-main" id="totalStaff"></span>
+                                <p class="text-sm text-muted mar-no">Nhân viên</p>
                             </li>
                             <li class="col-xs-4">
-                                <span class="text-lg text-semibold text-main">278</span>
-                                <p class="text-sm text-muted mar-no">Post</p>
+                                <span class="text-lg text-semibold text-main" id="totalNew"></span>
+                                <p class="text-sm text-muted mar-no">Tin tức</p>
                             </li>
                         </ul>
                     </div>
@@ -356,8 +270,8 @@
                     </div>
                 </div>
                 <div class="media-body">
-                    <p class="text-2x mar-no text-semibold">241</p>
-                    <p class="mar-no">Videos</p>
+                    <p class="text-bold mar-no text-semibold" style="font-size: 20px" ><span id="maxServiceName"></span> :&nbsp;<span id="maxService"></span></p>
+                    <p class="mar-no">Dịch vụ được sử dụng nhiều</p>
                 </div>
             </div>
         </div>
@@ -390,6 +304,7 @@
                     chart.setData(data.schedule)
                     chart1.setData(data.patient)
                     chart2.setData(data.sum)
+                    chartServices.setData(data.service)
                 }
             });
          });
@@ -423,6 +338,7 @@
                     chart.setData(data.schedule)
                     chart1.setData(data.patient)
                     chart2.setData(data.sum)
+                    chartServices.setData(data.service)
                 }
             });
         });
@@ -471,6 +387,24 @@
         labels: ['Doanh thu']
         });
 
+        var chartServices =  new Morris.Bar({
+        element: 'myfirstchartServices',
+        lineColors:['#819C79', '#fc8710', '#FF6541', '#A4ADD3', '#766B56'],
+        pointFillColors: ['#ffffff'],
+        pointStrokeColors:['black'],
+        fillOpacity:0.6,
+        hiddeHover:'auto',
+        parseTime: false,
+        xkey: 'serviceName',
+        ykeys: ['totalService', 'day', 'month', 'year'],
+        behaveLikeLine:true,
+        labels: ['Số lượng sử dụng', 'Ngày', 'Tháng', 'Năm'],
+        xLabelFormat: function (x) {
+            return "Tên dịch vụ: " + x.src.serviceName ;
+        },
+        });
+
+
         function defaultStatistic() {
             var now = new Date();
             var from = new Date(now.setDate(now.getDate() - 365)).toJSON().slice(0, 10);
@@ -506,6 +440,18 @@
                     $("#total_schedule").html(total_schedule);
                     chart1.setData(data.patient)
                     chart2.setData(data.sum)
+                    chartServices.setData(data.service)
+                    $("#maxService").html(data.maxSer[0].numCount);
+                    $("#maxServiceName").html(data.maxSer[0].service_name);
+                    $("#totalService").html(data.totalSer[0].totalSer);
+
+                    $("#totalEquipment").html(data.equipment[0].countEquipment);
+                    $("#totalProduct").html(data.product[0].countProduct);
+                    $("#totalStaff").html(data.staff[0].countStaff);
+                    $("#totalNew").html(data.new[0].countNew);
+
+                    // console.log(">>>>>>>><<<<<<<<<<", data.equipment);
+
                 }
             });
         };
