@@ -14,7 +14,7 @@ return new class extends Migration
     public function up()
     {
         Schema::table('orders', function (Blueprint $table) {
-            $table->text('product_id_hdsd')->comment('Bảng chứa product_id nối với hdsd ở orders');
+            $table->text('product_id_hdsd')->nullable()->comment('Bảng chứa product_id nối với hdsd ở orders');
         });
     }
 
