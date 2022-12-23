@@ -447,7 +447,7 @@
 
                     $("#totalEquipment").html(data.equipment[0].countEquipment);
                     $("#totalProduct").html(data.product[0].countProduct);
-                    $("#totalStaff").html(data.staff[0].countStaff);
+                    $("#totalStaff").html(data.staff[0].countStaff - 1);
                     $("#totalNew").html(data.new[0].countNew);
 
                     // console.log(">>>>>>>><<<<<<<<<<", data.equipment);
