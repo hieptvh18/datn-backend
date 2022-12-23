@@ -65,7 +65,8 @@ class PatientController extends Controller
             $patient->save();
             $patient->patient_doctors()->attach($request->doctor);
             $patient->patient_products()->attach($request->product);
-            $patient->service_patients()->attach($request->service);
+            // $patient->service_patients()->attach($request->service);
+            $patient->service_patients()->attach($request->service, array('date'=>date('Y-m-d', strtotime($request->date))));
 
             $schedule = Schedule::find($request->schedule_id);
             $schedule->status = 3;

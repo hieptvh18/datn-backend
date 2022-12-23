@@ -1,4 +1,6 @@
 <?php
+
+use Illuminate\Support\Facades\DB;
 use Twilio\Rest\Client;
 
 function randomString($length = 10) {
@@ -44,3 +46,31 @@ if (!function_exists('sendSms')) {
         );
     }
 }
+
+if(!function_exists('getMaxTable')){
+    function getMaxTable ($table, $joinTable, $column=array()) {
+        $max = DB::select(DB::raw("select $column[0], $column[1], numCount
+        from (
+            SELECT o.$column[0] as $column[0], e.$column[1] as $column[1] ,COUNT(o.$column[0]) AS numCount
+            , max(COUNT(o.$column[0])) over() as maxof
+            FROM $table o
+            LEFT JOIN $joinTable e
+            ON o.$column[0] = e.id
+            GROUP BY o.$column[0], e.$column[1]
+            ) d
+        where numCount = maxof"));
+        return $max;
+    }
+}
+
+if(!function_exists('getCountTable')){
+    function getCountGroupByDateTable ($table, $date_from, $date_to) {
+        $data = DB::table($table)
+        ->select(DB::raw('count(id) as count, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
+        return $data;
+    }
+};

@@ -26,7 +26,8 @@ class ScheduleController extends Controller
                 // convert date
                 $schedule->date = date('Y-m-d', strtotime($request->date));
                 $schedule->save();
-                $schedule->schedule_services()->attach($request->service_id);
+                // $schedule->schedule_services()->attach($request->service_id);
+                $schedule->schedule_services()->attach($request->service_id, array('date'=>date('Y-m-d', strtotime($request->date))));
 
                 // auto create account customer
                 // $user = $this->createUser($request->all());
