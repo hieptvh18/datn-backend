@@ -139,10 +139,10 @@
                                                 Chi tiết
                                             </a>
 
-                                            <a style="margin-top: 5px " href="{{ route('order.pdf', $order->id) }}"
+                                            {{-- <a style="margin-top: 5px " href="{{ route('order.pdf', $order->id) }}"
                                                 class="label label-table label-primary">
                                                 Xuất hóa đơn
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
