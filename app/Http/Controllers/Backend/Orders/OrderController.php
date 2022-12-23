@@ -77,6 +77,15 @@ class OrderController extends Controller
         $order->date = Carbon::now()->format('Y-m-d');
         $order->save();
 
+        // render hdsd
+        $hdsds = explode('|||',$order->product_id_hdsd);
+        $arrHdsd = array();
+        foreach($hdsds as $hd){
+            if($hd){
+                array_push($arrHdsd, explode('/*/*/',$hd));
+            }
+        }
+
         // send notifi thank you
         $customerName = $order->customer_name;
         $companyName = 'Nha khoa Đức Nghĩa';
@@ -102,7 +111,7 @@ class OrderController extends Controller
         $patient->order_id = $order->id;
         $patient->update();
 
-        return view('pages.orders.detail', compact('order', 'services', 'products', 'total'))->with(['message' => 'Tạo hóa đơn thành công!']);
+        return view('pages.orders.detail', compact('order', 'services', 'products', 'total','arrHdsd'))->with(['message' => 'Tạo hóa đơn thành công!']);
     }
 
     // get mailData
