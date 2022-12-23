@@ -158,7 +158,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::middleware('can:order-list')->get('order',[OrderController::class,'index'])->name('order.index');
     Route::middleware('can:order-add')->get('order/add',[OrderController::class,'add'])->name('order.add');
     Route::post('order/save',[OrderController::class,'save'])->name('order.store');
-    Route::get('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
+    Route::post('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
     Route::get('order/search',[OrderController::class,'search'])->name('order.search');
 
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');

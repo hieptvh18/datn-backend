@@ -122,7 +122,7 @@
                         </tbody>
                         <tfoot >
                             <tr>
-                                <th  colspan="3">Tổng tiền</th>
+                                <th  colspan="4">Tổng tiền</th>
                                 <th >{{number_format($total)}} VNĐ</th>
                             </tr>
                         </tfoot>

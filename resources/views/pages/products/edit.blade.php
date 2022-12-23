@@ -68,6 +68,24 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 control-label" for="demo-hor-function">Ngày sản xuất</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" name="nsx" value="{{$product->nsx ? $product->nsx:nsxold('nsx')}}" autocomplete="nsx" autofocus>
+                        @error('nsx')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="demo-hor-function">Hạn sử dụng</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" name="hsd" value="{{$product->hsd?$product->hsd:old('hsd')}}" autocomplete="hsd" autofocus>
+                        @error('hsd')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Mô tả</label>
                     <div class="col-sm-9">
                         <textarea name="description" class="form-control" id="description" cols="30" rows="3">{{ $product->description }}</textarea>
