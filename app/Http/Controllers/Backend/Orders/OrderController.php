@@ -145,7 +145,7 @@ class OrderController extends Controller
 
         $product_id = explode('|', $order->product_id);
         $service_id = explode('|', $order->service_id);
-        $products = Product::whereIn('id', $product_id)->select('id','name', 'price')->get();
+        $products = Product::whereIn('id', $product_id)->select('id','name', 'price','description')->get();
         $services = Service::whereIn('id', $service_id)->select('service_name', 'price')->get();
         $total = $order->total;
 

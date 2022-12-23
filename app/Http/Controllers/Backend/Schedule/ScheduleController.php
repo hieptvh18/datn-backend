@@ -9,7 +9,11 @@ use App\Http\Requests\ScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Imports\ImportSchedule;
 use App\Mail\EmailConfirmSchedule;
+use App\Models\Admin;
+use App\Models\Equipment;
+use App\Models\News;
 use App\Models\Patient;
+use App\Models\Product;
 use App\Models\Schedule;
 use App\Models\ScheduleService;
 use App\Models\Service;
@@ -102,7 +106,7 @@ class ScheduleController extends Controller
             }
 
             //save services[]
-            $schedule->schedule_services()->attach($request->service_id);
+            $schedule->schedule_services()->attach($request->service_id, array('date'=>date('Y-m-d', strtotime($request->date))));
 
             return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
         } catch (Throwable $e) {
@@ -136,7 +140,9 @@ class ScheduleController extends Controller
             $update = $schedule->save();
             $scheduleId = $schedule->id;
             // ScheduleService::where('schedule_id', $id)->delete();
-            $schedule->schedule_services()->sync($request->service_id);
+            $schedule->schedule_services()->detach();
+            $schedule->schedule_services()->attach($request->service_id, array('date'=>date('Y-m-d', strtotime($request->date))));
+            // $schedule->schedule_services()->sync($request->service_id);
 
             if ($scheduleId && $request->status == 1) {
 
@@ -381,32 +387,57 @@ class ScheduleController extends Controller
     //     $newDateTime = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->format('Y-m-d');
         $date_from = $req->date_from;
         $date_to = $req->date_to;
-        $list = DB::table('schedules')
+        $scheduleList = DB::table('schedules')
         ->select(DB::raw('count(id) as schedule_count, date'))
         ->whereBetween('date', [$date_from, $date_to])
         ->orderBy('date', 'asc')
         ->groupBy('date')
         ->get();
 
-        $list1 = DB::table('patients')
+        $patientList = DB::table('patients')
         ->select(DB::raw('count(id) as patient_count, date'))
         ->whereBetween('date', [$date_from, $date_to])
         ->orderBy('date', 'asc')
         ->groupBy('date')
         ->get();
 
-        $list2 = DB::table('orders')
+        $totalPriceOrder = DB::table('orders')
         ->select(DB::raw('sum(total) as sum, date'))
         ->whereBetween('date', [$date_from, $date_to])
         ->orderBy('date', 'asc')
         ->groupBy('date')
         ->get();
 
+        $serviceTotal = DB::table('schedule_services')
+        ->select(DB::raw('count(service_id) as totalService, date, services.service_name as serviceName, day(date) as day, month(date) as month, year(date) as year'))
+        ->join('services', 'services.id', '=', 'schedule_services.service_id')
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('serviceName', 'date', 'day', 'month', 'year')
+        ->get('*');
+
+         $totalService = Service::select(DB::raw('count(id) as totalSer'))->get();
+
+         $maxService = getMaxTable('schedule_services', 'services', array('service_id', 'service_name'));
+
+         $totalEquipment = Equipment::select(DB::raw('count(id) as countEquipment'))->get();
+         $totalProduct = Product::select(DB::raw('count(id) as countProduct'))->get();
+         $totalStaff = Admin::select(DB::raw('count(id) as countStaff'))->get();
+         $totalNew = News::select(DB::raw('count(id) as countNew'))->get();
+
+
         // return json_decode($list1);
         return response()->json([
-            "schedule" => $list,
-            "patient" => $list1,
-            "sum" => $list2,
+            "schedule" => $scheduleList,
+            "patient" => $patientList,
+            "sum" => $totalPriceOrder,
+            "service"=>$serviceTotal,
+            "maxSer"=>$maxService,
+            "totalSer"=>$totalService,
+            'equipment'=>$totalEquipment,
+            'product'=>$totalProduct,
+            'staff'=>$totalStaff,
+            'new'=>$totalNew,
         ]);
         //
     }
