@@ -99,6 +99,7 @@
                                     <th>@sortablelink('phone', 'SĐT')</th>
                                     <th>@sortablelink('email', 'Email')</th>
                                     <th>@sortablelink('date', 'Ngày đặt lịch')</th>
+                                    <th>@sortablelink('counter', 'Số thứ tự')</th>
                                     <th>Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
@@ -121,6 +122,7 @@
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->date }}</td>
+                                        <td>{{ $item->counter }}</td>
                                         <td class="change-status" data-schedule-id={{$item->id}}>
                                             <select class="selectpicker">
                                                 <option value="0" {{ $item->status == 0 ? 'selected' : '' }}>Chờ xác

@@ -33,7 +33,8 @@ class Schedule extends Model
         'email',
         'address',
         'content',
-        'date'
+        'date',
+        'counter'
     ];
 
 

@@ -4,8 +4,14 @@
     <div class="row">
         <div class="col-xs-12">
             <div class="panel">
-                <div class="panel-heading">
+                <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">{{ $pageTitle }}</h3>
+                    
+                    <div class="counter">
+                        @if ($schedule->counter)
+                            <h3 class="panel-title">Thứ tự khám: {{$schedule->counter}}</h3>
+                        @endif
+                    </div>
                 </div>
 
                 <!--Data Table-->
