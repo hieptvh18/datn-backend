@@ -4,9 +4,9 @@
         <!--Brand logo & name-->
         <!--================================-->
         <div class="navbar-header">
-            <a href="https://nhakhoaducnghia.vercel.app/" class="navbar-brand">
-                <img src="{{ asset($logoWeb->logo) }}" alt="DN Logo" width="100%" class="brand-icon">
-                {{-- <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon"> --}}
+            <a href="https://nhakhoaducnghia.vercel.app/" class="navbar-brand" style="background: white">
+                <img src="{{ asset($logoWeb->logo) }}" alt="DN Logo" width="100%" class="brand-icon" style="padding:8px; width: 155px; margin-left:25px;">
+                                {{-- <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon"> --}}
                 {{-- <div class="brand-title">
                     <span class="brand-text">DN</span>
                 </div> --}}
