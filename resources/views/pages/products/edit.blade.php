@@ -70,7 +70,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Ngày sản xuất</label>
                     <div class="col-sm-9">
-                        <input type="date" class="form-control" name="nsx" value="{{$product->nsx ? $product->nsx:nsxold('nsx')}}" autocomplete="nsx" autofocus>
+                        <input type="date" class="form-control" name="nsx" value="{{$product->nsx ? $product->nsx : old('nsx')}}" autocomplete="nsx" autofocus>
                         @error('nsx')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
