@@ -21,7 +21,6 @@ class Admin extends Authenticatable
         'address',
         'facebook_url',
         'twitter_url',
-        'email_url',
         'password',
         'is_active',
         'room_id',
