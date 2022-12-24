@@ -19,19 +19,12 @@
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a> --}}
                                 {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
-
+--}}
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
 
-<<<<<<< HEAD
-                                        }
-                                    "><i
-                                            class="demo-pli-trash icon-lg"></i></button>
-                                </div> --}}
-=======
                                         <button class="btn btn-default" id="delete-multiple" data-route="{{ route('patient.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
->>>>>>> PKNKD-230-bỏ-field-dịa-chỉ-email-ở-form-them-account
 
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
