@@ -122,7 +122,7 @@
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->date }}</td>
-                                        <td>{{ $item->counter }}</td>
+                                        <td>{{ $item->counter ? $item->counter : 'Chưa xếp' }}</td>
                                         <td class="change-status" data-schedule-id={{$item->id}}>
                                             <select class="selectpicker">
                                                 <option value="0" {{ $item->status == 0 ? 'selected' : '' }}>Chờ xác
