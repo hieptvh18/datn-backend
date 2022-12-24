@@ -121,7 +121,7 @@
                         </div>
                     </div>
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày bắt đầu làm việc trong tuần</b></label>
@@ -144,7 +144,7 @@
                         </span>
                     @enderror
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="row">
                         <div class="panel-body col-sm-6">
                             <div class="mb-3">
