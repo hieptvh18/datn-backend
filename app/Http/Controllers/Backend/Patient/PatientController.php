@@ -278,4 +278,14 @@ class PatientController extends Controller
             return redirect()->back()->with('exception', 'Có lỗi xảy ra, vui lòng thử lại sau!');
         }
     }
+
+     // delete multiple
+     public function deleteMultiple (Request $request){
+        foreach($request->get('data') as $item){
+            $patient = Patient::find($item);
+            $patient->is_deleted = 1;
+            $patient->update();
+        }
+        return response("Xóa thành công!", 200);
+    }
 }

@@ -77,6 +77,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // benh an
     Route::get('patient/searching',[PatientController::class,'search'])->name('patient.search');
+    Route::post('patient/deleteMultiple',[PatientController::class, 'deleteMultiple'])->name('patient.deleteMultiple');
     Route::resource('patient',PatientController::class);
     Route::post('patient/import',[PatientController::class, 'importPatient'])->name('patient.importPatient');
     Route::post('patient/export',[PatientController::class, 'exportPatient'])->name('patient.exportPatient');
