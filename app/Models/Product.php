@@ -11,7 +11,7 @@ class Product extends Model
 
     protected $table = 'products';
 
-    protected $fillable = ['type_id','name','price','image','description'];
+    protected $fillable = ['type_id','name','price','image','description', 'nsx', 'hsd'];
 
     public function types(){
         return $this->belongsTo(ProductType::class,'type_id');
