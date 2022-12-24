@@ -52,6 +52,8 @@ $('#delete-multiple').on('click', function() {
         selected.push($(this).val());
     });
 
+    console.log('>>>>>>>>>>>><<<<<<<<<<<<<<<5555', selected);
+
     Swal.fire({
         icon: 'warning',
         title: 'Bạn có muốn xóa những dữ liệu này không?',

@@ -149,6 +149,7 @@ class SpecialistController extends Controller
 
     // delete multiple
     public function deleteMultiple (Request $request){
+        // dd($request->get('data'));
         Specialist::whereIn('id', $request->get('data'))->delete();
         return response("Xóa thành công!", 200);
     }

@@ -22,14 +22,16 @@
 
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"
-                                        onclick="
-                                        if(confirm('Xóa item đã chọn?')){
 
+<<<<<<< HEAD
                                         }
                                     "><i
                                             class="demo-pli-trash icon-lg"></i></button>
                                 </div> --}}
+=======
+                                        <button class="btn btn-default" id="delete-multiple" data-route="{{ route('patient.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
+                                </div>
+>>>>>>> PKNKD-230-bỏ-field-dịa-chỉ-email-ở-form-them-account
 
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -112,12 +114,12 @@
                         @if (session('exception'))
                             <div class="alert alert-danger">{{ session('exception') }}</div>
                         @endif
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
-                                    {{-- <th>
-                                        <input type="checkbox" name="" id="">
-                                    </th> --}}
+                                    <th>
+                                        <th><input type="checkbox" class="Parent"></th>
+                                    </th>
                                     <th class="text-center">@sortablelink('id', 'ID')</th>
                                     <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
                                     <th class="text-center">@sortablelink('phone', 'Số điện thoại')</th>
@@ -130,8 +132,7 @@
                             <tbody>
                                 @foreach ($patients as $patient)
                                     <tr class="text-center">
-                                        {{-- <td class="text-left"> <input type="checkbox" name="" id=""> --}}
-                                        </td>
+                                        <td class="text-left"> <td><input type="checkbox" class="Childrent" name="patient_id[]" value="{{$patient->id}}"></td>
                                         <td>{{ $patient->id }}</td>
                                         <td>{{ $patient->customer_name }}</td>
                                         <td>{{ $patient->phone }}</td>
@@ -191,4 +192,46 @@
             </div>
         </div>
     </div>
+@endsection
+@section('page-js')
+{{-- <script>
+    $('#delete-multiple').on('click', function() {
+    var selected = [];
+    $('.Card .Childrent:checked').each(function() {
+        selected.push($(this).val());
+    });
+
+    Swal.fire({
+        icon: 'warning',
+        title: 'Bạn có muốn xóa những dữ liệu này không?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: $(this).data('route'),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "data": selected
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        window.location.reload()
+                    });
+                }
+            });
+        }
+    });
+});
+</script> --}}
 @endsection

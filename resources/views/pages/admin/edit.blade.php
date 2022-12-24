@@ -69,12 +69,7 @@
                             <input type="text" class="form-control" name="twitter_url" value="{{$admin->twitter_url}}" autocomplete="twitter_url" autofocus placeholder="Twitter_url...">
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="mb-3">
-                            <label for="" class="form-label"><b>Địa chỉ Email</b></label>
-                            <input type="text" class="form-control" name="email_url" value="{{$admin->email_url}}"  autocomplete="email_url" autofocus placeholder="Email_url...">
-                        </div>
-                    </div>
+
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Mật khẩu</b></label>
