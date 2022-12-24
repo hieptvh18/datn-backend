@@ -17,7 +17,7 @@
                             <div class="col-sm-6 table-toolbar-left">
                                 @can('room-add')
                                     <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i
-                                            class="demo-pli-add icon-fw"></i>Add</a>
+                                            class="demo-pli-add icon-fw"></i>Tạo mới</a>
                                     {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 @endcan
                                 <div class="btn-group">

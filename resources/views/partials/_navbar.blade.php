@@ -46,7 +46,7 @@
                         <div id="profile-nav" class="collapse list-group bg-trans">
                             <a href="{{ route('profile.show', Auth::guard('admin')->user()->id) }}"
                                 class="list-group-item">
-                                <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
+                                <i class="demo-pli-male icon-lg icon-fw"></i> Hồ sơ cá nhân
                             </a>
                             <form id="deleteForm" action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -55,7 +55,7 @@
                             <a data-form="deleteForm" href="#" class="list-group-item logout">
                                 <button type="submit" class="btn btn-block" style="text-align: left"><i
                                         class="demo-pli-unlock icon-lg icon-fw"></i>
-                                    Logout</button>
+                                    Đăng xuất</button>
                             </a>
                         </div>
                     </div>
@@ -362,7 +362,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="{{ route('webSetting.edit') }}">Setting</a></li>
+                                <li><a href="{{ route('webSetting.edit') }}">Chỉnh sửa</a></li>
                             </ul>
                         </li>
                         @endcan

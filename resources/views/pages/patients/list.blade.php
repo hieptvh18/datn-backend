@@ -18,7 +18,7 @@
                                 {{-- <a href="{{ route('patient.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a> --}}
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
 
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
@@ -29,7 +29,7 @@
                                         }
                                     "><i
                                             class="demo-pli-trash icon-lg"></i></button>
-                                </div>
+                                </div> --}}
 
                             </div>
                             <div class="col-sm-6 table-toolbar-right">
@@ -115,9 +115,9 @@
                         <table class="table table-striped">
                             <thead>
                                 <tr>
-                                    <th>
+                                    {{-- <th>
                                         <input type="checkbox" name="" id="">
-                                    </th>
+                                    </th> --}}
                                     <th class="text-center">@sortablelink('id', 'ID')</th>
                                     <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
                                     <th class="text-center">@sortablelink('phone', 'Số điện thoại')</th>
@@ -130,7 +130,7 @@
                             <tbody>
                                 @foreach ($patients as $patient)
                                     <tr class="text-center">
-                                        <td class="text-left"> <input type="checkbox" name="" id="">
+                                        {{-- <td class="text-left"> <input type="checkbox" name="" id=""> --}}
                                         </td>
                                         <td>{{ $patient->id }}</td>
                                         <td>{{ $patient->customer_name }}</td>

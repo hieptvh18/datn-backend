@@ -15,7 +15,7 @@
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
                                 <a href="{{ route('equipment.add') }}">
-                                    <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
+                                    <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm mới</button>
                                 </a>
                                 {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
 
