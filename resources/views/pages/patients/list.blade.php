@@ -74,6 +74,11 @@
                                             </div>
                                             <div class="btn-group col-sm-8">
                                                 <a href=""><button class="btn btn-primary">Lọc</button></a>
+                                                <a href="{{route('patient.index')}}">
+                                                    <button class="btn btn-secondary">
+                                                      <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                      </button>
+                                                  </a>
                                             </div>
                                         </div>
 

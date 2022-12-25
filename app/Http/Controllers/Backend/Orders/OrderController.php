@@ -29,7 +29,7 @@ class OrderController extends Controller
             if (isset($request->start)) {
                 $startDate = date('Y-m-d', strtotime($request->start));
                 $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
-                $listSchedules = $orders->whereBetween('date', [$startDate, $endDate]);
+                $orders = $orders->whereBetween('date', [$startDate, $endDate]);
             }
             $orders = $orders->paginate(15);
             return view('pages.orders.list', compact('orders'));
