@@ -41,8 +41,7 @@ class ExportPatient implements FromQuery, WithHeadings, WithEvents, WithCustomSt
             "SĐT",
             "Mô tả",
             "Địa chỉ",
-            "Ngày sinh",
-            "CMND"
+            "Ngày sinh"
           ]
         ];
     }
@@ -75,10 +74,10 @@ class ExportPatient implements FromQuery, WithHeadings, WithEvents, WithCustomSt
     public function query()
     {
         if($this->date !== null){
-        return Patient::query()->select('id', 'customer_name','phone','description','address','birthday','cmnd')->where('created_at', 'LIKE', '%'.$this->date.'%');
+        return Patient::query()->select('id', 'customer_name','phone','description','address','birthday')->where('created_at', 'LIKE', '%'.$this->date.'%');
         }
         if($this->date == null){
-            return Patient::query()->select('id', 'customer_name','phone','description','address','birthday','cmnd');
+            return Patient::query()->select('id', 'customer_name','phone','description','address','birthday');
         }
     }
 
