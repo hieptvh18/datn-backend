@@ -6,7 +6,7 @@
             <div class="panel">
                 <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">{{ $pageTitle }}</h3>
-                    
+
                     <div class="counter">
                         @if ($schedule->counter)
                             <h3 class="panel-title">Thứ tự khám: {{$schedule->counter}}</h3>
@@ -72,7 +72,7 @@
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày sinh</b></label>
                                 <input type="text" id="datepickerFuture" class="form-control" name="birthday"
-                                    value="{{ date('d-m-Y', strtotime($schedule->birthday))}}">
+                                    value="{{ $schedule->birthday == null?'':date('d-m-Y', strtotime($schedule->birthday)) }}">
                             </div>
                         </div>
                     </div>

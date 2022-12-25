@@ -25,7 +25,7 @@ class Patient extends Model
         return $this->belongsToMany(Admin::class, 'patient_doctors', 'patient_id', 'doctor_id');
     }
     public function patient_products () {
-        return $this->belongsToMany(Product::class, 'patient_products', 'patient_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'patient_products', 'patient_id', 'product_id')->withPivot('product_id', 'patient_id');
     }
 
 
