@@ -450,7 +450,8 @@
                     $("#totalStaff").html(data.staff[0].countStaff - 1);
                     $("#totalNew").html(data.new[0].countNew);
 
-                    // console.log(">>>>>>>><<<<<<<<<<", data.equipment);
+                     console.log(">>>>>>>><<<<<<<<<<", data.serviceMax);
+   				 console.log(">>>>>>>><<<<<<<<<<", data.service);
 
                 }
             });

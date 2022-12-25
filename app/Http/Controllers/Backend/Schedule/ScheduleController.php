@@ -414,7 +414,7 @@ class ScheduleController extends Controller
         ->whereBetween('date', [$date_from, $date_to])
         ->orderBy('date', 'asc')
         ->groupBy('serviceName', 'date', 'day', 'month', 'year')
-        ->get('*');
+        ->get();
 
          $totalService = Service::select(DB::raw('count(id) as totalSer'))->get();
 
@@ -438,6 +438,7 @@ class ScheduleController extends Controller
             'product'=>$totalProduct,
             'staff'=>$totalStaff,
             'new'=>$totalNew,
+		'serviceMax'=>[]
         ]);
         //
     }
