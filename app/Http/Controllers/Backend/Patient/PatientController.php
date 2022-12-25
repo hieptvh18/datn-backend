@@ -295,4 +295,5 @@ class PatientController extends Controller
         }
         return response("Xóa thành công!", 200);
     }
+
 }

@@ -72,7 +72,7 @@
                             <div class="mb-3">
                                 <label for="" class="form-label"><b>Ngày sinh</b></label>
                                 <input type="text" id="datepickerFuture" class="form-control" name="birthday"
-                                    value="{{ date('d-m-Y', strtotime($schedule->birthday))}}">
+                                    value="{{ $schedule->birthday == null?'':date('d-m-Y', strtotime($schedule->birthday)) }}">
                             </div>
                         </div>
                     </div>
