@@ -28,10 +28,17 @@ class PatientController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
         $pageTitle = 'Hồ sơ bệnh án';
-        $patients = Patient::where('is_deleted', 0)->sortable()->orderBy('id', 'desc')->paginate(20);
+        $patients = Patient::where('is_deleted', 0)->sortable();
+        if (isset($request->start)) {
+            $startDate = date('Y-m-d', strtotime($request->start));
+            $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
+            $patients = $patients->whereBetween('date', [$startDate, $endDate]);
+        }
+
+        $patients = $patients->orderBy('id', 'desc')->paginate(20);
         return view('pages.patients.list', compact('patients', 'pageTitle'));
     }
 
