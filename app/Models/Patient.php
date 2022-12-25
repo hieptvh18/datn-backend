@@ -27,4 +27,9 @@ class Patient extends Model
     public function patient_products () {
         return $this->belongsToMany(Product::class, 'patient_products', 'patient_id', 'product_id');
     }
+
+
+    public function getHdsdProduct (){
+        return $this->hasMany(Order::class, 'patient_id', 'id');
+    }
 }

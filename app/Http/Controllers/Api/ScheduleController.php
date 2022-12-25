@@ -23,6 +23,7 @@ class ScheduleController extends Controller
             if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
+                $schedule->birthday = $request->birthday?$request->birthday:null;
                 // convert date
                 $schedule->date = date('Y-m-d', strtotime($request->date));
                 $schedule->save();
