@@ -83,10 +83,28 @@ class PatientController extends Controller
             }])->with(['patient_products'=>function($query){
                 $query->select('name','price');
             }])->first(["id", "customer_name", "phone", "birthday", "description", "address", "schedule_id", "date",'token_url']);
+
+            $patient1 = Patient::with('getHdsdProduct')->where('id', $id)->where('token_url', $token)->where('is_deleted', 0)->first();
+
+            $arr = array();
+
+            foreach($patient1->getHdsdProduct as $product){
+                 array_push($arr, $product->product_id_hdsd);
+            }
+            $hdsds = explode('|||',$arr[0]);
+            $arrKey = array('product_id', 'hdsd');
+            $arrHdsd = array();
+            foreach($hdsds as $hd){
+                if($hd){
+                    array_push($arrHdsd, array_combine($arrKey, explode('/*/*/',$hd)));
+                }
+            }
+
             return response()->json([
                 'success'=>true,
                 'message'=>'Chi tiết bệnh án của 1 bệnh nhân',
-                'data'=> $patient
+                'data'=> $patient,
+                'hdsd'=>$arrHdsd
             ]);
         } catch (\Throwable $th) {
             report($th->getMessage());

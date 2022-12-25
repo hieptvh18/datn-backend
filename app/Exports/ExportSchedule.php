@@ -39,7 +39,7 @@ class ExportSchedule implements FromQuery, WithTitle, WithHeadings, WithEvents, 
             "SĐT",
             "Email",
             "Địa chỉ",
-            "CMND",
+            // "CMND",
             "Nội dung",
             "Ngày đặt lịch"
           ]
@@ -74,10 +74,10 @@ class ExportSchedule implements FromQuery, WithTitle, WithHeadings, WithEvents, 
     public function query()
     {
         if($this->date !== null){
-        return Schedule::query()->select('id', 'fullname','birthday','gender','phone','email','address', 'cmnd', 'content', 'date')->where('date', 'LIKE', '%'.$this->date.'%');
+        return Schedule::query()->select('id', 'fullname','birthday','gender','phone','email','address', 'content', 'date')->where('date', 'LIKE', '%'.$this->date.'%');
         }
         if($this->date == null){
-            return Schedule::query()->select('id', 'fullname','birthday','gender','phone','email','address', 'cmnd', 'content', 'date');
+            return Schedule::query()->select('id', 'fullname','birthday','gender','phone','email','address', 'content', 'date');
         }
     }
 
