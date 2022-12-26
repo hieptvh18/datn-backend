@@ -114,7 +114,7 @@
                                     <tr>
                                         <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
                                         <td>{{ $item->fullname }}</td>
-                                        <td>{{ $item->birthday }}</td>
+                                        <td>{{ $item->birthday == null ? '':$item->birthday }}</td>
                                         <td>
                                             @if ($item->gender == 1)
                                                 Nam

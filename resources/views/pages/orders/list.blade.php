@@ -156,7 +156,7 @@
                     </div>
                     <hr class="new-section-xs">
                     <div class="paginate">
-                        {{-- {{ $patients->links() }} --}}
+                        {{ $orders->links() }}
                     </div>
                 </div>
             </div>

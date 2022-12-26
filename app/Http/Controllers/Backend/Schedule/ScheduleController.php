@@ -60,12 +60,14 @@ class ScheduleController extends Controller
 
     public function store(ScheduleRequest $request)
     {
+        // dd( $request->birthday);
         try {
             $schedule = new Schedule();
             $schedule->fill($request->all());
             $schedule->date = date('Y-m-d', strtotime($request->date));
-            $schedule->birthday = date('Y-m-d', strtotime($request->birthday));
+            $schedule->birthday = $request->birthday == null?null:date('Y-m-d', strtotime($request->birthday));
             $schedule->status = 1;
+            $schedule->parent_id = 0;
             $schedule->save();
             $scheduleId = $schedule->id;
 
@@ -79,7 +81,7 @@ class ScheduleController extends Controller
                     $user->fill($request->all());
                     $user->name = $request->fullname;
                     $user->phone = $request->phone;
-                    $user->birthday = date('Y-m-d', strtotime($request->birthday));
+                    $user->birthday = $request->birthday == null?null:date('Y-m-d', strtotime($request->birthday));
                     $user->email_user = $request->email;
                     $password = randomString(6);
                     $user->password = bcrypt($password);
@@ -314,12 +316,16 @@ class ScheduleController extends Controller
         $dateFormat = date('Y-m-d', strtotime($date));
         $checkExistCounter = Schedule::where('counter', '>', 0)
             ->where('date', $dateFormat)
-            ->where('status', 1)
+            ->where(function($qr){
+                $qr->where('status', 1)->orwhere('status', 3);
+            })
             ->where('phone', '!=', $phone)
             ->orderBy('counter', 'desc')->first();
         $setSchedule = Schedule::where('phone', $phone)
             ->where('date', $dateFormat)
-            ->where('status', 1)
+            ->where(function($qr){
+                $qr->where('status', 1)->orwhere('status', 3);
+            })
             ->first();
         $myCouter = Schedule::where('counter', '>', 0)
             ->where('date', $dateFormat)

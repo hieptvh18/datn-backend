@@ -144,7 +144,7 @@ class OrderController extends Controller
     {
         $order = Order::find($id);
         $hdsds = explode('|||',$order->product_id_hdsd);
-        
+
         $arrHdsd = array();
         foreach($hdsds as $hd){
             if($hd){
