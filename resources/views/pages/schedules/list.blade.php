@@ -21,8 +21,11 @@
                                     {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 @endcan
                                 <div class="btn-group">
-                                    {{-- <a href=""><button class="btn btn-primary">Reload</button></a> --}}
-                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
+                                    {{-- <a href=""><button class="btn btn-primary">Reload</button></a>
+                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button> --}}
+                                    <a class="btn btn-secondary" href="{{ route('schedules.index') }}">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </a>
                                 </div>
 
                             </div>
@@ -82,9 +85,9 @@
                                             </div>
                                             <div class="btn-group col-sm-8">
                                                 <a href=""><button class="btn btn-primary" type="submit">Lọc</button></a>
-                                                <a class="btn btn=secondary" href="{{ route('schedules.index') }}">
+                                                {{-- <a class="btn btn=secondary" href="{{ route('schedules.index') }}">
                                                     <i class="fa fa-refresh" aria-hidden="true"></i>
-                                                </a>
+                                                </a> --}}
                                             </div>
                                         </div>
 
