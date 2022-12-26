@@ -191,7 +191,7 @@
                                             
                                         </td>
                                         <td class="text-center">
-                                            @can('room-edit')
+                                            @can('schedule-edit')
                                                 <a style="margin-bottom: 5px" href="{{ route('schedules.edit', $item->id) }}"
                                                     class="label label-table label-success">Chi tiết</a>
                                             @endcan
@@ -204,7 +204,7 @@
                                                     href="{{ route('patient.edit', $item->patient_id) }}"
                                                     class="label label-table label-info">Xem hồ sơ bệnh án</a>
                                             @endif
-                                            @can('room-delete')
+                                            @can('schedule-delete')
                                                 <form id="deleteForm{{ $item->id }}"
                                                     action="{{ route('schedules.destroy', $item->id) }}" method="post">
                                                     @csrf

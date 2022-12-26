@@ -39,6 +39,7 @@ class ExportSchedule implements FromQuery, WithTitle, WithHeadings, WithEvents, 
             "SĐT",
             "Email",
             "Địa chỉ",
+            // "CMND",
             "Nội dung",
             "Ngày đặt lịch"
           ]
