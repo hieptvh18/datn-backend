@@ -195,7 +195,7 @@
                         <p class="text-sm text-bold text-uppercase">Thuốc</p>
                     </div>
                     <div class="col-sm-8">
-                        <button class="btn btn-pink mar-ver">View Details</button>
+                        <button class="btn btn-pink mar-ver">Thống kê khác</button>
                         <p class="text-xs">Thành công bắt nguồn từ đam mê và sự tận tâm.</p>
                         <ul class="list-unstyled text-center bord-top pad-top mar-no row">
                             <li class="col-xs-4">
@@ -450,8 +450,7 @@
                     $("#totalStaff").html(data.staff[0].countStaff - 1);
                     $("#totalNew").html(data.new[0].countNew);
 
-                     console.log(">>>>>>>><<<<<<<<<<", data.serviceMax);
-   				 console.log(">>>>>>>><<<<<<<<<<", data.service);
+                    // console.log(">>>>>>>><<<<<<<<<<", data.equipment);
 
                 }
             });

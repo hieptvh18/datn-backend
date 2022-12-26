@@ -83,7 +83,7 @@
                                     </div>
                                 </form>
                             </div>
-                            <div style="width: 50%; text-align: right">
+                            <!-- <div style="width: 50%; text-align: right">
                                 <form action="{{ route('patient.importPatient') }}" enctype="multipart/form-data"
                                     method="post">
                                     @csrf
@@ -102,7 +102,7 @@
                                     @enderror
 
                                 </form>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 

@@ -510,10 +510,10 @@
     if(notifications.find('li').length > 5){
         viewAllNoti.html(viewAllNotiHtml);
     }
-    if(notifications.find('li').length == 0){
-        viewAllNoti.html(`<div class="btn-link text-main box-block">
-                                Chưa có thông báo </div>`);
-    }
+    // if(notifications.find('li').length == 0){
+    //     viewAllNoti.html(`<div class="btn-link text-main box-block">
+    //                             Chưa có thông báo </div>`);
+    // }
 
     // if (notificationsCount <= 0) {
     //     notificationsWrapper.hide();
