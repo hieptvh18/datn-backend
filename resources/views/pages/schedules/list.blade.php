@@ -80,7 +80,7 @@
                                                     </option>
                                                     {{-- <option value="1" {{ $item->status == 1 && $item->is_rebooking == 1 ? 'selected' : '' }}>Đã xác
                                                         nhận khám lại</option> --}}
-    
+
                                                 </select>
                                             </div>
                                             <div class="btn-group col-sm-8">
@@ -144,7 +144,7 @@
                                                             @else
                                                             {{url()->full()}}
                                                         @endif
-                                                    
+
                                                     ">Đã xác nhận khám lại</a></li>
                                                 {{-- <li class="divider"></li>
                                                 <li><a href="{{route('schedules.index')}}">Tất cả</a></li> --}}
@@ -159,7 +159,7 @@
                                     <tr>
                                         <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
                                         <td>{{ $item->fullname }}</td>
-                                        {{-- <td>{{ $item->birthday }}</td> --}}
+                                        <td>{{ $item->birthday == null ? '':$item->birthday }}</td>
                                         <td>
                                             @if ($item->gender == 1)
                                                 Nam
@@ -173,7 +173,7 @@
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->date }}</td>
                                         <td>{{ $item->counter ? $item->counter : 'Chưa xếp' }}</td>
-                                        
+
                                         <td class="change-status" data-schedule-id={{ $item->id }}>
 
                                             @if ($item->status == 0)
@@ -186,12 +186,12 @@
                                                 <span class="label label-danger">Đã hủy</span>
                                                 @elseif($item->status == 3)
                                                 <span class="label label-success">Đã khám</span>
-                                               
+
                                                 @endif
                                         </td>
                                         <td>
                                             <span class="label label-{{$item->is_rebooking ? 'primary' : 'warning'}}">{{$item->is_rebooking ? 'Đã xác nhận' : 'Không xác nhận'}}</span>
-                                            
+
                                         </td>
                                         <td class="text-center">
                                             @can('schedule-edit')
