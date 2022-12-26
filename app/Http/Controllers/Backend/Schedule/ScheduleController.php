@@ -70,37 +70,40 @@ class ScheduleController extends Controller
     {
         // dd( $request->birthday);
         try {
-            $schedule = new Schedule();
-            $schedule->fill($request->all());
-            $schedule->date = date('Y-m-d', strtotime($request->date));
-            $schedule->birthday = $request->birthday == null?null:date('Y-m-d', strtotime($request->birthday));
-            $schedule->status = 1;
-            $schedule->parent_id = 0;
-            $schedule->save();
-            $scheduleId = $schedule->id;
+            if (!$this->validateBooking($request->phone, $request->date)) {
+
+                $schedule = new Schedule();
+                $schedule->fill($request->all());
+                $schedule->date = date('Y-m-d', strtotime($request->date));
+                $schedule->birthday = $request->birthday == null ? null : date('Y-m-d', strtotime($request->birthday));
+                $schedule->status = 1;
+                $schedule->parent_id = 0;
+                $schedule->save();
+                $scheduleId = $schedule->id;
 
                 // send sms to phone || mail
                 if ($scheduleId && $request->status == 1) {
 
-                // auto create account customer
-                $contentAccount = '';
-                if (!User::where('phone', $request->phone)->exists()) {
-                    $user = new User();
-                    $user->fill($request->all());
-                    $user->name = $request->fullname;
-                    $user->phone = $request->phone;
-                    $user->birthday = $request->birthday == null?null:date('Y-m-d', strtotime($request->birthday));
-                    $user->email_user = $request->email;
-                    $password = randomString(6);
-                    $user->password = bcrypt($password);
-                    $user->save();
-                    $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
+                    // auto create account customer
+                    $contentAccount = '';
+                    if (!User::where('phone', $request->phone)->exists()) {
+                        $user = new User();
+                        $user->fill($request->all());
+                        $user->name = $request->fullname;
+                        $user->phone = $request->phone;
+                        $user->birthday = $request->birthday == null ? null : date('Y-m-d', strtotime($request->birthday));
+                        $user->email_user = $request->email;
+                        $password = randomString(6);
+                        $user->password = bcrypt($password);
+                        $user->save();
+                        $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
+                    }
+
+                    //save services[]
+                    $schedule->schedule_services()->attach($request->service_id, array('date' => date('Y-m-d', strtotime($request->date))));
+
+                    return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
                 }
-
-                //save services[]
-                $schedule->schedule_services()->attach($request->service_id, array('date' => date('Y-m-d', strtotime($request->date))));
-
-                return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
             } else {
                 // throw err
                 return redirect()->back()->with(['error' => 'Số điện thoại đã được đặt ở ngày bạn chọn!']);
@@ -335,14 +338,14 @@ class ScheduleController extends Controller
         $dateFormat = date('Y-m-d', strtotime($date));
         $checkExistCounter = Schedule::where('counter', '>', 0)
             ->where('date', $dateFormat)
-            ->where(function($qr){
+            ->where(function ($qr) {
                 $qr->where('status', 1)->orwhere('status', 3);
             })
             ->where('phone', '!=', $phone)
             ->orderBy('counter', 'desc')->first();
         $setSchedule = Schedule::where('phone', $phone)
             ->where('date', $dateFormat)
-            ->where(function($qr){
+            ->where(function ($qr) {
                 $qr->where('status', 1)->orwhere('status', 3);
             })
             ->first();
