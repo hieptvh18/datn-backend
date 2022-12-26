@@ -121,7 +121,6 @@
                                 <tr>
                                     <th>@sortablelink('id')</th>
                                     <th>@sortablelink('fullname', 'Họ và tên')</th>
-                                    {{-- <th>@sortablelink('birthday', 'Ngày sinh')</th> --}}
                                     <th>@sortablelink('gender', 'Giới tính')</th>
                                     <th>@sortablelink('phone', 'SĐT')</th>
                                     <th>@sortablelink('email', 'Email')</th>
@@ -159,7 +158,6 @@
                                     <tr>
                                         <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
                                         <td>{{ $item->fullname }}</td>
-                                        <td>{{ $item->birthday == null ? '':$item->birthday }}</td>
                                         <td>
                                             @if ($item->gender == 1)
                                                 Nam
