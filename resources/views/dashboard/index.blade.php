@@ -68,6 +68,7 @@
                 <!--chart placeholder-->
                 <div class="pad-all">
                     {{-- <div id="demo-chart-network" style="height: 255px"></div> --}}
+                    <p class="text-semibold text-uppercase text-main">Thống kê số lượt đặt lịch</p>
                     <div id="myfirstchart" style="height: 250px; padding: 0px;
                     position: relative;"></div>
                 </div>
@@ -81,7 +82,7 @@
                             <p class="text-semibold text-uppercase text-main">Thống kê dịch vụ </p>
                             <p>Tổng số lượng dịch vụ: <span id="totalService"></span></p>
                             <div class="row">
-                                <div id="myfirstchartServices" style="height: 180px; width: 669px; padding: 0px;
+                                <div id="myfirstchartServices" style="height: 205px; width: 669px; padding: 0px;
                                 position: relative;"></div>
                                 {{-- <div class="col-xs-5">
                                     <div class="media">
@@ -174,12 +175,12 @@
         </div>
         <div class="col-lg-5">
             <div class="row"  style="margin: 0">
-
+                <p class="text-semibold text-uppercase text-main"  style="color: white">Thống kê số lượt khám</p>
                 <div class="bg-gray-light panel" id="myfirstchart1" style="height: 190px"></div>
 
             </div>
             <div class="row" style="margin: 0">
-
+                <p class="text-semibold text-uppercase text-main">Thống kê doanh thu</p>
                 <div class="bg-gray-light panel" id="myfirstchart2" style="height: 190px"></div>
             </div>
 

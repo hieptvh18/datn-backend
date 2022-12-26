@@ -14,12 +14,15 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
+                                @can('product-add')
+
                                 <a
                                 {{-- data-parent="#demo-acc-info-outline" data-toggle="collapse"
                                     href="#demo-acd-info-outline-2" --}}
                                      href="{{ route('product.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm mới</button>
                                 </a>
+                                @endcan
                                 {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 <div class="btn-group">
                                     {{-- <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button> --}}
@@ -71,6 +74,7 @@
                                         <td>{{ $product->types->name }}</td>
                                         <td><img src="{{ asset($product->image) }}" alt="" width="100px"></td>
                                         <td>
+                                            @can('product-delete')
                                             <form id="deleteForm{{ $product->id }}"
                                                 action="{{ route('product.destroy', $product->id) }}" method="post">
                                                 @csrf
@@ -79,10 +83,14 @@
                                             <button data-form="deleteForm{{ $product->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
+                                                @endcan
+
+                                                @can('product-edit')
                                             <a href="{{ route('product.edit', $product->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

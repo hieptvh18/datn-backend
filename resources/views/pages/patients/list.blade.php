@@ -147,6 +147,7 @@
                                                 <div class="label label-table label-success">Đã điều trị</div>
                                             @endif
                                         <td style="width:300px">
+                                            @can('patient-delete')
                                             <form id="deleteForm{{ $patient->id }}"
                                                 action="{{ route('patient.destroy', $patient->id) }}" method="post">
                                                 @csrf
@@ -155,26 +156,35 @@
                                             <button data-form="deleteForm{{ $patient->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
+                                                @endcan
+
+                                                @can('patient-edit')
                                             <a href="{{ route('patient.edit', $patient->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
+                                            @endcan
                                             {{-- <a href="{{ route('reBooking', $patient->id) }}"
                                                 class="label label-table label-success">
                                                 Đặt lịch khám lại
                                             </a> --}}
                                             @if ($patient->status == 0)
+                                            @can('order-add')
                                                 <a style="margin-top: 5px "
                                                     href="{{ route('order.add', ['id' => $patient->id]) }}"
                                                     class="label label-table label-primary">
                                                     Tạo hóa đơn
                                                 </a>
-                                            @elseif ($patient->status == 3)
+                                                @endcan
+
+                                                @elseif ($patient->status == 3)
+                                                @can('order-edit')
                                                 <a style="margin-top: 5px "
                                                     href="{{ route('order.detail', $patient->order_id) }}"
                                                     class="label label-table label-primary">
                                                     Xem hóa đơn
                                                 </a>
+                                                @endcan
                                             @endif
                                         </td>
                                     </tr>

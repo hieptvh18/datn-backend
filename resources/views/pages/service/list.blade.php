@@ -12,8 +12,10 @@
             <div class="pad-btm form-inline">
                 <div class="row">
                     <div class="col-sm-6 table-toolbar-left">
+                        @can('service-add')
                         <a href="{{ route('service.create') }}"><button id="demo-btn-addrow" class="btn btn-purple"><i
                                     class="demo-pli-add"></i> Thêm dịch vụ</button></a>
+                                    @endcan
                         <div class="btn-group">
                             <button class="btn btn-default" id="multi-delete" data-route="{{ route('service.deleteSelected') }}"><i
                                     class="demo-pli-recycling"></i></button>
@@ -60,10 +62,13 @@
                                     @endforeach
                                 </td>
                                 <td>
+                                    @can('service-edit')
                                     <a href="{{ route('service.edit', $item->id) }}"
                                         class="label label-table label-success">Sửa</a>
 
+                                    @endcan
 
+                                    @can('service-delete')
                                     <form id="deleteForm{{ $item->id }}"
                                         action="{{ route('service.destroy', $item->id) }}" method="post">
                                         @csrf
@@ -72,6 +77,7 @@
                                     <button data-form="deleteForm{{ $item->id }}"
                                         class="label label-table label-danger btn-delete"
                                         style="border: none">Xóa</button>
+                                        @endcan
                                 </td>
                             </tr>
                         @endforeach

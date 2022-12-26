@@ -14,9 +14,11 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
+                                @can('specialist-add')
                                 <a href="{{ route('specialist.add') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Thêm</button>
                                 </a>
+                                @endcan
                                 <div class="btn-group">
                                     <button class="btn btn-default" id="delete-multiple" data-route="{{ route('specialist.deleteMultiple') }}" ><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
@@ -70,16 +72,18 @@
                                             @endif
                                         </td>
                                         <td class="text-center">
-
+                                            @can('specialist-edit')
                                             <a href="{{ route('specialist.edit', $specialist->id) }}" class="label label-table label-success">Sửa</a>
+                                                @endcan
 
-
+                                                @can('specialist-delete')
                                             <form id="deleteForm{{ $specialist->id }}" action="{{ route('specialist.delete', $specialist->id) }}" method="post">
                                             @csrf
                                             @method('DELETE')
                                         </form>
                                         <button data-form="deleteForm{{$specialist->id}}" class="label label-table label-danger btn-delete" style="border: none" >Xóa</button>
-                                        </td>
+                                         @endcan
+                                    </td>
                                     </tr>
                                 @endforeach
                             </tbody>

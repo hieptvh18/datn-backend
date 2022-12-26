@@ -3,11 +3,11 @@
 namespace App\Policies;
 
 use App\Models\Admin;
-use App\Models\Patient;
+use App\Models\ProductType;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class PatientPolicy
+class ProductTypePolicy
 {
     use HandlesAuthorization;
 
@@ -26,12 +26,12 @@ class PatientPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Patient  $patient
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function view(Admin $user)
     {
-        return $user->checkPermission('List_Patients');
+        return $user->checkPermission('Add_ProductType');
     }
 
     /**
@@ -42,41 +42,41 @@ class PatientPolicy
      */
     public function create(Admin $user)
     {
-        return $user->checkPermission('Add_Patients');
+        return $user->checkPermission('Add_ProductType');
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Patient  $patient
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function update(Admin $user)
     {
-        return $user->checkPermission('Edit_Patients');
+        return $user->checkPermission('Edit_ProductType');
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Patient  $patient
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Auth\Access\Response|bool
      */
     public function delete(Admin $user)
     {
-        return $user->checkPermission('Delete_Patients');
+        return $user->checkPermission('Delete_ProductType');
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Patient  $patient
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Patient $patient)
+    public function restore(User $user, ProductType $productType)
     {
         //
     }
@@ -85,10 +85,10 @@ class PatientPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Patient  $patient
+     * @param  \App\Models\ProductType  $productType
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Patient $patient)
+    public function forceDelete(User $user, ProductType $productType)
     {
         //
     }

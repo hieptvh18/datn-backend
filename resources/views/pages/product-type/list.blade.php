@@ -14,12 +14,14 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                <a 
+                                @can('productType-add')
+                                <a
                                 {{-- data-parent="#demo-acc-info-outline" data-toggle="collapse"
                                     href="#demo-acd-info-outline-2" --}}
                                      href="{{ route('product-type.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
+                                @endcan
                                 <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
@@ -56,7 +58,7 @@
                         </div>
                         <!--Accordion content-->
                         <div class="panel-collapse collapse" id="demo-acd-info-outline-2">
-                            
+
                         </div>
                     </div>
 
@@ -87,6 +89,8 @@
                                         <td><img src="{{ asset($type->image) }}" alt="" width="100px"></td>
                                         <td>{{ substr($type->description, 50) }}...</td>
                                         <td>
+                                            @can('productType-delete')
+
                                             <form id="deleteForm{{ $type->id }}"
                                                 action="{{ route('product-type.destroy', $type->id) }}" method="post">
                                                 @csrf
@@ -95,10 +99,14 @@
                                             <button data-form="deleteForm{{ $type->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
+                                                @endcan
+
+                                                @can('productType-edit')
                                             <a href="{{ route('product-type.edit', $type->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
+                                            @endcan
                                         </td>
                                     </tr>
                                 @endforeach

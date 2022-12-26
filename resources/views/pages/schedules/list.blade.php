@@ -15,7 +15,7 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                @can('room-add')
+                                @can('schedule-add')
                                     <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i
                                             class="demo-pli-add icon-fw"></i>Tạo mới</a>
                                     {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
@@ -197,13 +197,17 @@
                                                     class="label label-table label-success">Chi tiết</a>
                                             @endcan
                                             @if ($item->status == 1)
+                                            @can('patient-add')
                                                 <a style="margin-bottom: 5px"
                                                     href="{{ route('patient.show', $item->id) }}"
                                                     class="label label-table label-info">Tạo bệnh án</a>
+                                                    @endcan
                                             @elseif ($item->status == 3)
+                                            @can('patient-edit')
                                                 <a style="margin-bottom: 5px"
                                                     href="{{ route('patient.edit', $item->patient_id) }}"
                                                     class="label label-table label-info">Xem hồ sơ bệnh án</a>
+                                                    @endcan
                                             @endif
                                             @can('schedule-delete')
                                                 <form id="deleteForm{{ $item->id }}"

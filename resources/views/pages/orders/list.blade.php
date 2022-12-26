@@ -136,11 +136,12 @@
 
                                         <td>
 
-
+                                            @can('news-edit')
                                             <a href="{{ route('order.detail', $order->id) }}"
                                                 class="label label-table label-warning">
                                                 Chi tiết
                                             </a>
+                                            @endcan
 
                                             {{-- <a style="margin-top: 5px " href="{{ route('order.pdf', $order->id) }}"
                                                 class="label label-table label-primary">
