@@ -40,14 +40,6 @@ class ScheduleController extends Controller
                 $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
                 $listSchedules = $listSchedules->whereBetween('date', [$startDate, $endDate]);
             }
-            if (isset($request->rebook)) {
-                // rebooking
-                $listSchedules = $listSchedules->where('is_rebooking', $request->rebook);
-            }
-            if (isset($request->status)) {
-                //status
-                $listSchedules = $listSchedules->where('status', $request->status);
-            }
 
             $listSchedules = $listSchedules->orderBy('id', 'desc')->paginate(15);
         } catch (Throwable $e) {
@@ -70,73 +62,59 @@ class ScheduleController extends Controller
     {
         // dd( $request->birthday);
         try {
-            if (!$this->validateBooking($request->phone, $request->date)) {
+            $schedule = new Schedule();
+            $schedule->fill($request->all());
+            $schedule->date = date('Y-m-d', strtotime($request->date));
+            $schedule->birthday = $request->birthday == null?null:date('Y-m-d', strtotime($request->birthday));
+            $schedule->status = 1;
+            $schedule->parent_id = 0;
+            $schedule->save();
+            $scheduleId = $schedule->id;
 
-                $schedule = new Schedule();
-                $schedule->fill($request->all());
-                $schedule->date = date('Y-m-d', strtotime($request->date));
-                $schedule->birthday = $request->birthday == null ? null : date('Y-m-d', strtotime($request->birthday));
-                $schedule->status = 1;
-                $schedule->parent_id = 0;
-                $schedule->save();
-                $scheduleId = $schedule->id;
+            // send sms to phone || mail
+            if ($scheduleId && $request->status == 1) {
 
-                // send sms to phone || mail
-                if ($scheduleId && $request->status == 1) {
-
-                    // auto create account customer
-                    $contentAccount = '';
-                    if (!User::where('phone', $request->phone)->exists()) {
-                        $user = new User();
-                        $user->fill($request->all());
-                        $user->name = $request->fullname;
-                        $user->phone = $request->phone;
-                        $user->birthday = $request->birthday == null ? null : date('Y-m-d', strtotime($request->birthday));
-                        $user->email_user = $request->email;
-                        $password = randomString(6);
-                        $user->password = bcrypt($password);
-                        $user->save();
-                        $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
-                    }
-
-                    //save services[]
-                    $schedule->schedule_services()->attach($request->service_id, array('date' => date('Y-m-d', strtotime($request->date))));
-
-                    return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
+                // auto create account customer
+                $contentAccount = '';
+                if (!User::where('phone', $request->phone)->exists()) {
+                    $user = new User();
+                    $user->fill($request->all());
+                    $user->name = $request->fullname;
+                    $user->phone = $request->phone;
+                    $user->birthday = $request->birthday == null?null:date('Y-m-d', strtotime($request->birthday));
+                    $user->email_user = $request->email;
+                    $password = randomString(6);
+                    $user->password = bcrypt($password);
+                    $user->save();
+                    $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
                 }
-            } else {
-                // throw err
-                return redirect()->back()->with(['error' => 'Số điện thoại đã được đặt ở ngày bạn chọn!']);
+
+                $customerName = $request->fullname;
+                $date = $request->date;
+                $phone = $request->phone;
+                $stt = $this->getIndexer($date, $phone);
+                $companyName = 'Nha khoa Đức Nghĩa';
+                $listService = $this->getServiceNameById($request->service_id);
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ của ' . $companyName . '. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. ' . $contentAccount . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                // sendSms($phone, $contentConfirm);
+
+                // send mail
+                if (!empty($request->email)) {
+                    $mailTo = $request->email;
+                    $subject = 'Thông báo đặt lịch thành công';
+                    $mailData = $this->getMailData($contentConfirm, $customerName);
+                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
+                }
             }
+
+            //save services[]
+            $schedule->schedule_services()->attach($request->service_id, array('date'=>date('Y-m-d', strtotime($request->date))));
+
+            return redirect()->route('schedules.index')->with(['message' => 'Thêm mới lịch khám thành công!']);
         } catch (Throwable $e) {
             // dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with('error', 'Có lỗi xảy ra, vui lòng thử lại sau!');
-        }
-    }
-
-    // check validate trùng sdt trong cùng một ngày
-    public function validateBooking($phone, $date)
-    {
-        try {
-            $date = date('Y-m-d', strtotime($date));
-            $scheduleExist = Schedule::where('phone', $phone)
-                ->where('date', $date)->exists();
-            return $scheduleExist;
-        } catch (\Throwable $th) {
-        }
-    }
-
-    // check validate trùng sdt trong cùng một ngày
-    public function validateBookingUpdate($phone, $date, $id)
-    {
-        try {
-            $date = date('Y-m-d', strtotime($date));
-            $scheduleExist = Schedule::where('phone', $phone)
-                ->where('date', $date)
-                ->where('id', '<>', $id)->exists();
-            return $scheduleExist;
-        } catch (\Throwable $th) {
         }
     }
 
@@ -146,7 +124,7 @@ class ScheduleController extends Controller
         $pageTitle = 'Cập nhật lịch khám';
         $schedule = Schedule::find($id);
         $services = Service::where('is_active', 1)->get();
-        $scheduleServices = ScheduleService::where('schedule_id', $id)->get();
+        $scheduleServices = ScheduleService::where('schedule_id',$id)->get();
         $arrService = array();
         foreach ($scheduleServices as $item) {
             array_push($arrService, $item->service_id);
@@ -165,7 +143,7 @@ class ScheduleController extends Controller
             $scheduleId = $schedule->id;
             // ScheduleService::where('schedule_id', $id)->delete();
             $schedule->schedule_services()->detach();
-            $schedule->schedule_services()->attach($request->service_id, array('date' => date('Y-m-d', strtotime($request->date))));
+            $schedule->schedule_services()->attach($request->service_id, array('date'=>date('Y-m-d', strtotime($request->date))));
             // $schedule->schedule_services()->sync($request->service_id);
 
             if ($scheduleId && $request->status == 1) {
@@ -183,7 +161,7 @@ class ScheduleController extends Controller
                     $user->password = bcrypt($password);
                     $user->save();
                     $contentAccount = 'Chúng tôi đã tạo cho bạn tài khoản để theo dõi thông tin trên website với tài khoản là : ' . $request->phone . ' , mật khẩu: ' . $password . ' . Vui lòng không tiết lộ thông tin này cho bất kì ai.';
-                } else {
+                }else{
                     $userExist = User::where('phone', $request->phone)->first();
                     $userExist->fill($request->all());
                     $userExist->name = $request->fullname;
@@ -200,7 +178,7 @@ class ScheduleController extends Controller
                 $stt = $this->getIndexer($date, $phone);
                 $companyName = 'Nha khoa Đức Nghĩa';
                 $listService = $this->getServiceNameById($request->service_id);
-                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. ' . $contentAccount . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ bên ' . $companyName . ' chúng tôi. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. '.$contentAccount.'.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
                 // sendSms($phone, $contentConfirm);
 
                 // send mail
@@ -208,12 +186,12 @@ class ScheduleController extends Controller
                     $mailTo = $request->email;
                     $subject = 'Thông báo đặt lịch thành công';
                     $mailData = $this->getMailData($contentConfirm, $customerName);
-                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData, $subject));
+                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
                 }
             }
-
             return redirect()->back()->with(['message' => 'Cập nhật lịch khám thành công!']);
         } catch (Throwable $e) {
+            dd($e->getMessage());
             report($e->getMessage());
             return redirect()->back()->with(['error' => 'Có lỗi xảy ra! Vui lòng thử lại sau!']);
         }
@@ -233,7 +211,7 @@ class ScheduleController extends Controller
     // search
     public function search()
     {
-        $key = isset($_GET['key']) ? $_GET['key'] : '';
+        $key = $_GET['key'];
 
         $search_text = trim($key);
         try {
@@ -338,14 +316,14 @@ class ScheduleController extends Controller
         $dateFormat = date('Y-m-d', strtotime($date));
         $checkExistCounter = Schedule::where('counter', '>', 0)
             ->where('date', $dateFormat)
-            ->where(function ($qr) {
+            ->where(function($qr){
                 $qr->where('status', 1)->orwhere('status', 3);
             })
             ->where('phone', '!=', $phone)
             ->orderBy('counter', 'desc')->first();
         $setSchedule = Schedule::where('phone', $phone)
             ->where('date', $dateFormat)
-            ->where(function ($qr) {
+            ->where(function($qr){
                 $qr->where('status', 1)->orwhere('status', 3);
             })
             ->first();
@@ -369,16 +347,14 @@ class ScheduleController extends Controller
         return $counter;
     }
 
-    public function reBooking($id)
-    {
+    public function reBooking($id){
         $pageTitle = 'Tạo mới lịch khám';
         $services = Service::where('is_active', 1)->get();
         $patient = Patient::find($id);
-        return \view('pages.schedules.reBooking', \compact('patient', 'services', 'pageTitle'));
+        return \view('pages.schedules.reBooking',\compact('patient','services','pageTitle'));
     }
 
-    public function reBookingSave(ScheduleRequest $request)
-    {
+    public function reBookingSave(ScheduleRequest $request){
         $schedule = new Schedule();
         $schedule->fill($request->all());
         $schedule->date = date('Y-m-d', strtotime($request->date));
@@ -404,57 +380,56 @@ class ScheduleController extends Controller
                 $mailTo = $request->email;
                 $subject = 'Thông báo đặt lịch thành công';
                 $mailData = $this->getMailData($contentConfirm, $customerName);
-                Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData, $subject));
+                Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
             }
         }
 
         return redirect()->route('schedules.index')->with(['message' => 'Thêm lịch khám lại thành công!']);
     }
 
-    public function statistical_schedules(Request $req)
-    {
-        //     $now = Carbon::now()->subDays(2)->format('Y-m-d');
-        //     $currentDateTime = Carbon::now('Asia/Ho_Chi_Minh');
-        //     $newDateTime = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->format('Y-m-d');
+    public function statistical_schedules (Request $req) {
+          //     $now = Carbon::now()->subDays(2)->format('Y-m-d');
+    //     $currentDateTime = Carbon::now('Asia/Ho_Chi_Minh');
+    //     $newDateTime = Carbon::now('Asia/Ho_Chi_Minh')->subDays(1)->format('Y-m-d');
         $date_from = $req->date_from;
         $date_to = $req->date_to;
         $scheduleList = DB::table('schedules')
-            ->select(DB::raw('count(id) as schedule_count, date'))
-            ->whereBetween('date', [$date_from, $date_to])
-            ->orderBy('date', 'asc')
-            ->groupBy('date')
-            ->get();
+        ->select(DB::raw('count(id) as schedule_count, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
 
         $patientList = DB::table('patients')
-            ->select(DB::raw('count(id) as patient_count, date'))
-            ->whereBetween('date', [$date_from, $date_to])
-            ->orderBy('date', 'asc')
-            ->groupBy('date')
-            ->get();
+        ->select(DB::raw('count(id) as patient_count, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
 
         $totalPriceOrder = DB::table('orders')
-            ->select(DB::raw('sum(total) as sum, date'))
-            ->whereBetween('date', [$date_from, $date_to])
-            ->orderBy('date', 'asc')
-            ->groupBy('date')
-            ->get();
+        ->select(DB::raw('sum(total) as sum, date'))
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('date')
+        ->get();
 
         $serviceTotal = DB::table('schedule_services')
-            ->select(DB::raw('count(service_id) as totalService, date, services.service_name as serviceName, day(date) as day, month(date) as month, year(date) as year'))
-            ->join('services', 'services.id', '=', 'schedule_services.service_id')
-            ->whereBetween('date', [$date_from, $date_to])
-            ->orderBy('date', 'asc')
-            ->groupBy('serviceName', 'date', 'day', 'month', 'year')
-            ->get();
+        ->select(DB::raw('count(service_id) as totalService, date, services.service_name as serviceName, day(date) as day, month(date) as month, year(date) as year'))
+        ->join('services', 'services.id', '=', 'schedule_services.service_id')
+        ->whereBetween('date', [$date_from, $date_to])
+        ->orderBy('date', 'asc')
+        ->groupBy('serviceName', 'date', 'day', 'month', 'year')
+        ->get();
 
-        $totalService = Service::select(DB::raw('count(id) as totalSer'))->get();
+         $totalService = Service::select(DB::raw('count(id) as totalSer'))->get();
 
-        $maxService = getMaxTable('schedule_services', 'services', array('service_id', 'service_name'));
+         $maxService = getMaxTable('schedule_services', 'services', array('service_id', 'service_name'));
 
-        $totalEquipment = Equipment::select(DB::raw('count(id) as countEquipment'))->get();
-        $totalProduct = Product::select(DB::raw('count(id) as countProduct'))->get();
-        $totalStaff = Admin::select(DB::raw('count(id) as countStaff'))->get();
-        $totalNew = News::select(DB::raw('count(id) as countNew'))->get();
+         $totalEquipment = Equipment::select(DB::raw('count(id) as countEquipment'))->get();
+         $totalProduct = Product::select(DB::raw('count(id) as countProduct'))->get();
+         $totalStaff = Admin::select(DB::raw('count(id) as countStaff'))->get();
+         $totalNew = News::select(DB::raw('count(id) as countNew'))->get();
 
 
         // return json_decode($list1);
@@ -462,14 +437,14 @@ class ScheduleController extends Controller
             "schedule" => $scheduleList,
             "patient" => $patientList,
             "sum" => $totalPriceOrder,
-            "service" => $serviceTotal,
-            "maxSer" => $maxService,
-            "totalSer" => $totalService,
-            'equipment' => $totalEquipment,
-            'product' => $totalProduct,
-            'staff' => $totalStaff,
-            'new' => $totalNew,
-            'serviceMax' => []
+            "service"=>$serviceTotal,
+            "maxSer"=>$maxService,
+            "totalSer"=>$totalService,
+            'equipment'=>$totalEquipment,
+            'product'=>$totalProduct,
+            'staff'=>$totalStaff,
+            'new'=>$totalNew,
+		'serviceMax'=>[]
         ]);
         //
     }
