@@ -40,6 +40,14 @@ class ScheduleController extends Controller
                 $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
                 $listSchedules = $listSchedules->whereBetween('date', [$startDate, $endDate]);
             }
+            if(isset($request->rebook)){
+                // rebooking
+                $listSchedules = $listSchedules->where('is_rebooking',$request->rebook);
+            }
+            if(isset($request->status)){
+                    //status
+                $listSchedules = $listSchedules->where('status',$request->status);
+            }
 
             $listSchedules = $listSchedules->orderBy('id', 'desc')->paginate(15);
         } catch (Throwable $e) {
@@ -209,7 +217,7 @@ class ScheduleController extends Controller
     // search
     public function search()
     {
-        $key = $_GET['key'];
+        $key = isset($_GET['key']) ? $_GET['key'] : '';
 
         $search_text = trim($key);
         try {

@@ -57,7 +57,7 @@
 
                 <!--Language-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <li id="dropdown-Language" class="dropdown">
+                {{-- <li id="dropdown-Language" class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
                         <span class="ic-user pull-right">
                             <i class="fa fa-language"></i>
@@ -75,7 +75,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <!--End language-->
 
