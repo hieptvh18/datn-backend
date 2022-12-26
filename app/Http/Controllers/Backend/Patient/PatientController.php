@@ -38,7 +38,7 @@ class PatientController extends Controller
             $patients = $patients->whereBetween('date', [$startDate, $endDate]);
         }
 
-        $patients = $patients->orderBy('id', 'desc')->paginate(20);
+        $patients = $patients->orderBy('id', 'desc')->paginate(10);
         return view('pages.patients.list', compact('patients', 'pageTitle'));
     }
 
@@ -82,6 +82,23 @@ class PatientController extends Controller
 
             if($request->rebooking){
                 $this->reBookingSave($request);
+
+                $customerName = $request->fullname;
+                $date = $request->rebooking;
+                $phone = $request->phone;
+                $stt = $this->getIndexer($date, $phone);
+                $companyName = 'Nha khoa Đức Nghĩa';
+                $listService = $this->getServiceNameById($request->service_id);
+                $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ của ' . $companyName . '. Lịch hẹn của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
+                // sendSms($phone, $contentConfirm);
+
+                // send mail
+                if (!empty($request->email)) {
+                    $mailTo = $request->email;
+                    $subject = 'Thông báo đặt lịch thành công';
+                    $mailData = $this->getMailData($contentConfirm, $customerName);
+                    Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
+                }
             }
 
             return redirect()->route('order.add', ['id'=>$patient->id])->with('message', 'Thêm thành công bệnh án!');
@@ -89,6 +106,42 @@ class PatientController extends Controller
             report($e->getMessage());
 
             return redirect()->back()->with('exception', 'Đã xảy ra lỗi, vui lòng thử lại!'.$e->getMessage());
+        }
+    }
+
+
+      // get mailData
+      protected function getMailData($mailContent, $customerName = 'bạn', $companyName = 'Nha khoa Đức Nghĩa',)
+      {
+          // get data from web setting
+          $mailData = [];
+          $mailData['mailTitle'] = 'Thông báo xác nhận lịch khám ' . $companyName;
+          $mailData['mailHead'] = 'Thông báo xác nhận.';
+          $mailData['companyName'] = $companyName;
+          $mailData['mailSubject'] = 'Chào ' . $customerName;
+          $mailData['mailContent'] = $mailContent;
+          $mailData['linkPatient'] = '';
+          $mailData['baseUrl'] = 'http://localhost:3000';
+
+          return $mailData;
+      }
+
+
+    // get list service name by service_id
+    protected function getServiceNameById($id)
+    {
+        if (is_array($id)) {
+            $string = '';
+            $services = Service::select('service_name')->whereIn('id', $id)->get();
+            foreach ($services as $item) {
+                if ($string) {
+                    $string .= ', ' . $item->service_name;
+                } else {
+                    $string .= $item->service_name;
+                }
+            }
+
+            return $string;
         }
     }
 
@@ -130,32 +183,48 @@ class PatientController extends Controller
         $schedule->date = date('Y-m-d', strtotime($request->rebooking));
         $schedule->birthday = date('Y-m-d', strtotime($request->birthday));
         $schedule->status = 1;
+        $schedule->parent_id = $request->schedule_id;
         $schedule->is_rebooking = 1;
         $schedule->save();
-        $scheduleId = $schedule->id;
-
-        if ($scheduleId && $request->status == 1) {
-            $contentAccount = '';
-            $customerName = $request->fullname;
-            $date = $request->date;
-            $phone = $request->phone;
-            $stt = $this->getIndexer($date, $phone);
-            $companyName = 'Nha khoa Đức Nghĩa';
-            $listService = $this->getServiceNameById($request->service_id);
-            $contentConfirm = 'Cảm ơn bạn đã đăng kí dịch vụ của ' . $companyName . '. Lịch hẹn khám lại của bạn là ngày: ' . $date . ' .Số thứ tự là: ' . $stt . ' .Dịch vụ mà bạn đăng kí là: ' . $listService . '. ' . $contentAccount . '.Bạn vui lòng nhớ sô thứ tự khi đến phòng khám để được sử dụng dịch vụ sớm nhất! Cảm ơn!';
-            // sendSms($phone, $contentConfirm);
-
-            // send mail
-            if (!empty($request->email)) {
-                $mailTo = $request->email;
-                $subject = 'Thông báo đặt lịch thành công';
-                $mailData = $this->getMailData($contentConfirm, $customerName);
-                Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
-            }
-        }
-
         // return redirect()->route('schedules.index')->with(['message' => 'Thêm lịch khám lại thành công!']);
     }
+       // get so thu tu send notifi trong ngay
+       public function getIndexer($date, $phone)
+       {
+           $dateFormat = date('Y-m-d', strtotime($date));
+           $checkExistCounter = Schedule::where('counter', '>', 0)
+               ->where('date', $dateFormat)
+               ->where('phone', '!=', $phone)
+               ->where(function($qr){
+                $qr->where('status', 1)->orwhere('status', 3);
+            })
+               ->orderBy('counter', 'desc')->first();
+           $setSchedule = Schedule::where('phone', $phone)
+               ->where('date', $dateFormat)
+               ->where(function($qr){
+                $qr->where('status', 1)->orwhere('status', 3);
+            })
+               ->first();
+           $myCouter = Schedule::where('counter', '>', 0)
+               ->where('date', $dateFormat)
+               ->where('phone', $phone)
+               ->first();
+
+           $counter = 0;
+           if ($checkExistCounter && !$myCouter) {
+               $setSchedule->counter = $checkExistCounter->counter + 1;
+               $setSchedule->save();
+               $counter = $setSchedule->counter;
+           } else if (!$checkExistCounter) {
+               $setSchedule->counter = 1;
+               $setSchedule->save();
+               $counter = $setSchedule->counter;
+           } else {
+               $counter = $myCouter->counter;
+           }
+           return $counter;
+       }
+
 
     /**
      * Show the form for editing the specified resource.

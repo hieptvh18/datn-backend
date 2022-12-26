@@ -6,7 +6,7 @@
             <div class="panel">
                 <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">{{ $pageTitle }}</h3>
-                    <h4 class="panel-title">Xuất/Nhập</h4>
+                    <h4 class="panel-title">Xuất</h4>
                 </div>
 
                 <!--Data Table-->

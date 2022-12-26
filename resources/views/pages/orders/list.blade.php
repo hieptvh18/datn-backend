@@ -154,7 +154,7 @@
                     </div>
                     <hr class="new-section-xs">
                     <div class="paginate">
-                         {{ $orders->links() }}
+                         {{ $orders->links()}}
                     </div>
                 </div>
             </div>

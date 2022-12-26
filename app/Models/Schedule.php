@@ -34,7 +34,8 @@ class Schedule extends Model
         'address',
         'content',
         'date',
-        'counter'
+        'counter',
+        'parent_id'
     ];
 
 
@@ -44,6 +45,10 @@ class Schedule extends Model
 
     public function services_schedule () {
         return $this->belongsToMany(Service::class, 'schedule_services', 'schedule_id', 'service_id');
+    }
+
+    public function getChildrentSchedule () {
+        return $this->belongsTo(Schedule::class, 'parent_id', 'id');
     }
 
 }
