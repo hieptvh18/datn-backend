@@ -4,9 +4,9 @@
         <!--Brand logo & name-->
         <!--================================-->
         <div class="navbar-header">
-            <a href="http://localhost:3000/" class="navbar-brand">
-                <img src="{{ asset($logoWeb->logo) }}" alt="DN Logo" width="100%" class="brand-icon">
-                {{-- <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon"> --}}
+            <a href="https://nhakhoaducnghia.vercel.app/" class="navbar-brand" style="background: white">
+                <img src="{{ asset($logoWeb->logo) }}" alt="DN Logo" width="100%" class="brand-icon" style="padding:8px; width: 155px; margin-left:25px;">
+                                {{-- <img src="{{ asset('assets/img/logo-dn-new.png') }}" alt="DN Logo" width="100%" class="brand-icon"> --}}
                 {{-- <div class="brand-title">
                     <span class="brand-text">DN</span>
                 </div> --}}
@@ -57,7 +57,7 @@
 
                 <!--Language-->
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
-                <li id="dropdown-Language" class="dropdown">
+                {{-- <li id="dropdown-Language" class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
                         <span class="ic-user pull-right">
                             <i class="fa fa-language"></i>
@@ -75,7 +75,7 @@
                             </li>
                         </ul>
                     </div>
-                </li>
+                </li> --}}
                 <!--~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~-->
                 <!--End language-->
 
@@ -378,7 +378,7 @@
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-parent="#demo-acc-info-outline" data-toggle="collapse"
-                                                    href="#acd-info-outline-13">Cài đặt chung</a>
+                                                    href="#acd-info-outline-13">Cài đặt</a>
                                             </h4>
                                         </div>
 
@@ -386,8 +386,8 @@
                                         <div class="panel-collapse collapse in" id="acd-info-outline-13">
                                             <div class="panel-body">
                                                 <ul style="list-style-type: none;">
-                                                    <li><a href="grid-bootstrap.html">Bootstrap Grid</a></li>
-                                                    <li><a href="grid-liquid-fixed.html">Liquid Fixed</a></li>
+                                                    <li><a href="{{route('webSetting.edit')}}">Chỉnh sửa</a></li>
+                                                   
                                                 </ul>
                                             </div>
                                         </div>
@@ -455,11 +455,11 @@
                     <div class="dropdown-menu dropdown-menu-sm dropdown-menu-right panel-default">
                         <ul class="head-list">
                             <li>
-                                <a href="#"><i class="demo-pli-male icon-lg icon-fw"></i> Profile</a>
+                                <a href="#"><i class="demo-pli-male icon-lg icon-fw"></i> Hồ sơ cá nhân</a>
                             </li>
                             <li>
                                 <a href="{{route('webSetting.edit')}}"><i
-                                        class="demo-pli-gear icon-lg icon-fw"></i> Settings</a>
+                                        class="demo-pli-gear icon-lg icon-fw"></i> Cài đặt</a>
                             </li>
                             @if (Auth::guard('admin')->check())
                                 <li>
@@ -471,7 +471,7 @@
                                     </form>
                                     <button data-form="deleteForm" class="btn btn-block logout"
                                         style="text-align: left"><i
-                                            class="demo-pli-unlock icon-lg icon-fw"></i>Logout</button>
+                                            class="demo-pli-unlock icon-lg icon-fw"></i>Đăng xuất</button>
                                 </li>
                             @endif
                         </ul>
@@ -510,10 +510,10 @@
     if(notifications.find('li').length > 5){
         viewAllNoti.html(viewAllNotiHtml);
     }
-    if(notifications.find('li').length == 0){
-        viewAllNoti.html(`<div class="btn-link text-main box-block">
-                                Chưa có thông báo </div>`);
-    }
+    // if(notifications.find('li').length == 0){
+    //     viewAllNoti.html(`<div class="btn-link text-main box-block">
+    //                             Chưa có thông báo </div>`);
+    // }
 
     // if (notificationsCount <= 0) {
     //     notificationsWrapper.hide();

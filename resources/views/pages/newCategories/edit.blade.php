@@ -46,7 +46,7 @@
                     </div>
                 </div>
                 <div class="panel-footer text-right">
-                    <button class="btn btn-primary" type="submit">Cập nhật</button>
+                    <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
                     <button class="btn btn-black" type="reset">Nhập lại</button>
                 </div>
             </div>

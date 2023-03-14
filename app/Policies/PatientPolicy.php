@@ -52,7 +52,7 @@ class PatientPolicy
      * @param  \App\Models\Patient  $patient
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Patient $patient)
+    public function update(Admin $user)
     {
         return $user->checkPermission('Edit_Patients');
     }

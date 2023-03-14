@@ -5,7 +5,7 @@
     <title>Đăng nhập</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <link rel="icon" href="{{ asset('assets/img/favicon.ico') }}">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -85,7 +85,7 @@
     <script>
         @if (session('message'))
             Swal.fire({
-                position: 'bottom-end',
+                position: 'center',
                 icon: 'success',
                 title: '{{ session('message') }}',
                 showConfirmButton: false,
@@ -94,7 +94,7 @@
         @endif
         @if (session('error'))
             Swal.fire({
-                position: 'top-end',
+                position: 'center',
                 icon: 'error',
                 title: '{{ session('error') }}',
                 showConfirmButton: true,

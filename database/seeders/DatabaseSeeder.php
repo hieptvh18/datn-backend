@@ -30,30 +30,30 @@ class DatabaseSeeder extends Seeder
     {
 
         // new category
-        // NewCategory::factory(10)->create();
+        NewCategory::factory(10)->create();
 
         // rooms
-        // Room::factory(10)->create();
+        Room::factory(10)->create();
         // levels
-        // Level::factory(6)->create();
+        Level::factory(6)->create();
         // specialists
-        // Specialist::factory(10)->create();
+        Specialist::factory(10)->create();
         //services
-        // Service::factory(20)->create();
+        Service::factory(20)->create();
         // product type && product
-        // ProductType::factory(10)->create();
-        // Product::factory(20)->create();
+        ProductType::factory(10)->create();
+        Product::factory(20)->create();
         // permission
-        // $this->createPermissionFactory();
+        $this->createPermissionFactory();
         // role
-        // $this->createRoleFactory();
+        $this->createRoleFactory();
         // role permission
-        // $this->createRolePermissionFactory();
+        $this->createRolePermissionFactory();
         // account admin
-        // $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1, 'avatar'=>'assets/img/profile-photos/Profile-Icon.png'];
-        // Admin::create($account_admin);
+        $account_admin = ['email'=>'admin@gmail.com', 'fullname'=>'Admin', 'birthday'=>null, 'phone'=>'0246879135', 'address'=>'', 'facebook_url'=>'', 'twitter_url'=>'', 'email_url'=>'', 'password'=>Hash::make('12345678'), 'is_active'=>1, 'room_id'=>1, 'level_id'=>1, 'specialist_id'=>1, 'avatar'=>'assets/img/profile-photos/Profile-Icon.png'];
+        Admin::create($account_admin);
         // role_admins
-        // DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
+        DB::insert('insert into role_admins (admin_id, role_id) values (1, 3)');
 
         // websetting
         $this->createDataWebsetting();
@@ -134,6 +134,16 @@ class DatabaseSeeder extends Seeder
                 ['permission_name'=>'Add FeedBack', 'permission_key_code'=>'Add_FeedBack', 'parent_id'=>66],
                 ['permission_name'=>'Edit FeedBack', 'permission_key_code'=>'Edit_FeedBack', 'parent_id'=>66],
                 ['permission_name'=>'Delete FeedBack', 'permission_key_code'=>'Delete_FeedBack', 'parent_id'=>66],
+                ['permission_name'=>'News', 'permission_key_code'=>'', 'parent_id'=>0],
+                ['permission_name'=>'List News', 'permission_key_code'=>'List_News', 'parent_id'=>71],
+                ['permission_name'=>'Add News', 'permission_key_code'=>'Add_News', 'parent_id'=>71],
+                ['permission_name'=>'Edit News', 'permission_key_code'=>'Edit_News', 'parent_id'=>71],
+                ['permission_name'=>'Delete News', 'permission_key_code'=>'Delete_News', 'parent_id'=>71],
+                ['permission_name'=>'NewCategory', 'permission_key_code'=>'', 'parent_id'=>0],
+                ['permission_name'=>'List NewCategory', 'permission_key_code'=>'List_NewCategory', 'parent_id'=>76],
+                ['permission_name'=>'Add NewCategory', 'permission_key_code'=>'Add_NewCategory', 'parent_id'=>76],
+                ['permission_name'=>'Edit NewCategory', 'permission_key_code'=>'Edit_NewCategory', 'parent_id'=>76],
+                ['permission_name'=>'Delete NewCategory', 'permission_key_code'=>'Delete_NewCategory', 'parent_id'=>76],
         ];
          foreach($permissions as $permission){
             Permission::create($permission);
@@ -141,77 +151,93 @@ class DatabaseSeeder extends Seeder
     }
 
     // factory role
-    // public function createRoleFactory () {
-    //     DB::table('roles')->delete();
-    //     $roles = [
-    //         ['role_name'=>'Guest'],
-    //         ['role_name'=>'Manager'],
-    //         ['role_name'=>'Admin'],
-    //         ['role_name'=>'Doctor'],
-    //     ];
+    public function createRoleFactory () {
+        DB::table('roles')->delete();
+        $roles = [
+            ['role_name'=>'Guest'],
+            ['role_name'=>'Manager'],
+            ['role_name'=>'Admin'],
+            ['role_name'=>'Doctor'],
+        ];
 
-    //     foreach($roles as $role){
-    //         Role::create($role);
-    //     }
-    // }
+        foreach($roles as $role){
+            Role::create($role);
+        }
+    }
 
     // factory role permission
-    // public function createRolePermissionFactory () {
-    //     DB::table('permission_roles')->delete();
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (2, 1)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (2, 2)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (3, 2)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (4, 2)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (5, 2)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (2, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (3, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (4, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (5, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (7, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (8, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (9, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (10, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (12, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (13, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (14, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (15, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (17, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (18, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (19, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (20, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (22, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (23, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (24, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (25, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (27, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (28, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (29, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (30, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (32, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (33, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (34, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (35, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (37, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (38, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (39, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (40, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (42, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (43, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (44, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (45, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (47, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (48, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (49, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (50, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (52, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (53, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (54, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (55, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (57, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (58, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (59, 3)');
-    //     DB::insert('insert into permission_roles (permission_id, role_id) values (60, 3)');
-    // }
+    public function createRolePermissionFactory () {
+        DB::table('permission_roles')->delete();
+        DB::insert('insert into permission_roles (permission_id, role_id) values (2, 1)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (2, 2)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (3, 2)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (4, 2)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (5, 2)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (2, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (3, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (4, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (5, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (7, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (8, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (9, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (10, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (12, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (13, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (14, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (15, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (17, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (18, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (19, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (20, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (22, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (23, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (24, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (25, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (27, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (28, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (29, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (30, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (32, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (33, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (34, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (35, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (37, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (38, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (39, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (40, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (42, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (43, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (44, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (45, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (47, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (48, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (49, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (50, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (52, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (53, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (54, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (55, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (57, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (58, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (59, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (60, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (62, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (63, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (64, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (65, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (67, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (68, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (69, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (70, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (72, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (73, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (74, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (75, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (77, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (78, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (79, 3)');
+        DB::insert('insert into permission_roles (permission_id, role_id) values (80, 3)');
+    }
 
     // websetting
     public function createDataWebsetting () {

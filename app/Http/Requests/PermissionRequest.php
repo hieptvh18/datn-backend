@@ -24,14 +24,15 @@ class PermissionRequest extends FormRequest
     public function rules()
     {
         return [
-            'parent'=>'required',
+            'permission_name'=>['required', 'unique:permissions'],
             'childrent'=>'required|min:1',
         ];
     }
     public function messages()
     {
         return [
-            'parent.required'=>'Vui lòng chọn module!',
+            'permission_name.required'=>'Vui lòng chọn module!',
+            'permission_name.unique'=>'Module này đã tồn tại!',
             'childrent.required'=>'Vui lòng chọn tối thiểu 1 hành động của module!',
             'childrent.min'=>'Vui lòng chọn tối thiểu 1 hành động của module!',
         ];

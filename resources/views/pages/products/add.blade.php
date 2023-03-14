@@ -29,7 +29,7 @@
                         <select name="type_id" id="type_id" class="form-control">
                             @foreach ($types as $type)
                                 <option value="{{$type->id}}">{{$type->name}}</option>
-                            @endforeach    
+                            @endforeach
                         </select>
                         @error('name')
                             <span class="text-danger">{{ $message }}</span>
@@ -57,6 +57,24 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="col-sm-3 control-label" for="demo-hor-function">Ngày sản xuất</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" name="nsx" value="{{old('nsx')}}" autocomplete="nsx" autofocus>
+                        @error('nsx')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="demo-hor-function">Hạn sử dụng</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" name="hsd" value="{{old('hsd')}}" autocomplete="hsd" autofocus>
+                        @error('hsd')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Mô tả</label>
                     <div class="col-sm-9">
                         <textarea name="description" class="form-control" id="description" cols="30" rows="3"></textarea>
@@ -67,8 +85,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Thêm mới</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

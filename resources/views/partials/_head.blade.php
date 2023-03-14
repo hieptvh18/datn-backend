@@ -3,7 +3,10 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 	<title>@yield('page-title')</title>
+	<link rel="icon" href="{{ asset('assets/img/favicon.ico') }}">
 
+	{{-- font awesome --}}
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!--STYLESHEET-->
 <!--=================================================-->

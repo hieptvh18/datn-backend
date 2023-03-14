@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductType;
+use Exception;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -44,6 +45,7 @@ class ProductController extends Controller
      */
     public function store(ProductRequest $request)
     {
+        // dd($request->all());
          try{
             $product = new Product();
             $product->fill($request->all());
@@ -59,7 +61,7 @@ class ProductController extends Controller
             $product->save();
 
             return redirect()->back()->with('message','Lưu thành công sản phẩm');
-         }catch(Throwable $e){
+         }catch(Exception $e){
             report($e->getMessage());
             return redirect()->back()->with('error','Có lỗi xảy ra, vui lòng thử lại sau!');
          }

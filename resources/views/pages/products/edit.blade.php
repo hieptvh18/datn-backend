@@ -59,10 +59,28 @@
                             <br>
                         @endif
                         <label for="">Ảnh mới</label>
-                        <input type="file" class="form-control" name="image" 
+                        <input type="file" class="form-control" name="image"
                             onchange="preview()" autocomplete="image" autofocus>
                         <img src="" id="previewImage" width="120px" alt="">
                         @error('image')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="demo-hor-function">Ngày sản xuất</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" name="nsx" value="{{$product->nsx ? $product->nsx : old('nsx')}}" autocomplete="nsx" autofocus>
+                        @error('nsx')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-sm-3 control-label" for="demo-hor-function">Hạn sử dụng</label>
+                    <div class="col-sm-9">
+                        <input type="date" class="form-control" name="hsd" value="{{$product->hsd?$product->hsd:old('hsd')}}" autocomplete="hsd" autofocus>
+                        @error('hsd')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
                     </div>
@@ -78,8 +96,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

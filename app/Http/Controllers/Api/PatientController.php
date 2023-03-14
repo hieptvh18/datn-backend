@@ -8,12 +8,13 @@ use App\Models\Patient;
 use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use stdClass;
 
 class PatientController extends Controller
 {
     public function list ($phone){
         try {
-            $listPatient = Patient::where('phone', $phone)->get();
+            $listPatient = Patient::where('phone', $phone)->where('is_deleted', 0)->get();
             return response()->json([
                 'success'=>true,
                 'message'=>'Danh sách bệnh án của bệnh nhân có sđt '. $phone,
@@ -30,17 +31,38 @@ class PatientController extends Controller
     }
     public function detail ($phone, $patientId){
         try {
-            $patient = Patient::where('phone', $phone)->where('id', $patientId)->with(['service_patients'=>function($query){
+            $patient = Patient::where('phone', $phone)->where('id', $patientId)->where('is_deleted', 0)->with(['service_patients'=>function($query){
                 $query->select('service_name','price');
             }])->with(['patient_doctors'=>function($query){
                 $query->select('fullname');
             }])->with(['patient_products'=>function($query){
                 $query->select('name','price');
-            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date",'token_url']);
+            }])->with(['getHdsdProduct'=>function($query){
+                $query->select('patient_id','product_id_hdsd');
+            }])->first(["id", "customer_name", "phone", "birthday", "description", "address", "schedule_id", "date",'token_url']);
+
+
+            $patient1 = Patient::with('getHdsdProduct')->where('phone', $phone)->where('id', $patientId)->where('is_deleted', 0)->first();
+
+            $arr = array();
+
+            foreach($patient1->getHdsdProduct as $product){
+                 array_push($arr, $product->product_id_hdsd);
+            }
+            $hdsds = explode('|||',$arr[0]);
+            $arrKey = array('product_id', 'hdsd');
+            $arrHdsd = array();
+            foreach($hdsds as $hd){
+                if($hd){
+                    array_push($arrHdsd, array_combine($arrKey, explode('/*/*/',$hd)));
+                }
+            }
+
             return response()->json([
                 'success'=>true,
                 'message'=>'Chi tiết bệnh án của bệnh nhân có sđt '. $phone,
-                'data'=> $patient
+                'data'=> $patient,
+                'hdsd'=>$arrHdsd
             ]);
         } catch (\Throwable $th) {
             report($th->getMessage());
@@ -54,17 +76,35 @@ class PatientController extends Controller
 
     public function detailById ($token, $id){
         try {
-            $patient = Patient::where('id', $id)->where('token_url', $token)->with(['service_patients'=>function($query){
+            $patient = Patient::where('id', $id)->where('token_url', $token)->where('is_deleted', 0)->with(['service_patients'=>function($query){
                 $query->select('service_name','price');
             }])->with(['patient_doctors'=>function($query){
                 $query->select('fullname');
             }])->with(['patient_products'=>function($query){
                 $query->select('name','price');
-            }])->first(["id", "customer_name", "phone", "birthday", "cmnd", "description", "address", "schedule_id", "date",'token_url']);
+            }])->first(["id", "customer_name", "phone", "birthday", "description", "address", "schedule_id", "date",'token_url']);
+
+            $patient1 = Patient::with('getHdsdProduct')->where('id', $id)->where('token_url', $token)->where('is_deleted', 0)->first();
+
+            $arr = array();
+
+            foreach($patient1->getHdsdProduct as $product){
+                 array_push($arr, $product->product_id_hdsd);
+            }
+            $hdsds = explode('|||',$arr[0]);
+            $arrKey = array('product_id', 'hdsd');
+            $arrHdsd = array();
+            foreach($hdsds as $hd){
+                if($hd){
+                    array_push($arrHdsd, array_combine($arrKey, explode('/*/*/',$hd)));
+                }
+            }
+
             return response()->json([
                 'success'=>true,
                 'message'=>'Chi tiết bệnh án của 1 bệnh nhân',
-                'data'=> $patient
+                'data'=> $patient,
+                'hdsd'=>$arrHdsd
             ]);
         } catch (\Throwable $th) {
             report($th->getMessage());
@@ -86,13 +126,13 @@ class PatientController extends Controller
             foreach($list_role_doctor as $role) {
                 array_push($id_role_doctor, $role->admin_id);
             }
-            $list_doctor = Admin::where('is_active', 1)->whereIn('id', $id_role_doctor)->with(['AdminSpecialist'=>function($query){
+            $list_doctor = Admin::select('*')->where('is_active', 1)->whereIn('id', $id_role_doctor)->with(['AdminSpecialist'=>function($query){
                 $query->select('id', 'specialist_name', 'function', 'description');
             }])->with(['AdminLevel'=>function($query){
                 $query->select('id', 'name', 'description');
             }])->with(['AdminRoom'=>function($query){
                 $query->select('id', 'room_name', 'achievement', 'history', 'mission');
-            }])->get(['id', 'fullname', 'room_id', 'level_id', 'specialist_id', 'avatar']);
+            }])->get(['id', 'fullname', 'room_id', 'level_id', 'specialist_id', 'avatar', 'description']);
             return response()->json([
                 'success'=>true,
                 'message'=>'Danh sách bác sĩ!',

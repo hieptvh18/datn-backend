@@ -20,7 +20,8 @@ class Order extends Model
         'payment_method',
         'description',
         'date',
-        'total'
+        'total',
+        'product_id_hdsd'
     ];
 
     public $sortable = [

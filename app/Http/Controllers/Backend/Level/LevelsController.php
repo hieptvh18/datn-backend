@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Backend\Level;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\LevelRequest;
+use App\Models\Admin;
 use App\Models\Level;
 use Illuminate\Http\Request;
 
@@ -35,11 +36,17 @@ class LevelsController extends Controller
         return redirect()->route('level.index');
     }
 
-    public function delete(Level $id)
+    public function delete($id)
     {
-        if($id->delete()) {
+        $admins = Admin::where('level_id', $id)->get();
+        foreach($admins as $admin){
+            $changeValAdmin = Admin::find($admin->id);
+            $changeValAdmin->level_id = 0;
+            $changeValAdmin->update();
+        };
+        Level::destroy($id);
             return redirect()->back();
-        }
+
     }
 
     public function edit($id)

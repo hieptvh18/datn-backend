@@ -59,3 +59,4 @@ Route::get('/feedback/list',[FeedBackController::class,'list']);
 
 // websetting
 Route::get('/websetting', [WebsettingController::class, 'websetting']);
+

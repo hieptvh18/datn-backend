@@ -6,7 +6,7 @@
             <div class="panel">
                 <div class="panel-heading" style="display: flex; justify-content: space-between;">
                     <h3 class="panel-title">{{ $pageTitle }}</h3>
-                    <h4 class="panel-title">Xuất/Nhập</h4>
+                    <h4 class="panel-title">Xuất</h4>
                 </div>
 
                 <!--Data Table-->
@@ -18,17 +18,12 @@
                                 {{-- <a href="{{ route('patient.create') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a> --}}
-                                <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
-
+                                {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button>
+--}}
                                 <div class="btn-group">
                                     <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button>
-                                    <button class="btn btn-default"
-                                        onclick="
-                                        if(confirm('Xóa item đã chọn?')){
 
-                                        }
-                                    "><i
-                                            class="demo-pli-trash icon-lg"></i></button>
+                                        <button class="btn btn-default" id="delete-multiple" data-route="{{ route('patient.deleteMultiple') }}"><i class="demo-pli-trash icon-lg"></i></button>
                                 </div>
 
                             </div>
@@ -67,25 +62,28 @@
                             <div style="width: 72%;">
                                 <form action="" method="GET" class="">
                                     <div class="row">
-                                        <div id="demo-dp-range" class="col-sm-6" style="display: flex">
+                                        <div id="date-patient" class="col-sm-6" style="display: flex">
                                             <div class="input-daterange input-group" id="datepicker">
-                                                <input value="{{ isset(request()->start) ? request()->start : '' }}"
+                                                <input id="fromdatepicker" value="{{ isset(request()->start) ? request()->start : '' }}"
                                                     type="text" class="form-control" name="start"
                                                     placeholder="Ngày bắt đầu" />
                                                 <span class="input-group-addon">to</span>
-                                                <input value="{{ isset(request()->end) ? request()->end : '' }}"
+                                                <input id="todatepicker" value="{{ isset(request()->end) ? request()->end : '' }}"
                                                     type="text" placeholder="Ngày kết thúc" class="form-control"
                                                     name="end" />
                                             </div>
                                             <div class="btn-group col-sm-8">
                                                 <a href=""><button class="btn btn-primary">Lọc</button></a>
+                                                <a class="btn btn-secondary" href="{{route('patient.index')}}">
+                                                      <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                  </a>
                                             </div>
                                         </div>
 
                                     </div>
                                 </form>
                             </div>
-                            <div style="width: 50%; text-align: right">
+                            <!-- <div style="width: 50%; text-align: right">
                                 <form action="{{ route('patient.importPatient') }}" enctype="multipart/form-data"
                                     method="post">
                                     @csrf
@@ -104,7 +102,7 @@
                                     @enderror
 
                                 </form>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
 
@@ -112,17 +110,18 @@
                         @if (session('exception'))
                             <div class="alert alert-danger">{{ session('exception') }}</div>
                         @endif
-                        <table class="table table-striped">
+                        <table class="table table-striped Card">
                             <thead>
                                 <tr>
                                     <th>
-                                        <input type="checkbox" name="" id="">
+                                        <th><input type="checkbox" class="Parent"></th>
                                     </th>
                                     <th class="text-center">@sortablelink('id', 'ID')</th>
                                     <th class="text-center">@sortablelink('customer_name', 'Họ tên')</th>
                                     <th class="text-center">@sortablelink('phone', 'Số điện thoại')</th>
                                     <th class="text-center">@sortablelink('birthday', 'Năm sinh')</th>
                                     <th class="text-center">@sortablelink('description', 'Mô tả ngắn')</th>
+                                    <th class="text-center">@sortablelink('date', 'Ngày khám')</th>
                                     <th class="text-center">Trạng thái</th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
@@ -130,13 +129,13 @@
                             <tbody>
                                 @foreach ($patients as $patient)
                                     <tr class="text-center">
-                                        <td class="text-left"> <input type="checkbox" name="" id="">
-                                        </td>
+                                        <td class="text-left"> <td><input type="checkbox" class="Childrent" name="patient_id[]" value="{{$patient->id}}"></td>
                                         <td>{{ $patient->id }}</td>
                                         <td>{{ $patient->customer_name }}</td>
                                         <td>{{ $patient->phone }}</td>
                                         <td>{{ $patient->birthday }}</td>
-                                        <td>{{ substr($patient->description, 50) }}...</td>
+                                        <td>{{ substr($patient->description, 0,50) }}...</td>
+                                        <td>{{ $patient->date }}</td>
                                         <td>
                                             @if ($patient->status == 1)
                                                 <div class="label label-table label-danger">Chưa điều trị</div>
@@ -148,6 +147,7 @@
                                                 <div class="label label-table label-success">Đã điều trị</div>
                                             @endif
                                         <td style="width:300px">
+                                            @can('patient-delete')
                                             <form id="deleteForm{{ $patient->id }}"
                                                 action="{{ route('patient.destroy', $patient->id) }}" method="post">
                                                 @csrf
@@ -156,26 +156,35 @@
                                             <button data-form="deleteForm{{ $patient->id }}"
                                                 class="label label-table label-danger btn-delete"
                                                 style="border: none">Xóa</button>
+                                                @endcan
+
+                                                @can('patient-edit')
                                             <a href="{{ route('patient.edit', $patient->id) }}"
                                                 class="label label-table label-warning">
                                                 Sửa
                                             </a>
+                                            @endcan
                                             {{-- <a href="{{ route('reBooking', $patient->id) }}"
                                                 class="label label-table label-success">
                                                 Đặt lịch khám lại
                                             </a> --}}
                                             @if ($patient->status == 0)
+                                            @can('order-add')
                                                 <a style="margin-top: 5px "
                                                     href="{{ route('order.add', ['id' => $patient->id]) }}"
                                                     class="label label-table label-primary">
                                                     Tạo hóa đơn
                                                 </a>
-                                            @elseif ($patient->status == 3)
+                                                @endcan
+
+                                                @elseif ($patient->status == 3)
+                                                @can('order-edit')
                                                 <a style="margin-top: 5px "
                                                     href="{{ route('order.detail', $patient->order_id) }}"
                                                     class="label label-table label-primary">
                                                     Xem hóa đơn
                                                 </a>
+                                                @endcan
                                             @endif
                                         </td>
                                     </tr>
@@ -191,4 +200,62 @@
             </div>
         </div>
     </div>
+@endsection
+@section('page-js')
+
+<script>
+    $(document).ready(function() {
+        $('#fromdatepicker').datepicker();
+        // $('#datetimepicker2').datetimepicker({
+        //          locale: 'ruu'
+        //      });
+    })
+    $(document).ready(function() {
+        $('#todatepicker').datepicker();
+        // $('#datetimepicker2').datetimepicker({
+        //          locale: 'ruu'
+        //      });
+    })
+</script>
+
+{{-- <script>
+    $('#delete-multiple').on('click', function() {
+    var selected = [];
+    $('.Card .Childrent:checked').each(function() {
+        selected.push($(this).val());
+    });
+
+    Swal.fire({
+        icon: 'warning',
+        title: 'Bạn có muốn xóa những dữ liệu này không?',
+        showDenyButton: false,
+        showCancelButton: true,
+        confirmButtonText: 'Yes'
+    }).then((result) => {
+        if (result.isConfirmed) {
+            $.ajax({
+                type: "post",
+                url: $(this).data('route'),
+                headers: {
+                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                },
+                data: {
+                    "data": selected
+                },
+                success: function(response) {
+                    Swal.fire({
+                        icon: 'success',
+                        title: response,
+                        showDenyButton: false,
+                        showCancelButton: false,
+                        confirmButtonText: 'Yes'
+                    }).then((result) => {
+                        window.location.reload()
+                    });
+                }
+            });
+        }
+    });
+});
+</script> --}}
 @endsection

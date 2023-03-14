@@ -19,14 +19,18 @@ class ScheduleController extends Controller
     public function add(Request $request)
     {
         try {
+            $newDate = date('Y-m-d', strtotime('+1 day', strtotime($request->date)));
 
             if ($this->validateBooking($request->phone, Carbon::now())) {
                 $schedule = new Schedule();
                 $schedule->fill($request->all());
+                $schedule->birthday = $request->birthday?$request->birthday:null;
                 // convert date
-                $schedule->date = date('Y-m-d', strtotime($request->date));
+                // $schedule->date = date('Y-m-d', strtotime($request->date));
+                $schedule->date = $newDate;
                 $schedule->save();
-                $schedule->schedule_services()->attach($request->service_id);
+                // $schedule->schedule_services()->attach($request->service_id);
+                $schedule->schedule_services()->attach($request->service_id, array('date'=>$newDate));
 
                 // auto create account customer
                 // $user = $this->createUser($request->all());
@@ -47,6 +51,7 @@ class ScheduleController extends Controller
                 'success' => false,
                 'message' => 'Bạn vừa đặt lịch các đây 1 ngày! vui lòng thử lại sau 24h!',
                 'data' => [],
+
                 // 'user' => [],
             ], 400);
         } catch (Throwable $tr) {

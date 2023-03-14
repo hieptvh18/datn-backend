@@ -14,9 +14,11 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
+                                @can('level-add')
                                 <a href="{{ route('level.add') }}">
                                     <button class="btn btn-purple"><i class="demo-pli-add icon-fw"></i>Add</button>
                                 </a>
+                                @endcan
                                 {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 <div class="btn-group">
                                     {{-- <button class="btn btn-default"><i class="demo-pli-information icon-lg"></i></button> --}}
@@ -66,6 +68,7 @@
                                         <td><a href="#" class="btn-link">{{++$i}}</a></td>
                                         <td>{{ $level->name }}</td>
                                         <td>{{ $level->description }}</td>
+                                        @can('level-delete')
                                         <td class="text-center">
                                             <form method="post" action="{{ route('level.delete', $level->id) }}">
                                                 @csrf
@@ -78,7 +81,10 @@
                                                     <i class="demo-pli-trash icon-lg"></i></button>
                                             </form>
                                         </td>
+                                        @endcan
+                                        @can('level-edit')
                                         <td><a href="{{ route('level.edit', $level->id) }}"><button class="btn btn-warning">Sửa</button></a></td>
+                                        @endcan
                                     </tr>
                                 @endforeach
                             </tbody>

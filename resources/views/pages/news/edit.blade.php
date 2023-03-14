@@ -34,7 +34,7 @@
                 <div class="form-group">
                     <label class="col-sm-3 control-label" for="demo-hor-function">Nội dung bài viết</label>
                     <div class="col-sm-9">
-                        <textarea placeholder="Chức năng của chuyên khoa" id="demo-hor-function" class="form-control" name="content">{{ $news->content }}</textarea>
+                        <textarea placeholder="Chức năng của chuyên khoa" id="demo-hor-function" class="ckeditor form-control" name="content">{{ $news->content }}</textarea>
                         @error('content')
                             <span class="text-danger">{{ $message }}</span>
                         @enderror
@@ -61,21 +61,6 @@
                     </div>
                 </div>
 
-                {{-- <div class="form-group">
-                    <label for="description" class="col-sm-3 control-label">Tác giả</label>
-                    <div class="col-md-9">
-                        <select class="js-example-basic-multiple form-control"
-                        name="author_id">
-                        @if ($news->author_id !== null)
-                        @foreach ($listAuthor as $author)
-                        <option value="{{ $author->id }}" {{ $news->author_id == $author->id ? 'selected':'' }}>{{ $author->fullname }}</option>
-                        @endforeach
-                        @else
-                        <option value="" selected>incognito</option>
-                        @endif
-                    </select>
-                    </div>
-                </div> --}}
 
                 <div class="form-group">
                     <label for="description" class="col-sm-3 control-label">Danh mục bài viết</label>
@@ -98,8 +83,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Lưu thay đổi</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

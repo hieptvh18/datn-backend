@@ -69,12 +69,15 @@
                                     <div class="row" >
                                         <div id="demo-dp-range" class="col-sm-6" style="display: flex">
                                             <div class="input-daterange input-group">
-                                                <input value="{{isset(request()->start) ? request()->start : ''}}" type="text" class="form-control" name="start" placeholder="Ngày bắt đầu"/>
+                                                <input id="fromdatepicker" value="{{isset(request()->start) ? request()->start : ''}}" type="text" class="form-control" name="start" placeholder="Ngày bắt đầu"/>
                                                 <span class="input-group-addon">to</span>
-                                                <input value="{{isset(request()->end) ? request()->end : ''}}" type="text" placeholder="Ngày kết thúc" class="form-control" name="end" />
+                                                <input id="todatepicker" value="{{isset(request()->end) ? request()->end : ''}}" type="text" placeholder="Ngày kết thúc" class="form-control" name="end" />
                                             </div>
                                             <div class="btn-group col-sm-8">
                                                 <a href=""><button class="btn btn-primary">Lọc</button></a>
+                                                <a class="btn btn-secondary" href="{{route('order.index')}}">
+                                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                </a>
                                             </div>
                                         </div>
 
@@ -92,7 +95,7 @@
                                                 Browse... <input type="file" name="file">
                                             </span>
                                         </div>
-                                    </div>                         
+                                    </div>
                                         <button class="btn btn-default" title="Nhập danh sách">
                                         <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
                                     @error('file')
@@ -133,16 +136,17 @@
 
                                         <td>
 
-
+                                            @can('news-edit')
                                             <a href="{{ route('order.detail', $order->id) }}"
                                                 class="label label-table label-warning">
                                                 Chi tiết
                                             </a>
+                                            @endcan
 
-                                            <a style="margin-top: 5px " href="{{ route('order.pdf', $order->id) }}"
+                                            {{-- <a style="margin-top: 5px " href="{{ route('order.pdf', $order->id) }}"
                                                 class="label label-table label-primary">
                                                 Xuất hóa đơn
-                                            </a>
+                                            </a> --}}
                                         </td>
                                     </tr>
                                 @endforeach
@@ -151,7 +155,7 @@
                     </div>
                     <hr class="new-section-xs">
                     <div class="paginate">
-                        {{-- {{ $patients->links() }} --}}
+                         {{ $orders->links()}}
                     </div>
                 </div>
             </div>
@@ -159,6 +163,14 @@
     </div>
 @endsection
 @section('page-js')
+<script>
+    $(document).ready(function() {
+        $('#fromdatepicker').datepicker();
+    })
+    $(document).ready(function() {
+        $('#todatepicker').datepicker();
+    })
+</script>
 <script>
       $(document).ready(function(){
         $('#datepicker').datepicker();

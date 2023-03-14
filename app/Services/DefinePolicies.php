@@ -13,6 +13,7 @@ use App\Policies\OrderPolicy;
 use App\Policies\PatientPolicy;
 use App\Policies\PermissionPolicy;
 use App\Policies\ProductPolicy;
+use App\Policies\ProductTypePolicy;
 use App\Policies\RolePolicy;
 use App\Policies\RoomPolicy;
 use App\Policies\SchedulePolicy;
@@ -110,6 +111,14 @@ class DefinePolicies {
         Gate::define('product-add', [ProductPolicy::class, 'create']);
         Gate::define('product-edit', [ProductPolicy::class, 'update']);
         Gate::define('product-delete', [ProductPolicy::class, 'delete']);
+    }
+
+    // Gate define product type
+    public function productTypeDefine (){
+        Gate::define('productType-list', [ProductTypePolicy::class, 'view']);
+        Gate::define('productType-add', [ProductTypePolicy::class, 'create']);
+        Gate::define('productType-edit', [ProductTypePolicy::class, 'update']);
+        Gate::define('productType-delete', [ProductTypePolicy::class, 'delete']);
     }
 
     // Gate define equipment

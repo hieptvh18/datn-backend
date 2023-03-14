@@ -18,7 +18,7 @@
                                 <h3 class="panel-title">Mô-đun</h3>
                             </div>
                             <div class="panel-body">
-                                <select id="demo-select2" name="parent" class="demo_select2 form-control">
+                                <select id="demo-select2" name="permission_name" class="demo_select2 form-control">
                                     <optgroup label="Select permission parent">
                                         <option value="">Chọn mô-đun</option>
                                         @foreach (Config::get('permissions.parent') as $key => $parent)
@@ -26,7 +26,7 @@
                                         @endforeach
                                     </optgroup>
                                 </select>
-                                @error('parent')
+                                @error('permission_name')
                                 <span class="text-danger" role="alert">
                                     <strong>{{ $message }}</strong>
                                 </span>
@@ -53,9 +53,9 @@
                             </div>
                         </div>
                     </div>
-                    <button class="btn btn-primary">Save</button>
-                    <button class="btn btn-danger" type="reset">Reset</button>
-                    <a href="{{ route('permissions.index') }}" class="btn btn-info">Back</a>
+                    <button class="btn btn-primary">Thêm mới</button>
+                    <button class="btn btn-danger" type="reset">Nhập lại</button>
+                    <a href="{{ route('permissions.index') }}" class="btn btn-info">Quay lại</a>
 
                 </form>
                 <!--===================================================-->

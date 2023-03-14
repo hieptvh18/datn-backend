@@ -12,8 +12,10 @@
             <div class="pad-btm form-inline">
                 <div class="row">
                     <div class="col-sm-6 table-toolbar-left">
+                        @can('feedBack-add')
                         <a href="{{ route('feedback.create') }}"><button id="demo-btn-addrow" class="btn btn-purple"><i
                                     class="demo-pli-add"></i> Thêm</button></a>
+                                    @endcan
                         <button class="btn btn-default"><i class="demo-pli-printer"></i></button>
                         <div class="btn-group">
                             <button class="btn btn-default"><i class="demo-pli-exclamation"></i></button>
@@ -76,10 +78,12 @@
                                     @endif
                                 </td>
                                 <td>
+                                    @can('feedBack-edit')
                                     <a href="{{ route('feedback.edit', $item->id) }}"
-                                        class="label label-table label-success">Edit</a>
+                                        class="label label-table label-success">Sửa</a>
+                                    @endcan
 
-
+                                        @can('feedBack-delete')
                                     <form id="deleteForm{{ $item->id }}"
                                         action="{{ route('feedback.destroy', $item->id) }}" method="post">
                                         @csrf
@@ -87,7 +91,8 @@
                                     </form>
                                     <button data-form="deleteForm{{ $item->id }}"
                                         class="label label-table label-danger btn-delete"
-                                        style="border: none">Delete</button>
+                                        style="border: none">Xóa</button>
+                                        @endcan
                                 </td>
                             </tr>
                         @endforeach

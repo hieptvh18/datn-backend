@@ -18,6 +18,7 @@
                     <label class="col-sm-3 control-label" for="demo-hor-name">Họ tên(*)</label>
                     <div class="col-sm-9">
                         <input type="hidden" name="schedule_id" class="form-control" value="{{ $patient->id }}">
+                        <input type="hidden" name="email" class="form-control" value="{{ $patient->email }}">
                         <input type="text" placeholder="Tên bệnh nhân" id="demo-hor-name" name="customer_name"
                             class="form-control" value="{{ $patient->fullname? $patient->fullname:old('fullname') }}">
                         @error('customer_name')
@@ -71,7 +72,7 @@
                             <option value="{{ $doctor->id }}" {{ (collect(old('doctor'))->contains($doctor->id)) ? 'selected':'' }}>{{ $doctor->fullname }}</option>
                             @endforeach
                             @else
-                            <option value="">No results doctor</option>
+                            <option value="">Không có bác sĩ!</option>
                             @endif
                         </select>
                     </div>
@@ -131,8 +132,8 @@
                 </div>
             </div>
             <div class="panel-footer text-right">
-                <button class="btn btn-primary" type="submit">Save changes</button>
-                <button class="btn btn-black" type="reset">Reset</button>
+                <button class="btn btn-primary" type="submit">Thêm mới</button>
+                <button class="btn btn-black" type="reset">Nhập lại</button>
             </div>
         </form>
         <!--===================================================-->

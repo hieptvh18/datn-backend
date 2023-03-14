@@ -90,6 +90,7 @@
                                 <th >STT</th>
                                 <th >Tên dịch vụ</th>
                                 <th >Tên thuốc</th>
+                                <th >Hướng dẫn sử dụng</th>
                                 <th >Giá</th>
                             </tr>
                         </thead>
@@ -99,6 +100,7 @@
                              <td>{{$index+1}}</td>
                              <td style="text-align: left; padding-left: 12px">{{$service->service_name}}</td>
                              <td></td>
+                             <td></td>
                              <td>{{number_format($service->price)}} VNĐ</td>
                              </tr>
                             @endforeach
@@ -107,13 +109,20 @@
                             <td>{{$index+count($services)+1}}</td>
                             <td></td>
                             <td style="text-align: left; padding-left: 12px">{{$product->name}}</td>
+                            <td>
+                               @foreach ($arrHdsd as $hd)
+                                        @if ($hd[0] == $product->id)
+                                            {{ltrim($hd[1])}}
+                                        @endif
+                                    @endforeach
+                            </td>
                             <td>{{number_format($product->price)}} VNĐ</td>
                             </tr>
                            @endforeach
                         </tbody>
                         <tfoot >
                             <tr>
-                                <th  colspan="3">Tổng tiền</th>
+                                <th  colspan="4">Tổng tiền</th>
                                 <th >{{number_format($total)}} VNĐ</th>
                             </tr>
                         </tfoot>

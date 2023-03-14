@@ -69,12 +69,7 @@
                             <input type="text" class="form-control" name="twitter_url" value="{{old('twitter_url')}}" autocomplete="twitter_url" autofocus placeholder="Twitter_url...">
                         </div>
                     </div>
-                    <div class="panel-body">
-                        <div class="mb-3">
-                            <label for="" class="form-label"><b>Địa chỉ email</b></label>
-                            <input type="text" class="form-control" name="email_url" value="{{old('email_url')}}"  autocomplete="email_url" autofocus placeholder="Email_url...">
-                        </div>
-                    </div>
+
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Mật khẩu</b></label>
@@ -165,8 +160,8 @@
                     <div class="panel-body">
                         <div class="mb-3">
                             <label for="" class="form-label"><b>Trạng thái</b></label>
-                            <input type="radio" id="is_active" @checked(true) name="is_active" value="1" > Active
-                            <input type="radio" id="is_active1" name="is_active" value="0" > In_Active
+                            <input type="radio" id="is_active" @checked(true) name="is_active" value="1" > Kích hoạt
+                            <input type="radio" id="is_active1" name="is_active" value="0" > Không kích hoạt
                             @error('is_active')
                             <br>
                             <span class="text-danger" role="alert">
@@ -185,9 +180,9 @@
 
 
 
-                    <button class="btn btn-primary">Save</button>
-                    <button class="btn btn-danger" type="reset">Reset</button>
-                    <a href="{{ route('account_admins.index') }}" class="btn btn-info">Back</a>
+                    <button class="btn btn-primary">Thêm mới</button>
+                    <button class="btn btn-danger" type="reset">Nhập lại</button>
+                    <a href="{{ route('account_admins.index') }}" class="btn btn-info">Quay lại</a>
 
                 </form>
                 <!--===================================================-->

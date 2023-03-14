@@ -30,7 +30,7 @@ class ImportSchedule implements ToModel, WithHeadingRow
                 'phone'=> $row['phone'],
                 'email'=> $row['email'],
                 'address'=> $row['address'],
-                'cmnd'=> $row['cmnd'],
+                // 'cmnd'=> $row['cmnd'],
                 'content'=> '',
                 // 'date'=> Date::excelToDateTimeObject($row['date']),
                 // 'date'=> $row['date'],

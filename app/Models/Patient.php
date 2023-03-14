@@ -13,7 +13,7 @@ class Patient extends Model
     protected $table = 'patients';
 
     protected $fillable = ['customer_name','phone','description','address','birthday','schedule_id', 'date', 'status', 'order_id', 'token_url'];
-    public $sortable = ['id','customer_name','phone','description','birthday'];
+    public $sortable = ['id','customer_name','phone','description','birthday','date'];
 
     public function patient_services () {
         return $this->belongsToMany(Patient::class, 'patient_services', 'patient_id', 'service_id');
@@ -25,6 +25,11 @@ class Patient extends Model
         return $this->belongsToMany(Admin::class, 'patient_doctors', 'patient_id', 'doctor_id');
     }
     public function patient_products () {
-        return $this->belongsToMany(Product::class, 'patient_products', 'patient_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'patient_products', 'patient_id', 'product_id')->withPivot('product_id', 'patient_id');
+    }
+
+
+    public function getHdsdProduct (){
+        return $this->hasMany(Order::class, 'patient_id', 'id');
     }
 }

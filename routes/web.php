@@ -22,7 +22,7 @@ use App\Http\Controllers\Backend\Service\ServiceController;
 use App\Http\Controllers\Backend\WebSetting\WebSettingController;
 use App\Models\NewCategory;
 use Illuminate\Support\Facades\Route;
-
+use App\Package\SpeedSMSAPI\SpeedSMSAPI;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -37,7 +37,18 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return redirect()->route('getLogin');
 });
+// Route::get('send-sms', function () {
+//     $sms = new SpeedSMSAPI('LC7o6cJU9rCBFqn8KH4paWtgm-fRFCfA');
+//     $userInfo = $sms->getUserInfo();
+//     $phones = ["0989581167"]; 
+//     /* tối đa 100 số cho 1 lần gọi API */
+//     $content = "test sms speed";
+//     $type = SpeedSMSAPI::SMS_TYPE_GATEWAY;
+//     $sender = 'Nha khoa Duc Nghia';
+//     $response = $sms->sendSMS($phones, $content, 2,'');
 
+//     dd($response);
+// });
 // =========== route admin
 Route::middleware('auth:admin')->prefix('admin')->group(function(){
     // Route::get('/pusher', function(Illuminate\Http\Request $request) {
@@ -77,6 +88,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
 
     // benh an
     Route::get('patient/searching',[PatientController::class,'search'])->name('patient.search');
+    Route::post('patient/deleteMultiple',[PatientController::class, 'deleteMultiple'])->name('patient.deleteMultiple');
     Route::resource('patient',PatientController::class);
     Route::post('patient/import',[PatientController::class, 'importPatient'])->name('patient.importPatient');
     Route::post('patient/export',[PatientController::class, 'exportPatient'])->name('patient.exportPatient');
@@ -158,7 +170,7 @@ Route::middleware('auth:admin')->prefix('admin')->group(function(){
     Route::middleware('can:order-list')->get('order',[OrderController::class,'index'])->name('order.index');
     Route::middleware('can:order-add')->get('order/add',[OrderController::class,'add'])->name('order.add');
     Route::post('order/save',[OrderController::class,'save'])->name('order.store');
-    Route::get('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
+    Route::post('order/pdf/{id}',[OrderController::class,'pdf'])->name('order.pdf');
     Route::get('order/search',[OrderController::class,'search'])->name('order.search');
 
     Route::delete('order/delete/{id}',[OrderController::class,'delete'])->name('order.delete');

@@ -15,14 +15,17 @@
                     <div class="pad-btm form-inline">
                         <div class="row">
                             <div class="col-sm-6 table-toolbar-left">
-                                @can('room-add')
+                                @can('schedule-add')
                                     <a href="{{ route('schedules.create') }}" class="btn btn-purple"><i
-                                            class="demo-pli-add icon-fw"></i>Add</a>
+                                            class="demo-pli-add icon-fw"></i>Tạo mới</a>
                                     {{-- <button class="btn btn-default"><i class="demo-pli-printer icon-lg"></i></button> --}}
                                 @endcan
                                 <div class="btn-group">
-                                    {{-- <a href=""><button class="btn btn-primary">Reload</button></a> --}}
-                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button>
+                                    {{-- <a href=""><button class="btn btn-primary">Reload</button></a>
+                                    <button class="btn btn-default"><i class="demo-pli-trash icon-lg"></i></button> --}}
+                                    <a class="btn btn-secondary" href="{{ route('schedules.index') }}">
+                                        <i class="fa fa-refresh" aria-hidden="true"></i>
+                                    </a>
                                 </div>
 
                             </div>
@@ -46,22 +49,45 @@
                             </div>
                         </div>
                         <div class="row" style="display: flex; padding: 0 10px">
-
-                            <div style="width: 72%;">
-                                <form action="" method="GET" class="" autocomplete="off">
+                            <div style="width: 60%;">
+                                <form action="
+                                @if (in_array('searching',explode('/',request()->url())))
+                                    {{route('schedules.index')}}
+                                @endif
+                                " method="GET" class="" autocomplete="off">
                                     <div class="row">
-                                        <div id="demo-dp-range" class="col-sm-6" style="display: flex">
-                                            <div class="input-daterange input-group" >
-                                                <input id="fromdatepicker" value="{{ isset(request()->start) ? request()->start : '' }}"
+                                        <div id="demo-dp-range" class="col-sm-11" style="display: flex">
+                                            <div class="input-daterange input-group">
+                                                <input id="fromdatepicker"
+                                                    value="{{ isset(request()->start) ? request()->start : '' }}"
                                                     type="text" class="form-control" name="start"
-                                                    placeholder="Ngày bắt đầu" />
+                                                    placeholder="Từ ngày" />
                                                 <span class="input-group-addon">to</span>
-                                                <input id="todatepicker" value="{{ isset(request()->end) ? request()->end : '' }}"
-                                                    type="text" placeholder="Ngày kết thúc" class="form-control"
-                                                    name="end" />
+                                                <input id="todatepicker"
+                                                    value="{{ isset(request()->end) ? request()->end : '' }}" type="text"
+                                                    placeholder="Đến ngày" class="form-control" name="end" />
+                                            </div>
+                                            <div class="status-box">
+                                                <select name="status" class="selectpicker">
+                                                    <option value="" {{!request()->status ? 'selected' : ''}}>Chọn trạng thái</option>
+                                                    <option value="0" {{ request()->status != null &&  request()->status == 0 ? 'selected' : '' }}>Chờ xác
+                                                        nhận</option>
+                                                    <option value="1" {{ request()->status == 1 ? 'selected' : '' }}>Đã xác
+                                                        nhận</option>
+                                                    <option value="2" {{ request()->status == 2 ? 'selected' : '' }}>Đã hủy
+                                                    </option>
+                                                    <option value="3" {{ request()->status == 3 ? 'selected' : '' }}>Đã khám
+                                                    </option>
+                                                    {{-- <option value="1" {{ $item->status == 1 && $item->is_rebooking == 1 ? 'selected' : '' }}>Đã xác
+                                                        nhận khám lại</option> --}}
+
+                                                </select>
                                             </div>
                                             <div class="btn-group col-sm-8">
-                                                <a href=""><button class="btn btn-primary">Lọc</button></a>
+                                                <a href=""><button class="btn btn-primary" type="submit">Lọc</button></a>
+                                                {{-- <a class="btn btn=secondary" href="{{ route('schedules.index') }}">
+                                                    <i class="fa fa-refresh" aria-hidden="true"></i>
+                                                </a> --}}
                                             </div>
                                         </div>
 
@@ -72,18 +98,19 @@
                                 <form action="{{ route('schedules.import') }}" enctype="multipart/form-data" method="post">
                                     @csrf
                                     <div class="form-group">
+
                                         {{-- <label class="col-md-5 control-label">Tệp</label> --}}
                                         <div class="col-md-7">
                                             <span class="pull-left btn btn-primary btn-file">
-                                            Browse... <input type="file" name="file">
+                                                Browse... <input type="file" name="file">
                                             </span>
                                         </div>
                                     </div>
                                     <button class="btn btn-default" title="Nhập lịch khám">
                                         <i class="demo-pli-upload-to-cloud icon-lg"></i></button>
-                                        @error('file')
-                                            <span style="color: red; text-align: left; margin: 5px">{{ $message }}</span>
-                                        @enderror
+                                    @error('file')
+                                        <span style="color: red; text-align: left; margin: 5px">{{ $message }}</span>
+                                    @enderror
                                 </form>
                             </div>
                         </div>
@@ -94,12 +121,35 @@
                                 <tr>
                                     <th>@sortablelink('id')</th>
                                     <th>@sortablelink('fullname', 'Họ và tên')</th>
-                                    <th>@sortablelink('birthday', 'Ngày sinh')</th>
                                     <th>@sortablelink('gender', 'Giới tính')</th>
                                     <th>@sortablelink('phone', 'SĐT')</th>
                                     <th>@sortablelink('email', 'Email')</th>
                                     <th>@sortablelink('date', 'Ngày đặt lịch')</th>
+                                    <th>@sortablelink('counter', 'Số thứ tự')</th>
                                     <th>Trạng thái</th>
+                                    <th>
+                                        <div class="dropdown">
+                                            <span class=" dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                                Xác nhận khám lại <i class="dropdown-caret"></i>
+                                            </span>
+                                            <ul class="dropdown-menu" style="">
+                                                <li class="dropdown-header">Lọc</li>
+                                                <li>
+                                                    <a href="
+                                                        @if (!request()->rebook && !empty(request()->all()))
+                                                        {{url()->full()}}&rebook=1
+                                                        @elseif (!request()->rebook && empty(request()->all()))
+                                                            {{url()->full()}}?rebook=1
+                                                            @else
+                                                            {{url()->full()}}
+                                                        @endif
+
+                                                    ">Đã xác nhận khám lại</a></li>
+                                                {{-- <li class="divider"></li>
+                                                <li><a href="{{route('schedules.index')}}">Tất cả</a></li> --}}
+                                            </ul>
+                                        </div>
+                                    </th>
                                     <th class="text-center">Hành động</th>
                                 </tr>
                             </thead>
@@ -108,7 +158,6 @@
                                     <tr>
                                         <td><a href="#" class="btn-link">#{{ $item->id }}</a></td>
                                         <td>{{ $item->fullname }}</td>
-                                        <td>{{ $item->birthday }}</td>
                                         <td>
                                             @if ($item->gender == 1)
                                                 Nam
@@ -121,36 +170,46 @@
                                         <td>{{ $item->phone }}</td>
                                         <td>{{ $item->email }}</td>
                                         <td>{{ $item->date }}</td>
-                                        <td class="change-status" data-schedule-id={{$item->id}}>
-                                            <select class="selectpicker">
-                                                <option value="0" {{ $item->status == 0 ? 'selected' : '' }}>Chờ xác
-                                                    nhận</option>
-                                                <option value="1" {{ $item->status == 1 ? 'selected' : '' }}>Đã xác
-                                                    nhận</option>
-                                                <option value="2" {{ $item->status == 2 ? 'selected' : '' }}>Đã hủy
-                                                </option>
-                                                <option value="3" {{ $item->status == 3 ? 'selected' : '' }}>Đã khám
-                                                </option>
-                                                <option value="1" {{ $item->status == 1 && $item->is_rebooking == 1 ? 'selected' : '' }}>Đã xác
-                                                    nhận khám lại</option>
+                                        <td>{{ $item->counter ? $item->counter : 'Chưa xếp' }}</td>
 
-                                            </select>
+                                        <td class="change-status" data-schedule-id={{ $item->id }}>
+
+                                            @if ($item->status == 0)
+                                                <span class="label label-default">Chờ xác nhận</span>
+                                                {{-- @elseif($item->status == 1 && $item->is_rebooking == 1)
+                                                <span class="label label-warning">Khám lại</span> --}}
+                                                @elseif($item->status == 1)
+                                                <span class="label label-primary">Đã xác nhận</span>
+                                                @elseif($item->status == 2)
+                                                <span class="label label-danger">Đã hủy</span>
+                                                @elseif($item->status == 3)
+                                                <span class="label label-success">Đã khám</span>
+
+                                                @endif
+                                        </td>
+                                        <td>
+                                            <span class="label label-{{$item->is_rebooking ? 'primary' : 'warning'}}">{{$item->is_rebooking ? 'Đã xác nhận' : 'Không xác nhận'}}</span>
+
                                         </td>
                                         <td class="text-center">
-                                            @can('room-edit')
+                                            @can('schedule-edit')
                                                 <a style="margin-bottom: 5px" href="{{ route('schedules.edit', $item->id) }}"
                                                     class="label label-table label-success">Chi tiết</a>
                                             @endcan
                                             @if ($item->status == 1)
+                                            @can('patient-add')
                                                 <a style="margin-bottom: 5px"
                                                     href="{{ route('patient.show', $item->id) }}"
                                                     class="label label-table label-info">Tạo bệnh án</a>
-                                                @elseif ($item->status == 3)
-                                                    <a style="margin-bottom: 5px"
-                                                        href="{{ route('patient.edit', $item->patient_id) }}"
-                                                        class="label label-table label-info">Xem hồ sơ bệnh án</a>
+                                                    @endcan
+                                            @elseif ($item->status == 3)
+                                            @can('patient-edit')
+                                                <a style="margin-bottom: 5px"
+                                                    href="{{ route('patient.edit', $item->patient_id) }}"
+                                                    class="label label-table label-info">Xem hồ sơ bệnh án</a>
+                                                    @endcan
                                             @endif
-                                            @can('room-delete')
+                                            @can('schedule-delete')
                                                 <form id="deleteForm{{ $item->id }}"
                                                     action="{{ route('schedules.destroy', $item->id) }}" method="post">
                                                     @csrf
@@ -195,34 +254,34 @@
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            var scheduleId = null;
-            $('body').on('click','td.change-status',function(){
-                scheduleId = $(this).data('schedule-id');
-            })
-            $('body').on('click', 'td.change-status ul.dropdown-menu li', function() {
-                var status = $(this).data('original-index');
+        // $(document).ready(function() {
+        //     var scheduleId = null;
+        //     $('body').on('click', 'td.change-status', function() {
+        //         scheduleId = $(this).data('schedule-id');
+        //     })
+        //     $('body').on('click', 'td.change-status ul.dropdown-menu li', function() {
+        //         var status = $(this).data('original-index');
 
-                $.ajaxSetup({
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    }
-                });
+        //         $.ajaxSetup({
+        //             headers: {
+        //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //             }
+        //         });
 
-                $.ajax({
-                    url: "{{route('schedule.ajax.changestatus')}}",
-                    type: 'POST',
-                    data: {
-                        'scheduleId':scheduleId ,
-                        'status':status
-                    },
-                    dataType:'json',
-                    success: function(res){
-                        console.log(res);
-                    }
+        //         $.ajax({
+        //             url: "{{ route('schedule.ajax.changestatus') }}",
+        //             type: 'POST',
+        //             data: {
+        //                 'scheduleId': scheduleId,
+        //                 'status': status
+        //             },
+        //             dataType: 'json',
+        //             success: function(res) {
+        //                 console.log(res);
+        //             }
 
-                })
-            })
-        })
+        //         })
+        //     })
+        // })
     </script>
 @endsection

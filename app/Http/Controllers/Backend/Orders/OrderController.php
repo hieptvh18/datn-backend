@@ -16,34 +16,39 @@ use Illuminate\Support\Facades\Mail;
 use PDF;
 use App\Mail\EmailConfirmSchedule;
 use App\Models\User;
+use App\Models\WebSetting;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
     //
-    public function index(Request $request){
+    public function index(Request $request)
+    {
         try {
             $orders = Order::sortable()->orderby('id', 'desc');
-            if(isset($request->start)){
-                    $startDate = date('Y-m-d', strtotime($request->start));
-                    $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
-                    $listSchedules = $orders->whereBetween('date', [$startDate, $endDate]);
+            if (isset($request->start)) {
+                $startDate = date('Y-m-d', strtotime($request->start));
+                $endDate = isset($request->end) ? date('Y-m-d', strtotime($request->end)) : $startDate;
+                $orders = $orders->whereBetween('date', [$startDate, $endDate]);
             }
             $orders = $orders->paginate(15);
             return view('pages.orders.list', compact('orders'));
         } catch (\Throwable $th) {
-           report($th->getMessage());
-           return redirect()->back()->with('error', 'Đã có lỗi xảy ra!');
+            report($th->getMessage());
+            return redirect()->back()->with('error', 'Đã có lỗi xảy ra!');
         }
     }
 
-    public function add(){
+    public function add()
+    {
         $services = Service::all();
         $products = Product::all();
         $patient = Patient::find($_GET['id']);
-        return view('pages.orders.add', compact('patient','services', 'products'));
+        return view('pages.orders.add', compact('patient', 'services', 'products'));
     }
 
-    public function save(Request $request){
+    public function save(Request $request)
+    {
         $products = Product::whereIn('id', $request->product)->select('name', 'price')->get();
         $services = Service::whereIn('id', $request->service)->select('service_name', 'price')->get();
 
@@ -51,17 +56,17 @@ class OrderController extends Controller
         $service_id = implode('|', $request->service);
 
         $total = 0;
-        for ($i=0; $i < count($products); $i++) {
+        for ($i = 0; $i < count($products); $i++) {
             $total += $products[$i]->price;
         }
-        for ($i=0; $i < count($services); $i++) {
+        for ($i = 0; $i < count($services); $i++) {
             $total += $services[$i]->price;
         }
 
-        $patient = Patient::where('phone',$request->customer_phone)->first();
+        $patient = Patient::where('phone', $request->customer_phone)->first();
         $token = $patient->token_url;
         $patientId = $patient->id;
-        $linkPatientPage = 'http://localhost:3000/ho-so-benh-an/'.$token.'/'.$patientId;
+        $linkPatientPage = 'http://localhost:3000/ho-so-benh-an/' . $token . '/' . $patientId;
         $order = new Order();
         $order->fill($request->all());
         $order->product_id = $product_id;
@@ -72,18 +77,27 @@ class OrderController extends Controller
         $order->date = Carbon::now()->format('Y-m-d');
         $order->save();
 
+        // render hdsd
+        $hdsds = explode('|||',$order->product_id_hdsd);
+        $arrHdsd = array();
+        foreach($hdsds as $hd){
+            if($hd){
+                array_push($arrHdsd, explode('/*/*/',$hd));
+            }
+        }
+
         // send notifi thank you
         $customerName = $order->customer_name;
         $companyName = 'Nha khoa Đức Nghĩa';
 
 
         // send mail
-        $customerExist = User::where('phone',$request->customer_phone)->first();
+        $customerExist = User::where('phone', $request->customer_phone)->first();
         if ($customerExist && $customerExist->email_user) {
             $mailTo = $customerExist->email_user;
             $subject  = 'Cảm ơn bạn đã sử dụng dịch vụ';
-            $mailData = $this->getMailData($customerName,$companyName,$linkPatientPage);
-            Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData,$subject));
+            $mailData = $this->getMailData($customerName, $companyName, $linkPatientPage);
+            Mail::to($mailTo)->send(new EmailConfirmSchedule($mailData, $subject));
         }
         // send sms
 
@@ -97,20 +111,19 @@ class OrderController extends Controller
         $patient->order_id = $order->id;
         $patient->update();
 
-        return view('pages.orders.detail', compact('order','services', 'products', 'total'))->with(['message'=>'Tạo hóa đơn thành công!']);
-
+        return view('pages.orders.detail', compact('order', 'services', 'products', 'total','arrHdsd'))->with(['message' => 'Tạo hóa đơn thành công!']);
     }
 
     // get mailData
-    protected function getMailData($customerName = 'bạn', $companyName = 'Nha khoa Đức Nghĩa',$linkPatientPage='https://fb.com/tvhh18')
+    protected function getMailData($customerName = 'bạn', $companyName = 'Nha khoa Đức Nghĩa', $linkPatientPage = 'https://fb.com/tvhh18')
     {
         // get data from web setting
         $mailData = [];
-        $mailData['mailTitle'] = $companyName.' cảm ơn quý khách đã tin tưởng và ủng hộ.';
+        $mailData['mailTitle'] = $companyName . ' cảm ơn quý khách đã tin tưởng và ủng hộ.';
         $mailData['mailHead'] = '';
         $mailData['companyName'] = $companyName;
         $mailData['mailSubject'] = 'Chào ' . $customerName;
-        $mailData['mailContent'] = 'Cảm ơn quý khách đã tin tưởng và sử dụng dịch vụ của '.$companyName.' hãy truy cập đường link bên dưới để  xem chi tiết hóa đơn của quý khách.';
+        $mailData['mailContent'] = 'Cảm ơn quý khách đã tin tưởng và sử dụng dịch vụ của ' . $companyName . ' hãy truy cập đường link bên dưới để  xem chi tiết hóa đơn của quý khách.';
         $mailData['linkPatient'] = $linkPatientPage;
         $mailData['baseUrl'] = 'https://localhost:3000';
 
@@ -127,61 +140,101 @@ class OrderController extends Controller
     }
 
     // view bill
-    public function detail($id){
+    public function detail($id)
+    {
         $order = Order::find($id);
+        $hdsds = explode('|||',$order->product_id_hdsd);
+
+        $arrHdsd = array();
+        foreach($hdsds as $hd){
+            if($hd){
+                array_push($arrHdsd, explode('/*/*/',$hd));
+            }
+        }
+
         $product_id = explode('|', $order->product_id);
         $service_id = explode('|', $order->service_id);
-        $products = Product::whereIn('id', $product_id)->select('name', 'price')->get();
+        $products = Product::whereIn('id', $product_id)->select('id','name', 'price','description')->get();
         $services = Service::whereIn('id', $service_id)->select('service_name', 'price')->get();
         $total = $order->total;
 
-        return view('pages.orders.detail', compact('order','services', 'products', 'total'))->with(['message'=>'Tạo hóa đơn thành công!']);
+        return view('pages.orders.detail', compact('order', 'services', 'products', 'total','arrHdsd'))->with(['message' => 'Tạo hóa đơn thành công!']);
     }
 
-    public function pdf ($id){
+
+    /**
+     * submit pdf từ hóa đơn
+     */
+    public function pdf(Request $rq, $id)
+    {
+        // note : tách column product id -> thêm product_id_hdsd
+        $hdsds = $rq->hdsd;
+        $strHd = '';
+
         $order = Order::find($id);
         $product_id = explode('|', $order->product_id);
+        $proIdStr = array_combine($product_id,$hdsds);
+
+        $str = '';
+        foreach ($proIdStr as $key => $val) {
+                $str .= $key . '/*/*/' . $val.'|||';
+        }
+        $order->product_id_hdsd = $str;
+        $order->save();
+
+        //get hdsd
+        $hdsds = explode('|||',$order->product_id_hdsd);
+        $arrHdsd = array();
+        foreach($hdsds as $hd){
+            if($hd){
+                array_push($arrHdsd, explode('/*/*/',$hd));
+            }
+        }
         $service_id = explode('|', $order->service_id);
-        $products = Product::whereIn('id', $product_id)->select('name', 'price')->get();
+        $products = Product::whereIn('id', $product_id)->select('id','name', 'price')->get();
         $services = Service::whereIn('id', $service_id)->select('service_name', 'price')->get();
         $total = $order->total;
+
+        $logoWeb =  Auth::guard('admin')->id() ? WebSetting::where('id', 1)->first(['logo']) : [];
 
         $options = new Options();
         $options->setDefaultFont('Dejavu Sans');
         $options->set('isHtml5ParserEnabled', true);
         $options->set('isRemoteEnabled', true);
+        // $path = base_path("public/$logoWeb->logo");
         $path = base_path('public/assets/img/logo-logo.jpg');
         $type = pathinfo($path, PATHINFO_EXTENSION);
         $data = file_get_contents($path);
         $pic = 'data:image/' . $type . ';base64,' . base64_encode($data);
 
-        $pdf = FacadePdf::setOptions([$options])->setPaper('a4')->loadView('pages.orders.bill', ['order'=>$order,'services'=>$services, 'products'=>$products, 'total'=>$total, 'pic'=> $pic]);
-    		// return $pdf->download('orderBill.pdf');
-            return $pdf->stream('myPDF.pdf');
+        $pdf = FacadePdf::setOptions([$options])->setPaper('a4')->loadView('pages.orders.bill', ['order' => $order, 'services' => $services, 'products' => $products, 'total' => $total, 'pic' => $pic,'arrHdsd'=>$arrHdsd]);
+        // return $pdf->download('orderBill.pdf');
+        return $pdf->stream('myPDF.pdf');
     }
 
     // search
-    public function search (){
+    public function search()
+    {
         $key = $_GET['key'];
 
         $search_text = trim($key);
         try {
-            if ($search_text==null) {
+            if ($search_text == null) {
                 return redirect()->route('order.index');
             } else {
-                $orders=Order::where('id','LIKE', '%'.$search_text.'%')
-                ->orwhere('customer_name','LIKE', '%'.$search_text.'%')
-                ->orwhere('customer_phone','LIKE', '%'.$search_text.'%')
-                ->orwhere('date','LIKE', '%'.$search_text.'%')
-                ->paginate(15);
+                $orders = Order::where('id', 'LIKE', '%' . $search_text . '%')
+                    ->orwhere('customer_name', 'LIKE', '%' . $search_text . '%')
+                    ->orwhere('customer_phone', 'LIKE', '%' . $search_text . '%')
+                    ->orwhere('date', 'LIKE', '%' . $search_text . '%')
+                    ->paginate(15);
             }
             return view('pages.orders.list', compact('orders'));
-           } catch (\Throwable $th) {
-                return $th;
-           }
+        } catch (\Throwable $th) {
+            return $th;
+        }
     }
 
-    public function delete($id){
-
+    public function delete($id)
+    {
     }
 }

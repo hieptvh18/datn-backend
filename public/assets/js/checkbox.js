@@ -52,6 +52,8 @@ $('#delete-multiple').on('click', function() {
         selected.push($(this).val());
     });
 
+    console.log('>>>>>>>>>>>><<<<<<<<<<<<<<<5555', selected);
+
     Swal.fire({
         icon: 'warning',
         title: 'Bạn có muốn xóa những dữ liệu này không?',
@@ -109,3 +111,7 @@ $(function() {
     // $("#datepickerPast").datepicker({ startDate: new Date() });
     $("#datepicker_Past").datepicker({ minDate: new Date() });
 });
+
+function numberWithCommas(x) {
+    return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+}

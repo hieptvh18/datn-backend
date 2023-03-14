@@ -46,7 +46,7 @@
                         <div id="profile-nav" class="collapse list-group bg-trans">
                             <a href="{{ route('profile.show', Auth::guard('admin')->user()->id) }}"
                                 class="list-group-item">
-                                <i class="demo-pli-male icon-lg icon-fw"></i> View Profile
+                                <i class="demo-pli-male icon-lg icon-fw"></i> Hồ sơ cá nhân
                             </a>
                             <form id="deleteForm" action="{{ route('logout') }}" method="post">
                                 @csrf
@@ -55,7 +55,7 @@
                             <a data-form="deleteForm" href="#" class="list-group-item logout">
                                 <button type="submit" class="btn btn-block" style="text-align: left"><i
                                         class="demo-pli-unlock icon-lg icon-fw"></i>
-                                    Logout</button>
+                                    Đăng xuất</button>
                             </a>
                         </div>
                     </div>
@@ -152,7 +152,9 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('account_admins.index') }}">Danh sách</a></li>
+                                    @can('admin-add')
                                     <li><a href="{{ route('account_admins.create') }}">Thêm mới</a></li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
@@ -169,7 +171,9 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('schedules.index') }}">Danh sách</a></li>
+                                    @can('schedule-add')
                                     <li><a href="{{ route('schedules.create') }}">Thêm mới</a></li>
+                                    @endcan
 
                                 </ul>
                             </li>
@@ -219,7 +223,9 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('equipment.index') }}">Danh sách</a></li>
+                                    @can('equipment-add')
                                     <li><a href="{{ route('equipment.add') }}">Thêm mới</a></li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
@@ -236,7 +242,9 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('level.index') }}">Danh sách</a></li>
+                                    @can('level-add')
                                     <li><a href="{{ route('level.add') }}">Thêm mới</a></li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
@@ -254,7 +262,9 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('specialist.index') }}">Danh sách</a></li>
+                                    @can('specialist-add')
                                     <li><a href="{{ route('specialist.add') }}">Thêm mới</a></li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
@@ -271,8 +281,9 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('rooms.index') }}">Danh sách</a></li>
+                                    @can('room-add')
                                     <li><a href="{{ route('rooms.create') }}">Thêm mới</a></li>
-
+                                    @endcan
 
                                 </ul>
                             </li>
@@ -290,13 +301,15 @@
                                 <!--Submenu-->
                                 <ul class="collapse">
                                     <li><a href="{{ route('service.index') }}">Danh sách dịch vụ</a></li>
+                                    @can('service-add')
                                     <li><a href="{{ route('service.create') }}">Thêm dịch vụ</a></li>
+                                    @endcan
                                 </ul>
                             </li>
                         @endcan
 
 
-                        @can('product-list')
+
                             <li>
                                 <a href="#">
                                     <i class="demo-pli-warning-window"></i>
@@ -306,11 +319,14 @@
 
                                 <!--Submenu-->
                                 <ul class="collapse">
+                                    @can('product-list')
                                     <li><a href="{{ route('product.index') }}">Sản phẩm</a></li>
+                                    @endcan
+                                    @can('productType-list')
                                     <li><a href="{{ route('product-type.index') }}">Loại sản phẩm</a></li>
+                                    @endcan
                                 </ul>
                             </li>
-                        @endcan
 
                         {{-- news --}}
                         @can('newCategory-list')
@@ -345,7 +361,6 @@
                             <!--Submenu-->
                             <ul class="collapse">
                                 <li><a href="{{ route('feedback.index') }}">Danh sách</a></li>
-                                <li><a href="{{ route('feedback.index') }}">Thêm mới</a></li>
                             </ul>
                         </li>
                         @endcan
@@ -362,7 +377,7 @@
 
                             <!--Submenu-->
                             <ul class="collapse">
-                                <li><a href="{{ route('webSetting.edit') }}">Setting</a></li>
+                                <li><a href="{{ route('webSetting.edit') }}">Chỉnh sửa</a></li>
                             </ul>
                         </li>
                         @endcan
